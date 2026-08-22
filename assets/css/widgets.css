@@ -1,0 +1,52 @@
+/**
+ * زرین کد — شیوه‌نامه‌ی ویجت‌های المنتور
+ * ---------------------------------------------------------------------------
+ * این قواعد پیش‌تر در خود فایل ویجت‌ها و داخل تگ <style> چاپ می‌شدند؛
+ * یعنی به ازای هر بار رندر ویجت، همان CSS دوباره در HTML تکرار می‌شد.
+ * انتقال آن‌ها به یک فایل ثابت هم حجم صفحه را کم می‌کند، هم اجازه می‌دهد
+ * مرورگر آن را کش کند و هم بازنویسی در مدیا-کوئری‌ها را ممکن می‌سازد.
+ *
+ * @package Zarincode
+ */
+
+
+/* --- timeline --- */
+.zc-tl{position:relative;padding-inline-start:40px}
+.zc-tl::before{content:'';position:absolute;inset-inline-start:19px;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--zc-gold),var(--zc-gold-soft))}
+.zc-tl__item{position:relative;margin-bottom:26px;background:#fff;border:1px solid var(--zc-line-2);border-radius:var(--zc-radius);padding:20px 22px;transition:all .3s}
+.zc-tl__item:hover{border-color:var(--zc-gold-line);box-shadow:var(--zc-shadow-sm);transform:translateX(-6px)}
+.zc-tl__dot{position:absolute;inset-inline-start:-40px;top:20px;width:40px;height:40px;border-radius:50%;background:var(--zc-grad-gold);color:#241C05;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(201,162,39,.35);transform:translateX(50%)}
+body.zc-rtl .zc-tl__dot{transform:translateX(50%)}
+.zc-tl__year{display:inline-block;background:var(--zc-gold-soft);color:var(--zc-gold-3);padding:3px 13px;border-radius:999px;font-size:.78rem;font-weight:700;margin-bottom:7px}
+
+/* --- countdown --- */
+.zc-cd{background:var(--zc-grad-dark);border-radius:var(--zc-radius-lg);padding:40px 34px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.zc-cd::before{content:'';position:absolute;inset-inline-end:-70px;top:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.32),transparent 70%);filter:blur(30px)}
+.zc-cd__timer{display:flex;gap:12px;justify-content:center;margin:26px 0;flex-wrap:wrap;position:relative}
+.zc-cd__unit{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:14px 18px;min-width:82px;backdrop-filter:blur(8px)}
+.zc-cd__num{font-size:1.9rem;font-weight:800;color:var(--zc-gold-2);display:block;line-height:1.2}
+.zc-cd__lbl{font-size:.75rem;color:rgba(255,255,255,.65)}
+
+/* --- pricing --- */
+.zc-plan{background:#fff;border:1.5px solid var(--zc-line);border-radius:var(--zc-radius-lg);padding:30px 24px;text-align:center;position:relative;transition:all .35s var(--zc-ease);height:100%;display:flex;flex-direction:column}
+.zc-plan:hover{transform:translateY(-8px);box-shadow:var(--zc-shadow);border-color:var(--zc-gold-line)}
+.zc-plan--featured{background:var(--zc-grad-dark);color:#fff;border-color:var(--zc-gold);box-shadow:var(--zc-shadow-lg);transform:scale(1.03)}
+.zc-plan--featured h3,.zc-plan--featured .zc-plan__price{color:#fff}
+.zc-plan__badge{position:absolute;top:-13px;inset-inline-start:50%;transform:translateX(50%);background:var(--zc-grad-gold);color:#241C05;padding:5px 18px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap}
+.zc-plan__price{font-size:2rem;font-weight:800;color:var(--zc-dark);line-height:1.3}
+.zc-plan__period{font-size:.8rem;color:var(--zc-muted);display:block;margin-bottom:20px}
+.zc-plan--featured .zc-plan__period{color:rgba(255,255,255,.6)}
+.zc-plan__list{text-align:start;margin:0 0 22px;flex:1}
+.zc-plan__list li{display:flex;gap:9px;align-items:flex-start;padding:8px 0;font-size:.87rem;border-bottom:1px dashed rgba(128,128,128,.15)}
+.zc-plan__list svg{color:var(--zc-gold);flex-shrink:0;margin-top:4px}
+
+/* --- roadmap --- */
+.zc-step{background:#fff;border:1px solid var(--zc-line-2);border-radius:var(--zc-radius);padding:26px 20px;position:relative;transition:all .35s var(--zc-ease);height:100%;text-align:center}
+.zc-step:hover{transform:translateY(-8px);box-shadow:var(--zc-shadow);border-color:var(--zc-gold-line)}
+.zc-step__num{width:52px;height:52px;border-radius:50%;background:var(--zc-grad-gold);color:#241C05;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;margin:0 auto 14px;box-shadow:0 8px 20px rgba(201,162,39,.3)}
+.zc-step::after{content:"";position:absolute;top:48px;inset-inline-start:-12px;width:24px;height:2px;background:var(--zc-gold-line)}
+.zc-step:last-child::after{display:none}
+@media(max-width:768px){.zc-step::after{display:none}}
+
+/* --- brands --- */
+.zc-brand{display:flex;align-items:center;justify-content:center;padding:18px;background:#fff;border-radius:var(--zc-radius-sm);border:1px solid var(--zc-line-2);transition:all .3s}.zc-brand:hover{border-color:var(--zc-gold-line);transform:translateY(-4px)}.zc-brand:hover img{filter:none!important;opacity:1!important}

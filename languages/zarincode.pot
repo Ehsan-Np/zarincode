@@ -1,0 +1,6550 @@
+# Copyright (C) 2026 Zarincode
+msgid ""
+msgstr ""
+"Project-Id-Version: Zarincode 1.4.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"X-Domain: zarincode\n"
+
+#: 404.php
+msgid "صفحه مورد نظر یافت نشد!"
+msgstr ""
+
+#: 404.php
+msgid "به نظر می‌رسد این صفحه حذف شده یا آدرس آن تغییر کرده است. می‌توانید از طریق جستجو یا لینک‌های زیر ادامه دهید."
+msgstr ""
+
+#: 404.php
+#: inc/template-tags.php
+msgid "صفحه اصلی"
+msgstr ""
+
+#: 404.php
+#: inc/breadcrumb.php
+#: inc/cpt.php
+#: template-parts/footer/footer-default.php
+msgid "دوره‌های آموزشی"
+msgstr ""
+
+#: 404.php
+#: inc/breadcrumb.php
+#: inc/template-tags.php
+#: inc/walker-menu.php
+msgid "فروشگاه"
+msgstr ""
+
+#: archive.php
+#: inc/elementor/widgets/products.php
+msgid "جدیدترین"
+msgstr ""
+
+#: archive.php
+#: inc/elementor/widgets/products.php
+msgid "محبوب‌ترین"
+msgstr ""
+
+#: archive.php
+msgid "ارزان‌ترین"
+msgstr ""
+
+#: archive.php
+msgid "گران‌ترین"
+msgstr ""
+
+#: archive.php
+msgid "%s مورد یافت شد"
+msgstr ""
+
+#: archive.php
+msgid "موردی یافت نشد"
+msgstr ""
+
+#: archive.php
+msgid "بازگشت به خانه"
+msgstr ""
+
+#: archive.php
+msgid "مرتب‌سازی"
+msgstr ""
+
+#: comments.php
+msgid "%s دیدگاه"
+msgstr ""
+
+#: comments.php
+msgid "دیدگاه خود را بنویسید"
+msgstr ""
+
+#: comments.php
+msgid "پاسخ به %s"
+msgstr ""
+
+#: comments.php
+msgid "لغو پاسخ"
+msgstr ""
+
+#: comments.php
+msgid "ثبت دیدگاه"
+msgstr ""
+
+#: comments.php
+msgid "نشانی ایمیل شما منتشر نخواهد شد. بخش‌های موردنیاز علامت‌گذاری شده‌اند."
+msgstr ""
+
+#: comments.php
+msgid "دیدگاه شما"
+msgstr ""
+
+#: comments.php
+#: inc/elementor/widgets/testimonials-video.php
+#: inc/elementor/widgets/brands.php
+#: template-parts/panel/profile.php
+msgid "نام"
+msgstr ""
+
+#: comments.php
+#: inc/elementor/widgets/newsletter.php
+#: inc/elementor/widgets/contact-form.php
+#: inc/elementor/widgets/request-form.php
+msgid "ایمیل"
+msgstr ""
+
+#: comments.php
+msgid "نظر، سوال یا تجربه خود را بنویسید…"
+msgstr ""
+
+#: footer.php
+#: template-parts/footer/footer-default.php
+msgid "بازگشت به بالا"
+msgstr ""
+
+#: header.php
+msgid "پرش به محتوای اصلی"
+msgstr ""
+
+#: header.php
+msgid "در حال بارگذاری"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/elementor/init.php
+#: inc/setup.php
+msgid "زرین کد"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "داشبورد"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/admin/demo-importer.php
+msgid "تنظیمات قالب"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/admin/demo-importer.php
+#: inc/panel/fallback-panel.php
+msgid "درون‌ریزی دمو"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "گزارش مالی"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "ارسال گروهی"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "ربات و کران"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/modules/ajax-search.php
+#: single-zc_teacher.php
+msgid "دوره آموزشی"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "محصول فروشگاه"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "کاربر ثبت‌نام شده"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/modules/user-panel.php
+msgid "تیکت پشتیبانی"
+msgstr ""
+
+#: inc/admin/admin.php
+#: single-zc_tutorial.php
+msgid "آموزش رایگان"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "مقاله بلاگ"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تنظیم رنگ و لوگو"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "پیکربندی پیامک"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تنظیم درگاه پرداخت"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/cpt.php
+msgid "افزودن دوره جدید"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "مدیریت منوها"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "پاکسازی کش قالب"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "قدرت گرفته از <strong>قالب زرین کد</strong> نسخه %s"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "در حال ثبت…"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "خطا در ارتباط با سرور"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "ثبت خودکار وب‌هوک"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "نسخه %s — خلاصه وضعیت سایت شما"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "کش قالب با موفقیت پاک شد."
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "داشبورد قالب زرین کد"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "خلاصه مالی این ماه"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "درآمد کل"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "برداشت‌ها"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "سود خالص"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تعداد سفارش"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "مبلغ سفارش‌ها"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "گزارش کامل"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/panel/redux-config.php
+msgid "وضعیت سیستم"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "شروع سریع"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "گزارش مالی و حسابداری"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "خروجی اکسل (CSV)"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "از تاریخ"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تا تاریخ"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "اعمال فیلتر"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "درآمد"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "هزینه"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "سفارش"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "لیست تراکنش‌ها"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/admin/dashboard-widget.php
+#: templates/template-panel.php
+msgid "کاربر"
+msgstr ""
+
+#: inc/admin/admin.php
+#: template-parts/panel/dashboard.php
+#: template-parts/panel/wallet.php
+#: template-parts/panel/orders.php
+msgid "مبلغ"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "نوع"
+msgstr ""
+
+#: inc/admin/admin.php
+#: template-parts/panel/wallet.php
+msgid "شرح"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "کد پیگیری"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/elementor/widgets/posts.php
+#: inc/elementor/widgets/booking-form.php
+#: inc/modules/services.php
+msgid "تاریخ"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تراکنشی در این بازه یافت نشد."
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "ارسال گروهی پیام"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "ارسال تبلیغات و اطلاعیه به کانال تلگرام، بله و پیامک"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/elementor/widgets/contact-form.php
+msgid "ارسال پیام"
+msgstr ""
+
+#: inc/admin/admin.php
+#: template-parts/panel/tickets.php
+msgid "متن پیام"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "آدرس تصویر (اختیاری)"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "کانال‌های ارسال:"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/metabox.php
+#: inc/modules/messenger-bot.php
+#: inc/panel/config.php
+msgid "تلگرام"
+msgstr ""
+
+#: inc/admin/admin.php
+#: inc/elementor/base-widget.php
+#: inc/modules/messenger-bot.php
+#: inc/panel/config.php
+msgid "بله"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "پیامک (اعضای خبرنامه)"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تست اتصال"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "قبل از ارسال گروهی، اتصال سرویس‌ها را بررسی کنید."
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تست تلگرام"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تست بله"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "تست پیامک"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "راه‌اندازی ربات و کران"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "کاربر متصل به ربات"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "اعلان در صف"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "آخرین اجرای کران"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "آدرس وب‌هوک ربات‌ها"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "این آدرس‌ها را نزد تلگرام/بله ثبت کنید تا پیام‌های ربات به سایت برسد."
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "توکن تنظیم نشده"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "کران جاب هاست"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "این دستور را در بخش Cron Jobs هاست خود با بازه‌ی هر ۵ دقیقه ثبت کنید:"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "اجرای دستی صف (تست)"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "راهنمای کامل"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "راهنمای گام‌به‌گام ساخت ربات و تنظیم کران در فایل زیر قرار دارد:"
+msgstr ""
+
+#: inc/admin/admin.php
+msgid "متن پیام خود را بنویسید… (پشتیبانی از HTML ساده در تلگرام)"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+msgid "خلاصه وضعیت زرین کد"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+#: inc/cpt.php
+#: inc/elementor/widgets/teachers.php
+#: inc/elementor/widgets/counters.php
+msgid "دوره"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+#: inc/elementor/widgets/counters.php
+#: inc/woocommerce.php
+#: inc/modules/ajax-search.php
+msgid "محصول"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+#: inc/cpt.php
+msgid "تیکت"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+msgid "درآمد این ماه:"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+msgid "داشبورد کامل"
+msgstr ""
+
+#: inc/admin/dashboard-widget.php
+#: inc/elementor/widgets/booking-form.php
+msgid "تنظیمات"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "درون‌ریزی دمو زرین کد"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+#: inc/modules/ticket.php
+#: inc/modules/booking.php
+#: inc/modules/telegram.php
+msgid "دسترسی غیرمجاز."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "مرحله نامعتبر."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "انجام شد."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "%s مورد حذف شد."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "درون‌ریزی محتوای دمو"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "با یک کلیک، محتوای نمونه قالب زرین کد را وارد سایت کنید."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "دمو قبلاً درون‌ریزی شده است. درون‌ریزی مجدد باعث ایجاد محتوای تکراری می‌شود."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "محتوای دمو شامل:"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ دوره آموزشی کامل با سرفصل و جلسات"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ آموزش رایگان"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ محصول عمومی فروشگاه"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ قالب وردپرس"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ افزونه وردپرس"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ فونت فارسی"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۱۰ مقاله بلاگ"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۶ مدرس"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۶ نظر دانشجو"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "۸ سوال متداول"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "صفحات: خانه، درباره ما، تماس با ما، پنل، ورود"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "منوها، دسته‌بندی‌ها و تنظیمات قالب"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "شروع درون‌ریزی"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "توصیه می‌شود قبل از درون‌ریزی، از سایت خود پشتیبان بگیرید. این عملیات ممکن است تا ۲ دقیقه طول بکشد."
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "محتوا (دوره، محصول، مقاله)"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "صفحات و منوها"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "ویجت‌های سایدبار"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "شروع درون‌ریزی دمو"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "حذف محتوای دمو"
+msgstr ""
+
+#: inc/admin/demo-importer.php
+msgid "تمام محتوای وارد شده توسط دمو حذف خواهد شد."
+msgstr ""
+
+#: inc/breadcrumb.php
+#: inc/modules/seo.php
+msgid "خانه"
+msgstr ""
+
+#: inc/breadcrumb.php
+msgid "نتایج جستجو"
+msgstr ""
+
+#: inc/breadcrumb.php
+#: inc/template-tags.php
+msgid "صفحه یافت نشد"
+msgstr ""
+
+#: inc/breadcrumb.php
+#: inc/template-tags.php
+msgid "بلاگ"
+msgstr ""
+
+#: inc/breadcrumb.php
+msgid "مسیر راهنما"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/template-tags.php
+#: inc/panel/config.php
+#: template-parts/header/search-modal.php
+msgid "دوره‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن دوره"
+msgstr ""
+
+#: inc/cpt.php
+msgid "ویرایش دوره"
+msgstr ""
+
+#: inc/cpt.php
+#: template-parts/panel/dashboard.php
+#: template-parts/panel/courses.php
+msgid "همه دوره‌ها"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/dark-search.php
+msgid "جستجوی دوره"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دوره‌ای یافت نشد"
+msgstr ""
+
+#: inc/cpt.php
+msgid "جلسات"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/courses.php
+#: single-zc_course.php
+#: template-parts/content/card-course.php
+msgid "جلسه"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن جلسه"
+msgstr ""
+
+#: inc/cpt.php
+msgid "جلسات دوره"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/template-tags.php
+#: inc/panel/config.php
+#: template-parts/header/search-modal.php
+msgid "آموزش‌ها"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/modules/ajax-search.php
+msgid "آموزش"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن آموزش"
+msgstr ""
+
+#: inc/cpt.php
+msgid "مدرسان"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/modules/auth.php
+#: single-zc_course.php
+#: templates/template-panel.php
+msgid "مدرس"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن مدرس"
+msgstr ""
+
+#: inc/cpt.php
+msgid "نظرات مشتریان"
+msgstr ""
+
+#: inc/cpt.php
+msgid "نظر مشتری"
+msgstr ""
+
+#: inc/cpt.php
+msgid "تیکت‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "تیکت‌های پشتیبانی"
+msgstr ""
+
+#: inc/cpt.php
+msgid "رزروها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "رزرو"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/panel/config.php
+msgid "رزرو نوبت"
+msgstr ""
+
+#: inc/cpt.php
+msgid "خدمات"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/modules/services.php
+#: template-parts/panel/bookings.php
+msgid "خدمت"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن خدمت"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن خدمت تازه"
+msgstr ""
+
+#: inc/cpt.php
+msgid "ویرایش خدمت"
+msgstr ""
+
+#: inc/cpt.php
+msgid "همه خدمات"
+msgstr ""
+
+#: inc/cpt.php
+msgid "جستجوی خدمات"
+msgstr ""
+
+#: inc/cpt.php
+msgid "خدمتی یافت نشد."
+msgstr ""
+
+#: inc/cpt.php
+msgid "نمونه‌کارها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "نمونه‌کار"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن نمونه‌کار"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن نمونه‌کار تازه"
+msgstr ""
+
+#: inc/cpt.php
+msgid "ویرایش نمونه‌کار"
+msgstr ""
+
+#: inc/cpt.php
+msgid "همه نمونه‌کارها"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/modules/user-panel.php
+#: template-parts/panel/requests.php
+msgid "درخواست‌های پروژه"
+msgstr ""
+
+#: inc/cpt.php
+#: template-parts/panel/requests.php
+msgid "درخواست پروژه"
+msgstr ""
+
+#: inc/cpt.php
+msgid "همه درخواست‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "بررسی درخواست"
+msgstr ""
+
+#: inc/cpt.php
+#: template-parts/footer/footer-default.php
+msgid "سوالات متداول"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/faq.php
+msgid "سوال"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/walker-menu.php
+msgid "دسته‌بندی دوره‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته دوره"
+msgstr ""
+
+#: inc/cpt.php
+msgid "افزودن دسته جدید"
+msgstr ""
+
+#: inc/cpt.php
+msgid "برچسب‌های آموزشی"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/counters.php
+#: inc/elementor/widgets/pricing.php
+msgid "برچسب"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته‌بندی آموزش‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته آموزش"
+msgstr ""
+
+#: inc/cpt.php
+msgid "تخصص‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "تخصص"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته سوالات"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته‌بندی خدمات"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته خدمت"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته‌بندی نمونه‌کار"
+msgstr ""
+
+#: inc/cpt.php
+msgid "دسته نمونه‌کار"
+msgstr ""
+
+#: inc/cpt.php
+msgid "تکنولوژی‌ها"
+msgstr ""
+
+#: inc/cpt.php
+msgid "تکنولوژی"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/products.php
+#: inc/elementor/widgets/pricing.php
+#: inc/metabox.php
+msgid "قیمت"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/counters.php
+#: inc/modules/auth.php
+#: inc/panel/config.php
+msgid "دانشجو"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/metabox.php
+msgid "وضعیت دوره"
+msgstr ""
+
+#: inc/cpt.php
+#: inc/elementor/widgets/courses.php
+#: inc/metabox.php
+#: inc/woocommerce.php
+msgid "رایگان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "سربرگ بخش"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "نمایش سربرگ"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "خیر"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "نمایش فلش بالای عنوان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/story-box.php
+#: inc/elementor/widgets/features.php
+msgid "عنوان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "برای رنگی شدن بخشی از متن، آن را داخل <span></span> بگذارید"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/pricing.php
+#: inc/elementor/widgets/countdown.php
+msgid "زیرعنوان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/button.php
+msgid "چیدمان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/button.php
+#: inc/panel/config.php
+msgid "راست"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/button.php
+msgid "وسط"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/button.php
+#: inc/panel/config.php
+msgid "چپ"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "استایل سربرگ"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/dark-search.php
+msgid "رنگ عنوان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "رنگ بخش تاکیدی (span)"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "رنگ زیرعنوان"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "فاصله تا محتوا"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "تنظیمات نمایش محتوا"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/products.php
+#: inc/elementor/widgets/faq.php
+#: inc/elementor/widgets/services.php
+msgid "تعداد نمایش"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "فیلتر بر اساس دسته‌بندی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "مرتب‌سازی بر اساس"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "تاریخ انتشار"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "تصادفی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "تعداد دیدگاه"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "ترتیب دستی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "پربازدیدترین"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/products.php
+msgid "پرفروش‌ترین"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "ترتیب"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "نزولی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "صعودی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "یا انتخاب دستی موارد"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "در صورت انتخاب، فیلترهای بالا نادیده گرفته می‌شوند."
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/features.php
+msgid "حالت نمایش"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/panel/config.php
+msgid "شبکه‌ای"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "اسلایدر"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/panel/config.php
+msgid "تعداد ستون"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "فاصله بین آیتم‌ها"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "تعداد نمایش در اسلایدر"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "پخش خودکار"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "نمایش فلش‌ها"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "نمایش نقطه‌ها"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "انیمیشن ورود آیتم‌ها"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "دکمه پایانی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "نمایش دکمه"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/newsletter.php
+#: inc/elementor/widgets/contact-form.php
+#: inc/elementor/widgets/booking-form.php
+msgid "متن دکمه"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "مشاهده همه"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "لینک دکمه"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "استایل دکمه"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/button.php
+msgid "طلایی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/button.php
+msgid "تیره"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/button.php
+msgid "سرمه‌ای"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/button.php
+msgid "خطی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+#: inc/elementor/widgets/button.php
+msgid "محو"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "قبلی"
+msgstr ""
+
+#: inc/elementor/base-widget.php
+msgid "بعدی"
+msgstr ""
+
+#: inc/elementor/controls.php
+#: inc/helpers.php
+msgid "— انتخاب کنید —"
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "زرین کد | فروشگاه و دوره"
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "قالب‌های المنتور"
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "قالب"
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "افزودن قالب جدید"
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "قالب‌های من"
+msgstr ""
+
+#: inc/elementor/init.php
+#: inc/panel/redux-config.php
+msgid "قالب زرین کد:"
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "برای استفاده از ویجت‌های اختصاصی و صفحه‌ساز، افزونه المنتور (نسخه رایگان کافی است) را نصب کنید."
+msgstr ""
+
+#: inc/elementor/init.php
+msgid "نصب المنتور"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "زرین کد | بنر اصلی (هیرو)"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "محتوای بنر"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "متن نشان بالای عنوان"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "مرجع تخصصی آموزش برنامه‌نویسی"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "آیکن نشان"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "عنوان اصلی"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "با <span>زرین کد</span> برنامه‌نویس شو"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "برای طلایی‌شدن بخشی از متن از تگ span استفاده کنید."
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/features.php
+#: inc/elementor/widgets/newsletter.php
+#: inc/elementor/widgets/booking-form.php
+msgid "توضیحات"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "آموزش پروژه‌محور برنامه‌نویسی از صفر تا بازار کار؛ به همراه فروشگاه تخصصی قالب، افزونه و فونت. همین امروز مسیر یادگیری‌ات را شروع کن."
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/story-box.php
+msgid "متن دکمه اول"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "شروع یادگیری رایگان"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/story-box.php
+msgid "لینک دکمه اول"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/story-box.php
+msgid "متن دکمه دوم"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: index.php
+#: template-parts/panel/dashboard.php
+#: template-parts/panel/courses.php
+msgid "مشاهده دوره‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/story-box.php
+msgid "لینک دکمه دوم"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "تصویر بنر"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "کارت‌های شناور روی تصویر"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "نمایش کارت‌های شناور"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/features.php
+msgid "آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/story-box.php
+#: inc/elementor/widgets/button.php
+#: inc/elementor/widgets/icon-box.php
+msgid "متن"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "+۱۲۰۰۰ دانشجو"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "کارت‌ها (حداکثر ۳)"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "+۱۲,۰۰۰ دانشجو"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "+۲۰۰ دوره تخصصی"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: templates/template-login.php
+msgid "گواهی معتبر پایان دوره"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "استایل بنر"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/features.php
+msgid "رنگ توضیحات"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+#: inc/elementor/widgets/cta-bar.php
+msgid "فاصله داخلی"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "گردی گوشه‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/hero.php
+msgid "جابجایی تصویر و متن"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "زرین کد | نوار آمار"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "آیتم‌های آمار"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/counters.php
+msgid "عدد"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/counters.php
+msgid "پیشوند"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/counters.php
+msgid "پسوند"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "دانشجوی فعال"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "آمارها"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "دوره تخصصی"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "رضایت دانشجویان"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "محصول دیجیتال"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "حالت شناور (روی بنر بالایی)"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "کارت آمار به سمت بالا کشیده می‌شود و روی بنر قرار می‌گیرد."
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "انیمیشن شمارش اعداد"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/dark-search.php
+msgid "استایل"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "رنگ پس‌زمینه کارت"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+msgid "رنگ اعداد"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/counters.php
+msgid "رنگ برچسب"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/features.php
+#: inc/elementor/widgets/icon-box.php
+msgid "پس‌زمینه آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/stats.php
+#: inc/elementor/widgets/features.php
+#: inc/elementor/widgets/counters.php
+#: inc/elementor/widgets/icon-box.php
+msgid "رنگ آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "زرین کد | دوره‌های آموزشی"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "جدیدترین <span>دوره‌های آموزشی</span>"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "با پروژه‌محورترین دوره‌های برنامه‌نویسی، مهارت واقعی بازار کار را بیاموزید"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "اجزای کارت دوره"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش دسته‌بندی"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش مدرس"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش امتیاز"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش تعداد دانشجو"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش مدت زمان"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش تعداد جلسات"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش سطح دوره"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش قیمت"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش خلاصه متن"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "نمایش درصد تکمیل (برای دانشجو)"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/posts.php
+msgid "تعداد کلمات خلاصه"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "متن دکمه کارت"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: template-parts/panel/certificates.php
+msgid "مشاهده دوره"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/products.php
+msgid "استایل کارت"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/features.php
+msgid "پس‌زمینه کارت"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/newsletter.php
+#: inc/elementor/widgets/button.php
+msgid "گردی گوشه"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "رنگ قیمت"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/image-box.php
+msgid "نسبت تصویر"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/tutorials.php
+#: inc/metabox.php
+msgid "مقدماتی"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/tutorials.php
+#: inc/metabox.php
+msgid "متوسط"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/tutorials.php
+#: inc/metabox.php
+msgid "پیشرفته"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "هنوز دوره‌ای منتشر نشده است"
+msgstr ""
+
+#: inc/elementor/widgets/courses.php
+msgid "پیشرفت شما"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "زرین کد | کارت‌های دسته‌بندی تصویری"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "مسیرهای <span>یادگیری</span>"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "محبوب‌ترین شاخه‌های برنامه‌نویسی را انتخاب کنید و از صفر شروع کنید"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/dark-search.php
+msgid "کارت‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/image-box.php
+msgid "تصویر"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/dark-search.php
+msgid "عنوان انگلیسی"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/dark-search.php
+msgid "عنوان فارسی"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "برنامه‌نویسی وب"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/brands.php
+#: inc/elementor/widgets/button.php
+msgid "لینک"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "رنگ دکمه فلش"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "لیست کارت‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "فرانت‌اند"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "بک‌اند"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "اپلیکیشن موبایل"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+#: inc/elementor/widgets/dark-search.php
+msgid "وردپرس"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "نسبت ابعاد کارت"
+msgstr ""
+
+#: inc/elementor/widgets/category-cards.php
+msgid "رنگ سایه روی تصویر"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "زرین کد | نوار فراخوان"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/story-box.php
+#: inc/elementor/widgets/newsletter.php
+msgid "محتوا"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "متن پررنگ"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "با بیش از ۱۲,۰۰۰ دانشجو همراه شوید"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "متن توضیحی"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "مشاوره رایگان انتخاب مسیر شغلی، همین حالا!"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+#: sidebar.php
+msgid "مشاوره رایگان"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "استایل دکمه اول"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "دوره‌های رایگان"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "استایل دکمه دوم"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "رنگ حاشیه"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+#: inc/elementor/widgets/button.php
+msgid "رنگ پس‌زمینه"
+msgstr ""
+
+#: inc/elementor/widgets/cta-bar.php
+msgid "رنگ متن پررنگ"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "زرین کد | بخش تیره + جستجوی دوره"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "دوره مناسب <span>خودت</span> رو پیدا کن"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "با فیلترهای هوشمند، سریع‌ترین مسیر یادگیری خود را انتخاب کنید"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "نمایش فرم جستجو"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "متن دکمه جستجو"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "کارت‌های تکنولوژی"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "یا تصویر/لوگو دلخواه"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "در صورت انتخاب، جایگزین آیکن می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "پی اچ پی"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "پی‌اچ‌پی و لاراول"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/roadmap.php
+msgid "جاوااسکریپت"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "پایتون"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "گردی گوشه بخش"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "ستون کارت‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+#: searchform.php
+#: sidebar.php
+#: template-parts/header/header-default.php
+msgid "جستجو"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "همه دسته‌بندی‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "همه سطوح"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "نام دوره یا تکنولوژی…"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+#: inc/elementor/widgets/products.php
+#: inc/elementor/widgets/posts.php
+msgid "دسته‌بندی"
+msgstr ""
+
+#: inc/elementor/widgets/dark-search.php
+msgid "سطح"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "زرین کد | باکس داستان برند"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "آیکن بالای عنوان"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+#: inc/elementor/widgets/counters.php
+#: inc/elementor/widgets/button.php
+#: inc/elementor/widgets/tabs.php
+msgid "بدون آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "داستان زرین کد از کجا شروع شد؟"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "زرین کد در سال ۱۳۹۸ با هدف ساده‌سازی مسیر یادگیری برنامه‌نویسی برای فارسی‌زبانان متولد شد. ما باور داریم آموزش باید پروژه‌محور، به‌روز و قابل استفاده در بازار کار واقعی باشد. امروز با بیش از ۲۰۰ دوره تخصصی، صدها محصول دیجیتال و جامعه‌ای بزرگ از توسعه‌دهندگان، در کنار شما هستیم تا از یک علاقه‌مند ساده به یک برنامه‌نویس حرفه‌ای تبدیل شوید."
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "ادامه داستان"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+#: inc/template-tags.php
+#: template-parts/footer/footer-default.php
+msgid "تماس با ما"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "نمایش نقش تزئینی"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+#: inc/elementor/widgets/button.php
+#: inc/elementor/widgets/icon-box.php
+msgid "رنگ متن"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "رنگ پس‌زمینه ناحیه دکمه‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/story-box.php
+msgid "باید با رنگ پس‌زمینه صفحه یکسان باشد."
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "زرین کد | محصولات فروشگاه"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "فروشگاه <span>محصولات دیجیتال</span>"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "قالب وردپرس، افزونه، فونت و اسکریپت‌های آماده با پشتیبانی و بروزرسانی رایگان"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "تنظیمات محصولات"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "منبع نمایش"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "محصولات ویژه"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "تخفیف‌دار"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "انتخاب دستی"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "دسته‌بندی محصول"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+#: inc/panel/config.php
+#: template-parts/header/search-modal.php
+#: template-parts/panel/orders.php
+msgid "محصولات"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "نمایش تب‌های فیلتر دسته (ای‌جکس)"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "دسته‌بندی‌ها به صورت تب بالای محصولات نمایش داده می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "اجزای کارت محصول"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "امتیاز"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "دکمه افزودن به سبد"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "دکمه علاقه‌مندی"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "تعداد فروش"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "پس‌زمینه"
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "برای نمایش محصولات، افزونه ووکامرس را نصب و فعال کنید."
+msgstr ""
+
+#: inc/elementor/widgets/products.php
+msgid "محصولی یافت نشد"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "زرین کد | مقالات بلاگ"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "مجله <span>زرین کد</span>"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "آخرین مقالات، اخبار تکنولوژی و نکات کاربردی دنیای برنامه‌نویسی"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+#: inc/elementor/widgets/tutorials.php
+msgid "اجزای کارت"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "دکمه فلش گوشه کارت"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+#: inc/walker-comment.php
+msgid "نویسنده"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+#: inc/template-tags.php
+msgid "بازدید"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "خلاصه متن"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "زمان مطالعه"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+msgid "رنگ خلاصه"
+msgstr ""
+
+#: inc/elementor/widgets/posts.php
+#: inc/elementor/widgets/tutorials.php
+#: inc/elementor/widgets/countdown.php
+#: template-parts/content/card-tutorial.php
+msgid "دقیقه"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "زرین کد | ویژگی‌ها و خدمات"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "چرا <span>زرین کد</span>؟"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "امکاناتی که یادگیری و خرید شما را متفاوت می‌کند"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "ویژگی‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "گواهینامه معتبر"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "پس از اتمام هر دوره، گواهی پایان دوره با قابلیت استعلام آنلاین دریافت می‌کنید."
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "لینک (اختیاری)"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "لیست ویژگی‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "گواهی پایان دوره با قابلیت استعلام آنلاین."
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "پشتیبانی ۲۴ ساعته"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "رفع اشکال توسط مدرس در تمام طول دوره."
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "بروزرسانی رایگان"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "محتوای دوره‌ها همیشه به‌روز و رایگان برای شما."
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+#: template-parts/header/header-default.php
+msgid "ضمانت بازگشت وجه"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "تا ۷ روز پس از خرید، بدون قید و شرط."
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "کارت وسط‌چین"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "آیکن کنار متن"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "ساده بدون کادر"
+msgstr ""
+
+#: inc/elementor/widgets/features.php
+msgid "اندازه کادر آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "زرین کد | تجربه دانشجویان (ویدیویی)"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "تجربه <span>دانشجویان</span>"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "به جمع بیش از ۱۲,۰۰۰ دانشجوی موفق زرین کد بپیوندید"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+#: inc/elementor/widgets/tabs.php
+#: single-zc_course.php
+msgid "نظرات"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "محمد مرادی"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "توضیح کوتاه / سمت"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "استخدام به عنوان توسعه‌دهنده لاراول"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "تصویر پروفایل"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "تصویر ویدیو (کاور)"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "با کلیک روی هر نظر، این تصویر در کادر سمت راست نمایش داده می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+#: inc/elementor/widgets/video-box.php
+#: inc/metabox.php
+msgid "لینک ویدیو"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "لیست نظرات"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "سارا رضایی"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "شروع فریلنسری با درآمد دلاری"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "نیما حسینی"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "راه‌اندازی فروشگاه اینترنتی شخصی"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "تصویر پیش‌فرض ویدیو"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "گردی گوشه ویدیو"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "پس‌زمینه آیتم‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "جابجایی ویدیو و لیست"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+msgid "ویدیو تجربه دانشجویان"
+msgstr ""
+
+#: inc/elementor/widgets/testimonials-video.php
+#: inc/elementor/widgets/video-box.php
+msgid "پخش ویدیو"
+msgstr ""
+
+#: inc/elementor/widgets/tutorials.php
+msgid "زرین کد | آموزش‌های رایگان"
+msgstr ""
+
+#: inc/elementor/widgets/tutorials.php
+msgid "آموزش‌های <span>رایگان</span>"
+msgstr ""
+
+#: inc/elementor/widgets/tutorials.php
+msgid "مقالات و آموزش‌های کاربردی برای شروع و ارتقای مهارت برنامه‌نویسی"
+msgstr ""
+
+#: inc/elementor/widgets/tutorials.php
+msgid "نمایش خلاصه"
+msgstr ""
+
+#: inc/elementor/widgets/tutorials.php
+msgid "نمایش سطح"
+msgstr ""
+
+#: inc/elementor/widgets/tutorials.php
+msgid "نمایش زمان مطالعه"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "زرین کد | مدرسان"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "اساتید <span>زرین کد</span>"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "یادگیری از متخصصانی که سال‌ها در بازار کار واقعی فعالیت کرده‌اند"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "گزینه‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "نمایش تخصص"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "نمایش تعداد دوره"
+msgstr ""
+
+#: inc/elementor/widgets/teachers.php
+msgid "نمایش شبکه‌های اجتماعی"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "زرین کد | سوالات متداول"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "سوالات <span>متداول</span>"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "پاسخ پرتکرارترین سوالات شما درباره دوره‌ها و محصولات"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "سوالات"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "منبع"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "ورود دستی"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "از بخش سوالات متداول"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "آیا دوره‌ها دارای پشتیبانی هستند؟"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+#: inc/walker-comment.php
+#: template-parts/panel/tickets.php
+msgid "پاسخ"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "بله، تمام دوره‌های زرین کد دارای پشتیبانی مستقیم مدرس از طریق سیستم تیکتینگ و گروه اختصاصی دانشجویان هستند."
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "باز به صورت پیش‌فرض"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "لیست سوالات"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "بله، تمام دوره‌ها دارای پشتیبانی مستقیم مدرس از طریق سیستم تیکتینگ هستند."
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "پس از خرید، دسترسی به دوره چقدر است؟"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "دسترسی شما به دوره‌های خریداری‌شده مادام‌العمر است و بروزرسانی‌ها نیز رایگان ارائه می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "آیا امکان بازگشت وجه وجود دارد؟"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "بله، تا ۷ روز پس از خرید در صورت عدم رضایت، مبلغ به کیف پول شما بازگردانده می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "فقط یک سوال باز بماند"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "افزودن اسکیمای سئو (FAQPage)"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "باعث نمایش سوالات در نتایج گوگل می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "رنگ سوال"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "رنگ پاسخ"
+msgstr ""
+
+#: inc/elementor/widgets/faq.php
+msgid "پس‌زمینه آیتم"
+msgstr ""
+
+#: inc/elementor/widgets/counters.php
+msgid "زرین کد | شمارنده‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/counters.php
+msgid "شمارنده‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/counters.php
+#: inc/elementor/widgets/brands.php
+#: inc/elementor/widgets/progress.php
+#: inc/elementor/widgets/timeline.php
+msgid "لیست"
+msgstr ""
+
+#: inc/elementor/widgets/counters.php
+msgid "رضایت"
+msgstr ""
+
+#: inc/elementor/widgets/counters.php
+msgid "رنگ عدد"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "زرین کد | خبرنامه"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "از جدیدترین دوره‌ها باخبر شو"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "ایمیل یا شماره موبایل خود را وارد کنید تا تخفیف‌ها و دوره‌های جدید را زودتر از همه دریافت کنید."
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "نوع فیلد"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "موبایل (پیامک)"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "متن راهنمای فیلد"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "ایمیل خود را وارد کنید"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php
+msgid "عضویت"
+msgstr ""
+
+#: inc/elementor/widgets/brands.php
+msgid "زرین کد | لوگوی برندها"
+msgstr ""
+
+#: inc/elementor/widgets/brands.php
+msgid "شرکت‌های <span>همکار</span>"
+msgstr ""
+
+#: inc/elementor/widgets/brands.php
+msgid "لوگوها"
+msgstr ""
+
+#: inc/elementor/widgets/brands.php
+msgid "لوگو"
+msgstr ""
+
+#: inc/elementor/widgets/brands.php
+msgid "حالت سیاه‌وسفید"
+msgstr ""
+
+#: inc/elementor/widgets/heading.php
+msgid "زرین کد | سربرگ بخش"
+msgstr ""
+
+#: inc/elementor/widgets/heading.php
+msgid "عنوان <span>بخش</span>"
+msgstr ""
+
+#: inc/elementor/widgets/heading.php
+msgid "زیرعنوان توضیحی این بخش"
+msgstr ""
+
+#: inc/elementor/widgets/heading.php
+msgid "تنظیمات بیشتر"
+msgstr ""
+
+#: inc/elementor/widgets/heading.php
+msgid "تگ HTML عنوان"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "زرین کد | دکمه"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "شروع کنید"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "سفید"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "اندازه"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "کوچک"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "معمولی"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+msgid "بزرگ"
+msgstr ""
+
+#: inc/elementor/widgets/button.php
+#: inc/panel/config.php
+msgid "تمام عرض"
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "زرین کد | جعبه آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "عنوان ویژگی"
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "توضیحات کوتاه درباره این ویژگی."
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "موقعیت آیکن"
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "بالا"
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "کنار"
+msgstr ""
+
+#: inc/elementor/widgets/icon-box.php
+msgid "پس‌زمینه باکس"
+msgstr ""
+
+#: inc/elementor/widgets/image-box.php
+msgid "زرین کد | جعبه تصویر"
+msgstr ""
+
+#: inc/elementor/widgets/image-box.php
+msgid "برچسب روی تصویر"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "زرین کد | تب‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "تب‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "عنوان تب"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "تب جدید"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "محتوای این تب را وارد کنید."
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "لیست تب‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "معرفی"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+#: single-zc_course.php
+msgid "سرفصل‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "رنگ تب فعال"
+msgstr ""
+
+#: inc/elementor/widgets/tabs.php
+msgid "رنگ تب‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/progress.php
+msgid "زرین کد | نوار مهارت"
+msgstr ""
+
+#: inc/elementor/widgets/progress.php
+msgid "مهارت‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/progress.php
+msgid "درصد"
+msgstr ""
+
+#: inc/elementor/widgets/progress.php
+msgid "رنگ نوار"
+msgstr ""
+
+#: inc/elementor/widgets/progress.php
+msgid "ارتفاع نوار"
+msgstr ""
+
+#: inc/elementor/widgets/video-box.php
+msgid "زرین کد | ویدیو"
+msgstr ""
+
+#: inc/elementor/widgets/video-box.php
+msgid "تصویر کاور"
+msgstr ""
+
+#: inc/elementor/widgets/video-box.php
+msgid "آدرس آپارات، یوتیوب یا فایل mp4"
+msgstr ""
+
+#: inc/elementor/widgets/video-box.php
+msgid "عنوان روی ویدیو"
+msgstr ""
+
+#: inc/elementor/widgets/video-box.php
+msgid "نسبت"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "زرین کد | فرم تماس با ما"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: inc/elementor/widgets/request-form.php
+msgid "تنظیمات فرم"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "عنوان فرم"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "فیلد موضوع"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "فیلد تلفن"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "فیلد دپارتمان"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "ایمیل دریافت‌کننده"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "پس‌زمینه فرم"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "رنگ برچسب‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: inc/elementor/widgets/booking-form.php
+#: inc/elementor/widgets/request-form.php
+#: inc/modules/services.php
+msgid "نام و نام خانوادگی"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: inc/panel/config.php
+msgid "شماره تماس"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: inc/metabox.php
+#: inc/modules/ticket.php
+#: template-parts/panel/tickets.php
+msgid "دپارتمان"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: inc/modules/ticket.php
+msgid "پشتیبانی فنی"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: inc/modules/ticket.php
+msgid "مالی و پرداخت"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "مشاوره دوره"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "همکاری و تبلیغات"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+#: template-parts/panel/tickets.php
+msgid "موضوع"
+msgstr ""
+
+#: inc/elementor/widgets/contact-form.php
+msgid "پیام شما"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+msgid "زرین کد | فرم رزرو نوبت"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+msgid "رزرو <span>مشاوره</span>"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+msgid "زمان مناسب خود را برای جلسه مشاوره رایگان انتخاب کنید"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+#: templates/template-booking.php
+msgid "ثبت درخواست رزرو"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+msgid "انتخاب خدمت"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+msgid "یادداشت زیر فرم"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+msgid "پس از ثبت درخواست، همکاران ما جهت تایید نهایی زمان با شما تماس می‌گیرند."
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+#: inc/elementor/widgets/request-form.php
+#: inc/woocommerce.php
+#: inc/modules/services.php
+msgid "شماره موبایل"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+#: template-parts/panel/bookings.php
+#: templates/template-booking.php
+msgid "نوع خدمت"
+msgstr ""
+
+#: inc/elementor/widgets/booking-form.php
+#: inc/elementor/widgets/countdown.php
+#: template-parts/panel/bookings.php
+#: templates/template-booking.php
+msgid "ساعت"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+msgid "زرین کد | نقشه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+msgid "تنظیمات نقشه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+#: inc/panel/config.php
+msgid "عرض جغرافیایی"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+#: inc/panel/config.php
+msgid "طول جغرافیایی"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+msgid "بزرگنمایی"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+msgid "ارتفاع"
+msgstr ""
+
+#: inc/elementor/widgets/map.php
+msgid "نقشه موقعیت"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "زرین کد | جدول اشتراک و قیمت"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "پلن‌های <span>اشتراک</span>"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "با خرید اشتراک، به تمام دوره‌ها دسترسی نامحدود داشته باشید"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "پلن‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "عنوان پلن"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "اشتراک طلایی"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "مناسب یادگیری حرفه‌ای"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "قیمت قبل"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "تومان / سالانه"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "ویژگی‌ها (هر خط یک مورد)"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "خرید اشتراک"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "پلن ویژه (برجسته)"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+#: inc/metabox.php
+#: single-zc_service.php
+msgid "پیشنهاد ویژه"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "لیست پلن‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "برنزی"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "تومان / ۳ ماهه"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "الماس"
+msgstr ""
+
+#: inc/elementor/widgets/pricing.php
+msgid "تومان / مادام‌العمر"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+msgid "زرین کد | شمارش معکوس تخفیف"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+msgid "جشنواره تخفیف زرین کد"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+msgid "تا ۷۰٪ تخفیف روی تمام دوره‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+msgid "تاریخ پایان"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+msgid "مشاهده تخفیف‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+msgid "روز"
+msgstr ""
+
+#: inc/elementor/widgets/countdown.php
+#: inc/enqueue.php
+msgid "ثانیه"
+msgstr ""
+
+#: inc/elementor/widgets/gallery.php
+msgid "زرین کد | گالری تصاویر"
+msgstr ""
+
+#: inc/elementor/widgets/gallery.php
+msgid "تصاویر"
+msgstr ""
+
+#: inc/elementor/widgets/gallery.php
+msgid "گالری"
+msgstr ""
+
+#: inc/elementor/widgets/gallery.php
+msgid "بازشدن در لایت‌باکس"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "زرین کد | تایم‌لاین"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "مسیر <span>زرین کد</span>"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "رویدادها"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "سال / برچسب"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "شروع فعالیت"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "راه‌اندازی فروشگاه"
+msgstr ""
+
+#: inc/elementor/widgets/timeline.php
+msgid "۱۰۰۰۰ دانشجو"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "زرین کد | نقشه راه یادگیری"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "نقشه راه <span>یادگیری</span>"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "گام به گام تا تبدیل شدن به یک برنامه‌نویس حرفه‌ای"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "مراحل"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "شماره مرحله"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "مبانی برنامه‌نویسی"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "لینک دوره"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "لیست مراحل"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "مبانی و الگوریتم"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "HTML و CSS"
+msgstr ""
+
+#: inc/elementor/widgets/roadmap.php
+msgid "فریم‌ورک و پروژه واقعی"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "زرین کد | خدمات ما"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "خدمات <span>تخصصی</span> ما"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "از ایده تا اجرا؛ تیم زرین کد در کنار شماست"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "سبک نمایش"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "کارت آیکن‌دار"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "کارت تصویری"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "نمایش شروع قیمت"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "نمایش موارد شامل خدمت"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "مشاهده و سفارش"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "هنوز خدمتی ثبت نشده است. از منوی «خدمات» موارد را اضافه کنید."
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+msgid "شروع از"
+msgstr ""
+
+#: inc/elementor/widgets/services.php
+#: inc/elementor/widgets/request-form.php
+#: inc/metabox.php
+#: inc/modules/services.php
+msgid "زمان تحویل"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "زرین کد | نمونه‌کارها"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "نمونه‌کارهای <span>ما</span>"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "پروژه‌هایی که با افتخار تحویل داده‌ایم"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "نمایش فیلتر دسته‌بندی"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "نمایش تکنولوژی‌ها"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "هنوز نمونه‌کاری ثبت نشده است."
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+#: inc/woocommerce.php
+#: template-parts/header/search-modal.php
+msgid "همه"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+msgid "مشاهده جزئیات"
+msgstr ""
+
+#: inc/elementor/widgets/portfolio.php
+#: inc/panel/fallback-panel.php
+msgid "مشاهده سایت"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "زرین کد | فرم درخواست پروژه"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "پروژه‌ات را به <span>ما</span> بسپار"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "فرم زیر را پر کنید تا در کمتر از ۲۴ ساعت با شما تماس بگیریم"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "متن دکمه ارسال"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+#: inc/modules/services.php
+msgid "ارسال درخواست"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "عنوان ستون کناری"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "چرا زرین کد؟"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "مزیت‌ها (هر خط یکی)"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "مشاوره رایگان پیش از شروع\\nقرارداد رسمی و شفاف\\nتحویل مرحله‌ای پروژه\\nپشتیبانی پس از تحویل\\nضمانت بازگشت وجه"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "پس‌زمینه تیره"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+#: inc/modules/services.php
+msgid "خدمت موردنظر"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "انتخاب کنید…"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+#: inc/modules/services.php
+msgid "بودجه تقریبی"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+#: inc/modules/services.php
+msgid "توضیحات پروژه"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "اطلاعات شما محرمانه است و در اختیار کسی قرار نمی‌گیرد."
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "ترجیح می‌دهید تماس بگیرید؟"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "مثلاً علی محمدی"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php
+msgid "هدف پروژه، امکانات موردنیاز و هر نکته‌ای که به ما کمک می‌کند بهتر راهنمایی‌تان کنیم…"
+msgstr ""
+
+#: inc/enqueue.php
+msgid "در حال بارگذاری…"
+msgstr ""
+
+#: inc/enqueue.php
+msgid "نتیجه‌ای یافت نشد."
+msgstr ""
+
+#: inc/enqueue.php
+msgid "خطایی رخ داد. دوباره تلاش کنید."
+msgstr ""
+
+#: inc/enqueue.php
+msgid "با موفقیت افزوده شد."
+msgstr ""
+
+#: inc/enqueue.php
+msgid "کپی شد!"
+msgstr ""
+
+#: inc/enqueue.php
+msgid "آیا مطمئن هستید؟"
+msgstr ""
+
+#: inc/enqueue.php
+msgid "در حال ارسال…"
+msgstr ""
+
+#: inc/helpers.php
+msgid "%s پیش"
+msgstr ""
+
+#: inc/helpers.php
+msgid "درخواست نامعتبر است. صفحه را تازه‌سازی کنید."
+msgstr ""
+
+#: inc/metabox.php
+msgid "مشخصات دوره"
+msgstr ""
+
+#: inc/metabox.php
+msgid "سرفصل‌ها و جلسات دوره"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مشخصات آموزش"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مشخصات مدرس"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدیریت تیکت"
+msgstr ""
+
+#: inc/metabox.php
+msgid "تنظیمات صفحه (زرین کد)"
+msgstr ""
+
+#: inc/metabox.php
+#: inc/modules/services.php
+#: single-zc_course.php
+#: template-parts/panel/dashboard.php
+msgid "تکمیل شده"
+msgstr ""
+
+#: inc/metabox.php
+#: single-zc_course.php
+msgid "در حال برگزاری"
+msgstr ""
+
+#: inc/metabox.php
+#: single-zc_course.php
+msgid "به زودی"
+msgstr ""
+
+#: inc/metabox.php
+msgid "تخصص / سمت"
+msgstr ""
+
+#: inc/metabox.php
+msgid "تعداد دوره"
+msgstr ""
+
+#: inc/metabox.php
+msgid "تعداد دانشجو"
+msgstr ""
+
+#: inc/metabox.php
+#: inc/panel/config.php
+msgid "لینکدین"
+msgstr ""
+
+#: inc/metabox.php
+#: inc/panel/config.php
+msgid "گیت‌هاب"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مشخصات خدمت"
+msgstr ""
+
+#: inc/metabox.php
+#: single-zc_service.php
+msgid "بسته‌های قیمتی"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مشخصات نمونه‌کار"
+msgstr ""
+
+#: inc/metabox.php
+msgid "اطلاعات درخواست"
+msgstr ""
+
+#: inc/metabox.php
+msgid "نام بسته"
+msgstr ""
+
+#: inc/metabox.php
+msgid "حذف"
+msgstr ""
+
+#: inc/metabox.php
+msgid "امکانات — هر مورد در یک خط"
+msgstr ""
+
+#: inc/metabox.php
+msgid "قیمت (تومان)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "صفر یا خالی = رایگان"
+msgstr ""
+
+#: inc/metabox.php
+msgid "قیمت با تخفیف"
+msgstr ""
+
+#: inc/metabox.php
+msgid "محصول ووکامرس متصل"
+msgstr ""
+
+#: inc/metabox.php
+msgid "— بدون محصول —"
+msgstr ""
+
+#: inc/metabox.php
+msgid "برای فروش دوره از طریق سبد خرید"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدرس دوره"
+msgstr ""
+
+#: inc/metabox.php
+msgid "سطح دوره"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدت زمان کل"
+msgstr ""
+
+#: inc/metabox.php
+msgid "امتیاز (۰ تا ۵)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "تعداد رای"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدت دسترسی (روز)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "صفر = مادام‌العمر"
+msgstr ""
+
+#: inc/metabox.php
+msgid "ویدیوی پیش‌نمایش"
+msgstr ""
+
+#: inc/metabox.php
+msgid "در این دوره چه می‌آموزید؟ (هر خط یک مورد)"
+msgstr ""
+
+#: inc/metabox.php
+#: single-zc_course.php
+msgid "پیش‌نیازها"
+msgstr ""
+
+#: inc/metabox.php
+#: single-zc_course.php
+msgid "مخاطبان دوره"
+msgstr ""
+
+#: inc/metabox.php
+msgid "+ افزودن جلسه"
+msgstr ""
+
+#: inc/metabox.php
+msgid "+ افزودن فصل جدید"
+msgstr ""
+
+#: inc/metabox.php
+msgid "جلساتی که «رایگان» علامت بخورند، برای همه کاربران قابل مشاهده هستند."
+msgstr ""
+
+#: inc/metabox.php
+msgid "سطح آموزش"
+msgstr ""
+
+#: inc/metabox.php
+msgid "لینک ویدیو (اختیاری)"
+msgstr ""
+
+#: inc/metabox.php
+#: inc/modules/ticket.php
+#: inc/modules/services.php
+#: template-parts/panel/dashboard.php
+msgid "وضعیت"
+msgstr ""
+
+#: inc/metabox.php
+#: inc/modules/ticket.php
+#: template-parts/panel/tickets.php
+msgid "اولویت"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مخفی کردن هدر"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مخفی کردن فوتر"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مخفی کردن سربرگ صفحه"
+msgstr ""
+
+#: inc/metabox.php
+msgid "توضیحات متا (سئو)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "آیکنی که در کارت خدمت نمایش داده می‌شود."
+msgstr ""
+
+#: inc/metabox.php
+msgid "شروع قیمت (تومان)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدت زمان تحویل"
+msgstr ""
+
+#: inc/metabox.php
+msgid "رنگ شاخص"
+msgstr ""
+
+#: inc/metabox.php
+msgid "موارد شامل خدمت"
+msgstr ""
+
+#: inc/metabox.php
+msgid "هر مورد در یک خط جداگانه."
+msgstr ""
+
+#: inc/metabox.php
+msgid "+ افزودن بسته"
+msgstr ""
+
+#: inc/metabox.php
+msgid "نام کارفرما"
+msgstr ""
+
+#: inc/metabox.php
+msgid "آدرس پروژه"
+msgstr ""
+
+#: inc/metabox.php
+msgid "تاریخ انجام"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدت انجام"
+msgstr ""
+
+#: inc/metabox.php
+msgid "دستاوردها"
+msgstr ""
+
+#: inc/metabox.php
+msgid "هر دستاورد در یک خط. مثال: افزایش ۳۰۰٪ ترافیک ارگانیک"
+msgstr ""
+
+#: inc/metabox.php
+msgid "گالری تصاویر"
+msgstr ""
+
+#: inc/metabox.php
+msgid "شناسه تصاویر با کاما جدا شود. مثال: 12,15,18"
+msgstr ""
+
+#: inc/metabox.php
+msgid "نام مشتری"
+msgstr ""
+
+#: inc/metabox.php
+#: template-parts/panel/bookings.php
+msgid "موبایل"
+msgstr ""
+
+#: inc/metabox.php
+msgid "خدمت درخواستی"
+msgstr ""
+
+#: inc/metabox.php
+#: inc/modules/services.php
+msgid "بودجه"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مبلغ پیشنهادی (تومان)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "یادداشت داخلی"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مثال: ۱۲ ساعت"
+msgstr ""
+
+#: inc/metabox.php
+msgid "عنوان فصل"
+msgstr ""
+
+#: inc/metabox.php
+msgid "عنوان جلسه"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مدت"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مثلاً ۲ تا ۴ هفته"
+msgstr ""
+
+#: inc/metabox.php
+msgid "نام بسته (مثلاً پایه)"
+msgstr ""
+
+#: inc/metabox.php
+msgid "امکانات این بسته — هر مورد در یک خط"
+msgstr ""
+
+#: inc/metabox.php
+msgid "مثلاً بهار ۱۴۰۴"
+msgstr ""
+
+#: inc/setup.php
+msgid "منوی اصلی (هدر)"
+msgstr ""
+
+#: inc/setup.php
+msgid "مگا منو"
+msgstr ""
+
+#: inc/setup.php
+#: template-parts/header/mobile-nav.php
+msgid "منوی موبایل"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر - ستون اول"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر - ستون دوم"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر - ستون سوم"
+msgstr ""
+
+#: inc/setup.php
+#: templates/template-panel.php
+msgid "منوی پنل کاربری"
+msgstr ""
+
+#: inc/setup.php
+msgid "نوار بالای سایت"
+msgstr ""
+
+#: inc/setup.php
+msgid "سایدبار اصلی"
+msgstr ""
+
+#: inc/setup.php
+#: inc/panel/config.php
+msgid "سایدبار بلاگ"
+msgstr ""
+
+#: inc/setup.php
+msgid "سایدبار فروشگاه"
+msgstr ""
+
+#: inc/setup.php
+msgid "سایدبار دوره‌ها"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر ۱"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر ۲"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر ۳"
+msgstr ""
+
+#: inc/setup.php
+msgid "فوتر ۴"
+msgstr ""
+
+#: inc/template-tags.php
+#: template-parts/footer/footer-default.php
+msgid "درباره ما"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "امتیاز %s از ۵"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "مطالب <span>مرتبط</span>"
+msgstr ""
+
+#: inc/template-tags.php
+#: search.php
+msgid "نتایج جستجو برای: %s"
+msgstr ""
+
+#: inc/template-tags.php
+#: inc/woocommerce.php
+msgid "دیدگاه"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "دقیقه مطالعه"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "اشتراک‌گذاری:"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "نوشته قبلی"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "نوشته بعدی"
+msgstr ""
+
+#: inc/template-tags.php
+msgid "صفحه‌بندی"
+msgstr ""
+
+#: inc/template-tags.php
+#: single-zc_course.php
+msgid "کپی لینک"
+msgstr ""
+
+#: inc/walker-comment.php
+msgid "دیدگاه شما در انتظار تایید است."
+msgstr ""
+
+#: inc/walker-menu.php
+msgid "محبوب‌ترین دوره‌ها"
+msgstr ""
+
+#: inc/walker-menu.php
+#: sidebar.php
+msgid "درخواست مشاوره"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "فروشگاه محصولات دیجیتال"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "قالب وردپرس، افزونه، اسکریپت و فونت فارسی — با پشتیبانی و بروزرسانی رایگان"
+msgstr ""
+
+#: inc/woocommerce.php
+#: single-zc_course.php
+msgid "تخفیف"
+msgstr ""
+
+#: inc/woocommerce.php
+#: single-zc_course.php
+msgid "افزودن به سبد خرید"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "راهنمای نصب"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "مشخصات فنی"
+msgstr ""
+
+#: inc/woocommerce.php
+#: inc/panel/redux-config.php
+#: inc/panel/fallback-panel.php
+msgid "تنظیمات زرین کد"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "تومان ایران"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "ریال ایران"
+msgstr ""
+
+#: inc/woocommerce.php
+#: inc/panel/config.php
+msgid "تومان"
+msgstr ""
+
+#: inc/woocommerce.php
+#: inc/panel/config.php
+msgid "ریال"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "محصول یافت نشد."
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "اورجینال"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "بروزرسانی"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "همه محصولات"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "پیش‌نمایش زنده"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "مشاهده سریع"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "ویژه"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "ناموجود"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "خرید"
+msgstr ""
+
+#: inc/woocommerce.php
+#: inc/modules/messenger-bot.php
+#: template-parts/panel/dashboard.php
+#: template-parts/panel/wishlist.php
+msgid "مشاهده"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "اتصال به دوره آموزشی"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "— بدون اتصال —"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "پس از خرید این محصول، کاربر به دوره انتخابی دسترسی پیدا می‌کند."
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "مدت اشتراک ویژه (روز)"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "اگر این محصول اشتراک است، تعداد روز دسترسی به همه دوره‌ها را وارد کنید."
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "لینک پیش‌نمایش زنده"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "اگر پر شود، دکمه «پیش‌نمایش زنده» روی کارت محصول نمایش داده می‌شود."
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "نام سازنده / تیم"
+msgstr ""
+
+#: inc/woocommerce.php
+#: inc/modules/ticket.php
+msgid "آخرین بروزرسانی"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "سازنده"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "مشاهده جزئیات کامل"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "دسته‌بندی محصولات"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "افزودن به علاقه‌مندی‌ها"
+msgstr ""
+
+#: inc/woocommerce.php
+msgid "مثلاً مرداد ۱۴۰۵"
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php
+msgid "سرویس پیامک پیکربندی نشده است."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php
+msgid "خطا در ارسال پیامک."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php
+#: inc/modules/auth.php
+#: inc/modules/ajax-actions.php
+#: inc/modules/services.php
+msgid "شماره موبایل معتبر نیست."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php
+msgid "لطفاً کمی صبر کنید و سپس دوباره تلاش کنید."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php
+msgid "تعداد درخواست‌های شما بیش از حد مجاز است. یک ساعت دیگر تلاش کنید."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php
+msgid "کد تایید برای شما ارسال شد."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "کد وارد شده صحیح نیست یا منقضی شده است."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "ثبت‌نام در سایت غیرفعال است."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "هدیه خوش‌آمدگویی"
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "خوش آمدید! در حال انتقال…"
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "نام کاربری و رمز عبور را وارد کنید."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "تعداد تلاش‌های ناموفق زیاد است. ۱۵ دقیقه دیگر تلاش کنید."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "نام کاربری یا رمز عبور اشتباه است."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "ورود موفق. در حال انتقال…"
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "رمز عبور باید حداقل ۶ کاراکتر باشد."
+msgstr ""
+
+#: inc/modules/auth.php
+#: inc/modules/ajax-actions.php
+msgid "ایمیل معتبر نیست."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "این شماره موبایل قبلاً ثبت شده است. وارد شوید."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "این ایمیل قبلاً ثبت شده است."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "کد تایید موبایل صحیح نیست."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "ثبت‌نام با موفقیت انجام شد. خوش آمدید!"
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "کد تایید نامعتبر است."
+msgstr ""
+
+#: inc/modules/auth.php
+msgid "کاربری با این شماره یافت نشد."
+msgstr ""
+
+#: inc/modules/auth.php
+#: inc/modules/ajax-actions.php
+msgid "رمز عبور با موفقیت تغییر کرد."
+msgstr ""
+
+#: inc/modules/wallet.php
+msgid "موجودی کیف پول کافی نیست."
+msgstr ""
+
+#: inc/modules/wallet.php
+#: inc/modules/ticket.php
+#: inc/modules/course.php
+#: inc/modules/ajax-actions.php
+msgid "ابتدا وارد شوید."
+msgstr ""
+
+#: inc/modules/wallet.php
+msgid "حداقل مبلغ شارژ %s است."
+msgstr ""
+
+#: inc/modules/wallet.php
+#: inc/modules/notification.php
+msgid "شارژ کیف پول"
+msgstr ""
+
+#: inc/modules/wallet.php
+msgid "پرداخت لغو شد."
+msgstr ""
+
+#: inc/modules/wallet.php
+msgid "شارژ کیف پول از درگاه زرین‌پال"
+msgstr ""
+
+#: inc/modules/wallet.php
+msgid "کیف پول شما با موفقیت شارژ شد. کد پیگیری: %s"
+msgstr ""
+
+#: inc/modules/wallet.php
+msgid "استفاده از موجودی کیف پول (موجودی: %1$s | قابل استفاده: %2$s)"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "مرچنت کد زرین‌پال تنظیم نشده است."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "ارتباط با درگاه پرداخت برقرار نشد."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "خطا در ایجاد تراکنش."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت تایید نشد."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "زرین‌پال (زرین کد)"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت امن آنلاین از طریق درگاه زرین‌پال با تمام کارت‌های عضو شتاب."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت آنلاین زرین‌پال"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت امن با تمام کارت‌های بانکی عضو شتاب"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "فعال‌سازی"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "فعال‌سازی درگاه زرین‌پال"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "مرچنت کد"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "کد ۳۶ کاراکتری دریافتی از پنل زرین‌پال. در صورت خالی بودن، از تنظیمات قالب خوانده می‌شود."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پیام موفقیت"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت شما با موفقیت انجام شد. کد پیگیری: {ref_id}"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پیام ناموفق"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت انجام نشد. در صورت کسر وجه، طی ۷۲ ساعت به حساب شما بازمی‌گردد."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت کامل از طریق کیف پول انجام شد."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت سفارش شماره %s"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت توسط کاربر لغو شد."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت موفق زرین‌پال. کد پیگیری: %1$s | کارت: %2$s"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت سفارش #%s"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "پرداخت سفارش #%s از کیف پول"
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "مبلغ %s از کیف پول کاربر کسر شد."
+msgstr ""
+
+#: inc/modules/zarinpal.php
+msgid "در حال انتقال به درگاه پرداخت…"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "باز"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "پاسخ داده شده"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "در انتظار پاسخ شما"
+msgstr ""
+
+#: inc/modules/ticket.php
+#: inc/modules/services.php
+msgid "در حال بررسی"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "بسته شده"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "کم"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "زیاد"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "بحرانی"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "پشتیبانی دوره‌ها"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "فروش و مشاوره"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "سایر موارد"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "ابتدا وارد حساب کاربری شوید."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "سیستم تیکتینگ غیرفعال است."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "عنوان و متن پیام الزامی است."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "لطفاً کمی صبر کنید و سپس تیکت جدید ثبت کنید."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "خطا در ثبت تیکت."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "تیکت شما با موفقیت ثبت شد. به زودی پاسخ داده می‌شود."
+msgstr ""
+
+#: inc/modules/ticket.php
+#: template-parts/panel/tickets.php
+msgid "تیکت یافت نشد."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "این تیکت بسته شده است."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "متن پاسخ را وارد کنید."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "خطا در ثبت پاسخ."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "تیکت شما با موضوع «%s» پاسخ داده شد. زرین کد"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "پاسخ شما ثبت شد."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "تیکت بسته شد."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "فایلی انتخاب نشده است."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "فرمت فایل مجاز نیست."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "حجم فایل بیش از حد مجاز است."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "تیکت جدید: %s"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "تیکت جدیدی در سایت ثبت شد.\\n\\nمتن: %1\\$s\\n\\nمشاهده: %2\\$s"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "پاسخ‌ها"
+msgstr ""
+
+#: inc/modules/ticket.php
+#: inc/modules/messenger-bot.php
+msgid "ابتدا وارد حساب خود شوید."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "امتیاز باید بین ۱ تا ۵ باشد."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "از بازخورد شما سپاسگزاریم!"
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "تیکت دوباره باز شد. کارشناسان ما به‌زودی پاسخ می‌دهند."
+msgstr ""
+
+#: inc/modules/ticket.php
+msgid "پشتیبانی"
+msgstr ""
+
+#: inc/modules/course.php
+msgid "ثبت‌نام شما در دوره «%s» با موفقیت انجام شد. زرین کد"
+msgstr ""
+
+#: inc/modules/course.php
+msgid "اطلاعات ناقص است."
+msgstr ""
+
+#: inc/modules/course.php
+msgid "شما به این دوره دسترسی ندارید."
+msgstr ""
+
+#: inc/modules/course.php
+msgid "پیشرفت شما ذخیره شد."
+msgstr ""
+
+#: inc/modules/course.php
+msgid "%1$s ساعت و %2$s دقیقه"
+msgstr ""
+
+#: inc/modules/course.php
+#: template-parts/content/card-post.php
+msgid "%s دقیقه"
+msgstr ""
+
+#: inc/modules/course.php
+msgid "این دوره رایگان نیست."
+msgstr ""
+
+#: inc/modules/course.php
+msgid "ثبت‌نام شما انجام شد!"
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "سیستم رزرو نوبت غیرفعال است."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "لطفاً تمام فیلدهای ضروری را تکمیل کنید."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "تاریخ انتخابی گذشته است."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "این بازه زمانی رزرو شده است. لطفاً زمان دیگری انتخاب کنید."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "خطا در ثبت رزرو."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "درخواست رزرو شما برای تاریخ %1$s ساعت %2$s ثبت شد. زرین کد"
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "درخواست رزرو شما با موفقیت ثبت شد. به زودی با شما تماس می‌گیریم."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "رزرو لغو شد."
+msgstr ""
+
+#: inc/modules/booking.php
+msgid "⏰ <b>یادآوری نوبت مشاوره</b>\\n\\nنوبت شما فردا %1\\$s ساعت %2\\$s رزرو شده است.\\n\\nلطفاً چند دقیقه زودتر آماده باشید."
+msgstr ""
+
+#: inc/modules/ajax-search.php
+msgid "حداقل ۲ حرف وارد کنید."
+msgstr ""
+
+#: inc/modules/ajax-search.php
+msgid "مقاله"
+msgstr ""
+
+#: inc/modules/ajax-search.php
+msgid "صفحه"
+msgstr ""
+
+#: inc/modules/ajax-search.php
+msgid "موردی یافت نشد."
+msgstr ""
+
+#: inc/modules/ajax-search.php
+msgid "مشاهده همه نتایج"
+msgstr ""
+
+#: inc/modules/ajax-search.php
+msgid "نتیجه‌ای یافت نشد. عبارت دیگری را امتحان کنید."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+#: template-parts/panel/orders.php
+msgid "فروشگاه فعال نیست."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "خطا در افزودن محصول به سبد خرید."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "محصول به سبد خرید اضافه شد."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "برای افزودن به علاقه‌مندی‌ها وارد شوید."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "از علاقه‌مندی‌ها حذف شد."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "به علاقه‌مندی‌ها اضافه شد."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "لطفاً فیلدهای ضروری را تکمیل کنید."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "لطفاً کمی صبر کنید."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "پیام جدید از سایت: %s"
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "پیام از %s"
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "پیام شما با موفقیت ارسال شد. به زودی پاسخ می‌دهیم."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "شما قبلاً عضو شده‌اید."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "عضویت شما با موفقیت ثبت شد!"
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "این ایمیل توسط کاربر دیگری استفاده شده است."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "اطلاعات با موفقیت بروزرسانی شد."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "رمز عبور فعلی اشتباه است."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "رمز جدید باید حداقل ۶ کاراکتر باشد."
+msgstr ""
+
+#: inc/modules/ajax-actions.php
+msgid "تکرار رمز عبور مطابقت ندارد."
+msgstr ""
+
+#: inc/modules/telegram.php
+msgid "تنظیمات تلگرام کامل نیست."
+msgstr ""
+
+#: inc/modules/telegram.php
+msgid "خطا در ارسال به تلگرام."
+msgstr ""
+
+#: inc/modules/telegram.php
+msgid "متن پیام را وارد کنید."
+msgstr ""
+
+#: inc/modules/telegram.php
+msgid "ارسال شد"
+msgstr ""
+
+#: inc/modules/telegram.php
+msgid "عملیات انجام شد."
+msgstr ""
+
+#: inc/modules/bale.php
+msgid "تنظیمات بله کامل نیست."
+msgstr ""
+
+#: inc/modules/bale.php
+msgid "خطا در ارسال به بله."
+msgstr ""
+
+#: inc/modules/bale.php
+msgid "✅ پیام تست از قالب زرین کد — %s"
+msgstr ""
+
+#: inc/modules/bale.php
+msgid "شماره موبایل را وارد کنید."
+msgstr ""
+
+#: inc/modules/bale.php
+msgid "کانال نامعتبر."
+msgstr ""
+
+#: inc/modules/bale.php
+msgid "پیام تست با موفقیت ارسال شد."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "چت آنلاین غیرفعال است."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "پیام خالی است."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "تعداد پیام‌های شما زیاد است."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "برای مشاهده قیمت دوره‌ها به صفحه دوره‌ها مراجعه کنید یا شماره تماس بگذارید تا همکاران ما تماس بگیرند."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "کدهای تخفیف فعال در کانال تلگرام ما منتشر می‌شود. همچنین اولین خرید شما ۱۰٪ تخفیف دارد!"
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "تیم پشتیبانی از ساعت ۹ تا ۱۸ پاسخگوی شماست. می‌توانید از بخش تیکت هم استفاده کنید."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "بله، پس از اتمام هر دوره گواهی پایان دوره با قابلیت استعلام صادر می‌شود."
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "سلام! به زرین کد خوش آمدید 👋 چطور می‌تونم کمکتون کنم؟"
+msgstr ""
+
+#: inc/modules/chat.php
+msgid "پیام شما دریافت شد. کارشناسان ما در اسرع وقت پاسخ می‌دهند. برای پیگیری سریع‌تر می‌توانید تیکت ثبت کنید."
+msgstr ""
+
+#: inc/modules/accounting.php
+msgid "حداقل مبلغ برداشت %s است."
+msgstr ""
+
+#: inc/modules/accounting.php
+msgid "موجودی کافی نیست."
+msgstr ""
+
+#: inc/modules/accounting.php
+msgid "شماره شبا را وارد کنید."
+msgstr ""
+
+#: inc/modules/accounting.php
+msgid "درخواست تسویه به شبا %s"
+msgstr ""
+
+#: inc/modules/accounting.php
+msgid "درخواست تسویه ثبت شد و پس از بررسی واریز می‌شود."
+msgstr ""
+
+#: inc/modules/seo.php
+msgid "فارس"
+msgstr ""
+
+#: inc/modules/seo.php
+msgid "کازرون"
+msgstr ""
+
+#: inc/modules/notification.php
+msgid "ثبت‌نام موفق در دوره"
+msgstr ""
+
+#: inc/modules/notification.php
+msgid "شما با موفقیت در دوره «%s» ثبت‌نام شدید. یادگیری را شروع کنید!"
+msgstr ""
+
+#: inc/modules/notification.php
+msgid "پاسخ تیکت پشتیبانی"
+msgstr ""
+
+#: inc/modules/notification.php
+msgid "تیکت «%s» پاسخ داده شد."
+msgstr ""
+
+#: inc/modules/notification.php
+msgid "مبلغ %s به کیف پول شما اضافه شد."
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "پیشخوان"
+msgstr ""
+
+#: inc/modules/user-panel.php
+#: template-parts/panel/dashboard.php
+msgid "دوره‌های من"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "دانلودهای من"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "سفارش‌ها"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "کیف پول"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "نوبت‌های من"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "علاقه‌مندی‌ها"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "گواهینامه‌ها"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "اعلان‌ها و ربات"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "ویرایش پروفایل"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "امنیت و رمز عبور"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "گواهینامه شما صادر شد!"
+msgstr ""
+
+#: inc/modules/user-panel.php
+msgid "تبریک! گواهی پایان دوره «%s» صادر شد."
+msgstr ""
+
+#: inc/modules/services.php
+msgid "جدید"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "قیمت اعلام شد"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "در حال انجام"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "رد شده"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "کمتر از ۵ میلیون تومان"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "۵ تا ۱۵ میلیون تومان"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "۱۵ تا ۴۰ میلیون تومان"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "بیش از ۴۰ میلیون تومان"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "هنوز مشخص نیست"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "فوری (کمتر از ۲ هفته)"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "حدود یک ماه"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "یک تا سه ماه"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "انعطاف‌پذیر"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "نام و شماره موبایل الزامی است."
+msgstr ""
+
+#: inc/modules/services.php
+msgid "لطفاً توضیحات پروژه را کامل‌تر بنویسید."
+msgstr ""
+
+#: inc/modules/services.php
+msgid "نامشخص"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "درخواست %1$s — %2$s"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "ثبت درخواست انجام نشد. دوباره تلاش کنید."
+msgstr ""
+
+#: inc/modules/services.php
+msgid "درخواست شما با موفقیت ثبت شد. کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرند."
+msgstr ""
+
+#: inc/modules/services.php
+msgid "[زرین کد] درخواست پروژه جدید"
+msgstr ""
+
+#: inc/modules/services.php
+#: inc/panel/config.php
+#: templates/template-panel.php
+msgid "مشتری"
+msgstr ""
+
+#: inc/modules/services.php
+msgid "اطلاعات شما محرمانه است."
+msgstr ""
+
+#: inc/modules/services.php
+msgid "هدف پروژه و امکانات موردنیاز را بنویسید…"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "پاسخ به تیکت پشتیبانی"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "انتشار دوره‌های جدید"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "محصولات تازه فروشگاه"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "مقالات و آموزش‌های جدید"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "وضعیت سفارش‌ها"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "تراکنش‌های کیف پول"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "یادآوری نوبت مشاوره"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "تخفیف‌ها و پیشنهادهای ویژه"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "پیام‌رسان نامعتبر است."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "توکن ربات تنظیم نشده است."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "خطای ناشناخته"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "✅ <b>اتصال با موفقیت انجام شد!</b>\\n\\nسلام %s عزیز،\\nاز این پس اعلان‌های زرین کد را همین‌جا دریافت می‌کنید.\\n\\nبرای مدیریت اعلان‌ها به پنل کاربری خود مراجعه کنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "ورود به پنل کاربری"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "❌ کد وارد شده معتبر نیست.\\n\\nلطفاً از پنل کاربری سایت، کد اتصال تازه دریافت کنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "👋 به ربات <b>%s</b> خوش آمدید!\\n\\nبرای دریافت اعلان‌های شخصی، ابتدا وارد پنل کاربری سایت شوید و کد اتصال خود را دریافت کنید، سپس آن را به این صورت ارسال کنید:\\n\\n<code>/start کد‌شما</code>"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "دریافت کد اتصال"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "🔕 اتصال شما قطع شد. دیگر اعلانی دریافت نخواهید کرد."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "📖 <b>راهنمای ربات</b>\\n\\n/start کد — اتصال حساب کاربری\\n/stop — قطع اعلان‌ها\\n/help — نمایش این راهنما\\n\\nبرای پشتیبانی، از سایت تیکت ثبت کنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "درخواست نامعتبر است."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "وب‌هوک با موفقیت ثبت شد."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "تنظیمات اعلان‌ها ذخیره شد."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "اتصال قطع شد."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "کد تازه ساخته شد."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "💬 <b>پاسخ تازه به تیکت شما</b>\\n\\n📌 %s\\n\\nبرای مشاهده‌ی پاسخ روی دکمه‌ی زیر بزنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "مشاهده تیکت"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "🎓 دوره‌ی جدید منتشر شد"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "🛒 محصول تازه در فروشگاه"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "📝 مطلب تازه در مجله"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "محتوای تازه"
+msgstr ""
+
+#: inc/modules/messenger-bot.php
+msgid "هر ۵ دقیقه (زرین کد)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تنظیمات عمومی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "لوگوی هدر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "اندازه پیشنهادی: ۱۸۰×۵۰ پیکسل (فرمت SVG یا PNG)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "لوگوی فوتر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فاوآیکون"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نام سایت (بخش اول)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نام سایت (بخش طلایی)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "شعار زیر لوگو"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "چیدمان سایت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "باکس‌دار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "عرض محتوا (پیکسل)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش پیش‌بارگذار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "دکمه بازگشت به بالا"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "انیمیشن‌های اسکرول"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "واحد پول"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "CSS سفارشی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "رنگ‌بندی و فونت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "رنگ اصلی (طلایی)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "رنگ طلایی روشن"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "رنگ تیره"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "رنگ سرمه‌ای"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "رنگ پس‌زمینه سایت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "گردی گوشه‌ها (پیکسل)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "اندازه فونت پایه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فونت سایت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "هدر و منو"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "استایل هدر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پیش‌فرض"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "وسط‌چین"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مینیمال"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "قالب سفارشی هدر (المنتور)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "هدر چسبان هنگام اسکرول"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش نوار بالای سایت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش آیکن سبد خرید"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "جستجوی ای‌جکس"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تعداد نتایج جستجو"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "جستجوهای پرطرفدار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "با کاما جدا کنید"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن دکمه هدر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "لینک دکمه هدر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فوتر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "قالب سفارشی فوتر (المنتور)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن درباره ما در فوتر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن کنار شبکه‌های اجتماعی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "عنوان ستون اول"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "عنوان ستون دوم"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن کپی‌رایت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمادهای اعتماد"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "اطلاعات تماس"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "موبایل / واتساپ"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ایمیل دریافت فرم تماس"
+msgstr ""
+
+#: inc/panel/config.php
+#: template-parts/panel/profile.php
+msgid "آدرس"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "استان"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "شهر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ساعات کاری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "شبکه‌های اجتماعی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "اینستاگرام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ایکس (توییتر)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "یوتیوب"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "آپارات"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "واتساپ"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "دکمه‌های اشتراک‌گذاری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی اشتراک‌گذاری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش خودکار در انتهای مطالب"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ایکس"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فیسبوک"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پنل پیامک کاوه‌نگار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی سرویس پیامک"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "کلید API کاوه‌نگار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "از پنل کاوه‌نگار » تنظیمات » کلید وب سرویس دریافت کنید."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "شماره فرستنده"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مثال: 10004346"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نام الگوی کد تایید"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نام الگوی تایید شده در پنل کاوه‌نگار (Verify Lookup)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن پیامک کد (بدون الگو)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مدت اعتبار کد (ثانیه)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فاصله ارسال مجدد (ثانیه)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حداکثر درخواست در ساعت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حالت تست (بدون ارسال واقعی)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "کد در فایل debug.log ثبت می‌شود."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پیامک ثبت سفارش"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن پیامک سفارش"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پیامک پاسخ تیکت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پیامک ثبت‌نام در دوره"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پیامک رزرو نوبت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "درگاه پرداخت زرین‌پال"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مرچنت کد زرین‌پال"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "کد ۳۶ کاراکتری دریافتی از پنل زرین‌پال"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "واحد ارسالی به درگاه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حالت تست (Sandbox)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "کیف پول و حسابداری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی کیف پول"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حداقل مبلغ شارژ"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حداقل مبلغ تسویه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "هدیه خوش‌آمدگویی به کیف پول"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مبلغی که هنگام ثبت‌نام به کیف پول کاربر واریز می‌شود. صفر = غیرفعال"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "سیستم آموزشی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نامک آدرس دوره‌ها"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تعداد دوره در هر صفحه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "چیدمان صفحه دوره"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "با سایدبار چسبان (مثل مکتب‌خونه)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش سرفصل‌ها"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی نظرات دوره"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "صدور گواهی پایان دوره"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تیکتینگ و پشتیبانی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی تیکتینگ"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "دپارتمان‌ها (هر خط یکی)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حداکثر حجم پیوست (مگابایت)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ایمیل اطلاع‌رسانی تیکت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی چت آنلاین"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پاسخ پیش‌فرض چت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "قوانین پاسخ خودکار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "هر خط: کلیدواژه | پاسخ"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "اطلاع پیام چت در تلگرام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی رزرو نوبت"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ساعت شروع"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ساعت پایان"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فاصله هر نوبت (دقیقه)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ظرفیت هر بازه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تلگرام و بله"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی تلگرام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "توکن ربات تلگرام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "از @BotFather دریافت کنید."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "آیدی کانال/گروه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مثال: @zarincode یا -1001234567890"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فعال‌سازی بله"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "توکن ربات بله"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "آیدی کانال بله"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ارسال خودکار برای"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نوشته‌ها"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "قالب پیام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "شورت‌کدها: {label} {title} {excerpt} {price} {link} {site}"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متن دکمه پیام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "ربات اعلان شخصی کاربران"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "با تنظیم موارد زیر، کاربران می‌توانند حساب خود را به ربات متصل کنند و اعلان‌های شخصی (پاسخ تیکت، سفارش، دوره جدید و ...) دریافت کنند."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نام کاربری ربات تلگرام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "بدون @ — مثال: ZarincodeBot"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نام کاربری ربات بله"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "بدون @"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "کلید امنیتی وب‌هوک"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "یک رشته تصادفی؛ به انتهای آدرس وب‌هوک اضافه می‌شود."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "آیدی چت مدیر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "برای دریافت اعلان درخواست پروژه و تیکت جدید."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "کلید کران خارجی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "برای اجرای صف اعلان‌ها از طریق کران هاست."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حساب کاربری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "صفحه ورود و ثبت‌نام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "صفحه پنل کاربری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "روش ورود"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "پیامک و رمز عبور"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فقط پیامک"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فقط رمز عبور"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "اجازه ثبت‌نام کاربران"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تایید موبایل هنگام ثبت‌نام"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نقش پیش‌فرض کاربران"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مشترک"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "مسدودسازی پیشخوان وردپرس"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "انتقال wp-login به صفحه سفارشی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "عنوان صفحه ورود"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "توضیحات صفحه ورود"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "لینک قوانین و مقررات"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حداکثر تلاش ناموفق ورود"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "بلاگ و نوشته‌ها"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "چیدمان بلاگ"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "لیستی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "آجری"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "بدون سایدبار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش مطالب مرتبط"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "تعداد مطالب مرتبط"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش نوشته قبلی/بعدی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نمایش باکس نویسنده"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "نوار پیشرفت مطالعه"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "فهرست مطالب خودکار"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "سئو و بهینه‌سازی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "متاتگ‌های سئو داخلی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "در صورت استفاده از یواست یا رنک‌مث، خودکار غیرفعال می‌شود."
+msgstr ""
+
+#: inc/panel/config.php
+msgid "داده‌های ساختاریافته (Schema)"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "بارگذاری تنبل تصاویر"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حذف CSS بلوک‌های اضافی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حذف اسکریپت ایموجی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حذف jQuery Migrate"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حذف Dashicons برای مهمان"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "غیرفعال‌سازی Heartbeat"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "غیرفعال‌سازی XML-RPC"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "هدرهای امنیتی"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "حداکثر نسخه‌های پیشین"
+msgstr ""
+
+#: inc/panel/config.php
+msgid "غیرفعال‌سازی کش داخلی (دیباگ)"
+msgstr ""
+
+#: inc/panel/redux-config.php
+#: inc/panel/fallback-panel.php
+msgid "تنظیمات قالب زرین کد"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "پنل تنظیمات قالب زرین کد"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "قالب زرین کد نسخه %s | طراحی و توسعه اختصاصی"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "خوش آمدید"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "به پنل تنظیمات قالب زرین کد خوش آمدید"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "از منوی سمت راست می‌توانید تمام بخش‌های قالب را از هدر تا فوتر شخصی‌سازی کنید. برای ساخت صفحات از ویجت‌های اختصاصی «زرین کد» در المنتور استفاده کنید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "راهنمای سریع"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "پشتیبانی و راهنما"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "نیاز به کمک دارید؟"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "برای دریافت پشتیبانی، مستندات کامل قالب را در فایل README.md مطالعه کنید یا با تیم پشتیبانی تماس بگیرید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "فعال"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "غیرفعال"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "توضیح"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "نسخه PHP"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "نسخه وردپرس"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "المنتور"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "ووکامرس"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "حافظه PHP"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "پیامک کاوه‌نگار"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "پیکربندی شده"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "پیکربندی نشده"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "درگاه زرین‌پال"
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "ابتدا افزونه‌های پیشنهادی (المنتور، ووکامرس) را نصب کنید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "از بخش «درون‌ریزی دمو» محتوای نمونه را وارد کنید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "کلید API کاوه‌نگار و مرچنت کد زرین‌پال را در بخش مربوطه وارد کنید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "لوگو، رنگ‌بندی و اطلاعات تماس را تنظیم کنید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "صفحه اصلی را با المنتور و ویجت‌های زرین کد بسازید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "در حال حاضر از پنل تنظیمات داخلی استفاده می‌شود. برای دسترسی به پنل کامل Redux Framework، آن را نصب کنید."
+msgstr ""
+
+#: inc/panel/redux-config.php
+msgid "نصب Redux Framework"
+msgstr ""
+
+#: inc/panel/fallback-panel.php
+#: template-parts/panel/notifications.php
+msgid "ذخیره تنظیمات"
+msgstr ""
+
+#: inc/panel/fallback-panel.php
+msgid "نسخه %s | پنل تنظیمات داخلی"
+msgstr ""
+
+#: inc/panel/fallback-panel.php
+msgid "انتخاب تصویر"
+msgstr ""
+
+#: inc/panel/fallback-panel.php
+msgid "برای مدیریت این بخش، افزونه Redux Framework را نصب کنید."
+msgstr ""
+
+#: index.php
+msgid "مجله زرین کد"
+msgstr ""
+
+#: index.php
+msgid "آخرین مقالات، اخبار تکنولوژی و نکات کاربردی دنیای برنامه‌نویسی و کسب‌وکار دیجیتال"
+msgstr ""
+
+#: index.php
+msgid "همه مطالب"
+msgstr ""
+
+#: index.php
+msgid "هنوز مطلبی منتشر نشده است"
+msgstr ""
+
+#: index.php
+msgid "به زودی مقالات تازه در این بخش قرار می‌گیرد. می‌توانید از دوره‌های آموزشی دیدن کنید."
+msgstr ""
+
+#: index.php
+msgid "دسته‌بندی مطالب"
+msgstr ""
+
+#: search.php
+msgid "نتیجه‌ای یافت نشد"
+msgstr ""
+
+#: search.php
+msgid "عبارت دیگری را جستجو کنید یا از دسته‌بندی‌ها استفاده کنید."
+msgstr ""
+
+#: searchform.php
+msgid "جستجو…"
+msgstr ""
+
+#: sidebar.php
+msgid "دوره‌های پیشنهادی"
+msgstr ""
+
+#: sidebar.php
+msgid "برای انتخاب مسیر یادگیری با کارشناسان ما صحبت کنید."
+msgstr ""
+
+#: single-zc_course.php
+#: template-parts/panel/dashboard.php
+msgid "ادامه یادگیری"
+msgstr ""
+
+#: single-zc_course.php
+#: template-parts/panel/courses.php
+msgid "شروع دوره"
+msgstr ""
+
+#: single-zc_course.php
+msgid "مدرس:"
+msgstr ""
+
+#: single-zc_course.php
+msgid "معرفی دوره"
+msgstr ""
+
+#: single-zc_course.php
+msgid "در این دوره چه می‌آموزید؟"
+msgstr ""
+
+#: single-zc_course.php
+msgid "فصل"
+msgstr ""
+
+#: single-zc_course.php
+msgid "مشاهده پروفایل و دوره‌ها"
+msgstr ""
+
+#: single-zc_course.php
+msgid "اطلاعات مدرس ثبت نشده است."
+msgstr ""
+
+#: single-zc_course.php
+msgid "پیش‌نمایش رایگان"
+msgstr ""
+
+#: single-zc_course.php
+msgid "شما این دوره را دارید"
+msgstr ""
+
+#: single-zc_course.php
+msgid "ثبت‌نام رایگان"
+msgstr ""
+
+#: single-zc_course.php
+msgid "خرید سریع"
+msgstr ""
+
+#: single-zc_course.php
+msgid "ثبت‌نام در دوره"
+msgstr ""
+
+#: single-zc_course.php
+msgid "جلسه ویدیویی"
+msgstr ""
+
+#: single-zc_course.php
+msgid "محتوای آموزشی"
+msgstr ""
+
+#: single-zc_course.php
+msgid "دسترسی مادام‌العمر"
+msgstr ""
+
+#: single-zc_course.php
+#: template-parts/panel/certificates.php
+msgid "گواهی پایان دوره"
+msgstr ""
+
+#: single-zc_course.php
+#: templates/template-login.php
+msgid "پشتیبانی مستقیم مدرس"
+msgstr ""
+
+#: single-zc_course.php
+msgid "۷ روز ضمانت بازگشت وجه"
+msgstr ""
+
+#: single-zc_course.php
+msgid "پخش"
+msgstr ""
+
+#: single-zc_course.php
+msgid "پیش‌نمایش دوره"
+msgstr ""
+
+#: single-zc_course.php
+msgid "علاقه‌مندی"
+msgstr ""
+
+#: single-zc_teacher.php
+msgid "دوره‌های این مدرس"
+msgstr ""
+
+#: single-zc_teacher.php
+msgid "با یادگیری از بهترین‌ها، مسیر حرفه‌ای شدن را کوتاه کنید"
+msgstr ""
+
+#: single-zc_teacher.php
+msgid "آموزش‌های رایگان"
+msgstr ""
+
+#: single-zc_teacher.php
+msgid "محتوای رایگان منتشرشده توسط این مدرس"
+msgstr ""
+
+#: single-zc_teacher.php
+msgid "درباره مدرس"
+msgstr ""
+
+#: single-zc_tutorial.php
+#: single.php
+msgid "صفحات:"
+msgstr ""
+
+#: single-zc_tutorial.php
+msgid "اشتراک‌گذاری این آموزش:"
+msgstr ""
+
+#: single-zc_tutorial.php
+msgid "دوره‌های تخصصی مرتبط"
+msgstr ""
+
+#: single.php
+msgid "نویسنده زرین کد"
+msgstr ""
+
+#: single.php
+msgid "%s دقیقه مطالعه"
+msgstr ""
+
+#: single.php
+msgid "برچسب‌ها"
+msgstr ""
+
+#: single.php
+msgid "این مطلب مفید بود؟ آن را با دوستانتان به اشتراک بگذارید"
+msgstr ""
+
+#: template-parts/content/card-post.php
+msgid "ادامه مطلب"
+msgstr ""
+
+#: template-parts/footer/chat.php
+msgid "آنلاین"
+msgstr ""
+
+#: template-parts/footer/chat.php
+msgid "چت آنلاین"
+msgstr ""
+
+#: template-parts/footer/chat.php
+#: template-parts/header/search-modal.php
+msgid "بستن"
+msgstr ""
+
+#: template-parts/footer/chat.php
+msgid "پیام خود را بنویسید…"
+msgstr ""
+
+#: template-parts/footer/chat.php
+msgid "پیام"
+msgstr ""
+
+#: template-parts/footer/chat.php
+msgid "ارسال"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "فروشگاه محصولات"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "مقالات و آموزش‌ها"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+#: templates/template-login.php
+msgid "قوانین و مقررات"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "حریم خصوصی"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "همکاری در فروش"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "نماد اعتماد الکترونیکی"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "ساماندهی"
+msgstr ""
+
+#: template-parts/footer/footer-default.php
+msgid "نماد اعتماد"
+msgstr ""
+
+#: template-parts/header/header-default.php
+msgid "پشتیبانی آنلاین"
+msgstr ""
+
+#: template-parts/header/header-default.php
+msgid "منوی اصلی"
+msgstr ""
+
+#: template-parts/header/header-default.php
+msgid "جستجو (Ctrl+K)"
+msgstr ""
+
+#: template-parts/header/header-default.php
+#: template-parts/header/mobile-nav.php
+msgid "سبد خرید"
+msgstr ""
+
+#: template-parts/header/header-default.php
+#: template-parts/header/mobile-nav.php
+msgid "پنل کاربری"
+msgstr ""
+
+#: template-parts/header/header-default.php
+msgid "ورود و ثبت‌نام"
+msgstr ""
+
+#: template-parts/header/header-default.php
+#: templates/template-panel.php
+msgid "منو"
+msgstr ""
+
+#: template-parts/header/mobile-nav.php
+msgid "خروج"
+msgstr ""
+
+#: template-parts/header/mobile-nav.php
+#: templates/template-login.php
+msgid "ورود / ثبت‌نام"
+msgstr ""
+
+#: template-parts/header/mobile-nav.php
+msgid "بستن منو"
+msgstr ""
+
+#: template-parts/header/search-modal.php
+msgid "مقالات"
+msgstr ""
+
+#: template-parts/header/search-modal.php
+msgid "جستجوهای پرطرفدار:"
+msgstr ""
+
+#: template-parts/header/search-modal.php
+msgid "برای بستن کلید ESC را بزنید"
+msgstr ""
+
+#: template-parts/header/search-modal.php
+msgid "جستجو در سایت"
+msgstr ""
+
+#: template-parts/header/search-modal.php
+msgid "دنبال چه چیزی می‌گردید؟ (دوره، محصول، مقاله…)"
+msgstr ""
+
+#: template-parts/header/search-modal.php
+msgid "عبارت جستجو"
+msgstr ""
+
+#: template-parts/single/author-box.php
+msgid "همه نوشته‌های نویسنده"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "دوره تکمیل‌شده"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "موجودی کیف پول"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+#: template-parts/panel/tickets.php
+msgid "تیکت‌های من"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "سلام %s، خوش آمدید 👋"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "از اینجا می‌توانید دوره‌ها، سفارش‌ها، کیف پول و تیکت‌های خود را مدیریت کنید."
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "مشاهده دوره‌های جدید"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "هنوز در دوره‌ای ثبت‌نام نکرده‌اید."
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "آخرین اعلان‌ها"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "اعلان جدیدی ندارید."
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "آخرین سفارش‌ها"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "همه سفارش‌ها"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "شماره"
+msgstr ""
+
+#: template-parts/panel/dashboard.php
+msgid "هنوز سفارشی ثبت نکرده‌اید."
+msgstr ""
+
+#: template-parts/panel/courses.php
+msgid "در حال یادگیری"
+msgstr ""
+
+#: template-parts/panel/courses.php
+msgid "ادامه دوره"
+msgstr ""
+
+#: template-parts/panel/courses.php
+msgid "پیشرفت"
+msgstr ""
+
+#: template-parts/panel/courses.php
+msgid "هنوز در دوره‌ای ثبت‌نام نکرده‌اید"
+msgstr ""
+
+#: template-parts/panel/courses.php
+msgid "با ثبت‌نام در دوره‌های زرین کد، مسیر حرفه‌ای شدن را شروع کنید."
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "موفق"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "در انتظار"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "موجودی کیف پول شما"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "افزایش موجودی"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "مبلغ مورد نظر"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "پرداخت و شارژ کیف پول"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "پرداخت امن از طریق درگاه زرین‌پال"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "درخواست تسویه"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "مبلغ برداشت"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "شماره شبا (بدون IR)"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+#: single-zc_service.php
+msgid "ثبت درخواست"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "تاریخچه تراکنش‌ها"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "موجودی"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "کد پیگیری:"
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "تراکنشی ثبت نشده است."
+msgstr ""
+
+#: template-parts/panel/wallet.php
+msgid "مثلاً ۱۰۰۰۰۰"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "بازگشت به لیست تیکت‌ها"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "دانلود پیوست"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "پاسخ شما"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "ارسال پاسخ"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "بستن تیکت"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "این تیکت بسته شده است. برای پیگیری، تیکت جدید ثبت کنید."
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "تیکتی ثبت نکرده‌اید."
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "ثبت تیکت جدید"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "فایل پیوست"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "حداکثر ۵ مگابایت"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "ارسال تیکت"
+msgstr ""
+
+#: template-parts/panel/tickets.php
+msgid "پاسخ خود را بنویسید…"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "اطلاعات شخصی"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "تغییر تصویر پروفایل"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "فرمت JPG یا PNG، حداکثر ۲ مگابایت"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "نام خانوادگی"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "برای تغییر موبایل با پشتیبانی تماس بگیرید."
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "شغل / تخصص"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "کد ملی"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "درباره من"
+msgstr ""
+
+#: template-parts/panel/profile.php
+msgid "ذخیره تغییرات"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "تغییر رمز عبور"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "رمز عبور فعلی"
+msgstr ""
+
+#: template-parts/panel/security.php
+#: templates/template-login.php
+msgid "رمز عبور جدید"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "حداقل ۶ کاراکتر، ترکیبی از حروف و اعداد"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "تکرار رمز عبور جدید"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "اطلاعات حساب"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "نام کاربری"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "تاریخ عضویت"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "آخرین ورود"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "وضعیت موبایل"
+msgstr ""
+
+#: template-parts/panel/security.php
+#: template-parts/panel/bookings.php
+msgid "تایید شده"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "تایید نشده"
+msgstr ""
+
+#: template-parts/panel/security.php
+msgid "برای امنیت بیشتر، رمز عبور خود را هر چند ماه یکبار تغییر دهید و آن را در اختیار دیگران قرار ندهید."
+msgstr ""
+
+#: template-parts/panel/orders.php
+msgid "تاریخچه سفارش‌ها"
+msgstr ""
+
+#: template-parts/panel/orders.php
+msgid "شماره سفارش"
+msgstr ""
+
+#: template-parts/panel/orders.php
+msgid "عملیات"
+msgstr ""
+
+#: template-parts/panel/orders.php
+msgid "پرداخت"
+msgstr ""
+
+#: template-parts/panel/orders.php
+msgid "سفارشی ثبت نکرده‌اید"
+msgstr ""
+
+#: template-parts/panel/orders.php
+msgid "رفتن به فروشگاه"
+msgstr ""
+
+#: template-parts/panel/downloads.php
+msgid "%s بار باقیمانده"
+msgstr ""
+
+#: template-parts/panel/downloads.php
+msgid "فایل‌های قابل دانلود"
+msgstr ""
+
+#: template-parts/panel/downloads.php
+msgid "دانلود"
+msgstr ""
+
+#: template-parts/panel/downloads.php
+msgid "فایل قابل دانلودی ندارید"
+msgstr ""
+
+#: template-parts/panel/downloads.php
+msgid "پس از خرید محصولات دیجیتال، لینک دانلود در این بخش نمایش داده می‌شود."
+msgstr ""
+
+#: template-parts/panel/wishlist.php
+msgid "افزودن به سبد"
+msgstr ""
+
+#: template-parts/panel/wishlist.php
+msgid "لیست علاقه‌مندی‌های شما خالی است"
+msgstr ""
+
+#: template-parts/panel/wishlist.php
+msgid "با کلیک روی آیکن قلب، دوره‌ها و محصولات مورد علاقه خود را ذخیره کنید."
+msgstr ""
+
+#: template-parts/panel/wishlist.php
+msgid "حذف از علاقه‌مندی‌ها"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "در انتظار تایید"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "انجام شده"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "لغو شده"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "نوبت‌های رزرو شده"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "لغو"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "نوبتی رزرو نکرده‌اید."
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "رزرو نوبت جدید"
+msgstr ""
+
+#: template-parts/panel/bookings.php
+msgid "ثبت رزرو"
+msgstr ""
+
+#: template-parts/panel/certificates.php
+msgid "اعطا شده به: %s"
+msgstr ""
+
+#: template-parts/panel/certificates.php
+msgid "کد گواهی:"
+msgstr ""
+
+#: template-parts/panel/certificates.php
+msgid "دریافت گواهی"
+msgstr ""
+
+#: template-parts/panel/certificates.php
+msgid "هنوز گواهینامه‌ای دریافت نکرده‌اید"
+msgstr ""
+
+#: template-parts/panel/certificates.php
+msgid "با تکمیل ۱۰۰٪ جلسات هر دوره، گواهی پایان دوره برای شما صادر می‌شود."
+msgstr ""
+
+#: template-parts/panel/certificates.php
+msgid "ادامه دوره‌ها"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "اتصال به ربات %s"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "اعلان‌ها و ربات پیام‌رسان"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "حساب کاربری خود را به ربات تلگرام یا بله متصل کنید تا اعلان‌های سایت — مانند پاسخ تیکت، دوره‌های تازه و وضعیت سفارش — را مستقیماً در پیام‌رسان دریافت کنید."
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "متصل است"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "متصل نیست"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "این سرویس هنوز توسط مدیر سایت پیکربندی نشده است."
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "اعلان‌های شما به این حساب ارسال می‌شود."
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "قطع اتصال"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "روی دکمه‌ی زیر بزنید تا ربات باز شود."
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "دستور /start را همراه کد زیر ارسال کنید."
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "همین! از این پس اعلان‌ها را دریافت می‌کنید."
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "کد اتصال اختصاصی شما"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "کپی"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "کد جدید"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "این کد را در اختیار دیگران قرار ندهید. برای اتصال، دستور زیر را به ربات بفرستید:"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "چه اعلان‌هایی دریافت کنم؟"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "از قطع اتصال مطمئن هستید؟"
+msgstr ""
+
+#: template-parts/panel/notifications.php
+msgid "کپی کد"
+msgstr ""
+
+#: template-parts/panel/requests.php
+msgid "ثبت درخواست تازه"
+msgstr ""
+
+#: template-parts/panel/requests.php
+msgid "مبلغ پیشنهادی:"
+msgstr ""
+
+#: template-parts/panel/requests.php
+msgid "هنوز درخواستی ثبت نکرده‌اید"
+msgstr ""
+
+#: template-parts/panel/requests.php
+msgid "برای سفارش طراحی سایت، انجام پروژه یا خدمات سئو، از صفحه خدمات اقدام کنید."
+msgstr ""
+
+#: template-parts/panel/requests.php
+msgid "مشاهده خدمات"
+msgstr ""
+
+#: templates/template-booking.php
+msgid "زمان مناسب خود را برای جلسه مشاوره انتخاب کنید"
+msgstr ""
+
+#: templates/template-booking.php
+msgid "فرم رزرو نوبت"
+msgstr ""
+
+#: templates/template-booking.php
+msgid "راهنمای رزرو"
+msgstr ""
+
+#: templates/template-booking.php
+msgid "پس از ثبت درخواست، همکاران ما جهت تایید نهایی تماس می‌گیرند."
+msgstr ""
+
+#: templates/template-booking.php
+msgid "جلسات مشاوره اولیه کاملاً رایگان است."
+msgstr ""
+
+#: templates/template-booking.php
+msgid "امکان لغو یا تغییر زمان تا ۲۴ ساعت قبل وجود دارد."
+msgstr ""
+
+#: templates/template-booking.php
+msgid "تماس مستقیم"
+msgstr ""
+
+#: templates/template-booking.php
+msgid "تلفن"
+msgstr ""
+
+#: templates/template-booking.php
+msgid "در صورت نیاز توضیحات خود را بنویسید…"
+msgstr ""
+
+#: templates/template-login.php
+msgid "دسترسی به دوره‌های ویدیویی"
+msgstr ""
+
+#: templates/template-login.php
+msgid "کیف پول و تخفیف‌های ویژه"
+msgstr ""
+
+#: templates/template-login.php
+msgid "رقم %d"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ورود با پیامک"
+msgstr ""
+
+#: templates/template-login.php
+msgid "رمز عبور"
+msgstr ""
+
+#: templates/template-login.php
+msgid "شماره موبایل خود را وارد کنید تا کد تایید ارسال شود."
+msgstr ""
+
+#: templates/template-login.php
+msgid "دریافت کد تایید"
+msgstr ""
+
+#: templates/template-login.php
+msgid "با ورود، "
+msgstr ""
+
+#: templates/template-login.php
+msgid " را می‌پذیرم."
+msgstr ""
+
+#: templates/template-login.php
+msgid "تغییر شماره"
+msgstr ""
+
+#: templates/template-login.php
+msgid "کد تایید را وارد کنید"
+msgstr ""
+
+#: templates/template-login.php
+msgid "کد ۵ رقمی ارسال شده به موبایل خود را وارد کنید."
+msgstr ""
+
+#: templates/template-login.php
+msgid "ارسال مجدد کد تا"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ارسال مجدد کد"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ورود به حساب"
+msgstr ""
+
+#: templates/template-login.php
+msgid "با نام کاربری، ایمیل یا موبایل وارد شوید."
+msgstr ""
+
+#: templates/template-login.php
+msgid "نام کاربری / ایمیل / موبایل"
+msgstr ""
+
+#: templates/template-login.php
+msgid "مرا به خاطر بسپار"
+msgstr ""
+
+#: templates/template-login.php
+msgid "فراموشی رمز عبور؟"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ورود"
+msgstr ""
+
+#: templates/template-login.php
+msgid "حساب کاربری ندارید؟"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ثبت‌نام کنید"
+msgstr ""
+
+#: templates/template-login.php
+msgid "بازگشت به ورود"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ساخت حساب جدید"
+msgstr ""
+
+#: templates/template-login.php
+msgid "اطلاعات زیر را تکمیل کنید."
+msgstr ""
+
+#: templates/template-login.php
+msgid "ایمیل (اختیاری)"
+msgstr ""
+
+#: templates/template-login.php
+msgid "کد تایید موبایل"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ارسال کد"
+msgstr ""
+
+#: templates/template-login.php
+msgid "ثبت‌نام"
+msgstr ""
+
+#: templates/template-login.php
+msgid "بازگشت"
+msgstr ""
+
+#: templates/template-login.php
+msgid "بازیابی رمز عبور"
+msgstr ""
+
+#: templates/template-login.php
+msgid "با دریافت کد پیامکی، رمز جدید تعیین کنید."
+msgstr ""
+
+#: templates/template-login.php
+msgid "کد تایید"
+msgstr ""
+
+#: templates/template-login.php
+msgid "تغییر رمز و ورود"
+msgstr ""
+
+#: templates/template-panel.php
+msgid "مدیر سایت"
+msgstr ""
+
+#: templates/template-panel.php
+msgid "موجودی:"
+msgstr ""
+
+#: templates/template-panel.php
+msgid "خروج از حساب"
+msgstr ""
+
+#: templates/template-panel.php
+msgid "بازگشت به سایت"
+msgstr ""
+
+#: templates/template-panel.php
+msgid "اعلان‌ها"
+msgstr ""
+
+#: single-zc_service.php
+msgid "شروع قیمت از"
+msgstr ""
+
+#: single-zc_service.php
+msgid "مشاوره تلفنی"
+msgstr ""
+
+#: single-zc_service.php
+msgid "این خدمت شامل چه مواردی است؟"
+msgstr ""
+
+#: single-zc_service.php
+msgid "انتخاب این بسته"
+msgstr ""
+
+#: single-zc_service.php
+msgid "ثبت درخواست این خدمت"
+msgstr ""
+
+#: single-zc_service.php
+msgid "فرم زیر را پر کنید؛ کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرند."
+msgstr ""
+

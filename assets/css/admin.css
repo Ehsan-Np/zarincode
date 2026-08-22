@@ -1,0 +1,569 @@
+/**
+ * Zarincode Admin Styles
+ */
+/* ==========================================================================
+   عرض و واکنش‌گرایی صفحه‌های مدیریتی
+   ==========================================================================
+   پیش‌تر max-width ثابت ۱۳۰۰ پیکسل بود. در پیشخوان فارسی که راست‌چین
+   است، محتوا به لبه‌ی راست می‌چسبد و در نمایشگرهای بزرگ یک فضای خالی
+   بزرگ سمت چپ باقی می‌ماند. با حذف محدودیت عرض و استفاده از margin
+   منطقی، صفحه در هر دو جهت و هر اندازه‌ای درست پر می‌شود.
+   ========================================================================== */
+.zc-admin-wrap{
+  max-width:none;
+  width:auto;
+  margin-inline:0;
+  margin-inline-end:20px;
+  padding-inline-end:0
+}
+.zc-admin-wrap *{box-sizing:border-box}
+
+/* وردپرس به .wrap حاشیه‌ی راست می‌دهد؛ در RTL باید متقارن شود. */
+.rtl .zc-admin-wrap{margin-inline-end:20px}
+
+@media(max-width:782px){
+  .zc-admin-wrap{margin-inline-end:10px}
+}
+.zc-admin-header{
+  background:linear-gradient(135deg,#1B2245,#141A31 60%,#0E1226);border-radius:16px;padding:26px 30px;
+  margin:16px 0 22px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  position:relative;overflow:hidden
+}
+.zc-admin-header::before{content:'';position:absolute;inset-inline-end:-60px;top:-60px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.35),transparent 70%);filter:blur(26px)}
+.zc-admin-header h1{color:#fff;margin:0 0 4px;font-size:1.5rem;position:relative}
+.zc-admin-header p{color:rgba(255,255,255,.66);margin:0;font-size:.87rem;position:relative}
+.zc-admin-header__actions{display:flex;gap:8px;flex-wrap:wrap;position:relative}
+
+.zc-admin-layout{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:start}
+.zc-admin-nav{background:#fff;border:1px solid #e2e4e7;border-radius:12px;padding:8px;position:sticky;top:50px}
+.zc-admin-nav a{
+  display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:9px;text-decoration:none;
+  color:#1d2327;font-weight:500;font-size:.88rem;transition:all .2s;margin-bottom:2px
+}
+.zc-admin-nav a:hover{background:rgba(201,162,39,.1);color:#8C6D1F}
+.zc-admin-nav a.is-active{background:linear-gradient(135deg,#F5D061,#C9A227);color:#241C05;font-weight:700}
+.zc-admin-nav .dashicons{font-size:18px;width:18px;height:18px}
+
+.zc-admin-content{background:#fff;border:1px solid #e2e4e7;border-radius:12px;padding:24px}
+.zc-admin-section-title{margin-top:0;padding-bottom:12px;border-bottom:2px solid rgba(201,162,39,.2);color:#141A31}
+.zc-admin-table th{width:230px;font-weight:600}
+.zc-admin-table input[type=text],.zc-admin-table input[type=url],.zc-admin-table input[type=password],.zc-admin-table input[type=number],.zc-admin-table select{border-radius:7px}
+.zc-admin-color{width:60px;height:38px;border:1px solid #ddd;border-radius:8px;cursor:pointer;padding:2px}
+.zc-admin-range{width:240px;vertical-align:middle;accent-color:#C9A227}
+
+.zc-admin-switch{position:relative;display:inline-block;width:52px;height:28px}
+.zc-admin-switch input{opacity:0;width:0;height:0}
+.zc-admin-switch__slider{position:absolute;inset:0;background:#ccd0d4;border-radius:28px;cursor:pointer;transition:.3s}
+.zc-admin-switch__slider::before{content:'';position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.zc-admin-switch input:checked + .zc-admin-switch__slider{background:linear-gradient(135deg,#F5D061,#C9A227)}
+.zc-admin-switch input:checked + .zc-admin-switch__slider::before{transform:translateX(24px)}
+
+.zc-admin-media__preview img{border:1px solid #e2e4e7}
+.zc-admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:20px}
+.zc-admin-stat{background:#fff;border:1px solid #e2e4e7;border-radius:12px;padding:18px;display:flex;align-items:center;gap:13px;transition:all .25s}
+.zc-admin-stat:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.07)}
+.zc-admin-stat__icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.zc-admin-stat__icon .dashicons{font-size:24px;width:24px;height:24px}
+.zc-admin-stat strong{display:block;font-size:1.4rem;line-height:1.3;color:#141A31}
+.zc-admin-stat span{font-size:.8rem;color:#646970}
+
+.zc-admin-box{background:#fff;border:1px solid #e2e4e7;border-radius:12px;padding:20px;margin-bottom:18px}
+.zc-admin-box h2{margin-top:0;font-size:1.05rem;display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid #f0f0f1}
+.zc-admin-box h2 .dashicons{color:#C9A227}
+.zc-admin-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+.zc-admin-quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.zc-admin-quick__item{
+  display:flex;align-items:center;gap:10px;padding:14px;border:1px solid #e2e4e7;border-radius:11px;
+  text-decoration:none;color:#1d2327;font-weight:600;font-size:.87rem;transition:all .25s;background:#fafbfc
+}
+.zc-admin-quick__item:hover{border-color:#C9A227;background:rgba(201,162,39,.07);color:#8C6D1F;transform:translateY(-2px)}
+.zc-admin-quick__item .dashicons{color:#C9A227;font-size:20px;width:20px;height:20px}
+
+/* دمو */
+.zc-demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.zc-demo-card{background:#fff;border:1px solid #e2e4e7;border-radius:12px;padding:24px}
+.zc-demo-card h2{margin-top:0;font-size:1.1rem}
+.zc-demo-list{list-style:none;margin:0;padding:0}
+.zc-demo-list li{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px dashed #f0f0f1;font-size:.89rem}
+.zc-demo-list li:last-child{border-bottom:0}
+.zc-demo-list .dashicons{color:#C9A227}
+.zc-demo-options{display:flex;flex-direction:column;gap:9px;margin-bottom:18px;background:#fafbfc;padding:14px;border-radius:10px}
+.zc-demo-options label{font-size:.89rem;font-weight:500}
+.zc-demo-progress{margin-bottom:16px}
+.zc-demo-progress__bar{height:10px;background:#f0f0f1;border-radius:10px;overflow:hidden}
+.zc-demo-progress__bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#F5D061,#C9A227);border-radius:10px;transition:width .5s}
+.zc-demo-progress__text{font-size:.84rem;color:#646970;margin:8px 0 0}
+
+/* متاباکس */
+.zc-metabox__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 18px}
+.zc-metabox__grid p{margin:0 0 14px}
+.zc-metabox__grid label{display:block;margin-bottom:5px}
+.zc-metabox__grid input,.zc-metabox__grid select,.zc-metabox__grid textarea{width:100%}
+.zc-metabox__full{grid-column:1/-1}
+.zc-metabox .description{font-size:.78rem;color:#646970;display:block;margin-top:3px}
+
+/* سازنده سرفصل */
+.zc-section-item{border:1px solid #e2e4e7;border-radius:10px;margin-bottom:12px;background:#fafbfc;overflow:hidden}
+.zc-section-item__head{display:flex;align-items:center;gap:9px;padding:12px;background:#fff;border-bottom:1px solid #e2e4e7}
+.zc-section-title{flex:1;font-weight:600}
+.zc-drag{cursor:move;color:#a7aaad}
+.zc-lessons-list{padding:12px}
+.zc-lesson-item{display:flex;align-items:center;gap:8px;padding:9px;background:#fff;border:1px solid #f0f0f1;border-radius:8px;margin-bottom:7px;flex-wrap:wrap}
+.zc-lesson-item input[type=text],.zc-lesson-item input[type=url]{flex:1;min-width:130px}
+.zc-lesson-free{display:flex;align-items:center;gap:4px;font-size:.8rem;white-space:nowrap}
+.zc-remove-section,.zc-remove-lesson{color:#b32d2e!important}
+
+@media(max-width:1100px){
+  .zc-admin-layout,.zc-admin-grid-2,.zc-demo-grid{grid-template-columns:1fr}
+  .zc-admin-nav{position:static}
+}
+
+/* کارت‌های آمار در صفحه ربات و کران */
+.zc-admin-cards{display:flex;flex-wrap:wrap;gap:14px;margin:20px 0 28px}
+.zc-admin-card{
+  background:#fff;border:1px solid #dcdcde;border-radius:10px;padding:18px 26px;
+  display:flex;flex-direction:column;gap:5px;min-width:170px;
+  border-top:3px solid #C9A227;box-shadow:0 1px 3px rgba(0,0,0,.05)
+}
+.zc-admin-card__num{font-size:26px;font-weight:800;color:#141A31;line-height:1.3}
+.zc-admin-card__label{font-size:12.5px;color:#646970}
+
+/* وضعیت درخواست پروژه در فهرست پیشخوان */
+.zc-req-status{display:inline-block;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:600}
+.zc-req-status--new{background:#DBEAFE;color:#1D4ED8}
+.zc-req-status--reviewing{background:#FEF3C7;color:#B45309}
+.zc-req-status--quoted{background:#E0E7FF;color:#4338CA}
+.zc-req-status--in_progress{background:#FCE7F3;color:#BE185D}
+.zc-req-status--done{background:#DCFCE7;color:#15803D}
+.zc-req-status--rejected{background:#FEE2E2;color:#B91C1C}
+
+/* ==========================================================================
+   صفحه مدیریت گفتگوهای آنلاین
+   ========================================================================== */
+
+.zc-chats__search{margin:12px 0 16px;display:flex;gap:8px}
+.zc-chats__search input[type=search]{min-width:280px}
+
+.zc-chats__layout{
+  display:grid;grid-template-columns:320px minmax(0,1fr);gap:16px;
+  align-items:start;margin-top:12px
+}
+
+.zc-chats__list{
+  background:#fff;border:1px solid #dcdcde;border-radius:10px;overflow:hidden;
+  max-height:640px;overflow-y:auto
+}
+.zc-chats__empty{padding:26px 18px;color:#646970;text-align:center;margin:0}
+.zc-chats__item{
+  display:flex;gap:11px;padding:13px 14px;text-decoration:none;color:#1d2327;
+  border-bottom:1px solid #f0f0f1;transition:background .18s
+}
+.zc-chats__item:hover{background:#f6f7f7;color:#1d2327}
+.zc-chats__item.is-active{background:#FBF6E6;border-inline-start:3px solid #C9A227}
+.zc-chats__item.is-unread strong{font-weight:800}
+.zc-chats__avatar{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#C9A227,#F5D061);color:#241C05;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px
+}
+.zc-chats__info{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.zc-chats__info strong{font-size:13.5px;display:flex;align-items:center;gap:6px}
+.zc-chats__badge{
+  background:#d63638;color:#fff;font-style:normal;font-size:11px;font-weight:700;
+  border-radius:999px;padding:1px 7px;line-height:1.6
+}
+.zc-chats__preview{
+  font-size:12.5px;color:#646970;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.zc-chats__time{font-size:11px;color:#8c8f94}
+
+.zc-chats__panel{
+  background:#fff;border:1px solid #dcdcde;border-radius:10px;
+  display:flex;flex-direction:column;min-height:520px
+}
+.zc-chats__placeholder{
+  flex:1;display:flex;align-items:center;justify-content:center;color:#646970;padding:40px
+}
+.zc-chats__head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:12px 16px;border-bottom:1px solid #f0f0f1
+}
+.zc-chats__actions{display:flex;gap:6px;flex-wrap:wrap}
+
+.zc-chats__box{
+  flex:1;padding:18px;overflow-y:auto;max-height:430px;
+  display:flex;flex-direction:column;gap:12px;background:#f6f7f7
+}
+.zc-chats__msg{display:flex;flex-direction:column;gap:4px;max-width:76%}
+.zc-chats__msg--user{align-self:flex-start;align-items:flex-start}
+.zc-chats__msg--admin{align-self:flex-end;align-items:flex-end}
+.zc-chats__msg--bot{align-self:center;align-items:center;max-width:88%;opacity:.9}
+.zc-chats__bubble{
+  padding:11px 15px;border-radius:14px;font-size:13.5px;line-height:1.95;
+  background:#fff;border:1px solid #e4e6eb;word-break:break-word
+}
+.zc-chats__msg--admin .zc-chats__bubble{
+  background:linear-gradient(135deg,#C9A227,#F5D061);color:#241C05;border-color:transparent
+}
+.zc-chats__msg--bot .zc-chats__bubble{background:#eef2f7;border-style:dashed;font-size:12.5px}
+.zc-chats__meta{font-size:11px;color:#8c8f94}
+
+.zc-chats__reply{padding:14px 16px;border-top:1px solid #f0f0f1;display:flex;gap:10px;align-items:flex-end}
+.zc-chats__reply textarea{flex:1;resize:vertical;min-height:64px;font-family:inherit}
+
+@media (max-width:900px){
+  .zc-chats__layout{grid-template-columns:1fr}
+  .zc-chats__list{max-height:300px}
+}
+
+/* ==========================================================================
+   متاباکس جزئیات کامل محصول و نمونه‌کار
+   ========================================================================== */
+
+.zc-details-note{
+  background:#FBF6E6;border-inline-start:3px solid #C9A227;padding:10px 14px;
+  margin:0 0 16px;border-radius:0 8px 8px 0;font-size:13px;color:#5A4A12
+}
+.zc-details-tabs{
+  display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid #f0f0f1;
+  margin-bottom:18px;padding-bottom:0
+}
+.zc-details-tab{
+  background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-2px;
+  padding:10px 16px;font:inherit;font-size:13.5px;font-weight:600;color:#646970;
+  cursor:pointer;transition:color .15s,border-color .15s
+}
+.zc-details-tab:hover{color:#1d2327}
+.zc-details-tab.is-active{color:#8A6D12;border-bottom-color:#C9A227}
+
+.zc-details-panel{display:none}
+.zc-details-panel.is-active{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 22px
+}
+.zc-detail-field{display:flex;flex-direction:column;gap:5px}
+.zc-detail-field--textarea,
+.zc-detail-field--lines,
+.zc-detail-field--rows,
+.zc-detail-field--log{grid-column:1/-1}
+.zc-detail-field label{font-weight:600;font-size:13.5px;color:#1d2327}
+.zc-detail-field input,
+.zc-detail-field textarea{
+  width:100%;padding:8px 11px;border:1px solid #8c8f94;border-radius:6px;
+  font:inherit;font-size:13.5px
+}
+.zc-detail-field textarea{resize:vertical;line-height:1.9;font-family:inherit}
+.zc-detail-field input:focus,
+.zc-detail-field textarea:focus{
+  border-color:#C9A227;box-shadow:0 0 0 1px #C9A227;outline:none
+}
+.zc-detail-field .description{margin:0;font-size:12px;color:#787c82;line-height:1.7}
+
+@media (max-width:782px){
+  .zc-details-panel.is-active{grid-template-columns:1fr}
+}
+
+/* ==========================================================================
+   صفحه پیامک و کارزارها
+   ========================================================================== */
+
+.zc-sms-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:18px 0}
+.zc-sms-card{
+  background:#fff;border:1px solid #dcdcde;border-radius:12px;padding:18px;text-align:center
+}
+.zc-sms-card__num{
+  display:block;font-size:26px;font-weight:800;color:#141A31;line-height:1.4
+}
+.zc-sms-card__label{display:block;font-size:12.5px;color:#646970;margin-top:4px}
+.zc-sms-card--ok .zc-sms-card__num{color:#16A34A}
+.zc-sms-card--bad .zc-sms-card__num{color:#d63638}
+
+.zc-sms-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;margin-bottom:16px}
+.zc-sms-box{
+  background:#fff;border:1px solid #dcdcde;border-radius:12px;padding:20px;margin-bottom:16px
+}
+.zc-sms-box h2{margin-top:0;font-size:16px;padding-bottom:12px;border-bottom:1px solid #f0f0f1}
+.zc-sms-box label{display:block;font-weight:600;margin-bottom:5px}
+.zc-sms-table td{vertical-align:top}
+.zc-sms-table .description{margin:4px 0 0;font-size:12px}
+
+.zc-pill{
+  display:inline-block;font-size:11.5px;font-weight:700;padding:3px 11px;border-radius:999px
+}
+.zc-pill--ok{background:rgba(22,163,74,.13);color:#15803D}
+.zc-pill--bad{background:rgba(214,54,56,.13);color:#B32D2E}
+.zc-pill--off{background:#f0f0f1;color:#787c82}
+
+@media (max-width:960px){.zc-sms-grid{grid-template-columns:1fr}}
+
+/* ==========================================================================
+   متاباکس اطلاعیه
+   ========================================================================== */
+
+.zc-an-box{padding:4px 0}
+.zc-an-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:16px}
+.zc-an-field{display:flex;flex-direction:column;gap:5px}
+.zc-an-field--wide{grid-column:1/-1}
+.zc-an-field>label{font-weight:600;font-size:13.5px;color:#1d2327}
+.zc-an-field input[type=text],
+.zc-an-field input[type=url],
+.zc-an-field input[type=number],
+.zc-an-field input[type=datetime-local],
+.zc-an-field select{
+  width:100%;padding:7px 10px;border:1px solid #8c8f94;border-radius:6px;font-size:13.5px
+}
+.zc-an-field input:focus,.zc-an-field select:focus{
+  border-color:#C9A227;box-shadow:0 0 0 1px #C9A227;outline:none
+}
+.zc-an-field .description{margin:0;font-size:12px;color:#787c82}
+.zc-an-checks{display:flex;flex-wrap:wrap;gap:8px 22px;padding:10px 0}
+.zc-an-checks label{display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:500}
+.zc-an-sent{
+  background:#EAF8EF;border-inline-start:3px solid #16A34A;padding:8px 12px;
+  border-radius:0 6px 6px 0;font-size:12.5px;color:#15803D;margin:10px 0
+}
+
+/* نقطه‌ی رنگی ستون فهرست */
+.zc-an-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:5px;vertical-align:middle}
+.zc-an-dot--info{background:#0B6BCB}
+.zc-an-dot--success{background:#16A34A}
+.zc-an-dot--warning{background:#D97706}
+.zc-an-dot--danger{background:#DC2626}
+.zc-an-dot--gold{background:#C9A227}
+
+@media (max-width:782px){.zc-an-row{grid-template-columns:1fr}}
+
+/* ==========================================================================
+   پیام‌های اطلاع‌رسانی (notice) در صفحه‌های زرین کد
+   ==========================================================================
+   دو مشکل برطرف می‌شود:
+   ۱) وردپرس همه‌ی notice ها را بعد از نخستین <h1> صفحه جابه‌جا می‌کند.
+      چون سربرگ زرین کد پس‌زمینه‌ی سرمه‌ای تیره دارد، متن پیام (که رنگ
+      روشن به ارث می‌برد) روی پس‌زمینه‌ی سبز کم‌رنگ ناخوانا می‌شد.
+   ۲) رنگ متن به‌صورت صریح تعیین می‌شود تا هرگز از والد ارث نبرد.
+   ========================================================================== */
+
+/* جای‌گاه اختصاصی پیام‌ها؛ بیرون از سربرگ تیره. */
+.zc-admin-notices{margin:0 0 18px}
+.zc-admin-notices:empty{display:none}
+
+.zc-admin-wrap .notice,
+.zc-admin-wrap div.notice,
+.zc-admin-wrap .notice-success,
+.zc-admin-wrap .notice-error,
+.zc-admin-wrap .notice-warning,
+.zc-admin-wrap .notice-info,
+.zc-admin-notices .notice{
+  position:relative;
+  margin:14px 0;
+  padding:12px 16px;
+  border-radius:10px;
+  background:#fff;
+  color:#1d2327;              /* رنگ صریح: از سربرگ تیره ارث نمی‌برد */
+  border:1px solid #dcdcde;
+  border-inline-start:4px solid #72aee6;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  font-size:13.5px;
+  line-height:1.9
+}
+
+.zc-admin-wrap .notice p,
+.zc-admin-notices .notice p{
+  color:#1d2327;
+  margin:.4em 0;
+  font-size:13.5px
+}
+
+.zc-admin-wrap .notice a,
+.zc-admin-notices .notice a{color:#8C6D1F;font-weight:600}
+.zc-admin-wrap .notice a:hover{color:#C9A227}
+
+/* موفقیت */
+.zc-admin-wrap .notice-success,
+.zc-admin-notices .notice-success{
+  background:#F0FAF3;
+  border-color:#c6e9d3;
+  border-inline-start-color:#00a32a
+}
+.zc-admin-wrap .notice-success p,
+.zc-admin-notices .notice-success p{color:#0B3F1D}
+
+/* خطا */
+.zc-admin-wrap .notice-error,
+.zc-admin-notices .notice-error{
+  background:#FDF2F2;
+  border-color:#f3c3c3;
+  border-inline-start-color:#d63638
+}
+.zc-admin-wrap .notice-error p,
+.zc-admin-notices .notice-error p{color:#701A1B}
+
+/* هشدار */
+.zc-admin-wrap .notice-warning,
+.zc-admin-notices .notice-warning{
+  background:#FFFBF0;
+  border-color:#f5e1b3;
+  border-inline-start-color:#dba617
+}
+.zc-admin-wrap .notice-warning p,
+.zc-admin-notices .notice-warning p{color:#5C4308}
+
+/* اطلاع */
+.zc-admin-wrap .notice-info,
+.zc-admin-notices .notice-info{
+  background:#F0F6FC;
+  border-color:#c5d9ed;
+  border-inline-start-color:#2271b1
+}
+.zc-admin-wrap .notice-info p,
+.zc-admin-notices .notice-info p{color:#0D3153}
+
+/*
+ * اگر وردپرس با وجود همه‌ی این‌ها پیامی را داخل سربرگ تیره بیندازد،
+ * این قاعده تضمین می‌کند باز هم خوانا بماند.
+ */
+.zc-admin-header .notice,
+.zc-admin-header .notice p,
+.zc-admin-header .notice a{color:#1d2327 !important}
+.zc-admin-header .notice{
+  background:#fff !important;
+  width:100%;
+  order:99;
+  margin-top:6px
+}
+
+/* ==========================================================================
+   واکنش‌گرایی کامل پنل مدیریتی زرین کد
+   ==========================================================================
+   هدف: همه‌ی صفحه‌های قالب در موبایل، تبلت و دسکتاپ بدون سرریز افقی
+   و بدون فشردگی نمایش داده شوند.
+   ========================================================================== */
+
+/* هیچ عنصری نباید از عرض صفحه بیرون بزند. */
+.zc-admin-wrap img,
+.zc-admin-wrap table,
+.zc-admin-wrap pre,
+.zc-admin-wrap iframe{max-width:100%}
+
+.zc-admin-wrap pre{overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+
+/* جدول‌های عریض به‌جای شکستن چیدمان، اسکرول افقی می‌گیرند. */
+.zc-admin-wrap .zc-table-scroll,
+.zc-admin-wrap .wp-list-table-wrap{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch
+}
+
+/* ---------- تبلت بزرگ ---------- */
+@media(max-width:1280px){
+  .zc-admin-layout{grid-template-columns:220px minmax(0,1fr)}
+  .zc-chats__layout{grid-template-columns:280px minmax(0,1fr)}
+}
+
+/* ---------- تبلت ---------- */
+@media(max-width:1100px){
+  .zc-admin-layout,
+  .zc-admin-grid-2,
+  .zc-demo-grid,
+  .zc-chats__layout{grid-template-columns:minmax(0,1fr)}
+
+  .zc-admin-nav{position:static}
+
+  .zc-admin-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px
+  }
+  .zc-admin-nav a{margin-bottom:0;flex:1 1 auto;justify-content:center}
+
+  .zc-chats__list{max-height:340px}
+  .zc-chats__box{max-height:360px}
+}
+
+/* ---------- موبایل ---------- */
+@media(max-width:782px){
+  .zc-admin-header{
+    padding:20px 18px;
+    border-radius:13px;
+    text-align:start
+  }
+  .zc-admin-header h1{font-size:1.22rem}
+  .zc-admin-header p{font-size:.82rem}
+  .zc-admin-header__actions{width:100%}
+  .zc-admin-header__actions .button{flex:1 1 auto;text-align:center}
+
+  .zc-admin-content,
+  .zc-admin-box,
+  .zc-demo-card{padding:16px;border-radius:11px}
+
+  /*
+   * .zc-admin-cards یک flex container است، نه grid؛ بنابراین
+   * grid-template-columns روی آن اثری ندارد. کارت‌ها باید
+   * min-width خود را رها کنند تا در عرض کم سرریز نکنند.
+   */
+  .zc-admin-stats{grid-template-columns:1fr;display:grid}
+  .zc-admin-cards{flex-direction:column;gap:12px}
+  .zc-admin-card{
+    min-width:0;
+    width:100%;
+    max-width:100%;
+    flex:1 1 auto;
+    padding:15px 17px
+  }
+  .zc-admin-card__num,
+  .zc-admin-card__label{min-width:0;overflow-wrap:anywhere}
+
+  .zc-admin-quick{grid-template-columns:1fr 1fr}
+
+  /* جدول‌های تنظیمات: برچسب بالای فیلد به‌جای دو ستون. */
+  .zc-admin-wrap .form-table,
+  .zc-admin-wrap .form-table tbody,
+  .zc-admin-wrap .form-table tr,
+  .zc-admin-wrap .form-table th,
+  .zc-admin-wrap .form-table td{display:block;width:100%}
+
+  .zc-admin-wrap .form-table th{
+    padding:14px 0 4px;
+    width:auto
+  }
+  .zc-admin-wrap .form-table td{padding:0 0 10px}
+  .zc-admin-table th{width:auto}
+
+  .zc-admin-wrap input[type=text],
+  .zc-admin-wrap input[type=url],
+  .zc-admin-wrap input[type=email],
+  .zc-admin-wrap input[type=number],
+  .zc-admin-wrap input[type=password],
+  .zc-admin-wrap input[type=search],
+  .zc-admin-wrap select,
+  .zc-admin-wrap textarea{
+    width:100%;
+    max-width:100%;
+    font-size:16px      /* جلوگیری از زوم خودکار در iOS */
+  }
+
+  .zc-admin-range{width:100%}
+
+  .zc-chats__search{flex-direction:column}
+  .zc-chats__search input[type=search]{min-width:0;width:100%}
+  .zc-chats__msg{max-width:92%}
+  .zc-chats__head{flex-direction:column;align-items:flex-start}
+  .zc-chats__actions{width:100%}
+
+  .zc-demo-options{padding:12px}
+
+  /* دکمه‌های بزرگ در موبایل تمام‌عرض شوند. */
+  .zc-admin-wrap .button-hero{width:100%;text-align:center}
+}
+
+/* ---------- موبایل کوچک ---------- */
+@media(max-width:480px){
+  .zc-admin-wrap{margin-inline-end:8px}
+  .zc-admin-header{padding:16px 14px}
+  .zc-admin-header h1{font-size:1.1rem}
+  .zc-admin-quick{grid-template-columns:1fr}
+  .zc-admin-nav a{font-size:.83rem;padding:10px}
+  .zc-admin-card__num{font-size:22px}
+}
+.zc-sms-card--cost{background:linear-gradient(135deg,#FFFDF4,#FBF3DD)}
+.zc-sms-card--cost .zc-sms-card__num{color:#8A6D12}

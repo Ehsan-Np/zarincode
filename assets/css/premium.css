@@ -1,0 +1,142 @@
+/* ==========================================================================
+   زرین کد — لایهٔ بازطراحی پریمیوم (v3.33)
+   ---------------------------------------------------------------------------
+   این لایه یک بازطراحی واقعی و محسوس روی کل سایت اعمال می‌کند:
+   پس‌زمینه‌ی ملایم، کارت‌های بزرگ‌تر با بکگراند نرم، لوگوی درشت‌تر،
+   بخش‌های با گرادیان و حس «استودیو» مانند وب‌سیما.
+   ========================================================================== */
+
+/* ---------- زمینه‌ی کلی سایت ---------- */
+body{
+  background:
+    radial-gradient(1200px 500px at 85% -100px, rgba(224,168,46,.06), transparent 60%),
+    radial-gradient(1000px 500px at -10% 0%, rgba(61,90,254,.05), transparent 55%),
+    var(--zc-body-bg);
+}
+
+/* ---------- هدر: لوگو و ظاهر درشت‌تر ---------- */
+.zc-logo__name{font-size:1.4rem;letter-spacing:-.4px}
+.zc-logo__p1{font-weight:900}
+.zc-logo__tag{font-size:.68rem;letter-spacing:3px}
+
+/* ---------- کارت‌ها: بزرگ‌تر، با بکگراند نرم و هاور جسورانه ---------- */
+.zc-card,.zc-feature,.zc-service-card,.zc-svc-card,.zc-fcard,.zc-ccard,
+.zc-course-card,.zc-post-card,.zc-bcard{
+  border-radius:var(--zc-radius-lg);border:1px solid rgba(11,16,36,.06);
+  background:#fff;box-shadow:0 6px 26px rgba(11,16,36,.05);
+  transition:transform .3s var(--zc-ease),box-shadow .3s var(--zc-ease),border-color .3s
+}
+.zc-card:hover,.zc-feature:hover,.zc-service-card:hover,.zc-svc-card:hover,
+.zc-fcard:hover,.zc-ccard:hover,.zc-course-card:hover,.zc-post-card:hover,.zc-bcard:hover{
+  transform:translateY(-10px);box-shadow:0 26px 60px rgba(11,16,36,.14);border-color:var(--zc-gold-line)
+}
+.zc-feature__icon,.zc-service-card__icon,.zc-svc-card__icon,.zc-ccard__icon{
+  border-radius:16px;box-shadow:0 8px 20px rgba(224,168,46,.25)
+}
+
+/* ---------- هیروی صفحه اصلی ---------- */
+.zc-hero{
+  border-radius:28px;box-shadow:0 40px 90px rgba(11,16,36,.22);
+  background:var(--zc-grad-dark)
+}
+.zc-hero::before{
+  background:
+    radial-gradient(circle at 15% 20%, rgba(224,168,46,.30), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(61,90,254,.40), transparent 52%)
+}
+.zc-hero__title{letter-spacing:-.02em;font-weight:900}
+.zc-hero__badge{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);backdrop-filter:blur(12px)}
+.zc-hero__float{border-radius:16px;box-shadow:0 18px 44px rgba(11,16,36,.24)}
+
+/* ---------- نوار آمار ---------- */
+.zc-stats{border-radius:24px;box-shadow:0 26px 66px rgba(11,16,36,.14);padding:28px 38px}
+.zc-stat__num{font-size:1.7rem;font-weight:900}
+.zc-stat__icon{border-radius:16px;box-shadow:0 8px 20px rgba(224,168,46,.2)}
+
+/* ---------- نمونه‌کارها ---------- */
+.zc-pf-card,.zc-pcard,.zc-portfolio .zc-portfolio__item{border-radius:22px;overflow:hidden;box-shadow:0 10px 34px rgba(11,16,36,.08);transition:transform .3s var(--zc-ease),box-shadow .3s}
+.zc-pf-card:hover,.zc-pcard:hover{transform:translateY(-10px);box-shadow:0 30px 70px rgba(11,16,36,.18)}
+
+/* ---------- دکمه‌ها ---------- */
+.zc-btn{box-shadow:0 6px 18px rgba(224,168,46,.25);transition:transform .2s var(--zc-ease),box-shadow .2s}
+.zc-btn:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(224,168,46,.35)}
+.zc-btn--gold{background:var(--zc-grad-gold);color:#241C05;font-weight:700}
+.zc-btn--ghost{border:1.5px solid var(--zc-gold-line);color:var(--zc-dark)}
+
+/* ---------- صفحات داخلی مدرن ---------- */
+.zc-ph{border-radius:26px;background:linear-gradient(135deg,#fff,var(--zc-body-bg));border:1px solid rgba(11,16,36,.06);padding:48px 44px;position:relative;overflow:hidden}
+.zc-ph::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 88% 0%,rgba(224,168,46,.14),transparent 45%),radial-gradient(circle at 5% 100%,rgba(61,90,254,.08),transparent 45%);opacity:1}
+.zc-ph__title{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:900;letter-spacing:-.02em}
+.zc-ph__eyebrow{font-size:.82rem;color:var(--zc-gold-3)}
+.zc-ph__lead{color:var(--zc-mut);font-size:1.05rem;line-height:2.1;max-width:640px}
+.zc-ph__chip{background:var(--zc-gold-soft);color:var(--zc-gold-3);border-radius:30px;padding:8px 18px;font-size:.85rem;font-weight:700;box-shadow:0 4px 12px rgba(224,168,46,.15)}
+
+/* ---------- هیروی صفحات داخلی (صفحه‌های معمولی) ---------- */
+.zc-page-hero{background:linear-gradient(180deg,var(--zc-body-bg),#fff);border-bottom:1px solid rgba(11,16,36,.07)}
+.zc-page-hero h1{font-size:clamp(2rem,3.6vw,3rem);font-weight:900}
+.zc-page-hero h1::after{width:64px;height:5px;background:var(--zc-grad-gold);margin-top:20px}
+
+/* ---------- CTA ---------- */
+.zc-ctabar{
+  border-radius:24px;padding:28px 34px;position:relative;overflow:hidden;
+  background:var(--zc-grad-navy);border:0;box-shadow:0 20px 50px rgba(11,16,36,.18)
+}
+.zc-ctabar::before{content:'';position:absolute;inset:0;width:auto;height:auto;border-radius:0;
+  background:radial-gradient(circle at 88% 20%,rgba(224,168,46,.3),transparent 45%),radial-gradient(circle at 5% 100%,rgba(61,90,254,.3),transparent 50%)}
+.zc-ctabar__text b{color:#fff;font-size:1.15rem}
+.zc-ctabar__text span{color:rgba(255,255,255,.78)}
+.zc-cta{border-radius:26px;background:var(--zc-grad-navy);color:#fff;padding:60px 44px;position:relative;overflow:hidden}
+.zc-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(224,168,46,.28),transparent 45%),radial-gradient(circle at 10% 90%,rgba(61,90,254,.25),transparent 45%)}
+.zc-cta>*{position:relative;z-index:2}
+.zc-cta__title{color:#fff;font-weight:900;font-size:clamp(1.6rem,3vw,2.3rem)}
+.zc-cta__sub{color:rgba(255,255,255,.8);font-size:1.05rem;line-height:2}
+
+/* ---------- سوالات متداول ---------- */
+.zc-accordion__item{border-radius:16px;overflow:hidden;border:1px solid rgba(11,16,36,.07);background:#fff;box-shadow:0 5px 18px rgba(11,16,36,.04)}
+.zc-accordion__head{padding:20px 24px;font-weight:800;color:var(--zc-dark)}
+.zc-accordion__body{color:var(--zc-muted);line-height:2.1}
+
+/* ---------- فوتر ---------- */
+.zc-footer{border-radius:26px 26px 0 0;background:var(--zc-grad-dark)}
+.zc-footer__social-bar{border-bottom:1px solid rgba(255,255,255,.07)}
+.zc-footer__grid{gap:42px}
+.zc-footer__col-title{font-size:1rem;font-weight:800}
+
+/* ---------- پنل کاربری ---------- */
+.zc-panel__sidebar{border-radius:22px;overflow:hidden}
+.zc-pstat{border-radius:18px;box-shadow:0 8px 24px rgba(11,16,36,.06);transition:transform .25s var(--zc-ease),box-shadow .25s}
+.zc-pstat:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(11,16,36,.12)}
+.zc-panel__box{border-radius:20px;box-shadow:0 8px 28px rgba(11,16,36,.06);border:1px solid rgba(11,16,36,.05)}
+
+/* ---------- بخش‌های متمایز با پس‌زمینه‌ی گرادیان ملایم ---------- */
+.zc-services-sec,.zc-features-sec,.zc-why{
+  position:relative;border-radius:28px;padding:52px 30px;margin:8px 0;
+  background:linear-gradient(180deg,rgba(11,16,36,.02),rgba(224,168,46,.04),rgba(11,16,36,.02));
+  border:1px solid rgba(11,16,36,.04)
+}
+.zc-portfolio-sec,.zc-testimonials-video-sec,.zc-tutorials-sec{
+  background:linear-gradient(180deg,#fff,var(--zc-body-bg));border-radius:28px;padding:46px 26px;margin:6px 0
+}
+.zc-services-sec::before,.zc-features-sec::before,.zc-why::before{
+  content:'';position:absolute;top:0;inset-inline:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--zc-gold-line),transparent)
+}
+
+/* ---------- گالری/کارت‌ها در بخش‌های تیره ---------- */
+.zc-section--dark .zc-service-card,.zc-section--dark .zc-feature{background:#fff}
+
+/* ---------- واکنش‌گرایی ---------- */
+@media (max-width:720px){
+  .zc-container{padding-inline:20px}
+  .zc-ph,.zc-cta{padding:32px 22px;border-radius:20px}
+  .zc-hero__grid{padding:30px 20px}
+  .zc-stats{padding:22px 20px}
+  .zc-services-sec,.zc-features-sec,.zc-portfolio-sec{padding:34px 16px;border-radius:20px}
+}
+
+/* ---------- بلوک‌های کد در محتوای دوره‌ها ---------- */
+.zc-code-block{border-radius:14px;overflow:hidden;margin:18px 0;border:1px solid rgba(11,16,36,.08);box-shadow:0 6px 20px rgba(11,16,36,.06);background:#0B1024;direction:ltr;text-align:left}
+.zc-code-block__head{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#151C3D;color:#F7C948;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.75rem;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.07)}
+.zc-code-block__head::before{content:'';width:10px;height:10px;border-radius:50%;background:#E0A82E;flex-shrink:0}
+.zc-code-block__pre{margin:0;padding:18px 20px;overflow-x:auto;background:transparent}
+.zc-code-block__pre code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem;line-height:1.8;color:#E6EDF7;white-space:pre;tab-size:4}

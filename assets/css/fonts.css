@@ -1,0 +1,30 @@
+/**
+ * زرین کد — فونت‌های محلی و آفلاین
+ * ---------------------------------------------------------------------------
+ * تعریف @font-face در اینجا نیست؛ همه‌ی فونت‌ها از ماژول
+ * inc/modules/fonts.php و با URL مطلقِ get_template_directory_uri() تزریق
+ * می‌شوند تا در هر نوع نصب (XAMPP، ساب‌دایرکتوری و ...) آدرس درست باشد.
+ *
+ * این فایل فقط تعریف متغیرهای فونت و قواعد عمومی را نگه می‌دارد.
+ */
+
+/* ==========================================================================
+   اعمال پیش‌فرض فونت (با متغیر تا از پنل قابل تغییر باشد)
+   پیش‌فرض قالب: فونت «صمیم» (Samim) برای همه‌ی بخش‌های سایت.
+   ========================================================================== */
+:root{
+  --zc-font-body:'Samim',Tahoma,Arial,sans-serif;
+  --zc-font-heading:'Samim',Tahoma,Arial,sans-serif;
+}
+
+body,button,input,select,textarea,.elementor-widget-container{
+  font-family:var(--zc-font-body);
+}
+
+h1,h2,h3,h4,h5,h6,.zc-hero__title,.zc-section__title,.zc-heading__title,
+.zc-card__title,.zc-single__title,.zc-bcard__title{
+  font-family:var(--zc-font-heading);
+}
+
+/* اعداد و کدها با فونت مناسب */
+code,pre,kbd,samp,.zc-ltr{font-family:'Fira Code',Consolas,'Courier New',monospace}

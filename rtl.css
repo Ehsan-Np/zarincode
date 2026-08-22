@@ -1,0 +1,38 @@
+/**
+ * Zarincode RTL adjustments
+ * بیشتر استایل‌ها با ویژگی‌های منطقی (inset-inline, margin-inline) نوشته شده‌اند
+ * و به صورت خودکار RTL می‌شوند. این فایل تنظیمات تکمیلی است.
+ */
+
+body{direction:rtl;text-align:right}
+
+/* اصلاح جهت آیکن‌های جهت‌دار */
+[dir=rtl] .zc-btn svg.zc-icon--arrow-left{transform:none}
+[dir=rtl] .zc-postnav__item--next .zc-postnav__arrow svg{transform:rotate(180deg)}
+
+/* عناصر LTR (کد، اعداد لاتین، لینک) */
+.zc-ltr,
+.zc-entry__content pre,
+.zc-entry__content code,
+.zc-search__input[type=search]:not(:placeholder-shown),
+input[type=email],input[type=url],input[type=tel]{
+  direction:ltr;text-align:left
+}
+.zc-entry__content code{unicode-bidi:embed}
+
+/* جدول‌ها */
+[dir=rtl] .zc-table th,[dir=rtl] .zc-table td{text-align:right}
+
+/* منوی موبایل از راست باز شود */
+[dir=rtl] .zc-mobile-nav{inset-inline-end:0;inset-inline-start:auto}
+
+/* اسلایدر: جهت اسکرول */
+[dir=rtl] .zc-slider__track{direction:rtl}
+
+/* فرم‌های ووکامرس */
+[dir=rtl] .woocommerce form .form-row label{text-align:right}
+[dir=rtl] .woocommerce ul.cart_list li img,
+[dir=rtl] .woocommerce ul.product_list_widget li img{float:right;margin-left:12px;margin-right:0}
+
+/* المنتور */
+[dir=rtl] .elementor-widget-container{text-align:inherit}

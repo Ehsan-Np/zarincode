@@ -1,0 +1,138 @@
+# ==========================================================================
+# تنظیمات پیشنهادی .htaccess برای قالب زرین کد
+# ==========================================================================
+#
+# این قطعه را در فایل .htaccess ریشه‌ی سایت، *بالای* بخش
+# «# BEGIN WordPress» قرار دهید.
+#
+# چرا لازم است؟
+# دو هشدار همیشگی GTmetrix و PageSpeed عبارت‌اند از:
+#   ۱) «Serve static assets with an efficient cache policy»
+#   ۲) «Enable text compression»
+# این دو مورد در سطح وب‌سرور تنظیم می‌شوند و از داخل قالب
+# قابل کنترل نیستند. با افزودن این تنظیمات، هر دو هشدار برطرف می‌شود.
+#
+# اگر سرور شما Nginx است، بخش انتهایی همین فایل را ببینید.
+# ==========================================================================
+
+
+# --------------------------------------------------------------------------
+# ۱) فشرده‌سازی متنی (Gzip)
+# --------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE application/rss+xml image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff2 font/woff application/font-woff2
+</IfModule>
+
+# فشرده‌سازی Brotli (در صورت پشتیبانی سرور، بهتر از Gzip است)
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+</IfModule>
+
+
+# --------------------------------------------------------------------------
+# ۲) کش مرورگر
+# --------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                          "access plus 1 month"
+
+  # فایل‌های نسخه‌دار قالب (نامشان شامل هش است) یک سال کش می‌شوند.
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType text/javascript           "access plus 1 year"
+
+  # فونت‌ها هرگز تغییر نمی‌کنند.
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType font/woff                 "access plus 1 year"
+
+  # تصاویر
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/avif                "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+
+  # HTML هرگز کش نمی‌شود (محتوای پویا).
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # دارایی‌های ثابت: کش تغییرناپذیر.
+  <FilesMatch "\.(woff2?|ttf|otf|eot|jpe?g|png|gif|webp|avif|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # فایل‌های ادغام‌شده‌ی قالب (نام دارای هش است، پس immutable امن است).
+  <FilesMatch "zc-bundle-[a-f0-9]+\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # صفحات HTML همیشه تازه.
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
+
+  # حذف هدر ETag (با Expires تداخل دارد و در سرورهای چندگانه ناسازگار است).
+  Header unset ETag
+
+  # اجازه‌ی استفاده از فونت‌ها در دامنه‌های دیگر (CDN).
+  <FilesMatch "\.(woff2?|ttf|otf)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+FileETag None
+
+
+# --------------------------------------------------------------------------
+# ۳) امنیت پایه
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# جلوگیری از فهرست‌شدن پوشه‌ها
+Options -Indexes
+
+# محافظت از فایل‌های حساس
+<FilesMatch "^(wp-config\.php|\.htaccess|\.env|readme\.html|license\.txt)$">
+  Require all denied
+</FilesMatch>
+
+
+# ==========================================================================
+# معادل تنظیمات بالا برای Nginx
+# ==========================================================================
+#
+# gzip on;
+# gzip_comp_level 6;
+# gzip_min_length 256;
+# gzip_types text/plain text/css text/xml application/javascript
+#            application/json image/svg+xml font/woff2;
+#
+# location ~* \.(woff2?|ttf|otf|jpe?g|png|gif|webp|avif|svg|ico)$ {
+#     expires 1y;
+#     add_header Cache-Control "public, immutable";
+#     access_log off;
+# }
+#
+# location ~* zc-bundle-[a-f0-9]+\.(css|js)$ {
+#     expires 1y;
+#     add_header Cache-Control "public, immutable";
+# }
+#
+# location ~* \.php$ {
+#     add_header Cache-Control "no-cache, must-revalidate, max-age=0";
+# }
+#
+# ==========================================================================

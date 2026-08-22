@@ -1,0 +1,1473 @@
+/**
+ * زرین کد — لایه‌ی واکنش‌گرای سراسری
+ * ---------------------------------------------------------------------------
+ * این فایل آخرین شیوه‌نامه‌ای است که بارگذاری می‌شود و وظیفه‌اش تضمین
+ * نمایش درست همه‌ی ویجت‌های المنتور روی موبایل و تبلت است.
+ *
+ * قاعده‌ی کلی: به‌جای وصله‌کردن تک‌تک ویجت‌ها، ابتدا چند «قانون ایمنی»
+ * سراسری اعمال می‌شود (جلوگیری از سرریز افقی، شکستن واژه‌های بلند،
+ * تصاویر و جدول‌های سیال) و سپس شبکه‌ها در نقاط شکست استاندارد
+ * بازچینش می‌شوند.
+ *
+ * نقاط شکست:
+ *   ≤1200px  دسکتاپ کوچک
+ *   ≤1024px  تبلت افقی
+ *   ≤900px   تبلت
+ *   ≤768px   تبلت عمودی / موبایل بزرگ
+ *   ≤600px   موبایل
+ *   ≤400px   موبایل کوچک
+ *
+ * @package Zarincode
+ */
+
+/* ==========================================================================
+   ۰. قوانین ایمنی سراسری — ریشه‌ی بیشتر سرریزهای افقی
+   ========================================================================== */
+
+html,
+body {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
+/*
+ * هیچ عنصری نباید از عرض والد خود بیرون بزند. این یک قانون دفاعی است
+ * که جلوی سرریز ناشی از عرض‌های ثابت را در همه‌ی ویجت‌ها می‌گیرد.
+ */
+img,
+svg,
+video,
+canvas,
+iframe,
+embed,
+object {
+	max-width: 100%;
+}
+
+img,
+video {
+	height: auto;
+}
+
+/* جدول‌ها و کدها در موبایل بیشترین سرریز را می‌سازند. */
+table {
+	max-width: 100%;
+}
+
+pre,
+code,
+kbd,
+samp {
+	max-width: 100%;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+}
+
+/* نشانی‌های اینترنتی و واژه‌های لاتین بلند نباید کادر را بشکنند. */
+.zc-page a,
+.zc-page p,
+.zc-page li,
+.zc-page h1,
+.zc-page h2,
+.zc-page h3,
+.zc-page h4,
+.zc-page td,
+.zc-page dd {
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+/*
+ * عناصر تزئینی (هاله‌ها، دایره‌های محو، نورها) با موقعیت مطلق و
+ * مقدار منفی چیده می‌شوند و در موبایل باعث اسکرول افقی می‌شوند.
+ * چون صرفاً تزئینی‌اند، محدودکردنشان هیچ محتوایی را از بین نمی‌برد.
+ */
+.zc-hero__deco,
+.zc-reqform__glow,
+.zc-sec-deco,
+.zc-blob,
+[class*='__glow'],
+[class*='__deco'] {
+	pointer-events: none;
+}
+
+/*
+ * بخش‌هایی که عنصر تزئینی با موقعیت مطلق و مقدار منفی دارند باید
+ * خودشان محتوا را ببرند؛ در غیر این صورت هاله‌ها از لبه‌ی صفحه
+ * بیرون می‌زنند و در همه‌ی اندازه‌ها اسکرول افقی می‌سازند.
+ */
+.zc-hero,
+.zc-reqform-sec,
+.zc-section--deco,
+.zc-cta-sec {
+	overflow-x: clip;
+}
+
+/* ==========================================================================
+   ۱. شبکه‌ی عمومی — بازچینش پلکانی
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+	.zc-grid--5 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 1024px) {
+	.zc-grid--4,
+	.zc-grid--5 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 900px) {
+	.zc-grid--3,
+	.zc-grid--4,
+	.zc-grid--5 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.zc-grid {
+		gap: 18px;
+	}
+}
+
+@media (max-width: 600px) {
+	.zc-grid--2,
+	.zc-grid--3,
+	.zc-grid--4,
+	.zc-grid--5 {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.zc-grid {
+		gap: 14px;
+	}
+}
+
+/*
+ * شبکه‌های auto-fit با کف ثابت (مثلاً minmax(230px,1fr)) در عرض‌های
+ * کمتر از آن کف، سرریز می‌کنند. کف را در موبایل صفر می‌کنیم.
+ */
+@media (max-width: 600px) {
+	[class*='zc-'][style*='auto-fit'],
+	.zc-autofit {
+		grid-template-columns: minmax(0, 1fr) !important;
+	}
+}
+
+/* چیدمان دوستونی با ستون کناری ثابت → تک‌ستونی */
+@media (max-width: 991px) {
+	.zc-layout--sidebar,
+	.zc-layout--split {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.zc-layout--sidebar > aside,
+	.zc-layout--sidebar > .zc-sidebar {
+		order: 2;
+	}
+}
+
+/* ==========================================================================
+   ۲. نوار آمار شناور (zc_stats)
+   عرض calc(100% - 90px) در ستون المنتور اشتباه محاسبه می‌شد.
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+	.zc-stats {
+		width: 100%;
+		max-width: 100%;
+		margin-inline: 0;
+		padding: 22px 20px;
+		gap: 18px;
+	}
+}
+
+@media (max-width: 900px) {
+	.zc-stats,
+	.zc-stats--3,
+	.zc-stats--4 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin-top: -30px;
+	}
+}
+
+@media (max-width: 600px) {
+	.zc-stats,
+	.zc-stats--2,
+	.zc-stats--3,
+	.zc-stats--4 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		margin-top: 0;
+		padding: 14px 8px;
+		gap: 12px;
+		border-radius: var(--zc-radius);
+		direction: rtl;
+	}
+
+	.zc-stat {
+		flex-direction: column;
+		text-align: center;
+		gap: 8px;
+		justify-content: center;
+		padding: 8px 4px;
+	}
+
+	.zc-stat::after {
+		display: none !important;
+	}
+
+	.zc-stat__icon {
+		width: 40px;
+		height: 40px;
+		border-radius: 12px;
+	}
+
+	.zc-stat__num {
+		font-size: 1.12rem;
+		line-height: 1.35;
+	}
+
+	.zc-stat__label {
+		font-size: .72rem;
+		line-height: 1.6;
+	}
+}
+
+@media (max-width: 400px) {
+	.zc-stats,
+	.zc-stats--2,
+	.zc-stats--3,
+	.zc-stats--4 {
+		/* در نمایشگرهای کوچک هم ۲ ستون می‌ماند تا کاملاً واکنش‌گرا باشد. */
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.zc-stat {
+		flex-direction: column;
+		text-align: center;
+		justify-content: center;
+		gap: 7px;
+	}
+}
+
+/* ==========================================================================
+   ۳. هیرو (zc_hero)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+	.zc-hero__inner,
+	.zc-hero__grid {
+		grid-template-columns: minmax(0, 1fr);
+		text-align: center;
+		gap: 26px;
+	}
+
+	.zc-hero__media {
+		order: 2;
+		max-width: 520px;
+		margin-inline: auto;
+	}
+
+	.zc-hero__actions,
+	.zc-hero__badges {
+		justify-content: center;
+	}
+}
+
+@media (max-width: 768px) {
+	.zc-hero {
+		min-height: auto;
+		padding-block: 34px 30px;
+	}
+
+	.zc-hero__title {
+		font-size: clamp(1.55rem, 6.4vw, 2.3rem);
+		line-height: 1.55;
+	}
+
+	.zc-hero__desc {
+		font-size: .92rem;
+		line-height: 2;
+	}
+
+	/* عناصر شناور روی تصویر در موبایل جا نمی‌شوند. */
+	.zc-hero__float,
+	.zc-hero__deco {
+		display: none !important;
+	}
+}
+
+@media (max-width: 600px) {
+	.zc-hero__actions {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 10px;
+	}
+
+	.zc-hero__actions .zc-btn {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+/* ==========================================================================
+   ۴. فرم‌ها (تماس، درخواست پروژه، نوبت‌دهی، خبرنامه)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+	.zc-form__row,
+	.zc-form-grid,
+	.zc-reqform__grid,
+	.zc-booking__grid,
+	.zc-contact__grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 14px;
+	}
+}
+
+@media (max-width: 768px) {
+	.zc-reqform__glow,
+	.zc-contact__glow {
+		display: none !important;
+	}
+
+	.zc-newsletter__form {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.zc-newsletter__form .zc-btn,
+	.zc-newsletter__form input {
+		width: 100%;
+	}
+}
+
+/*
+ * روی iOS اگر اندازه‌ی قلم ورودی کمتر از ۱۶ پیکسل باشد، مرورگر هنگام
+ * فوکوس صفحه را زوم می‌کند و چیدمان به‌هم می‌ریزد.
+ */
+@media (max-width: 768px) {
+	input[type='text'],
+	input[type='email'],
+	input[type='tel'],
+	input[type='url'],
+	input[type='number'],
+	input[type='password'],
+	input[type='search'],
+	input[type='date'],
+	select,
+	textarea {
+		font-size: 16px;
+	}
+}
+
+/* ==========================================================================
+   ۵. قیمت‌گذاری، جدول‌ها و کارت‌ها
+   ========================================================================== */
+
+@media (max-width: 900px) {
+	.zc-pricing,
+	.zc-plans {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 16px;
+	}
+
+	.zc-plan--featured {
+		transform: none;
+	}
+}
+
+/* جدول‌های داده در موبایل به‌صورت افقی اسکرول می‌شوند. */
+@media (max-width: 768px) {
+	.zc-table-wrap,
+	.zc-table-responsive {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.zc-table-wrap > table {
+		min-width: 560px;
+	}
+}
+
+/* ==========================================================================
+   ۶. تب‌ها، آکاردئون، تایم‌لاین و نقشه‌راه
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	/* نوار تب‌ها به‌جای شکستن، افقی اسکرول می‌شود. */
+	.zc-tabs__nav,
+	.zc-tabs__head {
+		display: flex;
+		overflow-x: auto;
+		flex-wrap: nowrap;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.zc-tabs__nav::-webkit-scrollbar,
+	.zc-tabs__head::-webkit-scrollbar {
+		display: none;
+	}
+
+	.zc-tabs__nav > * ,
+	.zc-tabs__head > * {
+		flex: 0 0 auto;
+	}
+
+	.zc-timeline,
+	.zc-roadmap {
+		padding-inline-start: 0;
+	}
+
+	.zc-timeline__item,
+	.zc-roadmap__item {
+		width: 100%;
+		margin-inline: 0;
+	}
+
+	/* خط عمودی تایم‌لاین در موبایل به لبه منتقل می‌شود. */
+	.zc-timeline::before,
+	.zc-roadmap::before {
+		inset-inline-start: 11px;
+	}
+
+	.zc-accordion__q {
+		font-size: .93rem;
+		line-height: 1.9;
+	}
+}
+
+/* ==========================================================================
+   ۷. برندها، نشان‌های اعتماد، گالری و شمارنده‌ها
+   ========================================================================== */
+
+@media (max-width: 900px) {
+	.zc-brands,
+	.zc-trust {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 12px;
+	}
+}
+
+@media (max-width: 600px) {
+	.zc-brands,
+	.zc-trust {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.zc-counters {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+	}
+
+	.zc-gallery {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+}
+
+@media (max-width: 400px) {
+	.zc-brands,
+	.zc-trust,
+	.zc-counters {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* ==========================================================================
+   ۸. شمارش معکوس (zc_countdown)
+   ========================================================================== */
+
+@media (max-width: 600px) {
+	.zc-countdown {
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.zc-countdown__box {
+		min-width: 62px;
+		padding: 10px 8px;
+	}
+
+	.zc-countdown__num {
+		font-size: 1.3rem;
+	}
+
+	.zc-countdown__label {
+		font-size: .68rem;
+	}
+}
+
+/* ==========================================================================
+   ۹. نوار فراخوان (zc_cta_bar) و جعبه‌ی ویدیو
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.zc-ctabar,
+	.zc-cta-bar {
+		flex-direction: column;
+		text-align: center;
+		gap: 16px;
+		padding: 22px 18px;
+	}
+
+	.zc-ctabar__actions,
+	.zc-cta-bar__actions {
+		width: 100%;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.zc-ctabar__actions .zc-btn,
+	.zc-cta-bar__actions .zc-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.zc-videobox,
+	.zc-video-box {
+		aspect-ratio: 16 / 10;
+	}
+}
+
+/* ==========================================================================
+   ۱۰. سربرگ، منو و جست‌وجو
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+	.zc-header__actions {
+		gap: 8px;
+	}
+
+	/* برچسب‌های متنی کنار آیکون‌ها در تبلت حذف می‌شوند. */
+	.zc-header__actions .zc-btn span.zc-hide-md {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.zc-topbar__list {
+		gap: 10px;
+		font-size: .72rem;
+	}
+
+	.zc-header__actions {
+		gap: 6px;
+	}
+
+	.zc-search-modal__box {
+		width: calc(100% - 24px);
+		max-width: 100%;
+	}
+}
+
+/* ==========================================================================
+   ۱۱. پاورقی
+   ========================================================================== */
+
+@media (max-width: 900px) {
+	.zc-footer__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 26px;
+	}
+}
+
+@media (max-width: 600px) {
+	.zc-footer__grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 22px;
+	}
+
+	.zc-footer__bottom {
+		flex-direction: column;
+		text-align: center;
+		gap: 12px;
+	}
+}
+
+/* ==========================================================================
+   ۱۲. عناصر شناور (گفتگو، بازگشت به بالا)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+	/* پنجره‌ی گفتگو نباید از عرض دید بیرون بزند. */
+	.zc-chat-widget,
+	.zc-chat-box {
+		max-width: calc(100vw - 24px);
+	}
+}
+
+@media (max-width: 768px) {
+	.zc-chat-widget {
+		inset-inline-end: 12px;
+		bottom: 12px;
+		max-width: calc(100vw - 24px);
+	}
+
+	.zc-chat-box {
+		width: calc(100vw - 24px);
+		max-width: 360px;
+		max-height: 74vh;
+	}
+
+	.zc-to-top {
+		inset-inline-start: 12px;
+		bottom: 12px;
+	}
+
+	/*
+	 * حلقه‌ی متحرک دور دکمه‌ی گفتگو با inset منفی کمی بیرون می‌زند؛
+	 * چون تزئینی است، در موبایل داخل خود دکمه نگه داشته می‌شود.
+	 */
+	.zc-chat-toggle {
+		overflow: hidden;
+	}
+
+	.zc-chat-toggle::after {
+		inset: 0;
+	}
+}
+
+/* ==========================================================================
+   ۱۳. دسترس‌پذیری لمسی — هدف‌های کوچک
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+	.zc-btn,
+	.zc-tabs__nav button,
+	.zc-pagination a,
+	.zc-pagination span {
+		min-height: 40px;
+	}
+
+	.zc-btn--sm {
+		min-height: 34px;
+	}
+
+	/* آیکون‌های تنها باید ناحیه‌ی لمس کافی داشته باشند. */
+	.zc-btn--icon,
+	.zc-social a,
+	.zc-share a {
+		min-width: 40px;
+		min-height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+/* هیچ متنی نباید زیر ۱۱ پیکسل خوانده شود. */
+.zc-hicon__count,
+.zc-badge--xs,
+.zc-meta__tiny {
+	font-size: 11px;
+}
+
+/* ==========================================================================
+   ۱۴. ستون‌های المنتور در موبایل
+   ========================================================================== */
+
+@media (max-width: 767px) {
+	/*
+	 * «حاشیه امن» موبایل.
+	 *
+	 * پیش‌تر تورفتگی افقی در موبایل کم می‌شد (۲۰ → ۱۶ → ۱۳ پیکسل) تا
+	 * فضای بیشتری برای محتوا بماند؛ اما نتیجه این بود که متن و کارت‌ها
+	 * تقریباً به لبه‌ی نمایشگر می‌چسبیدند و خواندن مطلب آزاردهنده
+	 * می‌شد — به‌ویژه روی گوشی‌هایی که لبه‌ی منحنی دارند.
+	 *
+	 * حالا یک متغیر واحد تعریف می‌شود و همه‌ی ظرف‌ها از آن پیروی
+	 * می‌کنند؛ مقدار آن با safe-area دستگاه هم جمع می‌شود تا در حالت
+	 * افقی و روی گوشی‌های دارای بریدگی هم محتوا زیر لبه نرود.
+	 */
+	:root {
+		--zc-gutter: 20px;
+	}
+
+	.zc-container,
+	.zc-container--sm,
+	.zc-container--fluid {
+		padding-inline:
+			calc(var(--zc-gutter) + env(safe-area-inset-right, 0px))
+			calc(var(--zc-gutter) + env(safe-area-inset-left, 0px));
+	}
+
+	/*
+	 * المنتور ظرف داخلی خودش را دارد؛ چون بخش‌های صفحه اصلی داخل
+	 * ستون‌های المنتور می‌نشینند، همان حاشیه باید اینجا هم اعمال شود
+	 * وگرنه ویجت‌ها از ظرف قالب باریک‌تر یا چسبیده‌تر می‌شوند.
+	 */
+	.elementor-section.elementor-section-boxed > .elementor-container,
+	.elementor-section > .elementor-container {
+		padding-inline: var(--zc-gutter);
+	}
+
+	/*
+	 * حاشیه‌ی پیش‌فرض خود المنتور روی ستون/ویجت‌ها را حذف می‌کنیم؛
+	 * حاشیه‌ی امن نهایی فقط از elementor-container (۲ پیکسل) می‌آید
+	 * تا روی موبایل حداکثر ۲ پیکسل باشد.
+	 */
+	.elementor-section .elementor-column > .elementor-widget-wrap,
+	.elementor-section .elementor-column > .elementor-element-populated {
+		padding: 0 !important;
+	}
+
+	/*
+	 * اگر ویجت زرین‌کد خودش ظرف دارد، نباید تورفتگی دوبار اعمال شود.
+	 */
+	.elementor-section > .elementor-container .zc-container {
+		padding-inline: 0 !important;
+	}
+
+	.zc-section {
+		--zc-sec-y: 26px;
+		--zc-sec-y-lg: 32px;
+	}
+
+	/* عنوان بخش‌ها در موبایل کوچک‌تر و متعادل‌تر */
+	.zc-sec-title,
+	.zc-heading__title {
+		font-size: clamp(1.25rem, 5.4vw, 1.7rem);
+		line-height: 1.7;
+	}
+
+	.zc-sec-sub,
+	.zc-heading__sub {
+		font-size: .87rem;
+		line-height: 1.95;
+	}
+}
+
+@media (max-width: 360px) {
+	/* حاشیه‌ی امن در نمایشگرهای واقعاً باریک هم حداکثر ۲ پیکسل است. */
+	:root {
+		--zc-gutter: 20px;
+	}
+}
+
+/* ==========================================================================
+   ۱۵. کلاس‌های جایگزین استایل درون‌خطی
+   ========================================================================== */
+
+@media (max-width: 991px) {
+	.zc-panel__grid-2--wide {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+@media (max-width: 768px) {
+	.zc-formcard {
+		padding: 20px 16px;
+		border-radius: var(--zc-radius);
+	}
+
+	.zc-map__frame {
+		height: 280px;
+	}
+
+	.zc-field--half {
+		flex: 1 1 100%;
+	}
+}
+
+@media (max-width: 400px) {
+	.zc-map__frame {
+		height: 230px;
+	}
+}
+
+/* ==========================================================================
+   ۱۶. اندازه‌ی هدف لمسی در فهرست‌ها و پاورقی
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+	/*
+	 * پیوندهای فهرست‌های عمودی (پاورقی، منوی موبایل، فهرست‌های کناری)
+	 * باید دست‌کم ۳۶ پیکسل ارتفاع مؤثر داشته باشند تا لمس آسان باشد.
+	 */
+	.zc-footer__col a,
+	.zc-menu--mobile a,
+	.zc-panel__nav a,
+	.zc-anlist a,
+	.zc-widget li a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 36px;
+	}
+
+	.zc-anbar__close,
+	.zc-modal__close,
+	.zc-search-modal__close {
+		min-width: 36px;
+		min-height: 36px;
+	}
+}
+
+/* ==========================================================================
+   ۱۷. تایم‌لاین، نقشه‌راه و پلن‌ها (نام کلاس‌های واقعی ویجت‌ها)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	/*
+	 * تایم‌لاین در دسکتاپ ۴۰ پیکسل تورفتگی دارد و نقطه‌ها با مقدار
+	 * منفی بیرون کارت می‌نشینند؛ در موبایل همین باعث سرریز می‌شد.
+	 */
+	.zc-tl {
+		padding-inline-start: 30px;
+	}
+
+	.zc-tl::before {
+		inset-inline-start: 14px;
+	}
+
+	.zc-tl__item {
+		padding: 16px 15px;
+		margin-bottom: 18px;
+	}
+
+	.zc-tl__dot {
+		inset-inline-start: -30px;
+		width: 30px;
+		height: 30px;
+		top: 16px;
+		/* جابه‌جایی ۵۰٪ دسکتاپ در تبلت باعث بیرون‌زدگی می‌شد. */
+		transform: translateX(25%);
+	}
+
+	body.zc-rtl .zc-tl__dot {
+		transform: translateX(25%);
+	}
+
+	.zc-tl__item:hover {
+		transform: none;
+	}
+
+	.zc-step {
+		padding: 20px 15px;
+	}
+
+	.zc-step:hover {
+		transform: none;
+	}
+
+	.zc-plan {
+		padding: 24px 18px;
+	}
+
+	.zc-plan--featured {
+		transform: none;
+	}
+
+	.zc-plan:hover {
+		transform: none;
+	}
+}
+
+@media (max-width: 400px) {
+	.zc-tl {
+		padding-inline-start: 24px;
+	}
+
+	.zc-tl__dot {
+		inset-inline-start: -24px;
+		width: 26px;
+		height: 26px;
+	}
+
+	.zc-tl__item {
+		padding: 14px 13px;
+	}
+}
+
+/* ==========================================================================
+   ۱۸. انیمیشن ورود در موبایل
+   حالت‌های افقی (start/end) پیش از نمایش، عنصر را ۴۴ پیکسل جابه‌جا
+   می‌کنند. در نمایشگر باریک همین جابه‌جایی موقت باعث سرریز افقی
+   می‌شود؛ بنابراین در موبایل به حرکت عمودی تبدیل می‌شود.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	body.zc-anim-on [data-zc-anim='start'],
+	body.zc-anim-on [data-zc-anim='end'] {
+		transform: translate3d(0, 26px, 0);
+	}
+
+	body.zc-anim-on [data-zc-anim='rise'] {
+		transform: translate3d(0, 30px, 0);
+	}
+}
+
+/* ==========================================================================
+   ۱۹. نوار اشتراک‌گذاری مطلب
+   ========================================================================== */
+
+@media (max-width: 760px) {
+	/* در موبایل برچسب و آیکون‌ها هر دو وسط‌چین می‌شوند. */
+	.zc-single__share {
+		align-items: center;
+		gap: 12px;
+	}
+
+	.zc-single__share .zc-share,
+	.zc-single__share .zc-share__list {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.zc-single__share-label {
+		text-align: center;
+		width: 100%;
+	}
+}
+
+@media (max-width: 400px) {
+	.zc-single__share {
+		padding: 14px 12px;
+	}
+
+	.zc-share__btn {
+		width: 38px;
+		height: 38px;
+	}
+
+	.zc-share__list {
+		gap: 7px;
+	}
+}
+
+/* ==========================================================================
+   ۲۰. حاشیه امن در پنل کاربری و بخش‌های تمام‌عرض
+   ========================================================================== */
+
+@media (max-width: 767px) {
+	/*
+	 * پنل کاربری، صفحات ووکامرس و بخش‌های تمام‌عرض ظرف مستقل دارند
+	 * و از .zc-container پیروی نمی‌کنند؛ برای این‌ها هم همان حاشیه‌ی
+	 * امن اعمال می‌شود تا محتوا به لبه‌ی نمایشگر نچسبد.
+	 */
+	.zc-panel,
+	.zc-panel__wrap,
+	.woocommerce-page .site-main,
+	.zc-single__wrap,
+	.zc-archive__wrap {
+		padding-inline: var(--zc-gutter, 20px);
+	}
+
+	/* اگر ظرف تودرتو شد، تورفتگی دوباره اعمال نشود. */
+	.zc-panel .zc-container,
+	.zc-single__wrap.zc-container {
+		padding-inline: 0;
+	}
+
+	/*
+	 * کارت‌های داخل پنل کمی تورفتگی درونی کمتر می‌گیرند تا با وجود
+	 * حاشیه‌ی بیرونی، فضای مفید متن کم نشود.
+	 */
+	.zc-panel__box-body,
+	.zc-card {
+		padding-inline: 15px;
+	}
+}
+
+/* ==========================================================================
+   ۲۱. بهینه‌سازی کارت‌های صفحه اصلی در موبایل
+   این بلوک اطمینان می‌دهد همه‌ی ویجت‌های صفحه اصلی در موبایل هم‌پوشان
+   نمی‌شوند، کارت‌ها سرریز نمی‌کنند و فاصله‌گذاری داخلی خوانا می‌ماند.
+   ========================================================================== */
+
+/* ---- کارت‌های خدمات (zc_services) ---- */
+@media (max-width: 600px) {
+	.zc-service-card {
+		border-radius: 18px;
+	}
+
+	.zc-service-card__body {
+		padding: 18px 16px 16px;
+	}
+
+	.zc-service-card__title {
+		font-size: 1.02rem;
+		line-height: 1.7;
+	}
+
+	.zc-service-card__desc {
+		font-size: .85rem;
+		line-height: 1.95;
+	}
+
+	/* ردیف پایینی کارت (قیمت + دکمه) در موبایل زیر هم چیده می‌شود تا
+	   متن بلند قیمت باعث هم‌پوشانی با دکمه نشود. */
+	.zc-service-card__foot {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
+	}
+
+	.zc-service-card__foot .zc-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.zc-service-card__list li {
+		font-size: .82rem;
+		line-height: 1.9;
+	}
+
+	.zc-service-card__price strong {
+		font-size: 1.05rem;
+	}
+}
+
+/* ---- زمینه‌های کاری / ویژگی‌ها (zc_features) ---- */
+@media (max-width: 600px) {
+	.zc-feature {
+		padding: 22px 18px;
+		text-align: center;
+	}
+
+	.zc-feature__icon {
+		margin-inline: auto;
+	}
+
+	.zc-feature__title {
+		font-size: 1rem;
+	}
+
+	.zc-feature__text {
+		font-size: .84rem;
+		line-height: 2;
+	}
+
+	/* حالت inline (آیکن کنار متن) هم در موبایل عمودی می‌شود. */
+	.zc-feature--inline,
+	.zc-feature[style*='inline'],
+	.zc-features--inline .zc-feature {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.zc-features--inline .zc-feature__icon {
+		margin-inline: auto;
+	}
+}
+
+/* ---- کارت‌های دسته‌بندی / مسیر یادگیری (zc_category_cards) ---- */
+@media (max-width: 600px) {
+	.zc-catcard {
+		aspect-ratio: 4 / 3;
+	}
+
+	.zc-catcard__inner {
+		inset-inline: 10px;
+		bottom: 10px;
+		padding: 8px 10px;
+		gap: 9px;
+		border-radius: 14px;
+	}
+
+	.zc-catcard__fab {
+		width: 32px;
+		height: 32px;
+	}
+
+	.zc-catcard__en {
+		font-size: .88rem;
+	}
+
+	.zc-catcard__fa {
+		font-size: .74rem;
+	}
+}
+
+/* ---- کارت‌های مدرس و تیم (zc_teachers) ---- */
+@media (max-width: 600px) {
+	.zc-card__title {
+		font-size: 1rem;
+		line-height: 1.7;
+	}
+
+	.zc-card__meta {
+		font-size: .76rem;
+		gap: 10px;
+	}
+
+	.zc-avatar--xl {
+		width: 76px;
+		height: 76px;
+	}
+
+	.zc-card__socials {
+		justify-content: center;
+		gap: 8px;
+	}
+}
+
+/* ---- کارت‌های محصول فروشگاه (zc_products) ---- */
+@media (max-width: 600px) {
+	.zc-shop-layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.zc-shop-sidebar {
+		order: 2;
+	}
+
+	.zc-shop-main {
+		order: 1;
+	}
+
+	.zc-product-card__wish {
+		width: 34px;
+		height: 34px;
+	}
+
+	/* برچسب‌های محصول نباید در موبایل بیرون بزنند. */
+	.zc-card .onsale,
+	.zc-card .wc-block-grid__product-onsale {
+		font-size: .72rem;
+		padding: 4px 9px;
+	}
+}
+
+/* ---- نظرات / تجربه مشتریان (zc_testimonials_video) ---- */
+@media (max-width: 768px) {
+	/* کل بخش ویدیو + فهرست نظرات به یک ستون تبدیل می‌شود. */
+	.zc-testi {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 18px;
+		align-items: stretch;
+	}
+
+	.zc-testi__video {
+		width: 100%;
+		aspect-ratio: 16 / 10;
+	}
+}
+
+@media (max-width: 600px) {
+	.zc-testi__item {
+		padding: 13px 14px;
+		gap: 11px;
+		align-items: center;
+		opacity: 1;
+	}
+
+	.zc-testi__name {
+		font-size: .92rem;
+		line-height: 1.5;
+	}
+
+	.zc-testi__role {
+		font-size: .74rem;
+		line-height: 1.5;
+	}
+
+	.zc-testi__info {
+		flex: 1;
+		min-width: 0;
+		text-align: start;
+	}
+
+	.zc-play-btn {
+		width: 40px;
+		height: 40px;
+	}
+
+	.zc-testi__btn {
+		width: 34px;
+		height: 34px;
+		flex-shrink: 0;
+	}
+
+	.zc-avatar--md {
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media (max-width: 400px) {
+	.zc-testi__item {
+		padding: 11px 12px;
+		gap: 9px;
+	}
+
+	.zc-testi__btn {
+		width: 30px;
+		height: 30px;
+	}
+}
+
+/* ---- مسیر همکاری / نقشه راه (zc_roadmap) ---- */
+@media (max-width: 600px) {
+	.zc-step {
+		padding: 22px 18px;
+		text-align: center;
+	}
+
+	.zc-step__num {
+		width: 44px;
+		height: 44px;
+		font-size: 1.1rem;
+		margin-inline: auto;
+	}
+
+	.zc-step__title {
+		font-size: 1.05rem;
+	}
+}
+
+/* ---- هدر ویجت (عنوان بخش) ---- */
+@media (max-width: 400px) {
+	.zc-heading__arrow,
+	.zc-heading__link {
+		display: none;
+	}
+
+	.zc-heading {
+		text-align: center;
+	}
+}
+
+/* ---- امنیت بیشتر: هیچ ستون یک‌تکه در موبایل نباید کوتاه بماند ---- */
+@media (max-width: 600px) {
+	.zc-grid--2,
+	.zc-grid--3,
+	.zc-grid--4,
+	.zc-grid--5,
+	.zc-grid--6 {
+		grid-template-columns: minmax(0, 1fr) !important;
+	}
+
+	/* محتوای کارت‌ها در عرض کم، وسط‌چین و خواناتر شود. */
+	.zc-service-card,
+	.zc-feature,
+	.zc-card,
+	.zc-testi__item {
+		text-align: start;
+	}
+}
+
+/* ==========================================================================
+   ۲۱.۵ فیلتر نمونه‌کارها (zc-pf-filter) در موبایل — یک خطی
+   --------------------------------------------------------------------------
+   دکمه‌های فیلتر به‌جای چند خطی شدن، به‌صورت یک نوار افقیِ اسکرول‌شونده
+   می‌مانند تا همه‌ی دسته‌ها در یک خط دیده شوند.
+   ========================================================================== */
+@media (max-width: 600px) {
+	.zc-pf-filter {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		justify-content: flex-start;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		padding-bottom: 4px;
+	}
+
+	.zc-pf-filter::-webkit-scrollbar {
+		display: none;
+	}
+
+	.zc-pf-filter__btn {
+		flex: 0 0 auto;
+		white-space: nowrap;
+		padding: 9px 15px;
+		font-size: .82rem;
+	}
+}
+
+/* ==========================================================================
+   ۲۲. حاشیه امن کامل موبایل — پوشش همه‌ی حالات المنتور
+   --------------------------------------------------------------------------
+   برخی سکشن‌های المنتور تمام‌عرض (full_width / stretched) یا قالب‌های
+   تمام‌عرض ممکن است از قانون .elementor-section-boxed پیروی نکنند و محتوا
+   به لبه‌ی نمایشگر بچسبد. این بلوک، حاشیه‌ی امن را برای همه‌ی حالات
+   سکشن/کانتینر المنتور و ظرف‌های قالب در موبایل تضمین می‌کند.
+   ========================================================================== */
+@media (max-width: 767px) {
+	/*
+	 * ظرفِ همه‌ی سکشن‌های المنتور (باکس‌شده یا تمام‌عرض) در موبایل
+	 * حداقل حاشیه‌ی امن می‌گیرد تا متن و کارت به لبه نچسبد.
+	 */
+	.elementor-section .elementor-container,
+	.elementor-section.elementor-section-full_width > .elementor-container,
+	.elementor-section.elementor-section-boxed > .elementor-container {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-inline: 0 !important;
+		padding-inline: calc(var(--zc-gutter, 20px) + env(safe-area-inset-right, 0px)) calc(var(--zc-gutter, 20px) + env(safe-area-inset-left, 0px)) !important;
+	}
+
+	/*
+	 * اگر قالب خودش ظرفِ با حاشیه دارد (zc-container)، نباید تورفتگی
+	 * دوباره اعمال شود.
+	 */
+	.elementor-section .elementor-container .zc-container {
+		padding-inline: 0 !important;
+	}
+
+	/* سکشن‌های افقی (آن‌که می‌توانند محتوا را بکشند) فقط در جهت افقی ببرند. */
+	.elementor-section {
+		overflow-x: clip;
+		/* حاشیه‌ی افقی سکشن فقط از ظرف المنتور (۲ پیکسل) تامین شود. */
+		padding-inline: 0;
+	}
+
+	/* ستون‌های داخلی المنتور هم نباید از ظرف بیرون بزنند. */
+	.elementor-section .elementor-column {
+		min-width: 0;
+	}
+
+	/*
+	 * المان‌های تزئینی با موقعیت مطلق و مقدار منفی در موبایل باعث
+	 * سرریز افقی و چسبیدن بصری به لبه می‌شوند؛ داخل والد بُرش می‌خورند.
+	 */
+	.elementor-section .elementor-widget:has([class*='__glow']),
+	.elementor-section .elementor-widget:has([class*='__deco']),
+	.elementor-section .elementor-widget:has([class*='__blob']) {
+		overflow-x: clip;
+	}
+}
+
+/* ==========================================================================
+   ۲۳. منوی پنل کاربری — موبایل حرفه‌ای
+   --------------------------------------------------------------------------
+   هر آیتم منوی پنل در موبایل یک ردیف تمام‌عرض با فاصله‌ی مناسب، هدف لمسی
+   بزرگ و ظاهری مرتب می‌گیرد تا انتخاب گزینه‌ها و ناوبری در موبایل روان باشد.
+   ========================================================================== */
+@media (max-width: 768px) {
+	.zc-panel__nav {
+		display: block;
+		padding: 10px;
+	}
+
+	.zc-panel__nav-item {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		padding: 13px 15px;
+		margin-bottom: 6px;
+		font-size: .92rem;
+		min-height: 48px;
+		border-radius: 12px;
+	}
+
+	.zc-panel__nav-item:hover {
+		transform: none;
+	}
+
+	.zc-panel__nav-icon {
+		width: 34px;
+		height: 34px;
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(201,162,39,.1);
+		border-radius: 10px;
+	}
+
+	.zc-panel__nav-item.is-active .zc-panel__nav-icon {
+		background: rgba(36,28,5,.12);
+	}
+}
+
+/* ==========================================================================
+   ۲۴. بهبودهای سراسری واکنش‌گرایی موبایل
+   --------------------------------------------------------------------------
+   اطمینان از اینکه دکمه‌ها، کارت‌ها، فرم‌ها و جدول‌ها در عرض‌های کم، مرتب و
+   بدون بهم‌ریختگی نمایش داده می‌شوند.
+   ========================================================================== */
+@media (max-width: 600px) {
+	/* دکمه‌های تمام‌عرض در ردیف‌ها عمودی می‌شوند. */
+	.zc-hero__actions,
+	.zc-pcta__actions,
+	.zc-ctabar__actions,
+	.zc-btn-row,
+	.zc-form-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.zc-hero__actions .zc-btn,
+	.zc-pcta__actions .zc-btn,
+	.zc-ctabar__actions .zc-btn,
+	.zc-btn-row .zc-btn,
+	.zc-form-actions .zc-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	/* کارت‌های خرید/سایدبار چسبان به‌صورت تمام‌عرض. */
+	.zc-course-buy__foot,
+	.zc-pdp__buy-actions {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	/* فرم‌ها: فیلدهای کنار هم به‌صورت تمام‌عرض. */
+	.zc-reqform__grid,
+	.zc-contact-form .zc-row,
+	.zc-form__row {
+		grid-template-columns: 1fr !important;
+	}
+
+	/* جدول‌ها اسکرول افقی می‌شوند، نه شکستن. */
+	.zc-table-wrap,
+	.woocommerce table.shop_table,
+	table.wc-block-cart-items {
+		display: block;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		white-space: nowrap;
+	}
+
+	/* آیتم‌های نوار بالا مخفی می‌شوند تا بهم نریزند. */
+	.zc-topbar__list li:nth-child(n+3) {
+		display: none;
+	}
+
+	/* محصولات در فهرست فروشگاه حداقل ارتفاع دارند. */
+	.zc-shop-main .zc-grid .zc-card,
+	.zc-grid .product {
+		height: auto;
+	}
+}
+
+/* ==========================================================================
+   ۲۵. رفع بهم‌ریختگی بخش نظرات/تجربه مشتریان در موبایل
+   --------------------------------------------------------------------------
+   انیمیشن‌های افقی (start/end) روی این بخش باعث خروج عناصر از viewport و
+   بهم‌ریختگی در موبایل می‌شود. در موبایل این انیمیشن‌ها به‌طور کامل غیرفعال
+   می‌شوند تا بخش همیشه مرتب و قابل‌استفاده باشد.
+   ========================================================================== */
+@media (max-width: 768px) {
+	.zc-testi__video,
+	.zc-testi__list,
+	.zc-testi__item,
+	.zc-testi__item[data-zc-anim],
+	body.zc-anim-on .zc-testi__video[data-zc-anim],
+	body.zc-anim-on .zc-testi__list[data-zc-anim],
+	body.zc-anim-on .zc-testi__item[data-zc-anim] {
+		transform: none !important;
+		opacity: 1 !important;
+	}
+}
+
+/* ==========================================================================
+   ۲۶. جلوگیری از سرریز افقی عناصر دارای انیمیشن افقی در موبایل
+   --------------------------------------------------------------------------
+   هر عنصری که با data-zc-anim افقی (start/end) شروع می‌شود، در موبایل
+   نباید باعث اسکرول افقی یا خروج از viewport شود.
+   ========================================================================== */
+@media (max-width: 600px) {
+	body.zc-anim-on [data-zc-anim='start'],
+	body.zc-anim-on [data-zc-anim='end'] {
+		transform: translate3d(0, 26px, 0) !important;
+	}
+}
