@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  * @return array|WP_Error
  */
 function zc_zarinpal_request( $amount, $description, $callback, $meta = array() ) {
-	$merchant = trim( (string) zc_opt( 'zc_zarinpal_merchant', '' ) );
+	$merchant = trim( (string) ( $meta['merchant'] ?? zc_opt( 'zc_zarinpal_merchant', '' ) ) );
 
 	if ( ! $merchant ) {
 		return new WP_Error( 'zc_zp_config', __( 'مرچنت کد زرین‌پال تنظیم نشده است.', 'zarincode' ) );
@@ -95,10 +95,11 @@ function zc_zarinpal_request( $amount, $description, $callback, $meta = array() 
  *
  * @param string $authority کد authority.
  * @param float  $amount    مبلغ.
+ * @param string $merchant  مرچنت اختصاصی درگاه ووکامرس.
  * @return array|WP_Error
  */
-function zc_zarinpal_verify( $authority, $amount ) {
-	$merchant = trim( (string) zc_opt( 'zc_zarinpal_merchant', '' ) );
+function zc_zarinpal_verify( $authority, $amount, $merchant = '' ) {
+	$merchant = trim( (string) ( $merchant ?: zc_opt( 'zc_zarinpal_merchant', '' ) ) );
 	$sandbox  = (bool) zc_opt( 'zc_zarinpal_sandbox', false );
 	$currency = zc_opt( 'zc_zarinpal_currency', 'IRT' );
 	$amount   = (int) round( $amount );
@@ -190,7 +191,8 @@ function zc_init_zarinpal_gateway() {
 			$this->has_fields         = false;
 			$this->method_title       = __( 'زرین‌پال (زرین کد)', 'zarincode' );
 			$this->method_description = __( 'پرداخت امن آنلاین از طریق درگاه زرین‌پال با تمام کارت‌های عضو شتاب.', 'zarincode' );
-			$this->supports           = array( 'products', 'refunds' );
+			// بازپرداخت API زرین‌پال بدون دسترسی سرویس Refund تضمین‌شده نیست.
+			$this->supports           = array( 'products' );
 
 			$this->init_form_fields();
 			$this->init_settings();
@@ -276,18 +278,21 @@ function zc_init_zarinpal_gateway() {
 				sprintf( /* translators: %s: order number */ __( 'پرداخت سفارش شماره %s', 'zarincode' ), $order->get_order_number() ),
 				$callback,
 				array(
-					'email'  => $order->get_billing_email(),
-					'mobile' => $order->get_billing_phone(),
+					'email'    => $order->get_billing_email(),
+					'mobile'   => $order->get_billing_phone(),
+					'merchant' => trim( (string) $this->get_option( 'merchant', '' ) ),
 				)
 			);
 
 			if ( is_wp_error( $result ) ) {
+				zc_restore_order_wallet( $order, 'gateway_request_failed' );
 				wc_add_notice( $result->get_error_message(), 'error' );
 				return array( 'result' => 'failure' );
 			}
 
 			$order->update_meta_data( '_zc_zp_authority', $result['authority'] );
 			$order->update_meta_data( '_zc_zp_amount', $amount );
+			$order->update_meta_data( '_zc_zp_merchant', trim( (string) $this->get_option( 'merchant', '' ) ) );
 			$order->save();
 
 			return array(
@@ -328,6 +333,13 @@ function zc_init_zarinpal_gateway() {
 				exit;
 			}
 
+			$saved_authority = (string) $order->get_meta( '_zc_zp_authority', true );
+			if ( ! $authority || ! $saved_authority || ! hash_equals( $saved_authority, $authority ) ) {
+				wc_add_notice( __( 'شناسه تراکنش با سفارش مطابقت ندارد.', 'zarincode' ), 'error' );
+				wp_safe_redirect( wc_get_checkout_url() );
+				exit;
+			}
+
 			if ( 'OK' !== $status ) {
 				$order->update_status( 'failed', __( 'پرداخت توسط کاربر لغو شد.', 'zarincode' ) );
 				wc_add_notice( $this->get_option( 'failed_msg' ), 'error' );
@@ -338,7 +350,7 @@ function zc_init_zarinpal_gateway() {
 			$amount = (float) $order->get_meta( '_zc_zp_amount' );
 			$amount = $amount ? $amount : (float) $order->get_total();
 
-			$verify = zc_zarinpal_verify( $authority, $amount );
+			$verify = zc_zarinpal_verify( $authority, $amount, (string) $order->get_meta( '_zc_zp_merchant', true ) );
 
 			if ( is_wp_error( $verify ) ) {
 				$order->update_status( 'failed', $verify->get_error_message() );
@@ -394,44 +406,132 @@ add_action( 'plugins_loaded', 'zc_init_zarinpal_gateway', 11 );
  * @return float مبلغ باقی‌مانده.
  */
 function zc_apply_wallet_to_order( $order, $amount ) {
-	if ( ! zc_opt( 'zc_wallet_enable', true ) ) {
+	if ( ! zc_opt( 'zc_wallet_enable', true ) || ! $order ) {
 		return $amount;
 	}
 
-	$use = isset( $_POST['zc_use_wallet'] ) ? true : false; // phpcs:ignore
-	if ( ! $use && WC()->session ) {
-		$use = (bool) WC()->session->get( 'zc_use_wallet' );
+	// آغاز دوبارهٔ همان پرداخت نباید برداشت تازه ایجاد کند.
+	$existing = (float) $order->get_meta( '_zc_wallet_paid', true );
+	if ( $existing > 0 && ! $order->get_meta( '_zc_wallet_restored', true ) ) {
+		return max( 0, $amount - $existing );
 	}
 
+	$use = isset( $_POST['zc_use_wallet'] ); // phpcs:ignore
+	if ( ! $use && function_exists( 'WC' ) && WC()->session ) {
+		$use = (bool) WC()->session->get( 'zc_use_wallet' );
+	}
 	if ( ! $use ) {
 		return $amount;
 	}
 
-	$user_id = $order->get_user_id();
+	$user_id = (int) $order->get_user_id();
 	$balance = zc_wallet_balance( $user_id );
-
-	if ( $balance <= 0 ) {
+	if ( ! $user_id || $balance <= 0 ) {
 		return $amount;
 	}
 
-	$deduct = min( $balance, $amount );
-
-	zc_wallet_withdraw(
+	$deduct = min( $balance, (float) $amount );
+	$tx     = zc_wallet_withdraw(
 		$user_id,
 		$deduct,
-		sprintf( /* translators: %s: order */ __( 'پرداخت سفارش #%s از کیف پول', 'zarincode' ), $order->get_order_number() ),
-		'order'
+		sprintf( __( 'رزرو پرداخت سفارش #%s از کیف پول', 'zarincode' ), $order->get_order_number() ),
+		'order',
+		array( 'ref_id' => 'wallet-order-' . $order->get_id(), 'gateway' => 'wallet', 'status' => 'pending', 'meta' => array( 'order_id' => $order->get_id(), 'reservation' => true ) )
 	);
 
+	if ( is_wp_error( $tx ) || ! $tx ) {
+		return $amount;
+	}
+
 	$order->update_meta_data( '_zc_wallet_paid', $deduct );
-	$order->add_order_note(
-		sprintf(
-			/* translators: %s: amount */
-			__( 'مبلغ %s از کیف پول کاربر کسر شد.', 'zarincode' ),
-			zc_fa_num( number_format( $deduct ) )
-		)
-	);
+	$order->delete_meta_data( '_zc_wallet_restored' );
+	$order->update_meta_data( '_zc_wallet_transaction_id', (int) $tx );
+	$order->add_order_note( sprintf( __( 'مبلغ %s از کیف پول کاربر برای این سفارش رزرو شد.', 'zarincode' ), zc_fa_num( number_format( $deduct ) ) ) );
 	$order->save();
 
 	return max( 0, $amount - $deduct );
 }
+
+/**
+ * قطعی‌کردن بخش کیف پول پس از پرداخت موفق سفارش.
+ *
+ * @param int $order_id سفارش.
+ * @return void
+ */
+function zc_commit_order_wallet( $order_id ) {
+	$order = function_exists( 'wc_get_order' ) ? wc_get_order( $order_id ) : false;
+	if ( $order && (float) $order->get_meta( '_zc_wallet_paid', true ) > 0 && ! $order->get_meta( '_zc_wallet_committed', true ) ) {
+		global $wpdb;
+		$amount = (float) $order->get_meta( '_zc_wallet_paid', true );
+		$tx_id  = (int) $order->get_meta( '_zc_wallet_transaction_id', true );
+		if ( $tx_id ) {
+			$wpdb->update( $wpdb->prefix . 'zc_transactions', array( 'status' => 'completed', 'description' => sprintf( __( 'پرداخت قطعی سفارش #%s از کیف پول', 'zarincode' ), $order->get_order_number() ) ), array( 'id' => $tx_id ), array( '%s', '%s' ), array( '%d' ) ); // phpcs:ignore
+		}
+		zc_add_transaction(
+			array(
+				'user_id' => $order->get_user_id(), 'amount' => $amount, 'type' => 'income', 'category' => 'order',
+				'description' => sprintf( __( 'درآمد بخش کیف پول سفارش #%s', 'zarincode' ), $order->get_order_number() ),
+				'ref_id' => 'wallet-income-' . $order->get_id(), 'gateway' => 'wallet', 'status' => 'completed',
+			)
+		);
+		$order->update_meta_data( '_zc_wallet_committed', '1' );
+		$order->save();
+	}
+}
+add_action( 'woocommerce_payment_complete', 'zc_commit_order_wallet', 5 );
+
+/**
+ * بازگرداندن رزرو کیف پول برای پرداخت ناموفق/لغوشده.
+ *
+ * @param int|WC_Order $order_or_id سفارش.
+ * @param string       $reason      دلیل.
+ * @return bool
+ */
+function zc_restore_order_wallet( $order_or_id, $reason = '' ) {
+	$order = is_object( $order_or_id ) ? $order_or_id : ( function_exists( 'wc_get_order' ) ? wc_get_order( $order_or_id ) : false );
+	if ( ! $order || $order->get_meta( '_zc_wallet_restored', true ) ) {
+		return false;
+	}
+
+	$amount  = (float) $order->get_meta( '_zc_wallet_paid', true );
+	$user_id = (int) $order->get_user_id();
+	if ( $amount <= 0 || ! $user_id ) {
+		return false;
+	}
+
+	global $wpdb;
+	$original_tx = (int) $order->get_meta( '_zc_wallet_transaction_id', true );
+
+	$tx = zc_wallet_deposit(
+		$user_id,
+		$amount,
+		sprintf( __( 'بازگشت رزرو کیف پول سفارش #%s', 'zarincode' ), $order->get_order_number() ),
+		'refund',
+		array( 'ref_id' => 'wallet-restore-' . $order->get_id(), 'gateway' => 'wallet', 'meta' => array( 'reason' => $reason ) )
+	);
+	if ( ! $tx ) {
+		return false;
+	}
+	if ( $original_tx ) {
+		$wpdb->update( $wpdb->prefix . 'zc_transactions', array( 'status' => 'reversed' ), array( 'id' => $original_tx ), array( '%s' ), array( '%d' ) ); // phpcs:ignore
+	}
+
+	if ( $order->get_meta( '_zc_wallet_committed', true ) ) {
+		zc_add_transaction( array( 'user_id' => $user_id, 'amount' => -$amount, 'type' => 'refund', 'category' => 'order', 'status' => 'completed', 'description' => sprintf( __( 'بازپرداخت سفارش #%s', 'zarincode' ), $order->get_order_number() ), 'ref_id' => 'wallet-refund-income-' . $order->get_id(), 'gateway' => 'wallet' ) );
+	}
+	$order->update_meta_data( '_zc_wallet_restored', '1' );
+	$order->delete_meta_data( '_zc_wallet_committed' );
+	$order->add_order_note( sprintf( __( 'مبلغ %s به کیف پول کاربر بازگردانده شد.', 'zarincode' ), number_format( $amount ) ) );
+	$order->save();
+	return true;
+}
+
+/** @param int $order_id سفارش. */
+function zc_restore_failed_order_wallet( $order_id ) {
+	zc_restore_order_wallet( $order_id, 'order_failed_or_cancelled' );
+}
+add_action( 'woocommerce_order_status_failed', 'zc_restore_failed_order_wallet', 5 );
+add_action( 'woocommerce_order_status_cancelled', 'zc_restore_failed_order_wallet', 5 );
+add_action( 'woocommerce_order_fully_refunded', static function ( $order_id ) {
+	zc_restore_order_wallet( $order_id, 'order_fully_refunded' );
+}, 10 );

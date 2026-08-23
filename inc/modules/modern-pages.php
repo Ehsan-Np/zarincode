@@ -383,6 +383,21 @@ function zc_modern_legal( $html ) {
  * @return void
  */
 function zc_render_contact_page() {
+	$phone   = (string) zc_opt( 'zc_phone', '' );
+	$mobile  = (string) zc_opt( 'zc_mobile', '' );
+	$email   = (string) zc_opt( 'zc_email', zc_site_email() );
+	$address = (string) zc_opt( 'zc_address', '' );
+	$hours   = (string) zc_opt( 'zc_working_hours', __( 'شنبه تا چهارشنبه ۹ تا ۱۸', 'zarincode' ) );
+	$tel     = preg_replace( '/[^0-9+]/', '', $phone );
+	$wa      = preg_replace( '/[^0-9]/', '', $mobile );
+	if ( 0 === strpos( $wa, '0098' ) ) {
+		$wa = substr( $wa, 2 );
+	} elseif ( 0 === strpos( $wa, '0' ) ) {
+		$wa = '98' . substr( $wa, 1 );
+	} elseif ( $wa && 0 !== strpos( $wa, '98' ) ) {
+		$wa = '98' . $wa;
+	}
+
 	zc_modern_hero(
 		__( 'همیشه در کنار شما هستیم', 'zarincode' ),
 		__( 'با <span>زرین کد</span> در تماس باشید', 'zarincode' ),
@@ -397,10 +412,10 @@ function zc_render_contact_page() {
 	zc_modern_sec_open( __( 'راه‌های ارتباط', 'zarincode' ), __( 'چطور می‌توانیم <span>کمک کنیم</span>؟', 'zarincode' ), __( 'از هر راهی که برایتان راحت‌تر است، با ما در ارتباط باشید.', 'zarincode' ) );
 	zc_modern_contact_cards(
 		array(
-			array( 'icon' => 'phone', 'title' => __( 'تماس تلفنی', 'zarincode' ), 'text' => __( 'شنبه تا چهارشنبه، ۹ تا ۱۸', 'zarincode' ), 'link' => 'tel:07142380267' ),
-			array( 'icon' => 'send', 'title' => __( 'واتساپ و پیامک', 'zarincode' ), 'text' => __( 'پاسخ در کمتر از ۲۴ ساعت کاری', 'zarincode' ), 'link' => 'https://wa.me/989024561001' ),
-			array( 'icon' => 'mail', 'title' => __( 'ایمیل', 'zarincode' ), 'text' => 'info@' . zc_site_domain(), 'link' => 'mailto:info@' . zc_site_domain() ),
-			array( 'icon' => 'pin', 'title' => __( 'آدرس', 'zarincode' ), 'text' => __( 'فارس، کازرون، دهستان انارستان', 'zarincode' ) ),
+				array( 'icon' => 'phone', 'title' => __( 'تماس تلفنی', 'zarincode' ), 'text' => $hours, 'link' => $tel ? 'tel:' . $tel : '' ),
+				array( 'icon' => 'send', 'title' => __( 'واتساپ و پیامک', 'zarincode' ), 'text' => $mobile, 'link' => $wa ? 'https://wa.me/' . $wa : '' ),
+				array( 'icon' => 'mail', 'title' => __( 'ایمیل', 'zarincode' ), 'text' => $email, 'link' => $email ? 'mailto:' . $email : '' ),
+				array( 'icon' => 'pin', 'title' => __( 'آدرس', 'zarincode' ), 'text' => $address ),
 		)
 	);
 	zc_modern_sec_close();
@@ -415,11 +430,11 @@ function zc_render_contact_page() {
 		__( 'اطلاعات <span>تماس</span>', 'zarincode' ),
 		__( 'راه‌های ارتباطی متنوعی برای شما فراهم کرده‌ایم.', 'zarincode' ),
 		array(
-			array( 'icon' => 'phone', 'title' => __( 'تلفن ثابت', 'zarincode' ), 'text' => '071-42380267' ),
-			array( 'icon' => 'send', 'title' => __( 'موبایل', 'zarincode' ), 'text' => '09024561001' ),
-			array( 'icon' => 'mail', 'title' => __( 'ایمیل', 'zarincode' ), 'text' => 'info@' . zc_site_domain() ),
-			array( 'icon' => 'clock', 'title' => __( 'ساعت کاری', 'zarincode' ), 'text' => __( 'شنبه تا چهارشنبه ۹ تا ۱۸', 'zarincode' ) ),
-			array( 'icon' => 'pin', 'title' => __( 'آدرس', 'zarincode' ), 'text' => __( 'استان فارس، شهرستان کازرون', 'zarincode' ) ),
+				array( 'icon' => 'phone', 'title' => __( 'تلفن ثابت', 'zarincode' ), 'text' => $phone ),
+				array( 'icon' => 'send', 'title' => __( 'موبایل', 'zarincode' ), 'text' => $mobile ),
+				array( 'icon' => 'mail', 'title' => __( 'ایمیل', 'zarincode' ), 'text' => $email ),
+				array( 'icon' => 'clock', 'title' => __( 'ساعت کاری', 'zarincode' ), 'text' => $hours ),
+				array( 'icon' => 'pin', 'title' => __( 'آدرس', 'zarincode' ), 'text' => $address ),
 		)
 	);
 	echo '</div>';

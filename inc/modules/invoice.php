@@ -74,7 +74,9 @@ function zc_invoice_download() {
 		wp_die( esc_html__( 'دسترسی مجاز نیست.', 'zarincode' ) );
 	}
 
-	// نمایش قالب چاپی فاکتور.
+	// نمایش قالب چاپی فاکتور بدون کش و ایندکس موتور جستجو.
+	nocache_headers();
+	header( 'X-Robots-Tag: noindex, nofollow', true );
 	include ZC_DIR . 'template-parts/invoice-print.php';
 	exit;
 }

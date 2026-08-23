@@ -49,8 +49,10 @@ add_action( 'admin_init', 'zc_fallback_register' );
  * @return array
  */
 function zc_sanitize_options( $input ) {
-	$schema = zc_settings_schema();
-	$clean  = array();
+	$schema   = zc_settings_schema();
+	$existing = get_option( ZC_PREFIX, array() );
+	/* کلیدهای افزونه‌ای/سیستمی خارج از schema نباید با ذخیرهٔ یک تب حذف شوند. */
+	$clean    = is_array( $existing ) ? $existing : array();
 
 	foreach ( $schema as $section ) {
 		foreach ( $section['fields'] as $field ) {
@@ -74,7 +76,7 @@ function zc_sanitize_options( $input ) {
 					$clean[ $id ] = (bool) $value;
 					break;
 				case 'slider':
-					$clean[ $id ] = (int) $value;
+					$clean[ $id ] = ( isset( $field['step'] ) && (float) $field['step'] < 1 ) ? (float) $value : (int) $value;
 					break;
 				case 'media':
 					$clean[ $id ] = esc_url_raw( is_array( $value ) ? ( $value['url'] ?? '' ) : $value );
@@ -171,6 +173,23 @@ function zc_sanitize_slides( $value ) {
 }
 
 /**
+ * حفظ صحیح گزینه‌های تودرتو هنگام ذخیرهٔ یک تب دیگر.
+ *
+ * @param string $name  نام ورودی.
+ * @param mixed  $value مقدار.
+ * @return void
+ */
+function zc_fallback_hidden_fields( $name, $value ) {
+	if ( is_array( $value ) ) {
+		foreach ( $value as $key => $child ) {
+			zc_fallback_hidden_fields( $name . '[' . $key . ']', $child );
+		}
+		return;
+	}
+	printf( '<input type="hidden" name="%s" value="%s">', esc_attr( $name ), esc_attr( (string) $value ) );
+}
+
+/**
  * رندر صفحه پنل داخلی.
  *
  * @return void
@@ -192,7 +211,7 @@ function zc_fallback_page() {
 				<p><?php printf( esc_html__( 'نسخه %s | پنل تنظیمات داخلی', 'zarincode' ), esc_html( ZC_VERSION ) ); ?></p>
 			</div>
 			<div class="zc-admin-header__actions">
-				<a href="<?php echo esc_url( admin_url( 'themes.php?page=zarincode-demo' ) ); ?>" class="button"><?php esc_html_e( 'درون‌ریزی دمو', 'zarincode' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode-demo' ) ); ?>" class="button"><?php esc_html_e( 'درون‌ریزی دمو', 'zarincode' ); ?></a>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button" target="_blank"><?php esc_html_e( 'مشاهده سایت', 'zarincode' ); ?></a>
 			</div>
 		</div>
@@ -203,7 +222,7 @@ function zc_fallback_page() {
 
 			<nav class="zc-admin-nav">
 				<?php foreach ( $schema as $key => $section ) : ?>
-					<a href="<?php echo esc_url( admin_url( 'themes.php?page=zarincode-options&section=' . $key ) ); ?>"
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode-options&section=' . $key ) ); ?>"
 						class="<?php echo $current === $key ? 'is-active' : ''; ?>">
 						<span class="dashicons dashicons-<?php echo esc_attr( zc_section_dashicon( $key ) ); ?>"></span>
 						<?php echo esc_html( $section['title'] ); ?>
@@ -224,24 +243,7 @@ function zc_fallback_page() {
 						foreach ( $section['fields'] as $field ) {
 							$id  = $field['id'];
 							$val = $options[ $id ] ?? '';
-							if ( is_array( $val ) ) {
-								foreach ( $val as $k => $v ) {
-									printf(
-										'<input type="hidden" name="%s[%s][%s]" value="%s">',
-										esc_attr( ZC_PREFIX ),
-										esc_attr( $id ),
-										esc_attr( $k ),
-										esc_attr( $v )
-									);
-								}
-							} else {
-								printf(
-									'<input type="hidden" name="%s[%s]" value="%s">',
-									esc_attr( ZC_PREFIX ),
-									esc_attr( $id ),
-									esc_attr( $val )
-								);
-							}
+								zc_fallback_hidden_fields( ZC_PREFIX . '[' . $id . ']', $val );
 						}
 					}
 					?>
@@ -275,7 +277,7 @@ function zc_render_fallback_field( $field, $options ) {
 	$id    = $field['id'];
 	$name  = ZC_PREFIX . '[' . $id . ']';
 	$value = $options[ $id ] ?? ( $field['default'] ?? '' );
-	$desc  = $field['desc'] ?? '';
+	$desc  = $field['desc'] ?? ( $field['subtitle'] ?? '' );
 	?>
 	<tr>
 		<th scope="row">
@@ -283,9 +285,14 @@ function zc_render_fallback_field( $field, $options ) {
 		</th>
 		<td>
 			<?php
-			switch ( $field['type'] ) {
+				switch ( $field['type'] ) {
 
-				case 'textarea':
+					case 'info':
+						echo '<div class="notice notice-info inline"><p>' . wp_kses_post( $desc ) . '</p></div>';
+						$desc = '';
+						break;
+
+					case 'textarea':
 					printf(
 						'<textarea id="%1$s" name="%2$s" rows="%3$d" class="large-text code">%4$s</textarea>',
 						esc_attr( $id ),
@@ -334,13 +341,13 @@ function zc_render_fallback_field( $field, $options ) {
 
 				case 'slider':
 					printf(
-						'<input type="range" id="%1$s" name="%2$s" value="%3$s" min="%4$d" max="%5$d" step="%6$d" class="zc-admin-range" oninput="this.nextElementSibling.textContent=this.value"><output style="margin-inline-start:10px;font-weight:700">%3$s</output>',
-						esc_attr( $id ),
-						esc_attr( $name ),
-						esc_attr( $value ),
-						(int) ( $field['min'] ?? 0 ),
-						(int) ( $field['max'] ?? 100 ),
-						(int) ( $field['step'] ?? 1 )
+'<input type="range" id="%1$s" name="%2$s" value="%3$s" min="%4$s" max="%5$s" step="%6$s" class="zc-admin-range" oninput="this.nextElementSibling.textContent=this.value"><output style="margin-inline-start:10px;font-weight:700">%3$s</output>',
+							esc_attr( $id ),
+							esc_attr( $name ),
+							esc_attr( $value ),
+							esc_attr( $field['min'] ?? 0 ),
+							esc_attr( $field['max'] ?? 100 ),
+							esc_attr( $field['step'] ?? 1 )
 					);
 					break;
 

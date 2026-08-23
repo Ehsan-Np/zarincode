@@ -129,9 +129,31 @@
 				}
 			});
 		});
-	}
+		}
 
-	/* ---------- Wallet charge redirect ---------- */
+		/* اعلان نزدیک به بلادرنگ با REST؛ فقط وقتی تب مرورگر فعال است. */
+		function initNotificationPolling() {
+			if (!CFG.isLogged || !CFG.restUrl || !CFG.restNonce) return;
+			function poll() {
+				if (document.hidden) return;
+				fetch(CFG.restUrl + 'notifications', { credentials: 'same-origin', headers: { 'X-WP-Nonce': CFG.restNonce } })
+					.then(function (r) { return r.ok ? r.json() : null; })
+					.then(function (data) {
+						if (!data) return;
+						var btn = $('[data-zc-notif]');
+						if (!btn) return;
+						var badge = btn.querySelector('.zc-hicon__count');
+						if (data.count > 0 && !badge) {
+							badge = document.createElement('span'); badge.className = 'zc-hicon__count'; btn.appendChild(badge);
+						}
+						if (badge) { badge.textContent = data.count || ''; if (!data.count) badge.remove(); }
+					}).catch(function () {});
+			}
+			setInterval(poll, 60000);
+			document.addEventListener('visibilitychange', poll);
+		}
+
+		/* ---------- Wallet charge redirect ---------- */
 	function initWalletForm() {
 		var form = $('form[data-zc-form="zc_wallet_charge"]');
 		if (!form) return;
@@ -298,8 +320,9 @@
 		initQuickAmounts();
 		initTicketActions();
 		initBookingActions();
-		initNotifications();
-		initWalletForm();
+			initNotifications();
+			initNotificationPolling();
+			initWalletForm();
 		initAmountFormat();
 		initAvatarPreview();
 		initSubscription();

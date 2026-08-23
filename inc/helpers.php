@@ -231,11 +231,11 @@ function zc_quiz_languages( $allowed = null ) {
 
 function zc_default_options() {
 	return array(
-		'zc_color_primary'    => '#E0A82E',
-		'zc_color_primary_2'  => '#F7C948',
-		'zc_color_dark'       => '#0B1024',
-		'zc_color_dark_2'     => '#1B2A6B',
-		'zc_body_bg'          => '#F4F6FB',
+		'zc_color_primary'    => '#C9A227',
+		'zc_color_primary_2'  => '#F5D061',
+		'zc_color_dark'       => '#141A31',
+		'zc_color_dark_2'     => '#0B2187',
+		'zc_body_bg'          => '#FAFCFE',
 		'zc_radius'           => 18,
 		'zc_container'        => 1280,
 		'zc_font_family'      => 'samim',
@@ -250,16 +250,17 @@ function zc_default_options() {
 		'zc_text_color'       => '#3c4652',
 		'zc_heading_color'    => '#141A31',
 		'zc_link_color'       => '#8A6D12',
-		'zc_btn_bg'           => '#E0A82E',
+		'zc_btn_bg'           => '#C9A227',
 		'zc_btn_text'         => '#241C05',
-		'zc_topbar_bg'        => '#1B2A6B',
-		'zc_footer_bg'        => '#0B1024',
+		'zc_topbar_bg'        => '#0B2187',
+		'zc_footer_bg'        => '#0E1226',
 		'zc_seo_enable'       => true,
 		'zc_seo_home_desc'    => '',
 		'zc_seo_default_image' => '',
 		'zc_force_fa'         => true,
 		'zc_optimize_assets'  => true,
 		'zc_lazy_sections'    => false,
+		'zc_analytics_enable' => true,
 		'zc_preloader'        => true,
 		'zc_back_to_top'      => true,
 		'zc_sticky_header'    => true,
@@ -382,6 +383,7 @@ function zc_default_options() {
 		'zc_backup_freq'                => 'daily',
 		'zc_backup_send_telegram'       => true,
 		'zc_backup_keep_local'          => false,
+		'zc_backup_compress'            => true,
 		'zc_backup_max'                 => 5,
 
 		// آزمون (Quiz) — ماژول آزمون، تمرین و کامپایلر.
@@ -875,6 +877,25 @@ function zc_check_ajax( $field = 'nonce' ) {
 }
 
 /**
+ * محدودیت نرخ ساده و مشترک برای endpointهای عمومی.
+ *
+ * @param string $action نام عملیات.
+ * @param int    $limit  سقف.
+ * @param int    $window پنجره زمانی.
+ * @return bool true اگر مجاز باشد.
+ */
+function zc_rate_limit( $action, $limit = 10, $window = MINUTE_IN_SECONDS ) {
+	$ip  = function_exists( 'zc_user_ip' ) ? zc_user_ip() : sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+	$key = 'zc_rate_' . md5( sanitize_key( $action ) . '|' . $ip );
+	$num = (int) get_transient( $key );
+	if ( $num >= max( 1, (int) $limit ) ) {
+		return false;
+	}
+	set_transient( $key, $num + 1, max( 1, (int) $window ) );
+	return true;
+}
+
+/**
  * جایگزین سازگار برای get_page_by_title (منسوخ شده در وردپرس ۶.۲).
  *
  * @param string $title     عنوان.
@@ -1089,7 +1110,9 @@ function zc_valid_national_id( $code ) {
  * @return string
  */
 function zc_user_ip() {
-	$keys = array( 'HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR' );
+	$keys = ! empty( $_SERVER['HTTP_CF_RAY'] )
+		? array( 'HTTP_CF_CONNECTING_IP', 'REMOTE_ADDR' )
+		: array( 'REMOTE_ADDR' );
 
 	foreach ( $keys as $key ) {
 		if ( empty( $_SERVER[ $key ] ) ) {

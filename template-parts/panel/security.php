@@ -21,12 +21,12 @@ $zc_user = wp_get_current_user();
 				</div>
 				<div class="zc-field">
 					<label class="zc-label"><?php esc_html_e( 'رمز عبور جدید', 'zarincode' ); ?> <span class="req">*</span></label>
-					<input type="password" name="new_password" required minlength="6" autocomplete="new-password">
-					<span class="zc-help"><?php esc_html_e( 'حداقل ۶ کاراکتر، ترکیبی از حروف و اعداد', 'zarincode' ); ?></span>
+					<input type="password" name="new_password" required minlength="8" autocomplete="new-password">
+					<span class="zc-help"><?php esc_html_e( 'حداقل ۸ کاراکتر، ترکیبی از حروف و اعداد', 'zarincode' ); ?></span>
 				</div>
 				<div class="zc-field">
 					<label class="zc-label"><?php esc_html_e( 'تکرار رمز عبور جدید', 'zarincode' ); ?> <span class="req">*</span></label>
-					<input type="password" name="confirm_password" required minlength="6" autocomplete="new-password">
+					<input type="password" name="confirm_password" required minlength="8" autocomplete="new-password">
 				</div>
 				<div class="zc-form-msg"></div>
 				<button type="submit" class="zc-btn zc-btn--gold zc-btn--block"><?php zc_the_icon( 'key', 17 ); ?><?php esc_html_e( 'تغییر رمز عبور', 'zarincode' ); ?></button>

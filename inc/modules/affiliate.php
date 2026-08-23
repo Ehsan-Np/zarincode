@@ -52,12 +52,20 @@ function zc_affiliate_capture_ref() {
 	}
 
 	$ref_id = absint( $_GET['ref'] ); // phpcs:ignore
-	if ( ! $ref_id || $ref_id === get_current_user_id() ) {
+	if ( ! $ref_id || $ref_id === get_current_user_id() || ! get_user_by( 'id', $ref_id ) ) {
 		return;
 	}
 
-	// یک کوکی ۳۰ روزه (یا طبق تنظیم) ذخیره می‌شود.
-	setcookie( 'zc_aff_ref', $ref_id, time() + 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+	// کوکی امضای معرفی داده حساس نیست، اما در برابر سرقت JS محافظت می‌شود.
+	setcookie(
+		'zc_aff_ref',
+		(string) $ref_id,
+		array(
+			'expires' => time() + 30 * DAY_IN_SECONDS,
+			'path' => COOKIEPATH ?: '/', 'domain' => COOKIE_DOMAIN, 'secure' => is_ssl(),
+			'httponly' => true, 'samesite' => 'Lax',
+		)
+	);
 }
 add_action( 'init', 'zc_affiliate_capture_ref', 1 );
 
@@ -117,8 +125,8 @@ function zc_affiliate_register_pending( $order_id ) {
 		return;
 	}
 
-	// جلوگیری از تکرار.
-	if ( get_post_meta( $order_id, '_zc_aff_ref', true ) ) {
+	// جلوگیری از تکرار (سازگار با HPOS).
+	if ( $order->get_meta( '_zc_aff_ref', true ) ) {
 		return;
 	}
 
@@ -127,9 +135,10 @@ function zc_affiliate_register_pending( $order_id ) {
 		return;
 	}
 
-	update_post_meta( $order_id, '_zc_aff_ref', $ref_id );
-	update_post_meta( $order_id, '_zc_aff_commission', $commission );
-	update_post_meta( $order_id, '_zc_aff_pending', '1' );
+	$order->update_meta_data( '_zc_aff_ref', $ref_id );
+	$order->update_meta_data( '_zc_aff_commission', $commission );
+	$order->update_meta_data( '_zc_aff_pending', '1' );
+	$order->save();
 }
 add_action( 'woocommerce_checkout_order_processed', 'zc_affiliate_register_pending', 20 );
 
@@ -155,45 +164,50 @@ function zc_affiliate_commission_amount( $order ) {
  * @return void
  */
 function zc_affiliate_settle( $order_id ) {
-	if ( ! zc_affiliate_enabled() ) {
+	if ( ! zc_affiliate_enabled() || ! function_exists( 'wc_get_order' ) ) {
 		return;
 	}
 
-	$ref_id = (int) get_post_meta( $order_id, '_zc_aff_ref', true );
-	$commission = (float) get_post_meta( $order_id, '_zc_aff_commission', true );
-
-	if ( ! $ref_id || $commission <= 0 ) {
-		return;
-	}
-	// اگر قبلاً واریز شده، نادیده بگیر.
-	if ( get_post_meta( $order_id, '_zc_aff_paid', true ) ) {
-		return;
-	}
-
-	// پرداخت به معرف.
-	if ( function_exists( 'zc_wallet_deposit' ) ) {
-		zc_wallet_deposit(
-			$ref_id,
-			$commission,
-			sprintf(
-				/* translators: 1: مبلغ 2: سفارش */
-				__( 'کمیسیون معرفی از سفارش #%2$s', 'zarincode' ),
-				number_format( $commission ),
-				$order_id
-			),
-			'affiliate',
-			array( 'order_id' => $order_id )
-		);
-	}
-
-	update_post_meta( $order_id, '_zc_aff_paid', '1' );
-	update_post_meta( $order_id, '_zc_aff_pending', '' );
-
-	// اعلان به معرف.
 	$order = wc_get_order( $order_id );
-	if ( $order ) {
-		$order->add_order_note( sprintf( __( 'کمیسیون معرفی %s به کاربر #%d واریز شد.', 'zarincode' ), number_format( $commission ), $ref_id ) );
+	if ( ! $order || ! $order->is_paid() ) {
+		return;
 	}
+
+	$ref_id     = (int) $order->get_meta( '_zc_aff_ref', true );
+	$commission = (float) $order->get_meta( '_zc_aff_commission', true );
+
+	if ( ! $ref_id || $commission <= 0 || $order->get_meta( '_zc_aff_paid', true ) ) {
+		return;
+	}
+
+	// رعایت واقعی دورهٔ اطمینان برای بازگشت وجه.
+	$days = max( 0, (int) zc_opt( 'zc_aff_days', 7 ) );
+	$paid = $order->get_date_paid() ?: $order->get_date_created();
+	if ( $days > 0 && $paid && ( time() - $paid->getTimestamp() ) < ( $days * DAY_IN_SECONDS ) ) {
+		return;
+	}
+
+	if ( ! function_exists( 'zc_wallet_deposit' ) ) {
+		return;
+	}
+
+	$tx = zc_wallet_deposit(
+		$ref_id,
+		$commission,
+		sprintf( __( 'کمیسیون معرفی از سفارش #%s', 'zarincode' ), $order->get_order_number() ),
+		'affiliate',
+		array( 'ref_id' => 'affiliate-order-' . $order_id )
+	);
+
+	if ( ! $tx ) {
+		return;
+	}
+
+	$order->update_meta_data( '_zc_aff_paid', '1' );
+	$order->update_meta_data( '_zc_aff_pending', '' );
+	$order->update_meta_data( '_zc_aff_transaction_id', (int) $tx );
+	$order->add_order_note( sprintf( __( 'کمیسیون معرفی %s به کاربر #%d واریز شد.', 'zarincode' ), number_format( $commission ), $ref_id ) );
+	$order->save();
 }
 add_action( 'woocommerce_order_status_completed', 'zc_affiliate_settle', 25 );
 add_action( 'woocommerce_order_status_processing', 'zc_affiliate_settle', 25 );

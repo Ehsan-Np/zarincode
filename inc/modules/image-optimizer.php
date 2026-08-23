@@ -257,7 +257,8 @@ function zc_optimize_attachment( $metadata, $id ) {
 			}
 			$new_size = zc_image_convert_file( $size_file );
 			if ( $new_size !== $size_file ) {
-				$metadata['sizes'][ $name ]['file'] = basename( $new_size );
+				$metadata['sizes'][ $name ]['file']      = basename( $new_size );
+				$metadata['sizes'][ $name ]['mime-type'] = 'image/webp';
 			}
 		}
 	}

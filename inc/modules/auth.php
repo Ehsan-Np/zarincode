@@ -142,8 +142,8 @@ function zc_ajax_register() {
 	if ( ! $mobile ) {
 		wp_send_json_error( array( 'message' => __( 'شماره موبایل معتبر نیست.', 'zarincode' ) ) );
 	}
-	if ( strlen( $password ) < 6 ) {
-		wp_send_json_error( array( 'message' => __( 'رمز عبور باید حداقل ۶ کاراکتر باشد.', 'zarincode' ) ) );
+	if ( strlen( $password ) < 8 ) {
+		wp_send_json_error( array( 'message' => __( 'رمز عبور باید حداقل ۸ کاراکتر باشد.', 'zarincode' ) ) );
 	}
 	if ( $email && ! is_email( $email ) ) {
 		wp_send_json_error( array( 'message' => __( 'ایمیل معتبر نیست.', 'zarincode' ) ) );
@@ -201,8 +201,8 @@ function zc_ajax_reset_password() {
 	if ( ! $mobile || ! zc_verify_otp( $mobile, $code ) ) {
 		wp_send_json_error( array( 'message' => __( 'کد تایید نامعتبر است.', 'zarincode' ) ) );
 	}
-	if ( strlen( $password ) < 6 ) {
-		wp_send_json_error( array( 'message' => __( 'رمز عبور باید حداقل ۶ کاراکتر باشد.', 'zarincode' ) ) );
+	if ( strlen( $password ) < 8 ) {
+		wp_send_json_error( array( 'message' => __( 'رمز عبور باید حداقل ۸ کاراکتر باشد.', 'zarincode' ) ) );
 	}
 
 	$user = zc_get_user_by_mobile( $mobile );
@@ -317,11 +317,15 @@ function zc_do_login( $user ) {
  * @return string
  */
 function zc_get_login_redirect() {
-	$redirect = isset( $_POST['redirect_to'] ) ? esc_url_raw( wp_unslash( $_POST['redirect_to'] ) ) : ''; // phpcs:ignore
-	if ( $redirect ) {
-		return $redirect;
-	}
-	return zc_panel_url();
+	$fallback = zc_panel_url();
+	$redirect = isset( $_POST['redirect_to'] ) ? wp_unslash( $_POST['redirect_to'] ) : ''; // phpcs:ignore
+
+	/*
+	 * redirect_to از فرم عمومی ورود می‌آید؛ esc_url_raw به‌تنهایی جلوی
+	 * انتقال به دامنهٔ مهاجم را نمی‌گیرد. wp_validate_redirect فقط مقصدهای
+	 * محلی/مجاز را می‌پذیرد و در غیر این صورت پنل کاربر را برمی‌گرداند.
+	 */
+	return wp_validate_redirect( $redirect, $fallback );
 }
 
 /**
@@ -330,7 +334,10 @@ function zc_get_login_redirect() {
  * @return string
  */
 function zc_get_ip() {
-	$keys = array( 'HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR' );
+	// Forwarded headers قابل جعل‌اند؛ فقط هدر اختصاصی Cloudflare با CF-Ray پذیرفته می‌شود.
+	$keys = ! empty( $_SERVER['HTTP_CF_RAY'] )
+		? array( 'HTTP_CF_CONNECTING_IP', 'REMOTE_ADDR' )
+		: array( 'REMOTE_ADDR' );
 	foreach ( $keys as $key ) {
 		if ( ! empty( $_SERVER[ $key ] ) ) {
 			$ip = sanitize_text_field( wp_unslash( $_SERVER[ $key ] ) );

@@ -21,6 +21,9 @@ function zc_handle_ajax_search() {
 	if ( mb_strlen( $query ) < 2 ) {
 		wp_send_json_error( array( 'message' => __( 'حداقل ۲ حرف وارد کنید.', 'zarincode' ) ) );
 	}
+	if ( mb_strlen( $query ) >= 3 && function_exists( 'zc_track_unique_event' ) ) {
+		zc_track_unique_event( 'search', (int) hexdec( substr( md5( mb_strtolower( $query ) ), 0, 12 ) ), array( 'query' => mb_substr( $query, 0, 100 ) ) );
+	}
 
 	// کش نتایج برای سرعت بالا.
 	$cache_key = 'zc_search_' . md5( $query . $type );
@@ -30,7 +33,7 @@ function zc_handle_ajax_search() {
 		wp_send_json_success( array( 'html' => $cached, 'cached' => true ) );
 	}
 
-	$types = array( 'post', 'page', 'zc_course', 'zc_tutorial' );
+	$types = array( 'post', 'page', 'zc_course', 'zc_tutorial', 'zc_learning_path' );
 	if ( zc_is_woo() ) {
 		$types[] = 'product';
 	}
@@ -58,6 +61,7 @@ function zc_handle_ajax_search() {
 			'page'        => __( 'صفحه', 'zarincode' ),
 			'zc_course'   => __( 'دوره آموزشی', 'zarincode' ),
 			'zc_tutorial' => __( 'آموزش', 'zarincode' ),
+			'zc_learning_path' => __( 'مسیر یادگیری', 'zarincode' ),
 			'product'     => __( 'محصول', 'zarincode' ),
 		);
 

@@ -20,6 +20,10 @@ defined( 'ABSPATH' ) || exit;
  * @return array
  */
 function zc_newsletter_subscribers() {
+	if ( function_exists( 'zc_newsletter_storage_ready' ) && zc_newsletter_storage_ready() ) {
+		return zc_newsletter_storage_all();
+	}
+
 	$list = get_option( 'zc_newsletter_subscribers', array() );
 
 	// سازگاری با ساختار قدیمی (فهرست ساده‌ی مقادیر).
@@ -43,6 +47,14 @@ function zc_newsletter_subscribers() {
 	return is_array( $list ) ? $list : array();
 }
 
+/** @return int */
+function zc_newsletter_count() {
+	if ( function_exists( 'zc_newsletter_storage_count' ) && zc_newsletter_storage_ready() ) {
+		return zc_newsletter_storage_count();
+	}
+	return count( zc_newsletter_subscribers() );
+}
+
 /**
  * افزودن مخاطب با جلوگیری از تکرار.
  *
@@ -50,8 +62,7 @@ function zc_newsletter_subscribers() {
  * @return array  کل مخاطبین.
  */
 function zc_newsletter_add( $data ) {
-	$list   = zc_newsletter_subscribers();
-	$data   = wp_parse_args(
+	$data = wp_parse_args(
 		$data,
 		array( 'email' => '', 'mobile' => '', 'bale_id' => '', 'telegram_id' => '', 'name' => '', 'date' => current_time( 'mysql' ) )
 	);
@@ -61,9 +72,15 @@ function zc_newsletter_add( $data ) {
 	$data['telegram_id'] = ltrim( (string) $data['telegram_id'], '@' );
 
 	if ( ! $data['email'] && ! $data['mobile'] ) {
-		return $list;
+		return array();
 	}
 
+	if ( function_exists( 'zc_newsletter_storage_ready' ) && zc_newsletter_storage_ready() ) {
+		zc_newsletter_storage_add( $data );
+		return array( $data );
+	}
+
+	$list = zc_newsletter_subscribers();
 	foreach ( $list as $sub ) {
 		if ( $data['email'] && strtolower( (string) $sub['email'] ) === strtolower( $data['email'] ) ) {
 			return $list;
@@ -137,27 +154,19 @@ function zc_newsletter_coupon_code( $percent, $days = 14, $prefix = 'NL', $email
  * @return string شناسه‌ی کمپین.
  */
 function zc_newsletter_campaign_add( $data ) {
-	$campaigns = get_option( 'zc_newsletter_campaigns', array() );
-
-	$campaign = wp_parse_args(
-		$data,
+	global $wpdb;
+	$campaign = wp_parse_args( $data, array( 'channel' => 'sms', 'subject' => '', 'message' => '', 'total' => 0, 'coupon_percent' => 0, 'status' => 'queued' ) );
+	$ok = $wpdb->insert(
+		$wpdb->prefix . 'zc_newsletter_campaigns',
 		array(
-			'date'     => current_time( 'mysql' ),
-			'channel'  => 'sms',
-			'subject'  => '',
-			'message'  => '',
-			'total'    => 0,
-			'sent'     => 0,
-			'failed'   => 0,
-			'opened'   => 0,
-			'recipients' => array(),
-		)
-	);
-
-	$campaigns[] = $campaign;
-	update_option( 'zc_newsletter_campaigns', array_slice( $campaigns, -200 ) );
-
-	return count( $campaigns ) - 1;
+			'channel' => sanitize_key( $campaign['channel'] ), 'subject' => sanitize_text_field( $campaign['subject'] ),
+			'message' => wp_kses_post( $campaign['message'] ), 'total' => (int) $campaign['total'],
+			'coupon_percent' => max( 0, min( 100, (int) $campaign['coupon_percent'] ) ),
+			'status' => sanitize_key( $campaign['status'] ), 'created_at' => current_time( 'mysql' ),
+		),
+		array( '%s', '%s', '%s', '%d', '%d', '%s', '%s' )
+	); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+	return $ok ? (int) $wpdb->insert_id : 0;
 }
 
 /**
@@ -169,17 +178,15 @@ function zc_newsletter_campaign_add( $data ) {
  * @return void
  */
 function zc_newsletter_campaign_recipient( $campaign_id, $email, $status ) {
-	$campaigns = get_option( 'zc_newsletter_campaigns', array() );
-	if ( ! isset( $campaigns[ $campaign_id ] ) ) {
-		return;
-	}
-
-	$campaigns[ $campaign_id ]['recipients'][ $email ] = array(
-		'status' => $status,
-		'opened' => 0,
-		'at'     => current_time( 'mysql' ),
-	);
-	update_option( 'zc_newsletter_campaigns', $campaigns );
+	global $wpdb;
+	$recipient = sanitize_text_field( $email );
+	if ( ! $campaign_id || ! $recipient ) { return; }
+	$table = $wpdb->prefix . 'zc_newsletter_recipients';
+	$wpdb->query( $wpdb->prepare(
+		"INSERT INTO {$table} (campaign_id,recipient,status,opened,sent_at) VALUES (%d,%s,%s,0,%s)
+		 ON DUPLICATE KEY UPDATE status=VALUES(status),sent_at=VALUES(sent_at)",
+		$campaign_id, $recipient, sanitize_key( $status ), current_time( 'mysql' )
+	) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 }
 
 /**
@@ -190,17 +197,14 @@ function zc_newsletter_campaign_recipient( $campaign_id, $email, $status ) {
  * @return void
  */
 function zc_newsletter_mark_opened( $campaign_id, $email ) {
-	$campaigns = get_option( 'zc_newsletter_campaigns', array() );
+	global $wpdb;
 	$campaign_id = (int) $campaign_id;
-
-	if ( ! isset( $campaigns[ $campaign_id ] ) ) {
-		return;
-	}
-
-	if ( isset( $campaigns[ $campaign_id ]['recipients'][ $email ] ) && empty( $campaigns[ $campaign_id ]['recipients'][ $email ]['opened'] ) ) {
-		$campaigns[ $campaign_id ]['recipients'][ $email ]['opened'] = 1;
-		$campaigns[ $campaign_id ]['opened'] = (int) $campaigns[ $campaign_id ]['opened'] + 1;
-		update_option( 'zc_newsletter_campaigns', $campaigns );
+	$email       = sanitize_email( $email );
+	if ( ! $campaign_id || ! $email ) { return; }
+	$table   = $wpdb->prefix . 'zc_newsletter_recipients';
+	$changed = $wpdb->query( $wpdb->prepare( "UPDATE {$table} SET opened=1 WHERE campaign_id=%d AND recipient=%s AND opened=0", $campaign_id, $email ) ); // phpcs:ignore
+	if ( $changed ) {
+		$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}zc_newsletter_campaigns SET opened=opened+1 WHERE id=%d", $campaign_id ) ); // phpcs:ignore
 	}
 }
 
@@ -214,11 +218,12 @@ function zc_newsletter_tracking_endpoint() {
 		return;
 	}
 
-	$parts = explode( '-', sanitize_text_field( wp_unslash( $_GET['zc_nl_track'] ) ) ); // phpcs:ignore
-	$id    = isset( $parts[0] ) ? (int) $parts[0] : 0;
-	$email = isset( $parts[1] ) ? urldecode( $parts[1] ) : '';
+	$id    = absint( $_GET['zc_nl_track'] ); // phpcs:ignore
+	$email = isset( $_GET['recipient'] ) ? sanitize_email( urldecode( wp_unslash( $_GET['recipient'] ) ) ) : ''; // phpcs:ignore
+	$sig   = isset( $_GET['sig'] ) ? sanitize_text_field( wp_unslash( $_GET['sig'] ) ) : ''; // phpcs:ignore
+	$valid = $id && $email && $sig && hash_equals( hash_hmac( 'sha256', $id . '|' . $email, wp_salt( 'nonce' ) ), $sig );
 
-	if ( $id && $email ) {
+	if ( $valid ) {
 		zc_newsletter_mark_opened( $id, $email );
 	}
 
@@ -241,14 +246,13 @@ add_action( 'init', 'zc_newsletter_tracking_endpoint', 5 );
  * @return void
  */
 function zc_newsletter_menu() {
-	add_menu_page(
+	add_submenu_page(
+		'zarincode',
 		__( 'خبرنامه زرین کد', 'zarincode' ),
 		__( 'خبرنامه', 'zarincode' ),
 		'manage_options',
 		'zc-newsletter',
-		'zc_newsletter_page',
-		'dashicons-email-alt',
-		30
+		'zc_newsletter_page'
 	);
 }
 add_action( 'admin_menu', 'zc_newsletter_menu' );
@@ -298,19 +302,41 @@ function zc_newsletter_handle_actions() {
 		return;
 	}
 
+	// توقف یا ازسرگیری کمپین صف‌شده.
+	if ( isset( $_POST['zc_campaign_action'], $_POST['campaign_id'] ) && wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ?? '' ), 'zc_newsletter_campaign_action' ) ) { // phpcs:ignore
+		global $wpdb;
+		$campaign_id = absint( $_POST['campaign_id'] ); // phpcs:ignore
+		$action      = sanitize_key( wp_unslash( $_POST['zc_campaign_action'] ) ); // phpcs:ignore
+		if ( 'cancel' === $action ) {
+			$wpdb->update( $wpdb->prefix . 'zc_newsletter_campaigns', array( 'status' => 'cancelled', 'finished_at' => current_time( 'mysql' ) ), array( 'id' => $campaign_id ), array( '%s', '%s' ), array( '%d' ) ); // phpcs:ignore
+		} elseif ( 'resume' === $action ) {
+			$processed = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}zc_newsletter_recipients WHERE campaign_id=%d AND status IN ('sent','failed','skipped')", $campaign_id ) ); // phpcs:ignore
+			$wpdb->update( $wpdb->prefix . 'zc_newsletter_campaigns', array( 'status' => 'queued', 'finished_at' => null ), array( 'id' => $campaign_id ), array( '%s', '%s' ), array( '%d' ) ); // phpcs:ignore
+			zc_schedule_action( time() + 2, 'zc_newsletter_process_batch', array( $campaign_id, $processed ) );
+		}
+		wp_safe_redirect( admin_url( 'admin.php?page=zc-newsletter&tab=report' ) );
+		exit;
+	}
+
 	// حذف مخاطب.
 	if ( isset( $_POST['zc_newsletter_delete'] ) && wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'zc_newsletter_delete' ) ) { // phpcs:ignore
-		$index = (int) $_POST['zc_newsletter_delete'];
-		$list  = zc_newsletter_subscribers();
-		if ( isset( $list[ $index ] ) ) {
-			unset( $list[ $index ] );
-			update_option( 'zc_newsletter_subscribers', array_values( $list ) );
+		$delete = sanitize_text_field( wp_unslash( $_POST['zc_newsletter_delete'] ) );
+		if ( 0 === strpos( $delete, 'id:' ) && function_exists( 'zc_newsletter_storage_delete' ) ) {
+			zc_newsletter_storage_delete( absint( substr( $delete, 3 ) ) );
+		} else {
+			$index = (int) $delete;
+			$list  = zc_newsletter_subscribers();
+			if ( isset( $list[ $index ] ) ) {
+				unset( $list[ $index ] );
+				update_option( 'zc_newsletter_subscribers', array_values( $list ), false );
+			}
 		}
 		echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'مخاطب حذف شد.', 'zarincode' ) . '</p></div>';
 	}
 
 	// خروجی CSV.
 	if ( isset( $_GET['zc_export'] ) && '1' === $_GET['zc_export'] ) {
+		check_admin_referer( 'zc_newsletter_export' );
 		zc_newsletter_export_csv();
 		exit;
 	}
@@ -332,20 +358,17 @@ function zc_newsletter_handle_actions() {
  * @return void
  */
 function zc_newsletter_subscribers_panel() {
-	$list  = zc_newsletter_subscribers();
-	$search = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
-	$filtered = $list;
-	if ( $search ) {
-		$filtered = array_filter(
-			$list,
-			function ( $s ) use ( $search ) {
-				return false !== stripos( (string) $s['email'], $search )
-					|| false !== stripos( (string) $s['mobile'], $search )
-					|| false !== stripos( (string) $s['name'], $search )
-					|| false !== stripos( (string) $s['telegram_id'], $search )
-					|| false !== stripos( (string) $s['bale_id'], $search );
-			}
-		);
+	$search   = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore
+	$page     = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1; // phpcs:ignore
+	$per_page = 100;
+	if ( function_exists( 'zc_newsletter_storage_page' ) && zc_newsletter_storage_ready() ) {
+		$filtered = zc_newsletter_storage_page( $per_page, ( $page - 1 ) * $per_page, $search );
+		$total    = zc_newsletter_storage_count( $search );
+	} else {
+		$list     = zc_newsletter_subscribers();
+		$filtered = $search ? array_filter( $list, static function ( $s ) use ( $search ) { return false !== stripos( implode( ' ', (array) $s ), $search ); } ) : $list;
+		$total    = count( $filtered );
+		$filtered = array_slice( $filtered, ( $page - 1 ) * $per_page, $per_page, true );
 	}
 	?>
 	<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:16px 0;justify-content:space-between">
@@ -355,7 +378,7 @@ function zc_newsletter_subscribers_panel() {
 			<button class="button"><?php esc_html_e( 'جستجو', 'zarincode' ); ?></button>
 		</form>
 		<div style="display:flex;gap:8px">
-			<a class="button button-primary" href="<?php echo esc_url( admin_url( 'admin.php?page=zc-newsletter&zc_export=1' ) ); ?>"><?php esc_html_e( 'خروجی اکسل (CSV)', 'zarincode' ); ?></a>
+			<a class="button button-primary" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=zc-newsletter&zc_export=1' ), 'zc_newsletter_export' ) ); ?>"><?php esc_html_e( 'خروجی اکسل (CSV)', 'zarincode' ); ?></a>
 		</div>
 	</div>
 
@@ -386,7 +409,7 @@ function zc_newsletter_subscribers_panel() {
 						<td>
 							<form method="post" style="display:inline" onsubmit="return confirm('حذف شود؟')">
 								<?php wp_nonce_field( 'zc_newsletter_delete' ); ?>
-								<button type="submit" name="zc_newsletter_delete" value="<?php echo (int) $i; ?>" class="button-link-delete"><?php esc_html_e( 'حذف', 'zarincode' ); ?></button>
+								<button type="submit" name="zc_newsletter_delete" value="<?php echo ! empty( $s['_id'] ) ? esc_attr( 'id:' . (int) $s['_id'] ) : (int) $i; ?>" class="button-link-delete"><?php esc_html_e( 'حذف', 'zarincode' ); ?></button>
 							</form>
 						</td>
 					</tr>
@@ -398,6 +421,13 @@ function zc_newsletter_subscribers_panel() {
 			<?php endif; ?>
 		</tbody>
 	</table>
+	<?php
+	$pagination = paginate_links( array(
+		'base' => add_query_arg( array( 'page' => 'zc-newsletter', 'tab' => 'subscribers', 's' => $search, 'paged' => '%#%' ), admin_url( 'admin.php' ) ),
+		'format' => '', 'current' => $page, 'total' => max( 1, (int) ceil( $total / $per_page ) ), 'type' => 'list',
+	) );
+	if ( $pagination ) { echo wp_kses_post( $pagination ); }
+	?>
 
 	<div style="margin-top:20px;background:#fff;border:1px solid #e2e4e7;border-radius:8px;padding:18px;max-width:560px">
 		<h3 style="margin-top:0"><?php esc_html_e( 'ورود مخاطبین از فایل اکسل', 'zarincode' ); ?></h3>
@@ -425,19 +455,16 @@ function zc_newsletter_export_csv() {
 	fprintf( $out, "\xEF\xBB\xBF" ); // BOM برای اکسل.
 	fputcsv( $out, array( 'name', 'email', 'mobile', 'telegram_id', 'bale_id', 'date' ) );
 
-	foreach ( zc_newsletter_subscribers() as $s ) {
-		fputcsv(
-			$out,
-			array(
-				$s['name'] ?? '',
-				$s['email'] ?? '',
-				$s['mobile'] ?? '',
-				$s['telegram_id'] ?? '',
-				$s['bale_id'] ?? '',
-				$s['date'] ?? '',
-			)
-		);
-	}
+	$offset = 0; $limit = 500;
+	do {
+		$rows = function_exists( 'zc_newsletter_storage_page' ) && zc_newsletter_storage_ready()
+			? zc_newsletter_storage_page( $limit, $offset )
+			: array_slice( zc_newsletter_subscribers(), $offset, $limit );
+		foreach ( $rows as $s ) {
+			fputcsv( $out, array( $s['name'] ?? '', $s['email'] ?? '', $s['mobile'] ?? '', $s['telegram_id'] ?? '', $s['bale_id'] ?? '', $s['date'] ?? '' ) );
+		}
+		$offset += count( $rows );
+	} while ( count( $rows ) === $limit );
 
 	fclose( $out );
 }
@@ -449,43 +476,30 @@ function zc_newsletter_export_csv() {
  * @return string پیام.
  */
 function zc_newsletter_import_csv( $path ) {
-	if ( ! file_exists( $path ) ) {
-		return __( 'فایل خوانده نشد.', 'zarincode' );
-	}
+	if ( ! file_exists( $path ) ) { return __( 'فایل خوانده نشد.', 'zarincode' ); }
+	$handle = fopen( $path, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	if ( ! $handle ) { return __( 'فایل خوانده نشد.', 'zarincode' ); }
 
-	$content = file_get_contents( $path ); // phpcs:ignore
-	// حذف BOM.
-	$content = preg_replace( '/^\xEF\xBB\xBF/', '', $content );
+	$header = fgetcsv( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	if ( ! is_array( $header ) ) { fclose( $handle ); return __( 'سربرگ CSV معتبر نیست.', 'zarincode' ); } // phpcs:ignore
+	$header[0] = preg_replace( '/^\xEF\xBB\xBF/', '', (string) $header[0] );
+	$header = array_map( static function ( $column ) { return sanitize_key( strtolower( trim( $column ) ) ); }, $header );
+	$allowed = array( 'name', 'email', 'mobile', 'telegram_id', 'bale_id' );
+	if ( ! array_intersect( $allowed, $header ) ) { fclose( $handle ); return __( 'ستون‌های CSV معتبر نیستند.', 'zarincode' ); } // phpcs:ignore
 
-	$lines = array_filter( array_map( 'trim', explode( "\n", $content ) ) );
-	$header = null;
-	$added  = 0;
-
-	foreach ( $lines as $line ) {
-		$row = str_getcsv( $line );
-
-		if ( null === $header ) {
-			$header = array_map( 'strtolower', $row );
-			continue;
-		}
-
+	$before = zc_newsletter_count(); $processed = 0;
+	while ( ( $row = fgetcsv( $handle ) ) !== false ) { // phpcs:ignore WordPress.WP.AlternativeFunctions
+		if ( ++$processed > 100000 ) { break; }
 		$data = array();
-		foreach ( $header as $ci => $col ) {
-			$data[ $col ] = $row[ $ci ] ?? '';
+		foreach ( $header as $index => $column ) {
+			if ( in_array( $column, $allowed, true ) ) { $data[ $column ] = $row[ $index ] ?? ''; }
 		}
-
-		$data['mobile'] = zc_sanitize_mobile( (string) ( $data['mobile'] ?? '' ) );
-		if ( empty( $data['mobile'] ) && empty( $data['email'] ) ) {
-			continue;
-		}
-
-		$before = count( zc_newsletter_subscribers() );
-		zc_newsletter_add( $data );
-		if ( count( zc_newsletter_subscribers() ) > $before ) {
-			$added++;
-		}
+		$data['email']  = sanitize_email( $data['email'] ?? '' );
+		$data['mobile'] = zc_sanitize_mobile( $data['mobile'] ?? '' );
+		if ( $data['email'] || $data['mobile'] ) { zc_newsletter_add( $data ); }
 	}
-
+	fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	$added = max( 0, zc_newsletter_count() - $before );
 	return sprintf( __( '%s مخاطب جدید اضافه شد.', 'zarincode' ), zc_fa_num( $added ) );
 }
 
@@ -499,13 +513,13 @@ function zc_newsletter_import_csv( $path ) {
  * @return void
  */
 function zc_newsletter_send_panel() {
-	$count = count( zc_newsletter_subscribers() );
+	$count = zc_newsletter_count();
 
 	// نمایش نتیجه‌ی ارسال.
 	if ( isset( $_GET['zc_nl_result'] ) ) {
 		echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( wp_unslash( $_GET['zc_nl_result'] ) ) . '</p></div>'; // phpcs:ignore
 	}
-	$zc_err = isset( $_COOKIE['zc_nl_error'] ) ? wp_unslash( $_COOKIE['zc_nl_error'] ) : '';
+	$zc_err = isset( $_GET['zc_nl_error'] ) ? sanitize_text_field( wp_unslash( $_GET['zc_nl_error'] ) ) : ( isset( $_COOKIE['zc_nl_error'] ) ? wp_unslash( $_COOKIE['zc_nl_error'] ) : '' ); // phpcs:ignore
 	if ( $zc_err ) {
 		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $zc_err ) . '</p></div>';
 	}
@@ -599,8 +613,8 @@ function zc_newsletter_send_panel() {
  * @return void
  */
 function zc_newsletter_report_panel() {
-	$campaigns = get_option( 'zc_newsletter_campaigns', array() );
-	$campaigns = array_reverse( $campaigns );
+	global $wpdb;
+	$campaigns = $wpdb->get_results( "SELECT id,created_at AS date,channel,subject,total,sent,failed,opened,status FROM {$wpdb->prefix}zc_newsletter_campaigns ORDER BY id DESC LIMIT 200", ARRAY_A ); // phpcs:ignore
 
 	if ( ! $campaigns ) {
 		echo '<p>' . esc_html__( 'هنوز کمپینی ارسال نشده است.', 'zarincode' ) . '</p>';
@@ -618,6 +632,7 @@ function zc_newsletter_report_panel() {
 				<th><?php esc_html_e( 'خطا', 'zarincode' ); ?></th>
 				<th><?php esc_html_e( 'بازشده', 'zarincode' ); ?></th>
 				<th><?php esc_html_e( 'نرخ باز شدن', 'zarincode' ); ?></th>
+				<th><?php esc_html_e( 'وضعیت / عملیات', 'zarincode' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -625,7 +640,7 @@ function zc_newsletter_report_panel() {
 				<?php
 				$c = wp_parse_args(
 					$c,
-					array( 'date' => '', 'channel' => '', 'subject' => '', 'total' => 0, 'sent' => 0, 'failed' => 0, 'opened' => 0 )
+					array( 'id' => 0, 'date' => '', 'channel' => '', 'subject' => '', 'total' => 0, 'sent' => 0, 'failed' => 0, 'opened' => 0, 'status' => '' )
 				);
 				$rate = $c['sent'] > 0 ? round( ( $c['opened'] / $c['sent'] ) * 100, 1 ) : 0;
 				$channels = array(
@@ -645,6 +660,13 @@ function zc_newsletter_report_panel() {
 					<td style="color:#dc2626"><?php echo esc_html( zc_fa_num( $c['failed'] ) ); ?></td>
 					<td><?php echo esc_html( zc_fa_num( $c['opened'] ) ); ?></td>
 					<td><strong><?php echo esc_html( zc_fa_num( $rate ) ); ?>%</strong></td>
+					<td><?php echo esc_html( $c['status'] ); ?>
+						<?php if ( in_array( $c['status'], array( 'queued', 'processing' ), true ) ) : ?>
+						<form method="post" style="display:inline"><?php wp_nonce_field( 'zc_newsletter_campaign_action' ); ?><input type="hidden" name="campaign_id" value="<?php echo (int) $c['id']; ?>"><button class="button-link-delete" name="zc_campaign_action" value="cancel"><?php esc_html_e( 'توقف', 'zarincode' ); ?></button></form>
+						<?php elseif ( 'cancelled' === $c['status'] ) : ?>
+						<form method="post" style="display:inline"><?php wp_nonce_field( 'zc_newsletter_campaign_action' ); ?><input type="hidden" name="campaign_id" value="<?php echo (int) $c['id']; ?>"><button class="button-link" name="zc_campaign_action" value="resume"><?php esc_html_e( 'ادامه', 'zarincode' ); ?></button></form>
+						<?php endif; ?>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -660,9 +682,12 @@ function zc_newsletter_report_panel() {
  */
 function zc_ajax_newsletter_check_balance() {
 	check_ajax_referer( 'zc_nonce', 'nonce' );
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_send_json_error( array( 'message' => __( 'دسترسی غیرمجاز.', 'zarincode' ) ), 403 );
+	}
 
 	$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
-	$count   = count( zc_newsletter_subscribers() );
+	$count   = function_exists( 'zc_newsletter_storage_mobile_count' ) ? zc_newsletter_storage_mobile_count() : zc_newsletter_count();
 	$text    = zc_sms_plain_text( $message );
 
 	if ( ! $text ) {
@@ -687,134 +712,110 @@ add_action( 'wp_ajax_zc_newsletter_check_balance', 'zc_ajax_newsletter_check_bal
  */
 function zc_newsletter_handle_send() {
 	if ( ! current_user_can( 'manage_options' ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ?? '' ), 'zc_newsletter_send' ) ) { // phpcs:ignore
-		wp_die( __( 'دسترسی غیرمجاز.', 'zarincode' ) );
+		wp_die( esc_html__( 'دسترسی غیرمجاز.', 'zarincode' ) );
 	}
 
-	$channel       = isset( $_POST['channel'] ) ? sanitize_key( wp_unslash( $_POST['channel'] ) ) : 'sms';
-	$subject       = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
-	$message       = isset( $_POST['message'] ) ? wp_kses_post( wp_unslash( $_POST['message'] ) ) : '';
-	$coupon_percent = isset( $_POST['coupon_percent'] ) ? max( 0, min( 100, (int) $_POST['coupon_percent'] ) ) : (int) zc_opt( 'zc_newsletter_coupon_percent', 0 );
+	$channel = sanitize_key( wp_unslash( $_POST['channel'] ?? 'sms' ) );
+	$subject = sanitize_text_field( wp_unslash( $_POST['subject'] ?? '' ) );
+	$message = wp_kses_post( wp_unslash( $_POST['message'] ?? '' ) );
+	$percent = max( 0, min( 100, absint( $_POST['coupon_percent'] ?? 0 ) ) );
+	$total   = zc_newsletter_count();
 
-	$sms_sent  = 0;
-	$mail_sent = 0;
-	$bot_sent  = 0;
-	$failed    = 0;
-	$total     = count( zc_newsletter_subscribers() );
+	if ( ! in_array( $channel, array( 'sms', 'email', 'both', 'bot', 'all' ), true ) || ! trim( wp_strip_all_tags( $message ) ) || ! $total ) {
+		wp_die( esc_html__( 'کانال، متن یا فهرست مخاطبان معتبر نیست.', 'zarincode' ) );
+	}
 
-	$do_sms   = in_array( $channel, array( 'sms', 'both', 'all' ), true );
-	$do_mail  = in_array( $channel, array( 'email', 'both', 'all' ), true );
-	$do_bot   = in_array( $channel, array( 'bot', 'all' ), true );
-
-	// بررسی موجودی برای پیامک.
-	if ( $do_sms ) {
-		$sms_text = zc_sms_plain_text( $message );
-		$mobiles  = array_filter( array_column( zc_newsletter_subscribers(), 'mobile' ) );
-		$check    = zc_sms_check_credit( $sms_text, count( $mobiles ) );
-
-		if ( $mobiles && ! $check['ok'] ) {
-			setcookie( 'zc_nl_error', $check['message'], 0, COOKIEPATH, COOKIE_DOMAIN );
-			wp_safe_redirect( admin_url( 'admin.php?page=zc-newsletter&tab=send' ) );
+	if ( in_array( $channel, array( 'sms', 'both', 'all' ), true ) ) {
+		$sms_count = function_exists( 'zc_newsletter_storage_mobile_count' ) ? zc_newsletter_storage_mobile_count() : $total;
+		$check = zc_sms_check_credit( zc_sms_plain_text( $message ), $sms_count );
+		if ( ! $check['ok'] ) {
+			wp_safe_redirect( add_query_arg( array( 'page' => 'zc-newsletter', 'tab' => 'send', 'zc_nl_error' => $check['message'] ), admin_url( 'admin.php' ) ) );
 			exit;
 		}
 	}
 
-	// ثبت کمپین.
-	$campaign_id = zc_newsletter_campaign_add(
-		array(
-			'channel' => $channel,
-			'subject' => $subject,
-			'message' => $message,
-			'total'   => $total,
-		)
-	);
-
-	foreach ( zc_newsletter_subscribers() as $sub ) {
-		$email = (string) ( $sub['email'] ?? '' );
-		$mobile = (string) ( $sub['mobile'] ?? '' );
-
-		// کد تخفیف یکتا (در صورت فعال بودن).
-		$coupon = '';
-		if ( $coupon_percent > 0 && $do_sms && class_exists( 'WC_Coupon' ) ) {
-			$coupon = zc_newsletter_coupon_code( $coupon_percent, 14, 'NL', $email );
-		}
-
-		$vars = array(
-			'name'   => (string) ( $sub['name'] ?? '' ),
-			'email'  => $email,
-			'mobile' => $mobile,
-			'coupon' => $coupon,
-		);
-		$text = zc_sms_parse_vars( $message, $vars );
-		$txt  = zc_sms_plain_text( $text );
-
-		// پیامک.
-		if ( $do_sms && $mobile ) {
-			if ( zc_sms_dispatch( $mobile, $txt, 'newsletter' ) ) {
-				$sms_sent++;
-			} else {
-				$failed++;
-			}
-			zc_newsletter_campaign_recipient( $campaign_id, $email ? $email : $mobile, $sms_sent ? 'sent' : 'failed' );
-		}
-
-		// ایمیل + پیکسل ردیابی.
-		if ( $do_mail && $email ) {
-			$track_url = home_url( '/?zc_nl_track=' . $campaign_id . '-' . rawurlencode( $email ) );
-			$html_body = $text . '<br><img src="' . esc_url( $track_url ) . '" width="1" height="1" alt="" style="display:none">';
-			$headers   = array( 'Content-Type: text/html; charset=UTF-8' );
-
-			if ( wp_mail( $email, $subject ? $subject : get_bloginfo( 'name' ), $html_body, $headers ) ) {
-				$mail_sent++;
-			} else {
-				$failed++;
-			}
-			zc_newsletter_campaign_recipient( $campaign_id, $email, 'sent' );
-		}
-
-		// ربات (تلگرام / بله به آیدی شخصی).
-		if ( $do_bot ) {
-			foreach ( array( 'telegram', 'bale' ) as $messenger ) {
-				$handle = trim( (string) ( $sub[ $messenger . '_id' ] ?? '' ) );
-				if ( ! $handle ) {
-					continue;
-				}
-				if ( function_exists( 'zc_messenger_send_to' ) ) {
-					$ok = zc_messenger_send_to( $messenger, '@' . ltrim( $handle, '@' ), $txt );
-					if ( $ok ) {
-						$bot_sent++;
-					} else {
-						$failed++;
-					}
-				}
-			}
-		}
+	$campaign_id = zc_newsletter_campaign_add( array(
+		'channel' => $channel, 'subject' => $subject, 'message' => $message,
+		'total' => $total, 'coupon_percent' => $percent, 'status' => 'queued',
+	) );
+	if ( ! $campaign_id ) {
+		wp_die( esc_html__( 'ساخت کمپین ناموفق بود.', 'zarincode' ) );
 	}
 
-	// به‌روزرسانی آمار کمپین.
-	$campaigns = get_option( 'zc_newsletter_campaigns', array() );
-	if ( isset( $campaigns[ $campaign_id ] ) ) {
-		$campaigns[ $campaign_id ]['sent']   = $sms_sent + $mail_sent + $bot_sent;
-		$campaigns[ $campaign_id ]['failed'] = $failed;
-		update_option( 'zc_newsletter_campaigns', $campaigns );
-	}
-
-	setcookie( 'zc_nl_error', '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN );
-
-	$result_msg = sprintf(
-		__( 'ارسال انجام شد. پیامک: %1$d، ایمیل: %2$d، ربات: %3$d، خطا: %4$d', 'zarincode' ),
-		$sms_sent,
-		$mail_sent,
-		$bot_sent,
-		$failed
-	);
-
-	wp_safe_redirect(
-		add_query_arg(
-			'zc_nl_result',
-			rawurlencode( $result_msg ),
-			admin_url( 'admin.php?page=zc-newsletter&tab=report' )
-		)
-	);
+	zc_schedule_action( time() + 2, 'zc_newsletter_process_batch', array( $campaign_id, 0 ) );
+	wp_safe_redirect( add_query_arg( array( 'page' => 'zc-newsletter', 'tab' => 'report', 'zc_nl_result' => __( 'کمپین در صف قرار گرفت و به‌صورت دسته‌ای ارسال می‌شود.', 'zarincode' ) ), admin_url( 'admin.php' ) ) );
 	exit;
 }
 add_action( 'admin_post_zc_newsletter_send', 'zc_newsletter_handle_send' );
+
+/**
+ * پردازش یک batch خبرنامه توسط Action Scheduler یا WP-Cron.
+ *
+ * @param int $campaign_id کمپین.
+ * @param int $offset      شروع.
+ * @return void
+ */
+function zc_newsletter_process_batch( $campaign_id, $offset = 0 ) {
+	global $wpdb;
+	$campaign_id = (int) $campaign_id;
+	$offset      = max( 0, (int) $offset );
+	$campaign    = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}zc_newsletter_campaigns WHERE id=%d LIMIT 1", $campaign_id ), ARRAY_A ); // phpcs:ignore
+	if ( ! $campaign || in_array( $campaign['status'], array( 'completed', 'cancelled' ), true ) ) { return; }
+
+	$batch = function_exists( 'zc_newsletter_storage_page' ) && zc_newsletter_storage_ready()
+		? zc_newsletter_storage_page( 50, $offset )
+		: array_slice( zc_newsletter_subscribers(), $offset, 50 );
+	if ( ! $batch ) {
+		$wpdb->update( $wpdb->prefix . 'zc_newsletter_campaigns', array( 'status' => 'completed', 'finished_at' => current_time( 'mysql' ) ), array( 'id' => $campaign_id ), array( '%s', '%s' ), array( '%d' ) ); // phpcs:ignore
+		return;
+	}
+
+	$wpdb->update( $wpdb->prefix . 'zc_newsletter_campaigns', array( 'status' => 'processing' ), array( 'id' => $campaign_id ), array( '%s' ), array( '%d' ) ); // phpcs:ignore
+	$do_sms  = in_array( $campaign['channel'], array( 'sms', 'both', 'all' ), true );
+	$do_mail = in_array( $campaign['channel'], array( 'email', 'both', 'all' ), true );
+	$do_bot  = in_array( $campaign['channel'], array( 'bot', 'all' ), true );
+	$sent = 0; $failed = 0;
+
+	foreach ( $batch as $sub ) {
+		$email     = sanitize_email( $sub['email'] ?? '' );
+		$mobile    = zc_sanitize_mobile( $sub['mobile'] ?? '' );
+		$recipient = $email ?: ( $mobile ?: (string) ( $sub['_id'] ?? '' ) );
+		$prior     = $recipient ? $wpdb->get_var( $wpdb->prepare( "SELECT status FROM {$wpdb->prefix}zc_newsletter_recipients WHERE campaign_id=%d AND recipient=%s LIMIT 1", $campaign_id, $recipient ) ) : ''; // phpcs:ignore
+		if ( in_array( $prior, array( 'sent', 'skipped' ), true ) ) { continue; }
+		zc_newsletter_campaign_recipient( $campaign_id, $recipient, 'processing' );
+		$coupon = '';
+		if ( (int) $campaign['coupon_percent'] > 0 && class_exists( 'WC_Coupon' ) ) {
+			$coupon = zc_newsletter_coupon_code( (int) $campaign['coupon_percent'], 14, 'NL', $email );
+		}
+		$text = zc_sms_parse_vars( $campaign['message'], array( 'name' => $sub['name'] ?? '', 'email' => $email, 'mobile' => $mobile, 'coupon' => $coupon ) );
+		$plain = zc_sms_plain_text( $text );
+		$recipient_sent = false; $recipient_failed = false;
+
+		if ( $do_sms && $mobile ) {
+			if ( zc_sms_dispatch( $mobile, $plain, 'newsletter' ) ) { $sent++; $recipient_sent = true; } else { $failed++; $recipient_failed = true; }
+		}
+		if ( $do_mail && $email ) {
+			$sig = hash_hmac( 'sha256', $campaign_id . '|' . $email, wp_salt( 'nonce' ) );
+			$track_url = add_query_arg( array( 'zc_nl_track' => $campaign_id, 'recipient' => $email, 'sig' => $sig ), home_url( '/' ) );
+			$body = $text . '<br><img src="' . esc_url( $track_url ) . '" width="1" height="1" alt="" style="display:none">';
+			if ( wp_mail( $email, $campaign['subject'] ?: get_bloginfo( 'name' ), $body, array( 'Content-Type: text/html; charset=UTF-8' ) ) ) { $sent++; $recipient_sent = true; } else { $failed++; $recipient_failed = true; }
+		}
+		if ( $do_bot ) {
+			foreach ( array( 'telegram', 'bale' ) as $messenger ) {
+				$handle = trim( (string) ( $sub[ $messenger . '_id' ] ?? '' ) );
+				if ( ! $handle ) { continue; }
+				if ( zc_messenger_send_to( $messenger, '@' . ltrim( $handle, '@' ), $plain ) ) { $sent++; $recipient_sent = true; } else { $failed++; $recipient_failed = true; }
+			}
+		}
+		zc_newsletter_campaign_recipient( $campaign_id, $recipient, $recipient_sent ? 'sent' : ( $recipient_failed ? 'failed' : 'skipped' ) );
+	}
+
+	$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}zc_newsletter_campaigns SET sent=sent+%d,failed=failed+%d WHERE id=%d", $sent, $failed, $campaign_id ) ); // phpcs:ignore
+	$next = $offset + count( $batch );
+	if ( count( $batch ) < 50 || $next >= (int) $campaign['total'] ) {
+		$wpdb->update( $wpdb->prefix . 'zc_newsletter_campaigns', array( 'status' => 'completed', 'finished_at' => current_time( 'mysql' ) ), array( 'id' => $campaign_id ), array( '%s', '%s' ), array( '%d' ) ); // phpcs:ignore
+	} else {
+		zc_schedule_action( time() + 5, 'zc_newsletter_process_batch', array( $campaign_id, $next ) );
+	}
+}
+add_action( 'zc_newsletter_process_batch', 'zc_newsletter_process_batch', 10, 2 );

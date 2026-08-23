@@ -56,6 +56,8 @@ function zc_notification_types() {
 			'wallet'       => __( 'تراکنش‌های کیف پول', 'zarincode' ),
 			'booking'      => __( 'یادآوری نوبت مشاوره', 'zarincode' ),
 			'discount'     => __( 'تخفیف‌ها و پیشنهادهای ویژه', 'zarincode' ),
+			'subscription_expiring' => __( 'یادآوری تمدید اشتراک', 'zarincode' ),
+			'contract'     => __( 'قراردادها و پرداخت‌ها', 'zarincode' ),
 			'admin_alerts' => __( 'اعلان‌های مدیریتی (فقط مدیران)', 'zarincode' ),
 		)
 	);
@@ -309,9 +311,12 @@ add_action( 'rest_api_init', 'zc_register_bot_webhook' );
  */
 function zc_handle_bot_webhook( $request ) {
 	// بررسی کلید امنیتی تا فقط پیام‌رسان بتواند این مسیر را صدا بزند.
-	$secret = zc_opt( 'zc_bot_secret', '' );
+	$options  = get_option( ZC_PREFIX, array() );
+	$secret   = (string) ( $options['zc_bot_secret'] ?? '' );
+	$provided = (string) $request->get_param( 'secret' );
 
-	if ( $secret && $request->get_param( 'secret' ) !== $secret ) {
+	// مسیر بدون secret هرگز باز نمی‌ماند؛ حتی پیش از اولین بازدید مدیر.
+	if ( ! $secret || ! $provided || ! hash_equals( $secret, $provided ) ) {
 		return new WP_REST_Response( array( 'ok' => false ), 403 );
 	}
 
@@ -425,8 +430,9 @@ function zc_handle_bot_webhook( $request ) {
  * @return string
  */
 function zc_bot_webhook_url( $messenger ) {
-	$url    = rest_url( 'zarincode/v1/bot/' . $messenger );
-	$secret = zc_opt( 'zc_bot_secret', '' );
+	$url     = rest_url( 'zarincode/v1/bot/' . $messenger );
+	$options = get_option( ZC_PREFIX, array() );
+	$secret  = $options['zc_bot_secret'] ?? '';
 
 	if ( $secret ) {
 		$url = add_query_arg( 'secret', $secret, $url );
@@ -628,6 +634,11 @@ function zc_queue_content_notification( $new_status, $old_status, $post ) {
 
 	// صف حداکثر ۵۰ مورد نگه می‌دارد.
 	update_option( 'zc_notify_queue', array_slice( $queue, -50 ), false );
+
+	// در حضور WooCommerce Action Scheduler صف بدون انتظار برای ترافیک پردازش می‌شود.
+	if ( function_exists( 'as_enqueue_async_action' ) ) {
+		as_enqueue_async_action( 'zc_notify_cron', array(), 'zarincode', true );
+	}
 }
 add_action( 'transition_post_status', 'zc_queue_content_notification', 20, 3 );
 
@@ -640,7 +651,11 @@ add_action( 'transition_post_status', 'zc_queue_content_notification', 20, 3 );
  * @return array گزارش اجرا.
  */
 function zc_process_notification_queue() {
-	$queue = get_option( 'zc_notify_queue', array() );
+	global $wpdb;
+	$lock_name = 'zc_notification_queue';
+	if ( '1' !== (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 1)', $lock_name ) ) ) { return array( 'sent' => 0, 'remaining' => -1, 'locked' => true ); } // phpcs:ignore
+	try {
+		$queue = get_option( 'zc_notify_queue', array() );
 
 	if ( empty( $queue ) ) {
 		return array( 'sent' => 0, 'remaining' => 0 );
@@ -710,7 +725,10 @@ function zc_process_notification_queue() {
 
 	update_option( 'zc_notify_last_run', time(), false );
 
-	return array( 'sent' => $sent, 'remaining' => count( $queue ) );
+		return array( 'sent' => $sent, 'remaining' => count( $queue ) );
+	} finally {
+		$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock_name ) ); // phpcs:ignore
+	}
 }
 
 /**
@@ -755,9 +773,10 @@ function zc_external_cron_endpoint() {
 		return;
 	}
 
-	$key = zc_opt( 'zc_cron_key', '' );
+	$options = get_option( ZC_PREFIX, array() );
+	$key     = $options['zc_cron_key'] ?? '';
 
-	if ( ! $key || sanitize_text_field( wp_unslash( $_GET['zc_cron'] ) ) !== $key ) { // phpcs:ignore
+	if ( ! $key || ! hash_equals( (string) $key, sanitize_text_field( wp_unslash( $_GET['zc_cron'] ) ) ) ) { // phpcs:ignore
 		status_header( 403 );
 		wp_die( 'Invalid cron key', '', array( 'response' => 403 ) );
 	}

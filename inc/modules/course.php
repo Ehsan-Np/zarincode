@@ -75,9 +75,10 @@ function zc_user_has_course( $user_id, $course_id ) {
 	$table = $wpdb->prefix . 'zc_enrollments';
 	$row   = $wpdb->get_var( // phpcs:ignore
 		$wpdb->prepare(
-			"SELECT id FROM {$table} WHERE user_id = %d AND course_id = %d AND status = 'active' AND (expire_at IS NULL OR expire_at > NOW()) LIMIT 1",
+			"SELECT id FROM {$table} WHERE user_id = %d AND course_id = %d AND status = 'active' AND (expire_at IS NULL OR expire_at > %s) LIMIT 1",
 			$user_id,
-			$course_id
+			$course_id,
+			current_time( 'mysql' )
 		)
 	);
 
@@ -91,11 +92,17 @@ function zc_user_has_course( $user_id, $course_id ) {
  * @return bool
  */
 function zc_user_has_subscription( $user_id ) {
-	$expire = get_user_meta( $user_id, 'zc_subscription_expire', true );
-	if ( ! $expire ) {
-		return false;
+	/*
+	 * منبع اصلی، سامانهٔ پلن‌های اشتراک جدید است. متای قدیمی فقط برای
+	 * سازگاری نصب‌هایی که پیش از نسخهٔ ۳ اشتراک روزانه خریده‌اند نگه
+	 * داشته می‌شود.
+	 */
+	if ( function_exists( 'zc_subscription_is_active' ) && zc_subscription_is_active( $user_id ) ) {
+		return true;
 	}
-	return strtotime( $expire ) > current_time( 'timestamp' );
+
+	$expire = get_user_meta( $user_id, 'zc_subscription_expire', true );
+	return $expire && strtotime( $expire ) > current_time( 'timestamp' );
 }
 
 /**
@@ -110,45 +117,70 @@ function zc_user_has_subscription( $user_id ) {
 function zc_enroll_user( $user_id, $course_id, $order_id = 0, $price = 0 ) {
 	global $wpdb;
 
-	if ( ! $user_id || ! $course_id ) {
+	$user_id   = (int) $user_id;
+	$course_id = (int) $course_id;
+	$order_id  = (int) $order_id;
+
+	if ( ! $user_id || ! $course_id || 'zc_course' !== get_post_type( $course_id ) ) {
 		return false;
 	}
 
-	if ( zc_user_has_course( $user_id, $course_id ) && $order_id === 0 ) {
+	$table    = $wpdb->prefix . 'zc_enrollments';
+	$existing = $wpdb->get_row( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$wpdb->prepare(
+			"SELECT * FROM {$table} WHERE user_id = %d AND course_id = %d LIMIT 1",
+			$user_id,
+			$course_id
+		)
+	);
+
+	/*
+	 * هوک‌های processing و completed ممکن است برای یک سفارش پشت‌سرهم اجرا
+	 * شوند. ثبت‌نام فعال هرگز دوباره درج، شمارش یا اعلان نمی‌شود.
+	 */
+	if ( $existing && 'active' === $existing->status && ( ! $existing->expire_at || strtotime( $existing->expire_at ) > current_time( 'timestamp' ) ) ) {
 		return true;
 	}
 
-	$table  = $wpdb->prefix . 'zc_enrollments';
 	$access = (int) get_post_meta( $course_id, '_zc_access_days', true );
-	$expire = $access > 0 ? gmdate( 'Y-m-d H:i:s', strtotime( "+{$access} days" ) ) : null;
+	$expire = $access > 0
+		? wp_date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + ( $access * DAY_IN_SECONDS ), wp_timezone() )
+		: null;
 
-	$wpdb->replace( // phpcs:ignore
+	$result = $wpdb->replace( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$table,
 		array(
 			'user_id'    => $user_id,
 			'course_id'  => $course_id,
 			'order_id'   => $order_id,
-			'price'      => $price,
+			'price'      => (float) $price,
 			'status'     => 'active',
 			'expire_at'  => $expire,
-			'created_at' => current_time( 'mysql' ),
-		)
+			'created_at' => $existing ? $existing->created_at : current_time( 'mysql' ),
+		),
+		array( '%d', '%d', '%d', '%f', '%s', '%s', '%s' )
 	);
 
-	// افزایش شمارنده دانشجویان.
-	$students = (int) get_post_meta( $course_id, '_zc_students', true );
-	update_post_meta( $course_id, '_zc_students', $students + 1 );
+	if ( false === $result ) {
+		return false;
+	}
+
+	// ثبت‌نام تازه یا فعال‌سازی مجدد پس از refund یک‌بار شمارنده را افزایش می‌دهد.
+	if ( ! $existing || 'active' !== $existing->status ) {
+		$students = (int) get_post_meta( $course_id, '_zc_students', true );
+		update_post_meta( $course_id, '_zc_students', $students + 1 );
+	}
 
 	do_action( 'zc_user_enrolled', $user_id, $course_id, $order_id );
 
-	// پیامک اطلاع‌رسانی.
 	if ( zc_opt( 'zc_sms_enroll_notify', true ) ) {
-		zc_notify_user_sms(
-			$user_id,
-			sprintf(
-				/* translators: %s: course title */
-				__( 'ثبت‌نام شما در دوره «%s» با موفقیت انجام شد. زرین کد', 'zarincode' ),
-				mb_substr( get_the_title( $course_id ), 0, 40 )
+		$user = get_userdata( $user_id );
+		zc_sms_send_message(
+			'enroll',
+			get_user_meta( $user_id, 'zc_mobile', true ),
+			array(
+				'name'   => $user ? $user->display_name : '',
+				'course' => mb_substr( get_the_title( $course_id ), 0, 40 ),
 			)
 		);
 	}
@@ -380,31 +412,46 @@ function zc_enroll_after_purchase( $order_id ) {
 	}
 
 	$order = wc_get_order( $order_id );
-	if ( ! $order ) {
+	if ( ! $order || ! $order->is_paid() ) {
 		return;
 	}
 
-	$user_id = $order->get_user_id();
+	$user_id = (int) $order->get_user_id();
 	if ( ! $user_id ) {
 		return;
 	}
 
-	foreach ( $order->get_items() as $item ) {
+	$processed = (array) $order->get_meta( '_zc_course_items_processed', true );
+
+	foreach ( $order->get_items() as $item_id => $item ) {
+		$item_key = (string) $item_id;
+		if ( in_array( $item_key, array_map( 'strval', $processed ), true ) ) {
+			continue;
+		}
+
 		$product_id = $item->get_product_id();
 		$course_id  = (int) get_post_meta( $product_id, '_zc_linked_course', true );
+		$ok         = true;
 
 		if ( $course_id ) {
-			zc_enroll_user( $user_id, $course_id, $order_id, (float) $item->get_total() );
+			$ok = zc_enroll_user( $user_id, $course_id, $order_id, (float) $item->get_total() );
 		}
 
-		// اشتراک ویژه.
+		// سازگاری با محصولات اشتراک قدیمی؛ فقط یک‌بار برای هر آیتم.
 		$sub_days = (int) get_post_meta( $product_id, '_zc_subscription_days', true );
-		if ( $sub_days > 0 ) {
+		if ( $ok && $sub_days > 0 ) {
 			$current = get_user_meta( $user_id, 'zc_subscription_expire', true );
 			$base    = ( $current && strtotime( $current ) > time() ) ? strtotime( $current ) : time();
-			update_user_meta( $user_id, 'zc_subscription_expire', gmdate( 'Y-m-d H:i:s', strtotime( "+{$sub_days} days", $base ) ) );
+			update_user_meta( $user_id, 'zc_subscription_expire', wp_date( 'Y-m-d H:i:s', $base + ( $sub_days * DAY_IN_SECONDS ), wp_timezone() ) );
+		}
+
+		if ( $ok ) {
+			$processed[] = $item_key;
 		}
 	}
+
+	$order->update_meta_data( '_zc_course_items_processed', array_values( array_unique( $processed ) ) );
+	$order->save();
 }
 add_action( 'woocommerce_order_status_completed', 'zc_enroll_after_purchase' );
 add_action( 'woocommerce_order_status_processing', 'zc_enroll_after_purchase' );

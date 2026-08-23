@@ -4,7 +4,7 @@
  *
  * @package Zarincode
  * @author  Zarincode
- * @version 1.0.0
+ * @version 3.36.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * ثابت‌های اصلی قالب
  */
-define( 'ZC_VERSION', '3.35.0' );
+define( 'ZC_VERSION', '3.36.0' );
 define( 'ZC_DIR', trailingslashit( get_template_directory() ) );
 define( 'ZC_URI', trailingslashit( get_template_directory_uri() ) );
 define( 'ZC_INC', ZC_DIR . 'inc/' );
@@ -30,6 +30,8 @@ function zc_require( array $files ) {
 		$path = ZC_INC . $file . '.php';
 		if ( file_exists( $path ) ) {
 			require_once $path;
+		} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( 'Zarincode missing module: ' . $path ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
 		}
 	}
 }
@@ -69,11 +71,13 @@ zc_require(
 		'modules/auth',
 		'modules/sms-kavenegar',
 		'modules/wallet',
+		'modules/database',
 		'modules/cashback',
 		'modules/accounting',
 		'modules/course',
 		'modules/booking',
 		'modules/ticket',
+		'modules/ticket-lifecycle',
 		'modules/chat',
 		'modules/notification',
 		'modules/announcements',
@@ -93,6 +97,10 @@ zc_require(
 		'modules/plugin-manager',
 		'modules/subscriptions',
 		'modules/newsletter',
+		'modules/growth-platform',
+		'modules/credential-manager',
+		'modules/order-reversals',
+		'modules/privacy',
 		'modules/zarinpal',
 		'modules/gateways',
 		'modules/quiz',
@@ -107,6 +115,7 @@ zc_require(
 		'modules/affiliate',
 		'modules/kpi-dashboard',
 		'modules/backup',
+		'modules/lifecycle',
 
 		// ووکامرس.
 		'woocommerce',

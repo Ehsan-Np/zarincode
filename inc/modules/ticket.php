@@ -366,6 +366,10 @@ function zc_get_user_tickets( $user_id = 0, $args = array() ) {
  * @return int|WP_Error
  */
 function zc_handle_ticket_upload( $field, $post_id ) {
+	if ( ! zc_opt( 'zc_ticket_attach', true ) ) {
+		return new WP_Error( 'attachments_disabled', __( 'پیوست فایل غیرفعال است.', 'zarincode' ) );
+	}
+
 	require_once ABSPATH . 'wp-admin/includes/image.php';
 	require_once ABSPATH . 'wp-admin/includes/file.php';
 	require_once ABSPATH . 'wp-admin/includes/media.php';

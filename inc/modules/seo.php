@@ -29,7 +29,8 @@ function zc_seo_meta_tags() {
 	$title = wp_get_document_title();
 	$desc  = '';
 	$image = '';
-	$url   = home_url( add_query_arg( array() ) );
+	$request_path = isset( $_SERVER['REQUEST_URI'] ) ? strtok( wp_unslash( $_SERVER['REQUEST_URI'] ), '?' ) : '/'; // phpcs:ignore
+	$url          = home_url( $request_path );
 
 	if ( is_singular() ) {
 		$post_id = get_the_ID();
@@ -147,7 +148,8 @@ function zc_schema_markup() {
 			),
 			'offers'      => array(
 				'@type'         => 'Offer',
-				'price'         => $sale ? $sale : $price,
+				// قیمت داخلی تومان است؛ Schema فقط کد رسمی IRR را می‌پذیرد.
+				'price'         => ( $sale ? $sale : $price ) * 10,
 				'priceCurrency' => 'IRR',
 				'availability'  => 'https://schema.org/InStock',
 				'url'           => get_permalink(),
@@ -164,6 +166,13 @@ function zc_schema_markup() {
 				'bestRating'  => 5,
 			);
 		}
+	} elseif ( is_singular( 'zc_learning_path' ) ) {
+		$courses = array_values( array_filter( array_map( 'absint', (array) get_post_meta( get_the_ID(), '_zc_path_courses', true ) ) ) );
+		$items = array();
+		foreach ( $courses as $position => $course_id ) {
+			$items[] = array( '@type' => 'ListItem', 'position' => $position + 1, 'name' => get_the_title( $course_id ), 'url' => get_permalink( $course_id ) );
+		}
+		$schema = array( '@context' => 'https://schema.org', '@type' => 'ItemList', 'name' => get_the_title(), 'description' => zc_excerpt( get_the_excerpt(), 40 ), 'numberOfItems' => count( $items ), 'itemListElement' => $items );
 	} elseif ( is_singular( array( 'post', 'zc_tutorial' ) ) ) {
 		$schema = array(
 			'@context'         => 'https://schema.org',

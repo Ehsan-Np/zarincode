@@ -334,7 +334,15 @@ function zc_contract_due_stage( $contract_id ) {
  * @return bool
  */
 function zc_contract_mark_paid( $contract_id, $index, $amount, $gateway, $ref_id = '' ) {
-	$payments = zc_contract_payments( $contract_id );
+	global $wpdb;
+	$lock_name = 'zc_contract_pay_' . (int) $contract_id . '_' . (int) $index;
+	$locked    = '1' === (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 10)', $lock_name ) ); // phpcs:ignore
+	if ( ! $locked ) {
+		return false;
+	}
+
+	try {
+		$payments = zc_contract_payments( $contract_id );
 
 	// جلوگیری از ثبت دوباره‌ی یک مرحله.
 	if ( ! empty( $payments[ $index ]['paid_at'] ) ) {
@@ -360,7 +368,7 @@ function zc_contract_mark_paid( $contract_id, $index, $amount, $gateway, $ref_id
 		array(
 			'user_id'     => $contract ? $contract['user_id'] : get_current_user_id(),
 			'amount'      => $amount,
-			'type'        => 'deposit',
+			'type'        => 'income',
 			'category'    => 'contract',
 			'status'      => 'completed',
 			'description' => sprintf(
@@ -412,9 +420,12 @@ function zc_contract_mark_paid( $contract_id, $index, $amount, $gateway, $ref_id
 		);
 	}
 
-	do_action( 'zc_contract_stage_paid', $contract_id, $index, $amount, $gateway );
+		do_action( 'zc_contract_stage_paid', $contract_id, $index, $amount, $gateway );
 
-	return true;
+		return true;
+	} finally {
+		$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock_name ) ); // phpcs:ignore
+	}
 }
 
 /**
@@ -526,15 +537,16 @@ function zc_ajax_pay_stage_wallet() {
 			__( 'پرداخت %1$s قرارداد %2$s', 'zarincode' ),
 			$stage['title'],
 			zc_contract_number( $contract_id )
-		),
-		'contract'
-	);
+			),
+			'contract',
+			array( 'ref_id' => 'contract-' . $contract_id . '-stage-' . $index, 'gateway' => 'wallet' )
+		);
 
-	if ( ! $ok ) {
-		wp_send_json_error( array( 'message' => __( 'برداشت از کیف پول انجام نشد.', 'zarincode' ) ) );
+	if ( is_wp_error( $ok ) || ! $ok ) {
+		wp_send_json_error( array( 'message' => is_wp_error( $ok ) ? $ok->get_error_message() : __( 'برداشت از کیف پول انجام نشد.', 'zarincode' ) ) );
 	}
 
-	zc_contract_mark_paid( $contract_id, $index, $stage['amount'], 'wallet', 'WALLET-' . time() );
+	zc_contract_mark_paid( $contract_id, $index, $stage['amount'], 'wallet', 'WALLET-' . $ok );
 
 	wp_send_json_success(
 		array(
@@ -624,33 +636,27 @@ function zc_handle_stage_callback() {
 	$authority   = isset( $_GET['Authority'] ) ? sanitize_text_field( wp_unslash( $_GET['Authority'] ) ) : ''; // phpcs:ignore
 	$status      = isset( $_GET['Status'] ) ? sanitize_text_field( wp_unslash( $_GET['Status'] ) ) : ''; // phpcs:ignore
 
-	$back = add_query_arg(
-		array(
-			'tab'      => 'contracts',
-			'contract' => $contract_id,
-		),
-		zc_panel_url()
-	);
-
 	$pending = $authority ? get_transient( 'zc_ctpay_' . $authority ) : false;
+	$user_id = $pending ? (int) ( $pending['user_id'] ?? 0 ) : 0;
 
-	if ( 'OK' !== $status || ! $pending ) {
-		zc_set_pay_message( 'error', __( 'پرداخت لغو شد یا ناموفق بود.', 'zarincode' ) );
-		wp_safe_redirect( $back );
+	if ( 'OK' !== $status || ! $pending || ! $user_id || (int) $pending['contract'] !== $contract_id ) {
+		zc_set_pay_message( 'error', __( 'پرداخت لغو شد یا اطلاعات تراکنش معتبر نبود.', 'zarincode' ), $user_id );
+		wp_safe_redirect( zc_panel_url( 'contracts' ) );
 		exit;
 	}
 
-	// اطمینان از اینکه پرداخت‌کننده همان کاربر است.
-	if ( (int) $pending['user_id'] !== get_current_user_id() ) {
-		zc_set_pay_message( 'error', __( 'این تراکنش متعلق به حساب دیگری است.', 'zarincode' ) );
-		wp_safe_redirect( $back );
+	// صحت تراکنش با authority و مالک ثبت‌شده کنترل می‌شود؛ callback به cookie ورود وابسته نیست.
+	$contract_id = (int) $pending['contract'];
+	if ( (int) get_post_field( 'post_author', $contract_id ) !== $user_id ) {
+		zc_set_pay_message( 'error', __( 'مالک تراکنش با قرارداد مطابقت ندارد.', 'zarincode' ), $user_id );
+		wp_safe_redirect( zc_panel_url( 'contracts' ) );
 		exit;
 	}
 
 	$verify = zc_zarinpal_verify( $authority, $pending['amount'] );
 
 	if ( is_wp_error( $verify ) ) {
-		zc_set_pay_message( 'error', $verify->get_error_message() );
+		zc_set_pay_message( 'error', $verify->get_error_message(), $user_id );
 		wp_safe_redirect( $back );
 		exit;
 	}
@@ -672,10 +678,11 @@ function zc_handle_stage_callback() {
 				/* translators: %s: کد پیگیری */
 				__( 'پرداخت با موفقیت انجام شد. کد پیگیری: %s', 'zarincode' ),
 				zc_fa_num( $verify['ref_id'] )
-			)
+			),
+			$user_id
 		);
 	} else {
-		zc_set_pay_message( 'error', __( 'این مرحله پیش‌تر پرداخت شده بود.', 'zarincode' ) );
+		zc_set_pay_message( 'error', __( 'این مرحله پیش‌تر پرداخت شده بود.', 'zarincode' ), $user_id );
 	}
 
 	wp_safe_redirect(
@@ -695,12 +702,14 @@ add_action( 'template_redirect', 'zc_handle_stage_callback' );
  * ثبت پیام موقت برای نمایش پس از بازگشت از درگاه.
  *
  * @param string $type نوع.
- * @param string $text متن.
+ * @param string $text    متن.
+ * @param int    $user_id کاربر مقصد.
  * @return void
  */
-function zc_set_pay_message( $type, $text ) {
+function zc_set_pay_message( $type, $text, $user_id = 0 ) {
+	$user_id = $user_id ?: get_current_user_id();
 	set_transient(
-		'zc_ctpay_msg_' . get_current_user_id(),
+		'zc_ctpay_msg_' . (int) $user_id,
 		array(
 			'type' => $type,
 			'text' => $text,
@@ -755,6 +764,11 @@ function zc_contract_file_download() {
 
 	$contract_id = absint( $_GET['zc_ct_file'] ); // phpcs:ignore WordPress.Security.NonceVerification
 	$index       = isset( $_GET['i'] ) ? absint( $_GET['i'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
+	$nonce       = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : ''; // phpcs:ignore
+
+	if ( ! wp_verify_nonce( $nonce, 'zc_ct_file_' . $contract_id . '_' . $index ) ) {
+		wp_die( esc_html__( 'لینک دانلود نامعتبر یا منقضی شده است.', 'zarincode' ) );
+	}
 
 	if ( ! zc_can_view_contract( $contract_id ) ) {
 		wp_die( esc_html__( 'دسترسی مجاز نیست.', 'zarincode' ) );
@@ -799,13 +813,14 @@ add_action( 'template_redirect', 'zc_contract_file_download' );
  * @return string
  */
 function zc_contract_file_url( $contract_id, $index ) {
-	return add_query_arg(
+	$url = add_query_arg(
 		array(
 			'zc_ct_file' => (int) $contract_id,
 			'i'          => (int) $index,
 		),
 		home_url( '/' )
 	);
+	return wp_nonce_url( $url, 'zc_ct_file_' . (int) $contract_id . '_' . (int) $index );
 }
 
 /* ==========================================================================

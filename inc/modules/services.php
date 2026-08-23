@@ -119,6 +119,9 @@ function zc_services_list() {
  */
 function zc_ajax_submit_request() {
 	zc_check_ajax();
+	if ( ! zc_rate_limit( 'project_request', 4, HOUR_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد درخواست بیش از حد مجاز است؛ بعداً دوباره تلاش کنید.', 'zarincode' ) ), 429 );
+	}
 
 	$name    = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
 	$mobile  = zc_sanitize_mobile( wp_unslash( $_POST['mobile'] ?? '' ) );

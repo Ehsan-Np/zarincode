@@ -1,7 +1,7 @@
 # Copyright (C) 2026 Zarincode
 msgid ""
 msgstr ""
-"Project-Id-Version: Zarincode 1.4.0\n"
+"Project-Id-Version: Zarincode 3.36.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6546,5 +6546,6647 @@ msgstr ""
 
 #: single-zc_service.php
 msgid "فرم زیر را پر کنید؛ کارشناسان ما در کمتر از ۲۴ ساعت با شما تماس می‌گیرند."
+msgstr ""
+
+# Added by scripts/update-pot.py
+#: inc/admin/sms-import.php:402
+msgid "%1$s شماره افزوده شد، %2$s تکراری و %3$s سطر بدون شماره‌ی معتبر بود."
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:715
+msgid "%1$s پیامک ارسال شد، %2$s نفر رد شدند (بدون موبایل یا خارج از شرط)."
+msgstr ""
+
+#: inc/modules/growth-platform.php:320
+msgid "%s دوره در این مسیر"
+msgstr ""
+
+#: inc/admin/sms-page.php:167
+msgid "%s ساعت پس از رفتن کاربر به درگاه، اگر پرداخت نشده باشد."
+msgstr ""
+
+#: inc/modules/newsletter.php:502
+msgid "%s مخاطب جدید اضافه شد."
+msgstr ""
+
+#: inc/admin/sms-import.php:545
+msgid "%s مخاطب حذف شد."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:69
+msgid "%s مرحله"
+msgstr ""
+
+#: inc/modules/announcements.php:900
+msgid "%s پیام ارسال شد."
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:749
+msgid "%s پیامک ارسال شد."
+msgstr ""
+
+#: inc/admin/sms-import.php:516
+msgid "%s پیامک در این بخش ارسال شد."
+msgstr ""
+
+#: inc/modules/quiz.php:1203
+msgid "(اگر هیچ‌کدام انتخاب نشود، همهٔ زبان‌های فعال سراسری نمایش داده می‌شوند)"
+msgstr ""
+
+#: inc/modules/practice.php:190
+msgid "(اگر هیچ‌کدام انتخاب نشود، همهٔ زبان‌های فعال سراسری)"
+msgstr ""
+
+#: inc/admin/sms-import.php:647
+msgid "(بدون نام)"
+msgstr ""
+
+#: inc/modules/practice.php:184 inc/modules/quiz.php:1185 inc/modules/quiz.php:1230
+msgid "(خالی = پیش‌فرض قالب)"
+msgstr ""
+
+#: inc/modules/quiz.php:1190
+msgid "(خالی = پیش‌فرض)"
+msgstr ""
+
+#: inc/panel/config.php:316
+msgid "API Key ای‌دی‌پی"
+msgstr ""
+
+#: inc/panel/config.php:322
+msgid "API Key پی‌آی‌آر"
+msgstr ""
+
+#: template-parts/panel/contracts.php:187
+msgid "JPG یا PNG"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:60
+msgid "OpenStreetMap (بدون کلید)"
+msgstr ""
+
+#: template-parts/panel/contracts.php:188
+msgid "PDF، DOC یا DOCX"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:145
+msgid "Placeholder"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:63
+msgid "iframe دلخواه"
+msgstr ""
+
+#: inc/modules/rewards.php:499
+msgid "{name} عزیز، {percent}٪ تخفیف ویژه‌ی خدمات برنامه‌نویسی {site}:\n{code}\nطراحی سایت، سئو و اجرای پروژه — اعتبار {days} روز\n{url}"
+msgstr ""
+
+#: inc/modules/rewards.php:207
+msgid "{name} عزیز، به {site} خوش آمدید!\nبا فعال‌سازی اطلاع‌رسانی در هر ربات، {percent}٪ تخفیف بگیرید (مجموعاً {total}٪):\nتلگرام: {telegram}\nبله: {bale}"
+msgstr ""
+
+#: inc/admin/sms-import.php:698
+msgid "{name} عزیز، پیشنهاد ویژه‌ی {site}\nکد تخفیف {percent}٪ شما: {code}\nاعتبار {days} روز"
+msgstr ""
+
+#: inc/admin/sms-page.php:262
+msgid "{name} عزیز، کد تخفیف {percent}٪ ویژه شما: {code}\nاعتبار {days} روز — {site}"
+msgstr ""
+
+#: inc/panel/config.php:536
+msgid "{name} نام کاربر — {code} کد تخفیف — {percent} درصد — {total} مجموع درصد — {days} روز اعتبار — {site} نام سایت — {url} نشانی — {telegram} لینک ربات تلگرام — {bale} لینک ربات بله — {messenger} نام پیام‌رسان"
+msgstr ""
+
+#: inc/modules/newsletter.php:673
+msgid "«باز شدن» مخصوص ایمیل است (پیکسل ردیابی)؛ پیامک و ربات نرخ باز شدن ندارند."
+msgstr ""
+
+#: inc/modules/announcements.php:298
+msgid "آخرین ارسال: %1$s — %2$s پیام"
+msgstr ""
+
+#: template-parts/panel/dashboard.php:205
+msgid "آخرین تلاش‌های من"
+msgstr ""
+
+#: inc/modules/details.php:772
+msgid "آخرین نسخه"
+msgstr ""
+
+#: inc/modules/quiz.php:1366
+msgid "آخرین نمره:"
+msgstr ""
+
+#: inc/admin/sms-page.php:281
+msgid "آخرین پیامک‌ها"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:47
+msgid "آدرس (تکمیلی)"
+msgstr ""
+
+#: inc/panel/config.php:386
+msgid "آدرس سرویس اجرای کد (API)"
+msgstr ""
+
+#: inc/panel/config.php:184
+msgid "آدرس وب‌سایت (دامنه)"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:210
+msgid "آدرس کامل"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:149
+msgid "آدرس یا کد iframe دلخواه"
+msgstr ""
+
+#: inc/helpers.php:59
+msgid "آراد (Arad)"
+msgstr ""
+
+#: inc/helpers.php:61
+msgid "آریو (Ario)"
+msgstr ""
+
+#: inc/helpers.php:60
+msgid "آزاد (Azad)"
+msgstr ""
+
+#: inc/modules/contract-payments.php:919
+msgid "آزاد در پیشرفت"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1006
+msgid "آزاد در پیشرفت %s٪"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:874
+msgid "آزمایشی"
+msgstr ""
+
+#: single-zc_course.php:107
+msgid "آزمون"
+msgstr ""
+
+#: inc/modules/quiz.php:715
+msgid "آزمون در سمت سرور کامل نشده است."
+msgstr ""
+
+#: inc/modules/attempts.php:114 inc/modules/attempts.php:384
+msgid "آزمون دوره"
+msgstr ""
+
+#: inc/panel/config.php:368
+msgid "آزمون و کامپایلر"
+msgstr ""
+
+#: inc/modules/quiz.php:1344
+msgid "آزمون پایان دوره"
+msgstr ""
+
+#: inc/modules/quiz.php:1160
+msgid "آزمون پایان دوره (Quiz)"
+msgstr ""
+
+#: inc/modules/quiz.php:856
+msgid "آزمونی برای این دوره تعریف نشده است."
+msgstr ""
+
+#: inc/panel/config.php:253
+msgid "آستانه‌ی موجودی (ریال)"
+msgstr ""
+
+#: inc/modules/quiz.php:654
+msgid "آفرین! پاسخ درست است."
+msgstr ""
+
+#: inc/modules/modern-pages.php:516
+msgid "آماده‌اید با زرین کد شروع کنید؟"
+msgstr ""
+
+#: inc/metabox.php:526
+msgid "آمار خدمت"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php:126
+msgid "آمار ستون کناری"
+msgstr ""
+
+#: inc/modules/details.php:285
+msgid "آمار پروژه"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:51
+msgid "آمار کمیسیون شما"
+msgstr ""
+
+#: inc/modules/modern-pages.php:495
+msgid "آموزش پروژه‌محور"
+msgstr ""
+
+#: inc/modules/modern-pages.php:504
+msgid "آنچه به آن <span>باور</span> داریم"
+msgstr ""
+
+#: inc/panel/config.php:437
+msgid "آواتار پشتیبان"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php:155
+msgid "آیدی بله"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php:155
+msgid "آیدی بله (اختیاری)"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php:154
+msgid "آیدی تلگرام"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php:154
+msgid "آیدی تلگرام (اختیاری)"
+msgstr ""
+
+#: inc/panel/config.php:474
+msgid "آیدی چت مدیران"
+msgstr ""
+
+#: inc/modules/announcements.php:205
+msgid "آیکون"
+msgstr ""
+
+#: inc/modules/contracts.php:1093
+msgid "آی‌پی امضاکننده"
+msgstr ""
+
+#: inc/modules/contract-payments.php:478
+msgid "ابتدا باید قرارداد را امضا کنید."
+msgstr ""
+
+#: inc/modules/editor.php:138
+msgid "ابزار ویرایش متن"
+msgstr ""
+
+#: inc/metabox.php:533 single-zc_service.php:344
+msgid "ابزارها و تکنولوژی‌ها"
+msgstr ""
+
+#: inc/modules/credential-manager.php:87
+msgid "ابطال"
+msgstr ""
+
+#: inc/modules/contracts.php:1097
+msgid "اثر انگشت دیجیتال"
+msgstr ""
+
+#: inc/panel/config.php:292
+msgid "اجازه خرید مهمان (بدون ثبت‌نام)"
+msgstr ""
+
+#: inc/panel/config.php:420
+msgid "اجازه پیوست فایل"
+msgstr ""
+
+#: inc/modules/quiz.php:421
+msgid "اجرا"
+msgstr ""
+
+#: inc/modules/modern-pages.php:636
+msgid "اجرا و تحویل"
+msgstr ""
+
+#: inc/admin/sms-page.php:176 inc/admin/sms-page.php:198
+msgid "اجرا کن"
+msgstr ""
+
+#: inc/admin/sms-page.php:81
+msgid "اجرای بعدی ساعتی / روزانه"
+msgstr ""
+
+#: inc/panel/config.php:393
+msgid "اجرای خودکار کد هنگام بازشدن سوال"
+msgstr ""
+
+#: inc/admin/sms-page.php:146
+msgid "اجرای دستی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:549
+msgid "اجرای مرحله‌ای"
+msgstr ""
+
+#: inc/modules/modern-pages.php:636
+msgid "اجرای مرحله‌ای و باکیفیت"
+msgstr ""
+
+#: inc/modules/quiz.php:243
+msgid "اجرای کد در تنظیمات قالب غیرفعال است."
+msgstr ""
+
+#: inc/modules/quiz.php:240
+msgid "اجرای کد ممکن نیست."
+msgstr ""
+
+#: inc/modules/newsletter.php:666
+msgid "ادامه"
+msgstr ""
+
+#: template-parts/panel/contracts.php:241
+msgid "ادامه و دریافت کد تأیید"
+msgstr ""
+
+#: inc/panel/config.php:615
+msgid "ادغام و فشرده‌سازی CSS و JS"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:50
+msgid "ارائه‌دهنده و موقعیت"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:56
+msgid "ارائه‌دهنده‌ی نقشه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:102
+msgid "ارتفاع نقشه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1190
+msgid "ارتقا به این پلن"
+msgstr ""
+
+#: inc/modules/growth-platform.php:497
+msgid "ارزش"
+msgstr ""
+
+#: inc/modules/modern-pages.php:504
+msgid "ارزش‌های ما"
+msgstr ""
+
+#: inc/admin/sms-page.php:212 inc/admin/sms-page.php:225
+msgid "ارسال آزمایشی"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:119
+msgid "ارسال اعتراض"
+msgstr ""
+
+#: inc/panel/config.php:591
+msgid "ارسال به تلگرام/بله"
+msgstr ""
+
+#: inc/admin/sms-import.php:669
+msgid "ارسال به فهرست"
+msgstr ""
+
+#: inc/admin/sms-import.php:450
+msgid "ارسال به پایان رسید."
+msgstr ""
+
+#: inc/modules/announcements.php:268
+msgid "ارسال به پیام‌رسان‌ها و پیامک"
+msgstr ""
+
+#: inc/modules/newsletter.php:280 inc/modules/newsletter.php:588
+msgid "ارسال خبرنامه"
+msgstr ""
+
+#: inc/modules/announcements.php:274
+msgid "ارسال در تلگرام و بله (به کاربرانی که ربات را وصل کرده‌اند)"
+msgstr ""
+
+#: inc/modules/announcements.php:308
+msgid "ارسال دستی همین حالا"
+msgstr ""
+
+#: inc/admin/sms-page.php:63
+msgid "ارسال موفق"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:780
+msgid "ارسال ناموفق بود؛ تنظیمات سامانه پیامک را بررسی کنید."
+msgstr ""
+
+#: inc/modules/modern-pages.php:131
+msgid "ارسال پیام به تیم زرین کد"
+msgstr ""
+
+#: inc/modules/announcements.php:280
+msgid "ارسال پیامک"
+msgstr ""
+
+#: inc/modules/contracts.php:737
+msgid "ارسال پیامک ناموفق بود. شماره موبایل را بررسی کنید."
+msgstr ""
+
+#: inc/admin/sms-page.php:232
+msgid "ارسال گروهی به کاربران"
+msgstr ""
+
+#: inc/modules/announcements.php:285
+msgid "ارسال یک‌بار و هنگام انتشار اطلاعیه انجام می‌شود. برای ارسال دوباره از دکمه‌ی زیر استفاده کنید."
+msgstr ""
+
+#: inc/modules/newsletter.php:630
+msgid "ارسال‌شده"
+msgstr ""
+
+#: archive.php:30
+msgid "از طراحی سایت و اپلیکیشن تا سئو و مشاوره فنی؛ تیم زرین کد هر نیاز دیجیتال شما را با بالاترین کیفیت برطرف می‌کند."
+msgstr ""
+
+#: inc/modules/modern-pages.php:592
+msgid "از طراحی سایت و اپلیکیشن تا سئو و مشاوره فنی؛ تیم زرین کد هر نیاز دیجیتال شما را برطرف می‌کند."
+msgstr ""
+
+#: inc/modules/modern-pages.php:412
+msgid "از هر راهی که برایتان راحت‌تر است، با ما در ارتباط باشید."
+msgstr ""
+
+#: template-parts/panel/subscription.php:71
+msgid "از پایان دوره‌ی فعلی، به پلن «%s» تنزل خواهید یافت."
+msgstr ""
+
+#: inc/panel/config.php:128
+msgid "از پنل توسعه‌دهندگان نشان (platform.neshan.org) دریافت کنید. برای نمایش نقشه‌ی نشان لازم است."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:183
+msgid "از کیف پول"
+msgstr ""
+
+#: inc/modules/modern-pages.php:497
+msgid "استاندارد و حرفه‌ای"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:124
+msgid "استایل نقشه‌ی نشان"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:277
+msgid "استرداد وجه پس از فسخ قرارداد"
+msgstr ""
+
+#: inc/modules/growth-platform.php:387
+msgid "استعلام"
+msgstr ""
+
+#: inc/modules/growth-platform.php:361
+msgid "استعلام گواهینامه"
+msgstr ""
+
+#: inc/panel/config.php:552
+msgid "استفاده‌ی هم‌زمان از چند کد تخفیف"
+msgstr ""
+
+#: inc/modules/subscriptions.php:904
+msgid "اشتراک «%s» با موفقیت فعال شد."
+msgstr ""
+
+#: template-parts/panel/subscription.php:115
+msgid "اشتراک شما"
+msgstr ""
+
+#: inc/modules/growth-platform.php:603 inc/modules/growth-platform.php:604
+msgid "اشتراک شما %s روز دیگر منقضی می‌شود."
+msgstr ""
+
+#: template-parts/panel/dashboard.php:172
+msgid "اشتراک فعال"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1179 template-parts/panel/subscription.php:28
+msgid "اشتراک فعلی شما"
+msgstr ""
+
+#: inc/modules/subscriptions.php:788
+msgid "اشتراک من"
+msgstr ""
+
+#: template-parts/panel/dashboard.php:180
+msgid "اشتراک ویژه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:597
+msgid "اشتراک پلن «%s» اعمال شد."
+msgstr ""
+
+#: inc/admin/admin.php:771 inc/admin/admin.php:818 inc/modules/subscriptions.php:51
+msgid "اشتراک‌ها"
+msgstr ""
+
+#: inc/modules/order-reversals.php:98
+msgid "اصلاح cashback بازپرداخت #%s"
+msgstr ""
+
+#: inc/modules/order-reversals.php:108
+msgid "اصلاح کمیسیون بازپرداخت #%s"
+msgstr ""
+
+#: inc/panel/config.php:419
+msgid "اطلاع تیکت تازه در تلگرام و بله"
+msgstr ""
+
+#: inc/panel/config.php:433
+msgid "اطلاع گفتگوی تازه در تلگرام و بله"
+msgstr ""
+
+#: inc/modules/modern-pages.php:430
+msgid "اطلاعات <span>تماس</span>"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:358
+msgid "اطلاعات و پرداخت"
+msgstr ""
+
+#: inc/modules/details.php:128
+msgid "اطلاعات ورود به دمو"
+msgstr ""
+
+#: inc/modules/quiz.php:709
+msgid "اطلاعات یا نشست آزمون نامعتبر است."
+msgstr ""
+
+#: inc/modules/announcements.php:36
+msgid "اطلاعیه"
+msgstr ""
+
+#: inc/modules/announcements.php:318
+msgid "اطلاعیه برای همه‌ی گیرندگان ارسال شود؟"
+msgstr ""
+
+#: inc/modules/announcements.php:37
+msgid "اطلاعیه تازه"
+msgstr ""
+
+#: template-parts/panel/announcements.php:27
+msgid "اطلاعیه‌ای برای نمایش نیست"
+msgstr ""
+
+#: inc/modules/announcements.php:42
+msgid "اطلاعیه‌ای یافت نشد."
+msgstr ""
+
+#: inc/modules/announcements.php:35 inc/modules/announcements.php:43 inc/modules/user-panel.php:81
+msgid "اطلاعیه‌ها"
+msgstr ""
+
+#: inc/modules/announcements.php:915 template-parts/panel/announcements.php:16
+msgid "اطلاعیه‌های سایت"
+msgstr ""
+
+#: inc/modules/announcements.php:69
+msgid "اطلاع‌رسانی (آبی)"
+msgstr ""
+
+#: template-parts/panel/licenses.php:12
+msgid "اعتبار"
+msgstr ""
+
+#: inc/modules/cashback.php:152
+msgid "اعتبار %1$s به کیف پول کاربر واریز شد (بازگشت %2$s٪)."
+msgstr ""
+
+#: inc/modules/cashback.php:195
+msgid "اعتبار %s به کیف پول شما بازگشت."
+msgstr ""
+
+#: inc/modules/growth-platform.php:430
+msgid "اعتبار (روز، صفر نامحدود)"
+msgstr ""
+
+#: inc/modules/coupons.php:470
+msgid "اعتبار این کد تخفیف به پایان رسیده است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1492
+msgid "اعتبار این کد تخفیف تمام شده است."
+msgstr ""
+
+#: template-parts/panel/dashboard.php:182 template-parts/panel/subscription.php:40
+msgid "اعتبار تا %s"
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:283
+msgid "اعتبار کافی نیست. هزینه‌ی برآوردی %1$s ریال و موجودی %2$s ریال است؛ لطفاً حساب کاوه‌نگار را شارژ کنید."
+msgstr ""
+
+#: inc/admin/sms-import.php:691 inc/admin/sms-page.php:255
+msgid "اعتبار کد (روز)"
+msgstr ""
+
+#: inc/panel/config.php:271
+msgid "اعتبار کد بازگشت (روز)"
+msgstr ""
+
+#: inc/panel/config.php:549
+msgid "اعتبار کد خدمات (روز)"
+msgstr ""
+
+#: inc/panel/config.php:261
+msgid "اعتبار کد خوش‌آمد (روز)"
+msgstr ""
+
+#: inc/panel/config.php:540
+msgid "اعتبار کد ربات (روز)"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:108
+msgid "اعتراض به مبلغ"
+msgstr ""
+
+#: inc/modules/modern-pages.php:721
+msgid "اعتماد شما ارزشمند است"
+msgstr ""
+
+#: inc/modules/modern-pages.php:563
+msgid "اعتماد شما، سرمایه‌ی ماست."
+msgstr ""
+
+#: inc/modules/details.php:236
+msgid "اعضای تیم"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:20
+msgid "اعلام مبلغ پروژه"
+msgstr ""
+
+#: inc/modules/messenger-bot.php:61
+msgid "اعلان‌های مدیریتی (فقط مدیران)"
+msgstr ""
+
+#: inc/admin/sms-page.php:103 inc/modules/checkout-manager.php:422 inc/modules/coupons.php:234 inc/modules/growth-platform.php:496 inc/modules/kpi-dashboard.php:155
+msgid "اعمال"
+msgstr ""
+
+#: inc/modules/coupons.php:231
+msgid "اعمال شد"
+msgstr ""
+
+#: inc/modules/coupons.php:329
+msgid "اعمال کد تخفیف ممکن نبود."
+msgstr ""
+
+#: inc/modules/sms-messages.php:43
+msgid "افزایش موجودی کیف پول"
+msgstr ""
+
+#: inc/modules/announcements.php:38
+msgid "افزودن اطلاعیه تازه"
+msgstr ""
+
+#: inc/modules/contracts.php:35
+msgid "افزودن الگو"
+msgstr ""
+
+#: inc/modules/contracts.php:36
+msgid "افزودن الگوی قرارداد"
+msgstr ""
+
+#: inc/modules/editor.php:152 inc/modules/editor.php:153
+msgid "افزودن تصویر"
+msgstr ""
+
+#: inc/modules/practice.php:39
+msgid "افزودن تمرین"
+msgstr ""
+
+#: inc/modules/practice.php:40
+msgid "افزودن تمرین جدید"
+msgstr ""
+
+#: inc/admin/code-manager.php:159
+msgid "افزودن زبان سفارشی"
+msgstr ""
+
+#: inc/modules/quiz.php:1009
+msgid "افزودن سوال"
+msgstr ""
+
+#: inc/modules/growth-platform.php:243
+msgid "افزودن مسیر یادگیری"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:476
+msgid "افزودن نماد"
+msgstr ""
+
+#: inc/modules/subscriptions.php:43
+msgid "افزودن پلن"
+msgstr ""
+
+#: inc/modules/subscriptions.php:44
+msgid "افزودن پلن جدید"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:326
+msgid "افزونه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:622
+msgid "افزونه و قالب"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:271
+msgid "افزونهٔ «%s» به‌روزرسانی شد."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:286
+msgid "افزونهٔ «%s» غیرفعال شد."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:280
+msgid "افزونهٔ «%s» فعال شد."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:262
+msgid "افزونهٔ «%s» نصب شد."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:249
+msgid "افزونه‌ای یافت نشد."
+msgstr ""
+
+#: inc/panel/config.php:561
+msgid "افزونه‌های تکمیلی"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:224
+msgid "افزونه‌های قالب"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:320
+msgid "افزونه‌های موردنیاز قالب زرین کد را نصب، فعال یا به‌روزرسانی کنید. افزونه‌های «الزامی» برای عملکرد کامل قالب لازم هستند."
+msgstr ""
+
+#: inc/modules/kpi-dashboard.php:165
+msgid "اقلام فروخته‌شده"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:142 inc/modules/plugin-manager.php:338
+msgid "الزامی"
+msgstr ""
+
+#: inc/modules/contracts.php:33
+msgid "الگوهای قرارداد"
+msgstr ""
+
+#: inc/modules/contracts.php:34
+msgid "الگوی قرارداد"
+msgstr ""
+
+#: inc/modules/contracts.php:630 template-parts/panel/contracts.php:113
+msgid "الگوی قرارداد یافت نشد."
+msgstr ""
+
+#: inc/modules/jalali.php:403
+msgid "امروز"
+msgstr ""
+
+#: template-parts/panel/contracts.php:78
+msgid "امضا"
+msgstr ""
+
+#: inc/modules/contracts.php:92
+msgid "امضا شده"
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:75
+msgid "امضا و ثبت نهایی قرارداد"
+msgstr ""
+
+#: inc/modules/growth-platform.php:542
+msgid "امضای درخواست لایسنس معتبر نیست."
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:49
+msgid "امضای دیجیتال"
+msgstr ""
+
+#: inc/modules/contracts.php:1112
+msgid "امضای دیجیتال:"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:19
+msgid "امضای قرارداد"
+msgstr ""
+
+#: template-parts/contract-print.php:167 template-parts/panel/contracts.php:77
+msgid "امضای مشتری"
+msgstr ""
+
+#: template-parts/panel/contracts.php:183
+msgid "انتخاب فایل یا کشیدن به این کادر"
+msgstr ""
+
+#: inc/modules/modern-pages.php:156 inc/modules/modern-pages.php:212 inc/modules/modern-pages.php:224
+msgid "انتخاب کنید"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:546
+msgid "اندازه (پیکسل)"
+msgstr ""
+
+#: inc/panel/config.php:117
+msgid "اندازه فونت عنوان‌ها (٪)"
+msgstr ""
+
+#: inc/panel/config.php:116
+msgid "اندازه فونت پایه (پیکسل)"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:209
+msgid "اندازه نماد (پیکسل)"
+msgstr ""
+
+#: inc/panel/config.php:391
+msgid "اندازهٔ فونت کد (پیکسل)"
+msgstr ""
+
+#: inc/panel/config.php:175
+msgid "اندازه‌ی نمادهای HTML (پیکسل)"
+msgstr ""
+
+#: inc/modules/modern-pages.php:621
+msgid "اندروید و iOS با فلاتر"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1235 template-parts/panel/contracts.php:125
+msgid "انصراف"
+msgstr ""
+
+#: inc/modules/newsletter.php:558
+msgid "اگر بیشتر از ۰ باشد، برای هر گیرنده یک کد تخفیف یکتا ساخته و به‌صورت {coupon} در پیام جایگذاری می‌شود (مناسب پیامک)."
+msgstr ""
+
+#: inc/elementor/widgets/map.php:115
+msgid "اگر خالی باشد از تنظیمات قالب استفاده می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:380
+msgid "اگر فعال باشد، گواهی دوره فقط وقتی صادر می‌شود که کاربر به حد نصاب آزمون رسیده باشد."
+msgstr ""
+
+#: inc/panel/config.php:348
+msgid "اگر فعال شود، محصولاتی که قیمت فروش (sale) دارند از cashback مستثنی می‌شوند."
+msgstr ""
+
+#: inc/panel/config.php:253
+msgid "اگر موجودی کمتر از این مقدار شود، هشدار شارژ نمایش داده می‌شود."
+msgstr ""
+
+#: inc/modules/subscriptions.php:122
+msgid "اگر پر شود، خرید از طریق همین محصول ووکامرس انجام می‌شود و پس از پرداخت اشتراک فعال می‌گردد. اگر خالی باشد، خرید مستقیم با کیف پول امکان‌پذیر است."
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php:152
+msgid "ایمیل *"
+msgstr ""
+
+#: inc/panel/config.php:255
+msgid "ایمیل مدیر برای هشدار شارژ"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1227
+msgid "ایمیل یا نام‌کاربری کاربرِ گیرنده را وارد کنید. اشتراک به حساب او اضافه می‌شود."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1229
+msgid "ایمیل یا نام‌کاربری گیرنده"
+msgstr ""
+
+#: inc/admin/admin.php:849
+msgid "این بازه"
+msgstr ""
+
+#: inc/modules/booking.php:103
+msgid "این بازه در حال رزرو است؛ دوباره تلاش کنید."
+msgstr ""
+
+#: inc/modules/quiz.php:774
+msgid "این تلاش ثبت شد. برای قبولی باید درصد بالاتری بگیرید."
+msgstr ""
+
+#: inc/modules/practice.php:179
+msgid "این تمرین در تب «تمرین کدنویسی» پنل کاربری با حالت گام‌به‌گام (هر پاسخ درست، سوال بعدی را باز می‌کند) نمایش داده می‌شود."
+msgstr ""
+
+#: inc/admin/code-manager.php:128
+msgid "این زبان‌ها در انتخابِ «زبان‌های مجاز» هر دوره و هر تمرین در دسترس مدیر خواهند بود و فقط همین‌ها در ادیتور کد نمایش داده می‌شوند."
+msgstr ""
+
+#: inc/modules/contracts.php:1029
+msgid "این شناسه‌ها را داخل متن اصلی، بندها و تبصره‌ها بنویسید تا هنگام ساخت قرارداد با مقدار واقعی جایگزین شوند."
+msgstr ""
+
+#: template-parts/contract-print.php:197
+msgid "این قرارداد به صورت الکترونیکی امضا شده است."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:53
+msgid "این قرارداد خاتمه یافته است؛ مراحل زیر تنها به عنوان سابقه نمایش داده می‌شوند."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:201
+msgid "این قرارداد در وضعیت قابل فسخ نیست."
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:154
+msgid "این قرارداد فسخ شده است"
+msgstr ""
+
+#: inc/modules/contracts.php:772
+msgid "این قرارداد پیش‌تر امضا شده است."
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/simple.php:29
+msgid "این محصول در سبد خرید شما موجود است."
+msgstr ""
+
+#: inc/modules/contract-payments.php:485
+msgid "این مرحله با رسیدن پیشرفت پروژه به %s درصد فعال می‌شود."
+msgstr ""
+
+#: inc/modules/contract-payments.php:473
+msgid "این مرحله قبلاً پرداخت شده است."
+msgstr ""
+
+#: inc/modules/contract-payments.php:685
+msgid "این مرحله پیش‌تر پرداخت شده بود."
+msgstr ""
+
+#: template-parts/contract-print.php:207
+msgid "این نسخه پیش‌نویس است و هنوز امضا نشده است."
+msgstr ""
+
+#: inc/modules/coupons.php:484
+msgid "این کد اختصاصی کاربر دیگری است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1503
+msgid "این کد برای حساب شما صادر نشده است."
+msgstr ""
+
+#: inc/modules/coupons.php:480
+msgid "این کد برای شماره‌ی موبایل دیگری صادر شده است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1516
+msgid "این کد برای پلن انتخابی معتبر نیست."
+msgstr ""
+
+#: inc/modules/coupons.php:115
+msgid "این کد تخفیف اختصاصی کاربر دیگری است و برای حساب شما معتبر نیست."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1487
+msgid "این کد تخفیف به پایان رسیده است."
+msgstr ""
+
+#: inc/modules/coupons.php:466
+msgid "این کد تخفیف قبلاً استفاده شده است."
+msgstr ""
+
+#: inc/modules/coupons.php:122
+msgid "این کد فقط برای سفارش خدمات برنامه‌نویسی است، نه خرید محصول."
+msgstr ""
+
+#: inc/admin/chats-page.php:254
+msgid "این گفتگو برای همیشه حذف شود؟"
+msgstr ""
+
+#: inc/modules/gateways.php:52
+msgid "ای‌دی‌پی (زرین کد)"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:458
+msgid "ای‌نماد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:403
+msgid "با <span>زرین کد</span> در تماس باشید"
+msgstr ""
+
+#: template-parts/panel/dashboard.php:188
+msgid "با اشتراک ویژه به همهٔ دوره‌ها دسترسی نامحدود داشته باشید."
+msgstr ""
+
+#: inc/panel/config.php:419
+msgid "با ثبت هر تیکت جدید به مدیران پیام داده می‌شود."
+msgstr ""
+
+#: template-parts/panel/practice.php:74
+msgid "با حل تمرین‌ها، مهارت‌تان را گام‌به‌گام بسنجید. هر پاسخ درست، سوال بعدی را باز می‌کند."
+msgstr ""
+
+#: inc/panel/config.php:372
+msgid "با خاموش‌کردن این کلید، آزمون دوره، تمرین کدنویسی و اجرای کد همه‌جا غیرفعال می‌شوند."
+msgstr ""
+
+#: template-parts/panel/subscription.php:120
+msgid "با خرید یکی از پلن‌های زیر به امکانات ویژه دسترسی پیدا کنید."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:159
+msgid "با رسیدن پیشرفت پروژه به %1$s٪ فعال می‌شود (پیشرفت فعلی: %2$s٪)"
+msgstr ""
+
+#: inc/modules/contract-payments.php:48
+msgid "با رسیدن پیشرفت پروژه به ۵۰ درصد"
+msgstr ""
+
+#: inc/panel/config.php:376
+msgid "با رسیدن کاربر به «حد نصاب» (درصد قبولی) و تکمیل دوره، مدرک پایان دوره صادر می‌شود. حد نصاب هر دوره/تمرین را می‌توانید جداگانه در صفحهٔ همان دوره/تمرین تنظیم کنید."
+msgstr ""
+
+#: inc/panel/config.php:433
+msgid "با شروع هر گفتگوی جدید، به همه‌ی مدیران تعریف‌شده پیام داده می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:345
+msgid "با فعال‌سازی این قابلیت، پس از تکمیل هر سفارش، درصدی از مبلغ پرداخت‌شده (بعد از اعمال کد تخفیف) به کیف پول مشتری واریز می‌شود."
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:55
+msgid "با ماوس یا انگشت امضا کنید"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:39
+msgid "با هر لینکی که از طریق آن خرید ثبت شود، %s٪ کمیسیون به کیف پول شما واریز می‌شود. لینک را در شبکه‌های اجتماعی و پیام‌رسان‌ها به اشتراک بگذارید."
+msgstr ""
+
+#: inc/modules/newsletter.php:437
+msgid "بارگذاری"
+msgstr ""
+
+#: inc/admin/sms-import.php:381
+msgid "بارگذاری فایل ناموفق بود."
+msgstr ""
+
+#: inc/admin/sms-import.php:620
+msgid "بارگذاری و درون‌ریزی"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:235
+msgid "باز بودن پاپ‌آپ پین هنگام لود"
+msgstr ""
+
+#: templates/template-panel.php:99
+msgid "باز و بسته کردن منوی پنل"
+msgstr ""
+
+#: inc/modules/newsletter.php:632
+msgid "بازشده"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1044
+msgid "بازنویسی مراحل فقط برای این قرارداد"
+msgstr ""
+
+#: inc/modules/announcements.php:963
+msgid "بازه نمایش"
+msgstr ""
+
+#: inc/panel/config.php:578
+msgid "بازه‌ی پیش‌فرض نمودار (روز)"
+msgstr ""
+
+#: inc/modules/zarinpal.php:520
+msgid "بازپرداخت سفارش #%s"
+msgstr ""
+
+#: inc/admin/chats-page.php:154
+msgid "بازکردن"
+msgstr ""
+
+#: inc/admin/code-manager.php:116
+msgid "بازکردن تنظیمات قالب"
+msgstr ""
+
+#: inc/admin/sms-page.php:183 inc/modules/sms-messages.php:48
+msgid "بازگرداندن مشتری غیرفعال"
+msgstr ""
+
+#: inc/modules/cashback.php:125
+msgid "بازگشت اعتبار %1$s٪ از سفارش #%2$s"
+msgstr ""
+
+#: inc/panel/config.php:345
+msgid "بازگشت اعتبار خرید (Cashback)"
+msgstr ""
+
+#: template-parts/panel/contracts.php:30
+msgid "بازگشت به فهرست"
+msgstr ""
+
+#: template-parts/contract-print.php:107
+msgid "بازگشت به پنل"
+msgstr ""
+
+#: inc/modules/subscriptions.php:804
+msgid "بازگشت خرید ناموفق اشتراک"
+msgstr ""
+
+#: inc/modules/zarinpal.php:508
+msgid "بازگشت رزرو کیف پول سفارش #%s"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:872
+msgid "بازگشت مشتری"
+msgstr ""
+
+#: template-parts/panel/contracts.php:237
+msgid "بازگشت و ویرایش"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:380
+msgid "بازگشت وجه تا ۷ روز"
+msgstr ""
+
+#: inc/modules/contract-payments.php:906
+msgid "باید ۱۰۰ باشد!"
+msgstr ""
+
+#: inc/panel/config.php:71
+msgid "بخش «زرین» لوگو با این رنگ نمایش داده می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:72
+msgid "بخش «کد» لوگو با این رنگ نمایش داده می‌شود."
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:137
+msgid "بخش پرداخت پس از اعلام مبلغ و تأیید شما فعال خواهد شد."
+msgstr ""
+
+#: inc/panel/config.php:616
+msgid "بخش‌های خارج از دید با نزدیک‌شدن کاربر نمایش داده می‌شوند؛ تعداد عناصر DOM در بارگذاری اولیه کمتر می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:269
+msgid "بدون خرید به مدت (ماه)"
+msgstr ""
+
+#: inc/modules/contracts.php:733
+msgid "برای ارسال دوباره کمی صبر کنید."
+msgstr ""
+
+#: inc/modules/quiz.php:809
+msgid "برای استفاده از این بخش وارد شوید."
+msgstr ""
+
+#: inc/panel/config.php:546
+msgid "برای افزایش فروش خدمات برنامه‌نویسی؛ روزانه بررسی و ارسال می‌شود."
+msgstr ""
+
+#: inc/admin/code-manager.php:145
+msgid "برای افزودن زبان دلخواه، ردیف جدید بسازید و «نام کامپایلر» سرویس را وارد کنید. برای زبان‌های Wandbox می‌توانید نام کامپایلر را از فهرست آن‌ها کپی کنید."
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:24
+msgid "برای امضای قرارداد، ابتدا کد تأیید را دریافت و وارد کنید، سپس امضای خود را در کادر زیر بکشید."
+msgstr ""
+
+#: inc/modules/quiz.php:1438
+msgid "برای انجام تمرین، ابتدا در دوره ثبت‌نام کنید."
+msgstr ""
+
+#: inc/modules/editor.php:189
+msgid "برای بارگذاری تصویر باید وارد شوید."
+msgstr ""
+
+#: inc/panel/config.php:388
+msgid "برای جلوگیری از سواستفاده؛ ۰ = بدون محدودیت."
+msgstr ""
+
+#: template-parts/panel/contract-chat.php:116
+msgid "برای خط جدید Shift + Enter را بزنید."
+msgstr ""
+
+#: inc/panel/config.php:474
+msgid "برای دریافت اعلان گفتگوی آنلاین، تیکت و درخواست پروژه. می‌توانید چند آیدی را با ویرگول، فاصله یا خط تازه از هم جدا کنید؛ پیام برای همه‌ی آن‌ها در تلگرام و بله ارسال می‌شود. کاربران مدیر که ربات را در پنل خود متصل کرده و اعلان «هشدارهای مدیریتی» را روشن کرده باشند نیز خودکار اضافه می‌شوند."
+msgstr ""
+
+#: inc/panel/redux-config.php:145
+msgid "برای دریافت پشتیبانی، مستندات کامل قالب را در فایل README.txt مطالعه کنید یا با تیم پشتیبانی تماس بگیرید."
+msgstr ""
+
+#: inc/admin/admin.php:870
+msgid "برای دیدن جزئیات هر روز، روی نقاط نمودار اشاره کنید. (چارت با کتابخانه‌ی Chart.js)"
+msgstr ""
+
+#: inc/panel/config.php:289
+msgid "برای شخصی‌سازی، فعال/غیرفعال‌سازی و ویرایش فیلدهای صفحه تسویه، از صفحه «مدیریت فیلدهای تسویه» در زیرمنوی زرین کد استفاده کنید."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1039
+msgid "برای شروع و آشنایی با امکانات اختصاصی زرین کد."
+msgstr ""
+
+#: template-parts/panel/contract-chat.php:37
+msgid "برای شروع گفتگو باید حداقل یک قرارداد ثبت‌شده داشته باشید."
+msgstr ""
+
+#: inc/modules/quiz.php:1357
+msgid "برای شرکت در آزمون وارد شوید."
+msgstr ""
+
+#: inc/modules/quiz.php:1359
+msgid "برای شرکت در آزمون، ابتدا در دوره ثبت‌نام کنید."
+msgstr ""
+
+#: inc/modules/quiz.php:1436
+msgid "برای شرکت در تمرین وارد شوید."
+msgstr ""
+
+#: inc/admin/chats-page.php:143
+msgid "برای مشاهده، یک گفتگو را از فهرست انتخاب کنید."
+msgstr ""
+
+#: inc/elementor/widgets/map.php:366
+msgid "برای نقشه‌ی نشان، کلید API را در تنظیمات قالب یا این ویجت وارد کنید."
+msgstr ""
+
+#: inc/modules/newsletter.php:547
+msgid "برای هر مخاطب به کانال(های) انتخابی که داده‌ی آن را دارد ارسال می‌شود. «ربات» به آیدی تلگرام/بله‌ی شخصی هر مشترک می‌فرستد."
+msgstr ""
+
+#: inc/panel/config.php:631
+msgid "برای پاسخ‌گویی به هر محل استفاده، برای هر سایز تصویر نسخهٔ WebP ساخته می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:264
+msgid "برای کاربرانی که به درگاه رفته‌اند ولی پرداخت نکرده‌اند."
+msgstr ""
+
+#: inc/elementor/base-widget.php:415
+msgid "برخاستن سه‌بعدی"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:444
+msgid "برخی افزونه‌های لازم قالب زرین کد نصب یا فعال نیستند."
+msgstr ""
+
+#: inc/modules/contract-payments.php:546
+msgid "برداشت از کیف پول انجام نشد."
+msgstr ""
+
+#: inc/modules/subscriptions.php:880
+msgid "برداشت از کیف پول ناموفق بود."
+msgstr ""
+
+#: inc/modules/newsletter.php:584
+msgid "بررسی موجودی و هزینه‌ی پیامک"
+msgstr ""
+
+#: inc/modules/quiz.php:433
+msgid "بررسی پاسخ"
+msgstr ""
+
+#: inc/modules/modern-pages.php:634
+msgid "بررسی کامل نیاز شما"
+msgstr ""
+
+#: inc/modules/services.php:400
+msgid "بررسی کد"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:76
+msgid "برنامه پرداخت پس از تأیید"
+msgstr ""
+
+#: archive.php:32 inc/modules/modern-pages.php:594
+msgid "برنامه‌نویسی"
+msgstr ""
+
+#: demo/demo-data.php:1656
+msgid "بروزرسانی زیرساخت در شب جمعه"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:145
+msgid "برچسب زیر نماد"
+msgstr ""
+
+#: inc/modules/order-reversals.php:51
+msgid "برگشت cashback سفارش #%s"
+msgstr ""
+
+#: inc/modules/order-reversals.php:63
+msgid "برگشت کمیسیون سفارش #%s"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:91
+msgid "بزرگ‌نمایی"
+msgstr ""
+
+#: inc/elementor/base-widget.php:420
+msgid "بزرگ‌نمایی نرم"
+msgstr ""
+
+#: inc/modules/announcements.php:617
+msgid "بستن اطلاعیه"
+msgstr ""
+
+#: inc/panel/config.php:421
+msgid "بستن خودکار تیکت بی‌پاسخ (روز)"
+msgstr ""
+
+#: inc/admin/chats-page.php:151
+msgid "بستن گفتگو"
+msgstr ""
+
+#: inc/modules/ticket-lifecycle.php:31
+msgid "بسته‌شدن خودکار تیکت"
+msgstr ""
+
+#: inc/admin/chats-page.php:80
+msgid "بسته‌شده"
+msgstr ""
+
+#: inc/panel/config.php:259
+msgid "بلافاصله پس از ثبت‌نام ارسال می‌شود."
+msgstr ""
+
+#: inc/admin/sms-page.php:154
+msgid "بلافاصله پس از ثبت‌نام، همراه کد تخفیف اختصاصی."
+msgstr ""
+
+#: inc/elementor/widgets/map.php:62
+msgid "بلد (Balad — کد iframe)"
+msgstr ""
+
+#: inc/modules/contracts.php:977
+msgid "بندهای قرارداد"
+msgstr ""
+
+#: inc/modules/quiz.php:1361 inc/modules/quiz.php:644 inc/modules/quiz.php:755 inc/modules/quiz.php:863
+msgid "به حداکثر تعداد تلاش رسیده‌اید."
+msgstr ""
+
+#: inc/modules/subscriptions.php:747
+msgid "به سقف «%s» اشتراک خود رسیده‌اید. برای ادامه، پلن خود را ارتقا دهید."
+msgstr ""
+
+#: inc/panel/config.php:329
+msgid "به نام"
+msgstr ""
+
+#: inc/panel/config.php:538
+msgid "به کاربر تازه پیامک معرفی ربات‌ها می‌فرستد و برای فعال‌سازی هر ربات کد تخفیف می‌دهد."
+msgstr ""
+
+#: inc/panel/config.php:566
+msgid "به کاربران اجازه می‌دهد فاکتور هر سفارش را در پنل کاربری دانلود و چاپ کنند."
+msgstr ""
+
+#: inc/panel/config.php:268
+msgid "به کاربرانی که مدتی خرید نکرده‌اند کد تخفیف می‌دهد."
+msgstr ""
+
+#: inc/modules/modern-pages.php:509
+msgid "به کیفیت و موفقیت مشتریان"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1067
+msgid "بهترین ارزش"
+msgstr ""
+
+#: inc/modules/attempts.php:442
+msgid "بهترین نمره"
+msgstr ""
+
+#: inc/modules/quiz.php:1431 template-parts/panel/practice.php:36
+msgid "بهترین نمره:"
+msgstr ""
+
+#: inc/modules/attempts.php:440
+msgid "بهترین نمرهٔ هر کاربر"
+msgstr ""
+
+#: inc/modules/image-optimizer.php:434
+msgid "بهینه‌سازی %s تصویر انجام شد."
+msgstr ""
+
+#: inc/modules/image-optimizer.php:437
+msgid "بهینه‌سازی تصاویر زرین کد"
+msgstr ""
+
+#: inc/panel/config.php:623
+msgid "بهینه‌سازی تصویر"
+msgstr ""
+
+#: inc/modules/image-optimizer.php:437
+msgid "بهینه‌سازی مجدد همهٔ تصاویر"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:366
+msgid "به‌روزرسانی"
+msgstr ""
+
+#: inc/panel/config.php:381
+msgid "به‌هم‌ریختن تصادفی ترتیب سوالات"
+msgstr ""
+
+#: inc/modules/details.php:230
+msgid "بودجه پروژه"
+msgstr ""
+
+#: inc/panel/config.php:591
+msgid "بکاپ به کانال/گروه تنظیم‌شده در «تلگرام و بله» ارسال می‌شود."
+msgstr ""
+
+#: inc/modules/backup.php:300
+msgid "بکاپ جریان‌محور، محافظت‌شده و قابل ارسال به پیام‌رسان."
+msgstr ""
+
+#: inc/panel/config.php:588
+msgid "بکاپ خودکار دیتابیس"
+msgstr ""
+
+#: inc/modules/backup.php:299
+msgid "بکاپ دیتابیس"
+msgstr ""
+
+#: inc/modules/backup.php:301
+msgid "بکاپ فوری"
+msgstr ""
+
+#: inc/modules/modern-pages.php:228
+msgid "بیش از ۱۰۰ میلیون تومان"
+msgstr ""
+
+#: inc/woocommerce.php:1113
+msgid "بیشترین امتیاز"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:137
+msgid "تأخیر در تحویل مراحل"
+msgstr ""
+
+#: inc/elementor/base-widget.php:440
+msgid "تأخیر ظاهر شدن هر آیتم نسبت به آیتم قبلی."
+msgstr ""
+
+#: template-parts/contract-print.php:185
+msgid "تأیید شد"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:104
+msgid "تأیید مبلغ و ادامه به پرداخت"
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:67
+msgid "تأیید می‌کنم اطلاعات واردشده صحیح است و این امضا حکم امضای دست‌نویس من را دارد."
+msgstr ""
+
+#: template-parts/panel/contracts.php:140
+msgid "تأیید و امضا"
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:20
+msgid "تأیید و امضای قرارداد"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:21
+msgid "تأیید کارفرما"
+msgstr ""
+
+#: inc/modules/gateways.php:198
+msgid "تأیید یا مبلغ پرداخت ای‌دی‌پی نامعتبر بود."
+msgstr ""
+
+#: inc/modules/gateways.php:362
+msgid "تأیید یا مبلغ پرداخت پی‌آی‌آر نامعتبر بود."
+msgstr ""
+
+#: inc/modules/subscriptions.php:413
+msgid "تا %s دانلود در روز"
+msgstr ""
+
+#: inc/modules/subscriptions.php:410
+msgid "تا %s دانلود در ماه"
+msgstr ""
+
+#: inc/modules/coupons.php:210
+msgid "تا %s کد هم‌زمان"
+msgstr ""
+
+#: inc/panel/config.php:272
+msgid "تا این مدت دوباره برای این فرد پیامک بازگشت ارسال نمی‌شود."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:52 template-parts/panel/contract-quote.php:163
+msgid "تا تعیین تکلیف درخواست فسخ، پرداخت جدید غیرفعال است."
+msgstr ""
+
+#: demo/demo-data.php:1631
+msgid "تا ۵۰٪ تخفیف روی همه دوره‌های آموزشی و قالب‌های وردپرس. فرصت محدود است."
+msgstr ""
+
+#: inc/modules/modern-pages.php:568
+msgid "تا ۷ روز پس از خرید"
+msgstr ""
+
+#: inc/modules/contracts.php:1083 inc/modules/contracts.php:1216
+msgid "تاریخ امضا"
+msgstr ""
+
+#: template-parts/contract-print.php:198 template-parts/panel/contracts.php:83
+msgid "تاریخ امضا:"
+msgstr ""
+
+#: inc/modules/booking.php:90
+msgid "تاریخ انتخابی معتبر نیست یا گذشته است."
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:39
+msgid "تاریخ ثبت"
+msgstr ""
+
+#: inc/modules/contract-payments.php:979
+msgid "تاریخ پرداخت"
+msgstr ""
+
+#: template-parts/contract-print.php:133
+msgid "تاریخ:"
+msgstr ""
+
+#: inc/modules/details.php:173 woocommerce/single-product.php:230
+msgid "تاریخچه تغییرات"
+msgstr ""
+
+#: template-parts/panel/announcements.php:20
+msgid "تازه‌ترین خبرها و اطلاعیه‌های زرین کد را اینجا ببینید."
+msgstr ""
+
+#: inc/panel/config.php:628
+msgid "تبدیل فرمت به WebP"
+msgstr ""
+
+#: inc/modules/quiz.php:774 inc/modules/quiz.php:921
+msgid "تبریک! در آزمون قبول شدید."
+msgstr ""
+
+#: inc/modules/quiz.php:1352
+msgid "تبریک! شما در این آزمون قبول شده‌اید."
+msgstr ""
+
+#: inc/modules/contracts.php:496 inc/modules/contracts.php:983
+msgid "تبصره‌ها"
+msgstr ""
+
+#: inc/modules/growth-platform.php:483
+msgid "تحلیل رشد"
+msgstr ""
+
+#: inc/modules/growth-platform.php:495
+msgid "تحلیل رشد زرین کد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:539 inc/modules/modern-pages.php:567 single-zc_service.php:329
+msgid "تحویل مرحله‌ای"
+msgstr ""
+
+#: inc/modules/modern-pages.php:550
+msgid "تحویل و پشتیبانی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:550
+msgid "تحویل کد و پشتیبانی پس از تحویل."
+msgstr ""
+
+#: archive.php:29
+msgid "تخصصی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:626
+msgid "تخصص‌های ما"
+msgstr ""
+
+#: inc/modules/newsletter.php:144
+msgid "تخفیف خبرنامه زرین کد"
+msgstr ""
+
+#: inc/modules/wallet.php:564
+msgid "تراکنش به این حساب کاربری تعلق ندارد."
+msgstr ""
+
+#: inc/modules/quiz.php:639
+msgid "ترتیب پاسخ‌ها معتبر نیست؛ صفحه را تازه‌سازی کنید."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:211
+msgid "تسویه انجام شده است. فایل‌ها به‌زودی توسط مجری بارگذاری می‌شوند."
+msgstr ""
+
+#: inc/modules/contract-payments.php:51
+msgid "تسویه نهایی"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1085
+msgid "تسویه کامل انجام شده — کارفرما به فایل‌ها دسترسی دارد."
+msgstr ""
+
+#: inc/modules/image-optimizer.php:437
+msgid "تصاویر آپلودی به‌صورت خودکار به WebP تبدیل می‌شوند."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:140
+msgid "تصمیم داخلی سازمان کارفرما"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:454
+msgid "تصویر + لینک"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:180
+msgid "تصویر لوگو یا آیکن برای پین؛ اگر خالی باشد از آیکن پیش‌فرض استفاده می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:126
+msgid "تصویر نماد"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:105
+msgid "تصویر و لینک"
+msgstr ""
+
+#: template-parts/panel/tickets.php:195
+msgid "تصویر، PDF، ZIP — حداکثر %s مگابایت"
+msgstr ""
+
+#: inc/admin/sms-import.php:640 inc/admin/sms-page.php:112 inc/admin/sms-page.php:443 inc/modules/growth-platform.php:497 template-parts/invoice-print.php:110
+msgid "تعداد"
+msgstr ""
+
+#: inc/modules/quiz.php:648
+msgid "تعداد اجرای کد بیش از حد مجاز است."
+msgstr ""
+
+#: inc/admin/sms-page.php:439
+msgid "تعداد ارسال"
+msgstr ""
+
+#: inc/modules/quiz.php:847
+msgid "تعداد ارسال آزمون بیش از حد مجاز است."
+msgstr ""
+
+#: inc/modules/attempts.php:432 inc/modules/attempts.php:442 template-parts/panel/attempts.php:31
+msgid "تعداد تلاش"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1940
+msgid "تعداد خرید"
+msgstr ""
+
+#: inc/modules/ajax-actions.php:188 inc/modules/growth-platform.php:523
+msgid "تعداد درخواست بیش از حد مجاز است."
+msgstr ""
+
+#: inc/modules/services.php:123
+msgid "تعداد درخواست بیش از حد مجاز است؛ بعداً دوباره تلاش کنید."
+msgstr ""
+
+#: inc/modules/booking.php:66
+msgid "تعداد درخواست رزرو بیش از حد مجاز است."
+msgstr ""
+
+#: inc/modules/newsletter.php:528
+msgid "تعداد مخاطبین:"
+msgstr ""
+
+#: inc/modules/ajax-actions.php:102
+msgid "تعداد پیام‌های شما بیش از حد مجاز است؛ کمی بعد تلاش کنید."
+msgstr ""
+
+#: inc/modules/modern-pages.php:509
+msgid "تعهد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:691
+msgid "تعهد ما به شما"
+msgstr ""
+
+#: inc/modules/modern-pages.php:706
+msgid "تعهد کتبی زرین کد"
+msgstr ""
+
+#: inc/admin/admin.php:849
+msgid "تغییر"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:135
+msgid "تغییر نیازمندی‌ها یا دامنه‌ی پروژه"
+msgstr ""
+
+#: woocommerce/single-product.php:140
+msgid "تغییرات"
+msgstr ""
+
+#: inc/modules/modern-pages.php:493
+msgid "تفاوت ما در کیفیت، پشتیبانی و نگاه واقعی به نیازهای شماست."
+msgstr ""
+
+#: inc/panel/config.php:521
+msgid "تقویم شمسی"
+msgstr ""
+
+#: inc/modules/quiz.php:1364
+msgid "تلاش باقی‌مانده"
+msgstr ""
+
+#: inc/modules/attempts.php:434 template-parts/panel/attempts.php:34
+msgid "تلاش قبول"
+msgstr ""
+
+#: inc/modules/attempts.php:472
+msgid "تلاشی یافت نشد."
+msgstr ""
+
+#: inc/modules/modern-pages.php:433
+msgid "تلفن ثابت"
+msgstr ""
+
+#: inc/panel/config.php:390
+msgid "تم ویرایشگر کد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:415
+msgid "تماس تلفنی"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1182
+msgid "تمدید اشتراک"
+msgstr ""
+
+#: inc/modules/practice.php:38 single-zc_course.php:110
+msgid "تمرین"
+msgstr ""
+
+#: inc/modules/quiz.php:735
+msgid "تمرین تمام شد."
+msgstr ""
+
+#: inc/modules/quiz.php:735
+msgid "تمرین را با موفقیت کامل کردید!"
+msgstr ""
+
+#: inc/modules/attempts.php:116 inc/modules/attempts.php:386
+msgid "تمرین پنل"
+msgstr ""
+
+#: inc/modules/quiz.php:1220
+msgid "تمرین چالشی این دوره"
+msgstr ""
+
+#: inc/modules/quiz.php:747
+msgid "تمرین چالشی تمام شد."
+msgstr ""
+
+#: inc/modules/quiz.php:1222
+msgid "تمرین چالشی جدا از آزمون است؛ کاربر در صفحهٔ دوره آن را گام‌به‌گام حل می‌کند و بهترین نمره‌اش ثبت می‌شود (برای صدور مدرک الزامی نیست)."
+msgstr ""
+
+#: inc/modules/attempts.php:115 inc/modules/attempts.php:385 inc/modules/quiz.php:1428
+msgid "تمرین چالشی دوره"
+msgstr ""
+
+#: inc/modules/quiz.php:747
+msgid "تمرین چالشی را با موفقیت کامل کردید!"
+msgstr ""
+
+#: inc/modules/practice.php:44 inc/modules/practice.php:70
+msgid "تمرین کدنویسی"
+msgstr ""
+
+#: template-parts/panel/practice.php:73
+msgid "تمرین کدنویسی 💻"
+msgstr ""
+
+#: inc/modules/attempts.php:398
+msgid "تمرین‌های پنل"
+msgstr ""
+
+#: inc/modules/practice.php:37
+msgid "تمرین‌های کدنویسی"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1193
+msgid "تنزل (از دوره بعد)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:902
+msgid "تنزل به «%s» از پایان دوره‌ی فعلی اعمال می‌شود."
+msgstr ""
+
+#: inc/modules/subscriptions.php:938
+msgid "تنزل زمان‌بندی‌شده لغو شد."
+msgstr ""
+
+#: inc/modules/announcements.php:130
+msgid "تنظیمات اطلاعیه"
+msgstr ""
+
+#: inc/modules/contracts.php:915
+msgid "تنظیمات الگوی قرارداد"
+msgstr ""
+
+#: inc/panel/config.php:384
+msgid "تنظیمات دقیق ویرایشگر کد و سرویس اجرا برای سوالات کدنویسی و تمرین."
+msgstr ""
+
+#: inc/modules/checkout-manager.php:123
+msgid "تنظیمات فیلدهای تسویه ذخیره شد."
+msgstr ""
+
+#: inc/modules/subscriptions.php:78
+msgid "تنظیمات پلن اشتراک"
+msgstr ""
+
+#: inc/admin/code-manager.php:91
+msgid "تنظیمات کامپایلر و زبان‌ها ذخیره شد."
+msgstr ""
+
+#: inc/helpers.php:57
+msgid "تنها (Tanha)"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:64
+msgid "توضیح مجری:"
+msgstr ""
+
+#: inc/modules/modern-pages.php:232
+msgid "توضیح پروژه"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:213
+msgid "توضیحات باید دست‌کم ۲۰ نویسه باشد."
+msgstr ""
+
+#: inc/elementor/widgets/map.php:197
+msgid "توضیحات موقعیت"
+msgstr ""
+
+#: inc/modules/newsletter.php:664
+msgid "توقف"
+msgstr ""
+
+#: inc/panel/config.php:631
+msgid "تولید نسخه‌های WebP همهٔ سایزها"
+msgstr ""
+
+#: inc/panel/config.php:290
+msgid "تک ستونه (فرم و سپس پرداخت)"
+msgstr ""
+
+#: template-parts/panel/contracts.php:132
+msgid "تکمیل اطلاعات"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:360
+msgid "تکمیل سفارش"
+msgstr ""
+
+#: inc/modules/contracts.php:648
+msgid "تکمیل فیلد «%s» الزامی است."
+msgstr ""
+
+#: inc/modules/details.php:273
+msgid "تکنولوژی‌های استفاده‌شده"
+msgstr ""
+
+#: inc/modules/modern-pages.php:496
+msgid "تیم فنی همیشه در کنار شما"
+msgstr ""
+
+#: inc/modules/modern-pages.php:507
+msgid "تیم متخصص"
+msgstr ""
+
+#: inc/modules/ticket-lifecycle.php:32
+msgid "تیکت «%s» به‌دلیل بی‌پاسخ‌ماندن بسته شد و هر زمان قابل بازگشایی است."
+msgstr ""
+
+#: inc/modules/ticket.php:412
+msgid "تیکت جدیدی در سایت ثبت شد.\n\nمتن: %1$s\n\nمشاهده: %2$s"
+msgstr ""
+
+#: inc/modules/cashback.php:134
+msgid "ثبت اعتبار بازگشتی ناموفق بود و برای تلاش مجدد علامت‌گذاری نشد."
+msgstr ""
+
+#: inc/modules/wallet.php:334
+msgid "ثبت تراکنش کیف پول ناموفق بود."
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:133
+msgid "ثبت درخواست فسخ"
+msgstr ""
+
+#: single-zc_project.php:291
+msgid "ثبت درخواست پروژه"
+msgstr ""
+
+#: inc/modules/sms-messages.php:36
+msgid "ثبت سفارش جدید"
+msgstr ""
+
+#: template-parts/panel/contract-chat.php:40
+msgid "ثبت قرارداد"
+msgstr ""
+
+#: template-parts/panel/contracts.php:289
+msgid "ثبت قرارداد جدید"
+msgstr ""
+
+#: inc/modules/quiz.php:1395
+msgid "ثبت پاسخ‌ها"
+msgstr ""
+
+#: inc/modules/contract-chat.php:293
+msgid "ثبت پیام ناموفق بود."
+msgstr ""
+
+#: inc/modules/quiz.php:964
+msgid "جای خالی (متن)"
+msgstr ""
+
+#: inc/modules/details.php:477
+msgid "جدول‌ها و تاریخچه"
+msgstr ""
+
+#: inc/modules/attempts.php:456 template-parts/panel/attempts.php:46
+msgid "جزئیات تلاش‌ها"
+msgstr ""
+
+#: template-parts/content/card-service.php:40
+msgid "جزئیات خدمت"
+msgstr ""
+
+#: inc/modules/contracts.php:933
+msgid "جزئیات قرارداد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:233
+msgid "جزئیات پروژه یا نیاز خود را بنویسید…"
+msgstr ""
+
+#: inc/modules/details.php:596
+msgid "جزئیات کامل محصول (زرین کد)"
+msgstr ""
+
+#: inc/modules/details.php:605
+msgid "جزئیات کامل نمونه‌کار (زرین کد)"
+msgstr ""
+
+#: inc/admin/chats-page.php:100
+msgid "جستجو در پیام‌ها…"
+msgstr ""
+
+#: inc/modules/announcements.php:41
+msgid "جستجوی اطلاعیه"
+msgstr ""
+
+#: inc/modules/practice.php:43
+msgid "جستجوی تمرین"
+msgstr ""
+
+#: inc/modules/contracts.php:56
+msgid "جستجوی قرارداد"
+msgstr ""
+
+#: inc/modules/subscriptions.php:49
+msgid "جستجوی پلن"
+msgstr ""
+
+#: inc/modules/credential-manager.php:63
+msgid "جستجوی کد یا کاربر"
+msgstr ""
+
+#: demo/demo-data.php:1630
+msgid "جشنواره تخفیف زرین کد آغاز شد"
+msgstr ""
+
+#: inc/modules/chat.php:443 inc/modules/chat.php:471
+msgid "جلسه نامعتبر است."
+msgstr ""
+
+#: inc/admin/chats-page.php:147
+msgid "جلسه:"
+msgstr ""
+
+#: inc/admin/sms-page.php:125 inc/modules/contract-payments.php:1031 template-parts/invoice-print.php:112
+msgid "جمع"
+msgstr ""
+
+#: inc/modules/modern-pages.php:507
+msgid "جمعی از بهترین‌های صنعت نرم‌افزار"
+msgstr ""
+
+#: inc/modules/attempts.php:466
+msgid "حالت"
+msgstr ""
+
+#: inc/elementor/base-widget.php:411
+msgid "حالت انیمیشن"
+msgstr ""
+
+#: inc/panel/config.php:317
+msgid "حالت تست ای‌دی‌پی"
+msgstr ""
+
+#: inc/panel/config.php:311
+msgid "حالت تست زرین‌پال (Sandbox)"
+msgstr ""
+
+#: inc/panel/config.php:323
+msgid "حالت تست پی‌آی‌آر"
+msgstr ""
+
+#: inc/panel/config.php:295
+msgid "حالت پرداخت سریع (حداقل فیلدها)"
+msgstr ""
+
+#: inc/panel/config.php:382
+msgid "حالت گام‌به‌گام (چالشی) به‌عنوان پیش‌فرض"
+msgstr ""
+
+#: inc/modules/contracts.php:799
+msgid "حجم تصویر امضا زیاد است."
+msgstr ""
+
+#: inc/modules/editor.php:206
+msgid "حجم تصویر بیش از %s مگابایت است."
+msgstr ""
+
+#: inc/modules/details.php:75
+msgid "حجم فایل"
+msgstr ""
+
+#: inc/panel/config.php:593
+msgid "حجم فایل بکاپ و مصرف پهنای باند را کاهش می‌دهد."
+msgstr ""
+
+#: inc/modules/contract-chat.php:273
+msgid "حجم فایل بیش از %s مگابایت است."
+msgstr ""
+
+#: inc/modules/quiz.php:812
+msgid "حجم کد یا ورودی بیش از حد مجاز است."
+msgstr ""
+
+#: inc/modules/growth-platform.php:429
+msgid "حد فعال‌سازی"
+msgstr ""
+
+#: inc/modules/growth-platform.php:562
+msgid "حد فعال‌سازی لایسنس تکمیل شده است."
+msgstr ""
+
+#: inc/modules/quiz.php:1183
+msgid "حد نصاب (درصد قبولی):"
+msgstr ""
+
+#: inc/modules/practice.php:182
+msgid "حد نصاب قبولی این تمرین:"
+msgstr ""
+
+#: inc/modules/quiz.php:1228
+msgid "حد نصاب قبولی تمرین چالشی:"
+msgstr ""
+
+#: inc/panel/config.php:376
+msgid "حد نصاب قبولی و مدرک"
+msgstr ""
+
+#: inc/panel/config.php:377
+msgid "حد نصاب پیش‌فرض آزمون دوره (٪)"
+msgstr ""
+
+#: inc/panel/config.php:378
+msgid "حد نصاب پیش‌فرض تمرین (٪)"
+msgstr ""
+
+#: inc/modules/quiz.php:1430 template-parts/panel/practice.php:35
+msgid "حد نصاب:"
+msgstr ""
+
+#: inc/panel/config.php:584
+msgid "حداقل برداشت کمیسیون (تومان)"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:59
+msgid "حداقل موجودی برای درخواست تسویه: %s تومان."
+msgstr ""
+
+#: inc/modules/coupons.php:144
+msgid "حداکثر %s کد تخفیف را می‌توانید هم‌زمان استفاده کنید."
+msgstr ""
+
+#: inc/panel/config.php:594
+msgid "حداکثر تعداد بکاپ محلی"
+msgstr ""
+
+#: inc/panel/config.php:379
+msgid "حداکثر تعداد تلاش (پیش‌فرض)"
+msgstr ""
+
+#: inc/panel/config.php:553
+msgid "حداکثر تعداد کد هم‌زمان"
+msgstr ""
+
+#: inc/modules/quiz.php:1188
+msgid "حداکثر تلاش:"
+msgstr ""
+
+#: inc/modules/subscriptions.php:157
+msgid "حداکثر دانلود روزانه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:149
+msgid "حداکثر دانلود ماهیانه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:165
+msgid "حداکثر دانلود کل (طول اشتراک)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:173
+msgid "حداکثر دستگاه‌های فعال"
+msgstr ""
+
+#: inc/admin/sms-import.php:606
+msgid "حداکثر ۲۰٬۰۰۰ سطر در هر فایل."
+msgstr ""
+
+#: inc/admin/sms-page.php:275
+msgid "حداکثر ۲۰۰ کاربر در هر اجرا."
+msgstr ""
+
+#: inc/admin/code-manager.php:221
+msgid "حذف این زبان"
+msgstr ""
+
+#: inc/panel/config.php:630
+msgid "حذف فایل اصلی پس از تبدیل"
+msgstr ""
+
+#: inc/panel/config.php:296
+msgid "حذف فیلد «یادداشت سفارش»"
+msgstr ""
+
+#: inc/elementor/base-widget.php:417
+msgid "حرکت از بالا"
+msgstr ""
+
+#: inc/elementor/base-widget.php:418
+msgid "حرکت از راست"
+msgstr ""
+
+#: inc/elementor/base-widget.php:416
+msgid "حرکت از پایین"
+msgstr ""
+
+#: inc/elementor/base-widget.php:419
+msgid "حرکت از چپ"
+msgstr ""
+
+#: inc/modules/modern-pages.php:693
+msgid "حفاظت از اطلاعات شما مطابق قوانین جمهوری اسلامی ایران، اولویت ماست."
+msgstr ""
+
+#: inc/modules/modern-pages.php:723
+msgid "حقوق شما در خریدهای دیجیتال، شفاف و مشخص است."
+msgstr ""
+
+#: inc/modules/contracts.php:100
+msgid "خاتمه‌یافته"
+msgstr ""
+
+#: template-parts/footer/chat.php:21
+msgid "خارج از ساعت کاری"
+msgstr ""
+
+#: inc/modules/contracts.php:996
+msgid "خالی بگذارید تا لوگوی اصلی سایت استفاده شود."
+msgstr ""
+
+#: inc/modules/contract-payments.php:1046
+msgid "خالی بگذارید تا مراحل الگو استفاده شود"
+msgstr ""
+
+#: inc/admin/sms-import.php:614
+msgid "خالی بگذارید تا نام فایل استفاده شود."
+msgstr ""
+
+#: inc/modules/announcements.php:194
+msgid "خالی یعنی از همین حالا."
+msgstr ""
+
+#: inc/modules/announcements.php:201
+msgid "خالی یعنی بدون انقضا."
+msgstr ""
+
+#: inc/modules/newsletter.php:252
+msgid "خبرنامه"
+msgstr ""
+
+#: inc/modules/newsletter.php:251 inc/modules/newsletter.php:276
+msgid "خبرنامه زرین کد"
+msgstr ""
+
+#: archive.php:29
+msgid "خدمات "
+msgstr ""
+
+#: inc/modules/modern-pages.php:591
+msgid "خدمات <span>تخصصی</span> زرین کد"
+msgstr ""
+
+#: inc/modules/details.php:279 single-zc_project.php:186
+msgid "خدمات ارائه‌شده"
+msgstr ""
+
+#: inc/modules/modern-pages.php:612
+msgid "خدمات تخصصی زرین کد با بالاترین کیفیت و پشتیبانی کامل."
+msgstr ""
+
+#: archive.php:28 inc/modules/modern-pages.php:590
+msgid "خدمات حرفه‌ای"
+msgstr ""
+
+#: archive.php:26
+msgid "خدمات زرین کد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:626
+msgid "خدماتی که در آن <span>حرفه‌ای</span> هستیم"
+msgstr ""
+
+#: inc/modules/booking.php:96
+msgid "خدمت انتخابی معتبر نیست."
+msgstr ""
+
+#: inc/admin/admin.php:827 inc/modules/attempts.php:427
+msgid "خروجی CSV"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1986
+msgid "خروجی CSV سفارش‌ها"
+msgstr ""
+
+#: inc/admin/sms-page.php:105
+msgid "خروجی PDF"
+msgstr ""
+
+#: inc/modules/quiz.php:422
+msgid "خروجی باید با پاسخ مورد انتظار یکی باشد."
+msgstr ""
+
+#: inc/modules/quiz.php:1000
+msgid "خروجی مورد انتظار (هر چه برنامه چاپ کند):"
+msgstr ""
+
+#: inc/modules/subscriptions.php:876
+msgid "خرید اشتراک «%s»"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:70
+msgid "خرید امن با مجوزهای رسمی"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1237
+msgid "خرید و ارسال هدیه"
+msgstr ""
+
+#: template-parts/invoice-print.php:99
+msgid "خریدار"
+msgstr ""
+
+#: inc/modules/newsletter.php:631
+msgid "خطا"
+msgstr ""
+
+#: inc/modules/gateways.php:124
+msgid "خطا در اتصال به درگاه ای‌دی‌پی."
+msgstr ""
+
+#: inc/modules/gateways.php:305
+msgid "خطا در اتصال به درگاه پی‌آی‌آر."
+msgstr ""
+
+#: inc/modules/subscriptions.php:890
+msgid "خطا در ارسال هدیه؛ مبلغ به کیف پول بازگردانده شد."
+msgstr ""
+
+#: inc/admin/demo-importer.php:288
+msgid "خطا در درون‌ریزی (مرحله‌ی %1$s): %2$s"
+msgstr ""
+
+#: inc/modules/quiz.php:844
+msgid "خطا در دریافت اطلاعات."
+msgstr ""
+
+#: inc/modules/subscriptions.php:898
+msgid "خطا در فعال‌سازی اشتراک؛ مبلغ به کیف پول بازگردانده شد."
+msgstr ""
+
+#: inc/modules/gateways.php:131
+msgid "خطا در پرداخت ای‌دی‌پی."
+msgstr ""
+
+#: inc/modules/gateways.php:312
+msgid "خطا در پرداخت پی‌آی‌آر."
+msgstr ""
+
+#: inc/modules/checkout-manager.php:404
+msgid "خلاصه سفارش"
+msgstr ""
+
+#: template-parts/panel/announcements.php:60
+msgid "خواندم"
+msgstr ""
+
+#: inc/admin/chats-page.php:78
+msgid "خوانده‌نشده"
+msgstr ""
+
+#: inc/admin/sms-page.php:157
+msgid "خودکار"
+msgstr ""
+
+#: inc/modules/sms-messages.php:46
+msgid "خوش‌آمد به کاربر تازه"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:870
+msgid "خوش‌آمدگویی"
+msgstr ""
+
+#: inc/admin/sms-page.php:153
+msgid "خوش‌آمدگویی کاربر تازه"
+msgstr ""
+
+#: inc/admin/admin.php:906 inc/admin/admin.php:918 inc/admin/admin.php:932 inc/admin/sms-page.php:452 inc/modules/kpi-dashboard.php:183 inc/modules/subscriptions.php:1977
+msgid "داده‌ای نیست."
+msgstr ""
+
+#: inc/modules/credential-manager.php:85
+msgid "دارنده"
+msgstr ""
+
+#: inc/modules/modern-pages.php:461
+msgid "داستان زرین کد"
+msgstr ""
+
+#: inc/modules/kpi-dashboard.php:26
+msgid "داشبورد KPI"
+msgstr ""
+
+#: inc/modules/kpi-dashboard.php:145 inc/modules/kpi-dashboard.php:25 inc/panel/config.php:576
+msgid "داشبورد اجرایی (KPI)"
+msgstr ""
+
+#: inc/modules/growth-platform.php:535
+msgid "دامنه یا عملیات لایسنس معتبر نیست."
+msgstr ""
+
+#: template-parts/invoice-print.php:70
+msgid "دانلود / چاپ PDF"
+msgstr ""
+
+#: template-parts/panel/subscription.php:83
+msgid "دانلود امروز"
+msgstr ""
+
+#: template-parts/panel/subscription.php:86
+msgid "دانلود این ماه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:412
+msgid "دانلود روزانه نامحدود"
+msgstr ""
+
+#: inc/modules/invoice.php:112
+msgid "دانلود فاکتور"
+msgstr ""
+
+#: inc/modules/subscriptions.php:409
+msgid "دانلود ماهیانه نامحدود"
+msgstr ""
+
+#: template-parts/panel/subscription.php:89
+msgid "دانلود کل"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:129
+msgid "در انتظار اعلام مبلغ پروژه"
+msgstr ""
+
+#: inc/modules/contracts.php:88
+msgid "در انتظار امضا"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:55
+msgid "در انتظار تأیید"
+msgstr ""
+
+#: inc/modules/gateways.php:460
+msgid "در انتظار تأیید پرداخت کارت‌به‌کارت. کد پیگیری: %s"
+msgstr ""
+
+#: inc/modules/contract-payments.php:994
+msgid "در انتظار پرداخت"
+msgstr ""
+
+#: inc/modules/quiz.php:921
+msgid "در این آزمون قبول نشدید. دوباره تلاش کنید."
+msgstr ""
+
+#: woocommerce/single-product.php:197
+msgid "در این بسته دریافت می‌کنید"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:141
+msgid "در بلد، کسب‌وکار را پیدا کنید ← اشتراک‌گذاری ← گنجاندن نقشه ← کپی کد، و اینجا بچسبانید."
+msgstr ""
+
+#: inc/modules/modern-pages.php:115
+msgid "در تماس باشید"
+msgstr ""
+
+#: inc/modules/contracts.php:96
+msgid "در حال اجرا"
+msgstr ""
+
+#: inc/modules/gateways.php:143
+msgid "در حال انتقال به درگاه ای‌دی‌پی…"
+msgstr ""
+
+#: inc/modules/gateways.php:324
+msgid "در حال انتقال به درگاه پی‌آی‌آر…"
+msgstr ""
+
+#: template-parts/panel/contract-chat.php:94
+msgid "در حال دریافت پیام‌ها…"
+msgstr ""
+
+#: inc/panel/config.php:255
+msgid "در صورت پایین بودن موجودی، به این ایمیل هشدار ارسال می‌شود (یک‌بار در روز)."
+msgstr ""
+
+#: inc/panel/config.php:254
+msgid "در صورت پایین بودن موجودی، به این شماره پیامک هشدار ارسال می‌شود (یک‌بار در روز)."
+msgstr ""
+
+#: inc/panel/config.php:184
+msgid "در قراردادها، ایمیل‌ها و سراسر سایت استفاده می‌شود."
+msgstr ""
+
+#: inc/modules/zarinpal.php:473
+msgid "درآمد بخش کیف پول سفارش #%s"
+msgstr ""
+
+#: inc/admin/admin.php:900
+msgid "درآمد به تفکیک درگاه"
+msgstr ""
+
+#: inc/admin/admin.php:875
+msgid "درآمد به تفکیک درگاه (نمودار)"
+msgstr ""
+
+#: inc/admin/admin.php:885
+msgid "درآمد به تفکیک نوع"
+msgstr ""
+
+#: inc/admin/admin.php:926 inc/admin/admin.php:969
+msgid "درآمد روزانه"
+msgstr ""
+
+#: inc/admin/admin.php:767 inc/admin/admin.php:842
+msgid "درآمد قرارداد"
+msgstr ""
+
+#: inc/admin/admin.php:976 inc/modules/subscriptions.php:1968
+msgid "درآمد ماهانه"
+msgstr ""
+
+#: inc/admin/admin.php:843 inc/modules/kpi-dashboard.php:167 inc/modules/subscriptions.php:1937
+msgid "درآمد ماهانه (MRR)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1953
+msgid "درآمد هر پلن"
+msgstr ""
+
+#: single-zc_service.php:137
+msgid "درباره این خدمت"
+msgstr ""
+
+#: inc/modules/modern-pages.php:534
+msgid "درخواست <span>پروژه</span> یا مشاوره"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:237
+msgid "درخواست فسخ ثبت شد و حداکثر ظرف ۷۲ ساعت کاری بررسی می‌شود."
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:155
+msgid "درخواست فسخ در حال بررسی است"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:26 template-parts/panel/contract-terminate.php:83
+msgid "درخواست فسخ قرارداد"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:313
+msgid "درخواست فسخی برای این قرارداد ثبت نشده است."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:309
+msgid "درخواست نامعتبر."
+msgstr ""
+
+#: inc/modules/attempts.php:464 template-parts/panel/attempts.php:55
+msgid "درست / کل"
+msgstr ""
+
+#: inc/modules/editor.php:122
+msgid "درشت"
+msgstr ""
+
+#: inc/panel/config.php:347
+msgid "درصد بازگشت اعتبار"
+msgstr ""
+
+#: inc/admin/sms-import.php:682 inc/admin/sms-page.php:247
+msgid "درصد تخفیف"
+msgstr ""
+
+#: inc/panel/config.php:270
+msgid "درصد تخفیف بازگشت"
+msgstr ""
+
+#: inc/panel/config.php:548
+msgid "درصد تخفیف خدمات"
+msgstr ""
+
+#: inc/panel/config.php:260
+msgid "درصد تخفیف خوش‌آمد"
+msgstr ""
+
+#: inc/modules/newsletter.php:555
+msgid "درصد تخفیف درون پیام (اختیاری)"
+msgstr ""
+
+#: inc/panel/config.php:539
+msgid "درصد تخفیف هر ربات"
+msgstr ""
+
+#: inc/modules/contracts.php:1076
+msgid "درصد پیشرفت"
+msgstr ""
+
+#: inc/panel/config.php:583
+msgid "درصد کمیسیون"
+msgstr ""
+
+#: inc/panel/config.php:347
+msgid "درصدی از مبلغ نهایی (پس از کد تخفیف) که به کیف پول مشتری برمی‌گردد."
+msgstr ""
+
+#: inc/panel/config.php:583
+msgid "درصدی از مبلغ نهاییِ پرداخت‌شده که به معرف‌کننده پرداخت می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:161
+msgid "درگاه امن"
+msgstr ""
+
+#: inc/panel/config.php:314
+msgid "درگاه ای‌دی‌پی (IdPay)"
+msgstr ""
+
+#: inc/modules/gateways.php:93
+msgid "درگاه ای‌دی‌پی پیکربندی نشده است."
+msgstr ""
+
+#: inc/panel/config.php:314
+msgid "درگاه پرداخت ایدپی (idpay.ir)."
+msgstr ""
+
+#: inc/panel/config.php:320
+msgid "درگاه پرداخت پی‌آی‌آر (pay.ir)."
+msgstr ""
+
+#: inc/panel/config.php:320
+msgid "درگاه پی‌آی‌آر (Pay.ir)"
+msgstr ""
+
+#: inc/modules/gateways.php:279
+msgid "درگاه پی‌آی‌آر پیکربندی نشده است."
+msgstr ""
+
+#: inc/panel/config.php:304 inc/panel/config.php:307
+msgid "درگاه‌های پرداخت"
+msgstr ""
+
+#: template-parts/panel/contracts.php:45
+msgid "دریافت نسخه‌ی قرارداد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:634
+msgid "دریافت نیازمندی"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:128
+msgid "دریمی (روشن)"
+msgstr ""
+
+#: single-zc_project.php:209
+msgid "دستاوردهای پروژه"
+msgstr ""
+
+#: inc/modules/quiz.php:628
+msgid "دسترسی به این آزمون مجاز نیست."
+msgstr ""
+
+#: inc/modules/subscriptions.php:185
+msgid "دسترسی به دوره‌ها و محتوای پریمیوم"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:206
+msgid "دسترسی به فایل‌های نهایی پروژه پس از تسویه کامل مبلغ قرارداد باز می‌شود."
+msgstr ""
+
+#: inc/modules/contract-payments.php:779
+msgid "دسترسی به فایل‌های پروژه پس از تسویه کامل امکان‌پذیر است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:181 inc/modules/subscriptions.php:403
+msgid "دسترسی به محتوای ویژه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1045
+msgid "دسترسی به محتوای ویژه\nپشتیبانی استاندارد"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1055
+msgid "دسترسی به محتوای ویژه\nپشتیبانی اولویت‌دار\n۳ دستگاه فعال"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1066
+msgid "دسترسی به محتوای ویژه\nپشتیبانی اولویت‌دار\n۵ دستگاه فعال\nدانلود نامحدود"
+msgstr ""
+
+#: inc/modules/contract-chat.php:225 inc/modules/contract-chat.php:253 inc/modules/contract-payments.php:461 inc/modules/contract-payments.php:774 inc/modules/contracts.php:728 inc/modules/contracts.php:762 inc/modules/contracts.php:875 inc/modules/invoice.php:74
+msgid "دسترسی مجاز نیست."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:241
+msgid "دسترسی ندارید."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:139
+msgid "دسترسی نوشتن به پوشه افزونه‌ها فراهم نیست."
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:35
+msgid "دلیل"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:114
+msgid "دلیل اعتراض خود را بنویسید"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:122
+msgid "دلیل درخواست فسخ را با جزئیات شرح دهید (حداقل ۲۰ نویسه)…"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:141
+msgid "دلیل دیگر"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:106
+msgid "دلیل فسخ"
+msgstr ""
+
+#: inc/modules/details.php:108
+msgid "دموی اصلی/انگلیسی محصول."
+msgstr ""
+
+#: inc/modules/details.php:114
+msgid "دموی فارسی و راست‌چین."
+msgstr ""
+
+#: inc/panel/config.php:290
+msgid "دو ستونه (فرم + خلاصه سفارش)"
+msgstr ""
+
+#: template-parts/panel/practice.php:112
+msgid "دوباره تمرین"
+msgstr ""
+
+#: inc/modules/attempts.php:390 inc/modules/attempts.php:462 template-parts/panel/attempts.php:53 template-parts/panel/dashboard.php:215
+msgid "دوره / تمرین"
+msgstr ""
+
+#: demo/demo-data.php:1643
+msgid "دوره تازه: لاراول از صفر تا استقرار"
+msgstr ""
+
+#: demo/demo-data.php:1644
+msgid "دوره کامل لاراول با ۶۰ ساعت آموزش پروژه‌محور منتشر شد. ثبت‌نام زودهنگام ارزان‌تر است."
+msgstr ""
+
+#: inc/modules/growth-platform.php:252
+msgid "دوره‌ها و محصول مسیر"
+msgstr ""
+
+#: inc/admin/admin.php:849
+msgid "دوره‌ی قبل"
+msgstr ""
+
+#: inc/modules/modern-pages.php:486
+msgid "دیدگاه ما"
+msgstr ""
+
+#: woocommerce/single-product.php:242
+msgid "دیدگاه کاربران"
+msgstr ""
+
+#: woocommerce/single-product.php:143
+msgid "دیدگاه‌ها"
+msgstr ""
+
+#: inc/modules/credential-manager.php:74
+msgid "ذخیره"
+msgstr ""
+
+#: inc/admin/sms-page.php:432
+msgid "ذخیره به‌عنوان PDF"
+msgstr ""
+
+#: inc/admin/code-manager.php:162
+msgid "ذخیرهٔ همهٔ تغییرات"
+msgstr ""
+
+#: inc/panel/config.php:592
+msgid "ذخیره‌ی محلی همزمان"
+msgstr ""
+
+#: inc/modules/quiz.php:1004 inc/modules/quiz.php:989
+msgid "راهنمایی (اختیاری)"
+msgstr ""
+
+#: inc/modules/details.php:255 single-zc_project.php:154
+msgid "راهکار ما"
+msgstr ""
+
+#: inc/modules/modern-pages.php:412
+msgid "راه‌های ارتباط"
+msgstr ""
+
+#: inc/modules/modern-pages.php:431
+msgid "راه‌های ارتباطی متنوعی برای شما فراهم کرده‌ایم."
+msgstr ""
+
+#: single-zc_project.php:287
+msgid "رایگان مشاوره بگیرید و برآورد هزینه دریافت کنید."
+msgstr ""
+
+#: inc/admin/chats-page.php:173 inc/modules/newsletter.php:649
+msgid "ربات"
+msgstr ""
+
+#: inc/modules/newsletter.php:544
+msgid "ربات (تلگرام / بله به آیدی شخصی)"
+msgstr ""
+
+#: inc/modules/attempts.php:422 inc/modules/attempts.php:480 template-parts/panel/attempts.php:69 template-parts/panel/dashboard.php:226
+msgid "رد"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:18
+msgid "رد شد"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:50
+msgid "رداکس فریم‌ورک"
+msgstr ""
+
+#: inc/modules/zarinpal.php:437
+msgid "رزرو پرداخت سفارش #%s از کیف پول"
+msgstr ""
+
+#: inc/modules/details.php:479
+msgid "رسانه"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:162 inc/panel/fallback-panel.php:461
+msgid "رسانه دیجیتال"
+msgstr ""
+
+#: inc/modules/modern-pages.php:620
+msgid "رسیدن به صفحه اول گوگل"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php:134 inc/modules/modern-pages.php:575
+msgid "رضایت کارفرما"
+msgstr ""
+
+#: inc/panel/config.php:422
+msgid "رضایت‌سنجی پس از بستن تیکت"
+msgstr ""
+
+#: inc/admin/sms-page.php:48
+msgid "رفتن به تنظیمات"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:379
+msgid "رمزنگاری SSL"
+msgstr ""
+
+#: inc/panel/config.php:616
+msgid "رندر تدریجی بخش‌های پایین صفحه"
+msgstr ""
+
+#: inc/panel/config.php:137
+msgid "رنگ اصلی نمودارها"
+msgstr ""
+
+#: inc/panel/config.php:71
+msgid "رنگ بخش اول لوگو (زرین)"
+msgstr ""
+
+#: inc/panel/config.php:72
+msgid "رنگ بخش دوم لوگو (کد)"
+msgstr ""
+
+#: inc/panel/config.php:138
+msgid "رنگ دوم نمودارها"
+msgstr ""
+
+#: inc/panel/config.php:139
+msgid "رنگ سوم نمودارها"
+msgstr ""
+
+#: inc/panel/config.php:97
+msgid "رنگ عنوان‌ها"
+msgstr ""
+
+#: inc/panel/config.php:98
+msgid "رنگ لینک‌ها"
+msgstr ""
+
+#: inc/panel/config.php:96
+msgid "رنگ متن اصلی"
+msgstr ""
+
+#: inc/panel/config.php:100
+msgid "رنگ متن دکمه اصلی"
+msgstr ""
+
+#: inc/panel/config.php:101
+msgid "رنگ نوار بالای سایت"
+msgstr ""
+
+#: inc/panel/config.php:99
+msgid "رنگ پس‌زمینه دکمه اصلی"
+msgstr ""
+
+#: inc/panel/config.php:102
+msgid "رنگ پس‌زمینه فوتر"
+msgstr ""
+
+#: inc/panel/config.php:140
+msgid "رنگ چهارم نمودارها"
+msgstr ""
+
+#: inc/admin/sms-page.php:435
+msgid "روز اخیر"
+msgstr ""
+
+#: template-parts/panel/subscription.php:57
+msgid "روز باقی‌مانده تا پایان اشتراک: %s"
+msgstr ""
+
+#: inc/panel/config.php:585
+msgid "روز تأیید کمیسیون پس از خرید"
+msgstr ""
+
+#: inc/modules/modern-pages.php:508
+msgid "روزآمد"
+msgstr ""
+
+#: inc/panel/config.php:590
+msgid "روزانه"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:100
+msgid "روش نمایش"
+msgstr ""
+
+#: inc/panel/config.php:390
+msgid "روشن"
+msgstr ""
+
+#: inc/admin/sms-page.php:206
+msgid "روشن/خاموش کردن و تنظیم متن هر کارزار در: تنظیمات قالب ← پیامک و کارزارها"
+msgstr ""
+
+#: inc/modules/kpi-dashboard.php:173
+msgid "روند درآمد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:631
+msgid "روند کار"
+msgstr ""
+
+#: inc/modules/growth-platform.php:497
+msgid "رویداد"
+msgstr ""
+
+#: inc/modules/credential-manager.php:75
+msgid "ریست دامنه‌ها"
+msgstr ""
+
+#: inc/admin/code-manager.php:130
+msgid "زبان"
+msgstr ""
+
+#: inc/modules/quiz.php:249
+msgid "زبان «%s» پشتیبانی نمی‌شود."
+msgstr ""
+
+#: inc/admin/code-manager.php:111
+msgid "زبان‌های برنامه‌نویسی قابل‌اجرا در سوالات کدنویسی و بخش تمرین را مدیریت کنید. نام کامپایلر باید با سرویس اجرای کد (پیش‌فرض Wandbox) سازگار باشد."
+msgstr ""
+
+#: inc/panel/config.php:399
+msgid "زبان‌های فعال (سراسری)"
+msgstr ""
+
+#: inc/modules/practice.php:189
+msgid "زبان‌های مجاز این تمرین:"
+msgstr ""
+
+#: inc/modules/quiz.php:1202
+msgid "زبان‌های مجاز این دوره (در سوالات کدنویسی):"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:32
+msgid "زرین کد | نقشه (نشان/بلد/OSM)"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:40
+msgid "زرین کد | نمادهای اعتماد"
+msgstr ""
+
+#: inc/modules/modern-pages.php:463
+msgid "زرین کد مجموعه‌ای است که با یک هدف ساده شروع شد: کمک به ایرانی‌ها برای یادگیری برنامه‌نویسی و ساختن کسب‌وکارهای دیجیتال."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:585
+msgid "زرین کد — موجودی پیامک کاوه‌نگار:"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:460
+msgid "زرین‌پال"
+msgstr ""
+
+#: inc/admin/sms-page.php:293
+msgid "زمان"
+msgstr ""
+
+#: inc/modules/growth-platform.php:538
+msgid "زمان درخواست لایسنس منقضی شده است."
+msgstr ""
+
+#: inc/modules/modern-pages.php:635
+msgid "زمان و هزینه شفاف"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php:133 inc/modules/modern-pages.php:574
+msgid "زمان پاسخ"
+msgstr ""
+
+#: inc/panel/config.php:424
+msgid "زمان پاسخ اولویت زیاد (ساعت)"
+msgstr ""
+
+#: inc/panel/config.php:425
+msgid "زمان پاسخ اولویت متوسط (ساعت)"
+msgstr ""
+
+#: inc/panel/config.php:426
+msgid "زمان پاسخ اولویت کم (ساعت)"
+msgstr ""
+
+#: inc/panel/config.php:423
+msgid "زمان پاسخ تیکت بحرانی (ساعت)"
+msgstr ""
+
+#: inc/elementor/base-widget.php:421
+msgid "زوم"
+msgstr ""
+
+#: inc/modules/modern-pages.php:225
+msgid "زیر ۱۰ میلیون تومان"
+msgstr ""
+
+#: inc/modules/editor.php:124
+msgid "زیرخط"
+msgstr ""
+
+#: inc/panel/config.php:298
+msgid "زیرعنوان صفحه تسویه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:404
+msgid "سؤال، پیشنهاد یا ایده‌ی پروژه‌ای دارید؟ تیم پشتیبانی و مشاوران ما آماده‌ی پاسخ‌گویی به شما هستند."
+msgstr ""
+
+#: archive.php:33 inc/modules/modern-pages.php:595
+msgid "سئو و مارکتینگ"
+msgstr ""
+
+#: inc/modules/modern-pages.php:477
+msgid "سابقه فعالیت"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:38
+msgid "ساخت و ویرایش صفحات با بیلدر پیشرفته."
+msgstr ""
+
+#: template-parts/panel/contracts.php:220
+msgid "ساخت پیش‌نویس قرارداد"
+msgstr ""
+
+#: inc/modules/newsletter.php:738
+msgid "ساخت کمپین ناموفق بود."
+msgstr ""
+
+#: inc/modules/contract-payments.php:1048
+msgid "ساختار: عنوان | درصد مبلغ | درصد پیشرفت آزادکننده | توضیح — تغییر مراحل، پرداخت‌های ثبت‌شده را حذف نمی‌کند."
+msgstr ""
+
+#: inc/modules/details.php:48
+msgid "سازنده / تیم"
+msgstr ""
+
+#: inc/modules/details.php:167 woocommerce/single-product.php:214
+msgid "سازگاری با"
+msgstr ""
+
+#: inc/modules/booking.php:93
+msgid "ساعت انتخابی جزو بازه‌های مجاز نیست."
+msgstr ""
+
+#: inc/panel/config.php:435
+msgid "ساعت شروع پشتیبانی"
+msgstr ""
+
+#: inc/panel/config.php:436
+msgid "ساعت پایان پشتیبانی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:436
+msgid "ساعت کاری"
+msgstr ""
+
+#: inc/modules/subscriptions.php:137 inc/modules/subscriptions.php:366
+msgid "سال"
+msgstr ""
+
+#: inc/modules/contracts.php:620
+msgid "سامانه قراردادها غیرفعال است."
+msgstr ""
+
+#: inc/panel/config.php:251
+msgid "سامانه پیامک"
+msgstr ""
+
+#: inc/admin/sms-page.php:46
+msgid "سامانه پیامک هنوز پیکربندی نشده است. کلید API و شماره فرستنده را در تنظیمات قالب ← پیامک وارد کنید."
+msgstr ""
+
+#: inc/panel/config.php:251
+msgid "سامانه‌های دیگر با فیلتر zc_sms_gateways قابل افزودن هستند."
+msgstr ""
+
+#: inc/panel/config.php:522
+msgid "سامانه‌ی قراردادها"
+msgstr ""
+
+#: inc/panel/config.php:538
+msgid "سامانه‌ی پاداش فعال‌سازی ربات"
+msgstr ""
+
+#: inc/modules/modern-pages.php:619
+msgid "سایت شرکتی، فروشگاهی و آموزشی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:218
+msgid "سایر"
+msgstr ""
+
+#: single-zc_service.php:378
+msgid "سایر خدمات ما"
+msgstr ""
+
+#: inc/modules/coupons.php:312
+msgid "سبد خرید در دسترس نیست."
+msgstr ""
+
+#: inc/modules/announcements.php:961
+msgid "سبک"
+msgstr ""
+
+#: inc/modules/announcements.php:160
+msgid "سبک رنگی"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:178
+msgid "سبک کارت"
+msgstr ""
+
+#: inc/modules/contract-payments.php:897
+msgid "ستون سوم تعیین می‌کند مرحله در چه درصدی از پیشرفت پروژه باز شود. مقدار صفر یعنی بلافاصله پس از امضای قرارداد."
+msgstr ""
+
+#: inc/modules/newsletter.php:487
+msgid "ستون‌های CSV معتبر نیستند."
+msgstr ""
+
+#: inc/modules/newsletter.php:483
+msgid "سربرگ CSV معتبر نیست."
+msgstr ""
+
+#: demo/demo-data.php:1657
+msgid "سرویس‌ها بین ساعت ۲ تا ۴ بامداد جمعه ممکن است چند دقیقه در دسترس نباشند."
+msgstr ""
+
+#: inc/modules/subscriptions.php:211
+msgid "سطح پلن (برای ارتقا/تنزل)"
+msgstr ""
+
+#: single-zc_service.php:305
+msgid "سفارش سریع"
+msgstr ""
+
+#: inc/admin/code-manager.php:137
+msgid "سفارشی"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:65
+msgid "سفارش‌های ثبت‌شده با لینک شما"
+msgstr ""
+
+#: inc/panel/config.php:389
+msgid "سقف حجم خروجی (نویسه)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:742
+msgid "سقف دانلود روزانه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:743
+msgid "سقف دانلود ماهیانه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:744
+msgid "سقف دانلود کل"
+msgstr ""
+
+#: inc/panel/config.php:554
+msgid "سقف مجموع درصد تخفیف"
+msgstr ""
+
+#: inc/modules/modern-pages.php:663 inc/modules/modern-pages.php:676
+msgid "سند حقوقی رسمی"
+msgstr ""
+
+#: inc/modules/quiz.php:1193
+msgid "سه نوع سوال پشتیبانی می‌شود: چندگزینه‌ای، جای خالی (پاسخ متنی) و کدنویسی (با اجرای واقعی کد). هنگام رسیدن کاربر به «حد نصاب»، اگر دوره کامل شده باشد مدرک صادر می‌شود."
+msgstr ""
+
+#: inc/modules/attempts.php:276
+msgid "سوابق تلاش‌ها"
+msgstr ""
+
+#: template-parts/panel/attempts.php:24
+msgid "سوابق تلاش‌های من 📊"
+msgstr ""
+
+#: inc/modules/quiz.php:1215
+msgid "سوالات آزمون"
+msgstr ""
+
+#: inc/modules/practice.php:157
+msgid "سوالات تمرین (گام‌به‌گام)"
+msgstr ""
+
+#: inc/panel/config.php:382
+msgid "سوال‌ها یکی‌یکی نمایش داده می‌شوند و هر پاسخِ درست، سوال بعدی را باز می‌کند (مثل w3schools). کاربر می‌تواند به «همهٔ سوالات» هم سوییچ کند."
+msgstr ""
+
+#: inc/modules/modern-pages.php:692
+msgid "سیاست <span>حریم خصوصی</span>"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:222
+msgid "سیاه‌وسفید تا زمان اشاره‌ی موس"
+msgstr ""
+
+#: inc/panel/config.php:371
+msgid "سیستم آزمون دوره‌ها، بخش تمرین کدنویسی پنل کاربری و سرویس اجرای کد را می‌توانید به‌صورت کامل یا جداگانه مدیریت کنید."
+msgstr ""
+
+#: inc/panel/config.php:581
+msgid "سیستم معرفی و همکاری در فروش (Affiliate)"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:129
+msgid "شب"
+msgstr ""
+
+#: inc/helpers.php:55
+msgid "شبنم (Shabnam)"
+msgstr ""
+
+#: inc/panel/config.php:31
+msgid "شخصی‌سازی تک‌تک پیامک‌ها"
+msgstr ""
+
+#: inc/panel/config.php:279
+msgid "شخصی‌سازی متن پیامک‌ها"
+msgstr ""
+
+#: inc/panel/config.php:384
+msgid "شخصی‌سازی محیط کدنویسی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:722
+msgid "شرایط <span>بازگشت وجه</span>"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:127
+msgid "شرایط فسخ مندرج در قرارداد را می‌پذیرم و می‌دانم مبلغ استرداد پس از کسر کارکرد انجام‌شده تعیین می‌شود."
+msgstr ""
+
+#: inc/modules/modern-pages.php:677
+msgid "شرایط و <span>قوانین</span> استفاده"
+msgstr ""
+
+#: inc/modules/details.php:475 single-zc_project.php:168
+msgid "شرح پروژه"
+msgstr ""
+
+#: inc/admin/sms-import.php:712
+msgid "شروع ارسال انبوه"
+msgstr ""
+
+#: template-parts/panel/practice.php:112
+msgid "شروع تمرین"
+msgstr ""
+
+#: template-parts/panel/practice.php:108
+msgid "شروع نشده"
+msgstr ""
+
+#: inc/modules/announcements.php:191
+msgid "شروع نمایش"
+msgstr ""
+
+#: inc/modules/modern-pages.php:533
+msgid "شروع همکاری"
+msgstr ""
+
+#: inc/modules/modern-pages.php:566
+msgid "شفاف و مطابق قانون"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1498
+msgid "شما قبلاً از این کد استفاده کرده‌اید."
+msgstr ""
+
+#: inc/modules/contracts.php:1060 template-parts/contract-print.php:130
+msgid "شماره قرارداد"
+msgstr ""
+
+#: inc/panel/config.php:328
+msgid "شماره کارت"
+msgstr ""
+
+#: inc/modules/details.php:473
+msgid "شناسنامه"
+msgstr ""
+
+#: woocommerce/single-product.php:327
+msgid "شناسنامه محصول"
+msgstr ""
+
+#: inc/modules/gateways.php:165 inc/modules/zarinpal.php:338
+msgid "شناسه تراکنش با سفارش مطابقت ندارد."
+msgstr ""
+
+#: inc/modules/details.php:314
+msgid "شناسه تصاویر با کاما. مثال: 12,15,18"
+msgstr ""
+
+#: inc/modules/subscriptions.php:121
+msgid "شناسه محصول (اختیاری)"
+msgstr ""
+
+#: inc/modules/announcements.php:731
+msgid "شناسه نامعتبر."
+msgstr ""
+
+#: inc/panel/config.php:524
+msgid "شناسه/شماره ثبت شرکت"
+msgstr ""
+
+#: inc/modules/contracts.php:924
+msgid "شناسه‌های قابل استفاده"
+msgstr ""
+
+#: inc/admin/sms-import.php:702
+msgid "شناسه‌های قابل استفاده:"
+msgstr ""
+
+#: inc/panel/config.php:536
+msgid "شناسه‌های متن پیامک"
+msgstr ""
+
+#: inc/panel/config.php:528
+msgid "شناسه‌های مجاز: {code} {number} {site}"
+msgstr ""
+
+#: inc/modules/modern-pages.php:390 inc/modules/modern-pages.php:406
+msgid "شنبه تا چهارشنبه ۹ تا ۱۸"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:183
+msgid "شیشه‌ای (مناسب پس‌زمینه تیره)"
+msgstr ""
+
+#: inc/panel/config.php:380
+msgid "صدور مدرک فقط پس از قبولی در آزمون"
+msgstr ""
+
+#: inc/modules/growth-platform.php:428
+msgid "صدور کلید لایسنس پس از خرید"
+msgstr ""
+
+#: inc/template-tags.php:342 inc/woocommerce.php:1030
+msgid "صفحه بعدی"
+msgstr ""
+
+#: inc/template-tags.php:339 inc/woocommerce.php:1027
+msgid "صفحه قبلی"
+msgstr ""
+
+#: inc/panel/config.php:553
+msgid "صفر یعنی بدون محدودیت."
+msgstr ""
+
+#: inc/panel/config.php:260
+msgid "صفر یعنی بدون کد تخفیف."
+msgstr ""
+
+#: inc/admin/sms-page.php:250
+msgid "صفر یعنی بدون کد تخفیف. اگر عددی بگذارید، برای هر کاربر یک کد یکتا ساخته می‌شود."
+msgstr ""
+
+#: inc/admin/sms-import.php:686
+msgid "صفر یعنی بدون کد. برای شماره‌هایی که حساب کاربری دارند، کد اختصاصی ساخته و در {code} گذاشته می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:421
+msgid "صفر یعنی غیرفعال."
+msgstr ""
+
+#: inc/modules/contracts.php:989
+msgid "صفر یعنی مبلغ در قرارداد ذکر نمی‌شود."
+msgstr ""
+
+#: inc/helpers.php:53
+msgid "صمیم (Samim)"
+msgstr ""
+
+#: inc/modules/announcements.php:114
+msgid "صندوق اطلاعیه پنل کاربری"
+msgstr ""
+
+#: inc/modules/modern-pages.php:213 inc/modules/modern-pages.php:619
+msgid "طراحی سایت"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:81
+msgid "طول جغرافیایی (Longitude)"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:172
+msgid "ظاهر"
+msgstr ""
+
+#: inc/modules/announcements.php:185
+msgid "عدد کمتر = بالاتر."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:138
+msgid "عدم رضایت از کیفیت خروجی"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:71
+msgid "عرض جغرافیایی (Latitude)"
+msgstr ""
+
+#: inc/panel/config.php:592
+msgid "علاوه بر ارسال به پیام‌رسان، یک نسخه در پوشه‌ی محافظت‌شده نگهداری شود."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:290
+msgid "عملیات نامعتبر است."
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:877 inc/modules/ticket.php:56
+msgid "عمومی"
+msgstr ""
+
+#: inc/panel/config.php:297
+msgid "عنوان صفحه تسویه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:187
+msgid "عنوان موقعیت"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:371
+msgid "غیرفعال‌سازی"
+msgstr ""
+
+#: inc/panel/config.php:606
+msgid "غیرفعال‌سازی گوتنبرگ"
+msgstr ""
+
+#: inc/panel/config.php:119
+msgid "فاصله بین حروف (پیکسل)"
+msgstr ""
+
+#: inc/panel/config.php:118
+msgid "فاصله بین خطوط"
+msgstr ""
+
+#: inc/panel/config.php:272
+msgid "فاصله تا پیامک بعدی همان کاربر (روز)"
+msgstr ""
+
+#: inc/panel/config.php:388
+msgid "فاصلهٔ مجاز بین اجراها (ثانیه)"
+msgstr ""
+
+#: inc/elementor/base-widget.php:434
+msgid "فاصله‌ی پلکانی (میلی‌ثانیه)"
+msgstr ""
+
+#: template-parts/invoice-print.php:32 template-parts/invoice-print.php:84
+msgid "فاکتور"
+msgstr ""
+
+#: inc/panel/config.php:566
+msgid "فاکتور رسمی سفارش (PDF)"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1057
+msgid "فایل"
+msgstr ""
+
+#: inc/modules/newsletter.php:433
+msgid "فایل CSV با ستون‌های: name, email, mobile, telegram_id, bale_id. موبایل باید با 09 شروع شود."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:136
+msgid "فایل افزونه همراه در بسته قالب موجود نیست."
+msgstr ""
+
+#: inc/admin/sms-import.php:592
+msgid "فایل اکسل (XLSX) یا CSV خود را بارگذاری کنید. لازم نیست ستون شماره در جای خاصی باشد؛ سامانه هر سلولی را که شماره‌ی موبایل معتبر ایران باشد پیدا می‌کند و بقیه‌ی ستون‌ها را به‌ترتیب در شناسه‌های {name}، {field1} و {field2} می‌گذارد."
+msgstr ""
+
+#: inc/admin/sms-import.php:603
+msgid "فایل اکسل یا CSV"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1076
+msgid "فایل تحویلی پروژه؛ کارفرما تنها پس از تسویه کامل می‌تواند دانلود کند."
+msgstr ""
+
+#: inc/modules/newsletter.php:478 inc/modules/newsletter.php:480
+msgid "فایل خوانده نشد."
+msgstr ""
+
+#: template-parts/panel/tickets.php:191
+msgid "فایل را بکشید یا کلیک کنید"
+msgstr ""
+
+#: inc/modules/contract-payments.php:791
+msgid "فایل روی سرور موجود نیست."
+msgstr ""
+
+#: inc/modules/contract-payments.php:785
+msgid "فایل یافت نشد."
+msgstr ""
+
+#: inc/modules/editor.php:193
+msgid "فایلی دریافت نشد."
+msgstr ""
+
+#: inc/modules/contract-payments.php:1051 template-parts/panel/contract-payments.php:201
+msgid "فایل‌های تحویلی پروژه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:544
+msgid "فرآیند همکاری"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:58
+msgid "فرم تماس ۷"
+msgstr ""
+
+#: inc/modules/modern-pages.php:191
+msgid "فرم درخواست پروژه / مشاوره"
+msgstr ""
+
+#: inc/modules/modern-pages.php:535
+msgid "فرم زیر را پر کنید؛ کارشناسان ما حداکثر تا یک روز کاری با شما تماس می‌گیرند و برآورد دقیق زمان و هزینه ارائه می‌دهند."
+msgstr ""
+
+#: inc/modules/details.php:68
+msgid "فرمت فایل"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:62
+msgid "فرم‌های تماس و درخواست پروژه."
+msgstr ""
+
+#: woocommerce/single-product.php:258
+msgid "فروش"
+msgstr ""
+
+#: template-parts/invoice-print.php:92
+msgid "فروشنده"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:46
+msgid "فروشگاه آنلاین و مدیریت محصولات."
+msgstr ""
+
+#: inc/panel/config.php:286
+msgid "فروشگاه و تسویه حساب"
+msgstr ""
+
+#: inc/panel/config.php:590
+msgid "فرکانس بکاپ"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:93
+msgid "فسخ قرارداد تابع بند «فسخ قرارداد» سند امضاشده است. در صورت انصراف بدون تقصیر مجری، پیش‌پرداخت مسترد نمی‌شود و کارکرد انجام‌شده تا تاریخ درخواست بر اساس ارزیابی کارشناسی محاسبه و از مبلغ پرداختی کسر می‌گردد."
+msgstr ""
+
+#: inc/panel/config.php:593
+msgid "فشرده‌سازی Gzip"
+msgstr ""
+
+#: inc/modules/subscriptions.php:219
+msgid "فعال بودن پلن"
+msgstr ""
+
+#: inc/panel/config.php:395
+msgid "فعال/غیرفعال‌کردن زبان‌ها، افزودن زبان سفارشی و تعیین زبان‌های مجاز هر دوره/تمرین در صفحهٔ «کامپایلر و زبان‌ها» و صفحهٔ هر دوره/تمرین انجام می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:373
+msgid "فعال‌سازی آزمون دوره‌ها"
+msgstr ""
+
+#: inc/panel/config.php:385
+msgid "فعال‌سازی اجرای کد"
+msgstr ""
+
+#: inc/panel/config.php:346
+msgid "فعال‌سازی بازگشت اعتبار خرید"
+msgstr ""
+
+#: inc/panel/config.php:374
+msgid "فعال‌سازی بخش «تمرین کدنویسی» در پنل کاربری"
+msgstr ""
+
+#: inc/panel/config.php:589
+msgid "فعال‌سازی بکاپ خودکار"
+msgstr ""
+
+#: inc/panel/config.php:577
+msgid "فعال‌سازی داشبورد KPI"
+msgstr ""
+
+#: inc/panel/config.php:567
+msgid "فعال‌سازی دانلود فاکتور"
+msgstr ""
+
+#: inc/modules/gateways.php:73 inc/panel/config.php:315
+msgid "فعال‌سازی درگاه ای‌دی‌پی"
+msgstr ""
+
+#: inc/modules/gateways.php:259 inc/panel/config.php:321
+msgid "فعال‌سازی درگاه پی‌آی‌آر"
+msgstr ""
+
+#: inc/panel/config.php:582
+msgid "فعال‌سازی سیستم معرفی"
+msgstr ""
+
+#: inc/panel/config.php:627
+msgid "فعال‌سازی موتور بهینه‌سازی"
+msgstr ""
+
+#: inc/panel/config.php:327
+msgid "فعال‌سازی پرداخت کارت به کارت"
+msgstr ""
+
+#: inc/modules/gateways.php:421
+msgid "فعال‌سازی پرداخت کارت‌به‌کارت"
+msgstr ""
+
+#: inc/modules/credential-manager.php:71
+msgid "فعال‌سازی‌ها"
+msgstr ""
+
+#: inc/modules/credential-manager.php:75
+msgid "فعال‌سازی‌ها پاک شوند؟"
+msgstr ""
+
+#: inc/panel/config.php:386
+msgid "فقط اگر سرویس دلخواهی دارید تغییر دهید؛ فرمت خروجی باید با Wandbox سازگار باشد."
+msgstr ""
+
+#: inc/modules/editor.php:218
+msgid "فقط تصویر مجاز است (JPG، PNG، GIF، WebP)."
+msgstr ""
+
+#: inc/admin/sms-import.php:375
+msgid "فقط فایل CSV یا XLSX پذیرفته می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:295
+msgid "فقط فیلدهای ضروری (موبایل، نام و پرداخت) نمایش داده می‌شود تا کاربر سریع‌تر پرداخت کند."
+msgstr ""
+
+#: inc/admin/sms-page.php:240 inc/modules/announcements.php:101
+msgid "فقط مشتریان"
+msgstr ""
+
+#: inc/modules/announcements.php:100
+msgid "فقط مهمان‌ها"
+msgstr ""
+
+#: inc/modules/announcements.php:99
+msgid "فقط کاربران وارد‌شده"
+msgstr ""
+
+#: template-parts/panel/practice.php:31
+msgid "فهرست تمرین‌ها"
+msgstr ""
+
+#: inc/modules/editor.php:126
+msgid "فهرست شماره‌دار"
+msgstr ""
+
+#: inc/modules/editor.php:125
+msgid "فهرست نقطه‌ای"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:154
+msgid "فهرست نمادها"
+msgstr ""
+
+#: inc/modules/details.php:476
+msgid "فهرست‌ها"
+msgstr ""
+
+#: inc/admin/sms-import.php:629
+msgid "فهرست‌های موجود"
+msgstr ""
+
+#: inc/panel/config.php:113
+msgid "فونت H1 تا H6 و تیتر بخش‌ها"
+msgstr ""
+
+#: inc/panel/config.php:113
+msgid "فونت عنوان‌ها (تیترها)"
+msgstr ""
+
+#: inc/panel/config.php:112
+msgid "فونت متن (بدنه سایت)"
+msgstr ""
+
+#: inc/panel/config.php:109
+msgid "فونت و تایپوگرافی"
+msgstr ""
+
+#: inc/modules/attempts.php:426
+msgid "فیلتر"
+msgstr ""
+
+#: inc/modules/contracts.php:968
+msgid "فیلدهای اطلاعاتی مشتری"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:86
+msgid "فیلدهای تسویه"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:134
+msgid "فیلدهای فرم تسویه حساب را فعال/غیرفعال کنید و برچسب یا placeholder آن‌ها را ویرایش کنید. با غیرفعال‌کردن فیلدهای غیرضروری، فرآیند پرداخت سریع‌تر می‌شود."
+msgstr ""
+
+#: inc/modules/contracts.php:974
+msgid "فیلدهای نام، کد ملی، موبایل، ایمیل و نشانی به‌صورت پیش‌فرض وجود دارند."
+msgstr ""
+
+#: inc/modules/attempts.php:421 inc/modules/attempts.php:480 template-parts/panel/attempts.php:69 template-parts/panel/dashboard.php:226
+msgid "قبول"
+msgstr ""
+
+#: inc/modules/modern-pages.php:631
+msgid "قدم‌های <span>پروژه</span> شما"
+msgstr ""
+
+#: inc/modules/contracts.php:1211 inc/modules/contracts.php:54 template-parts/panel/contracts.php:25
+msgid "قرارداد"
+msgstr ""
+
+#: inc/modules/contracts.php:816
+msgid "قرارداد %s با موفقیت امضا شد."
+msgstr ""
+
+#: inc/modules/contracts.php:836
+msgid "قرارداد با موفقیت امضا و ثبت شد."
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:162
+msgid "قرارداد به‌صورت رسمی خاتمه یافته و امکان پرداخت جدید وجود ندارد."
+msgstr ""
+
+#: inc/modules/contracts.php:825
+msgid "قرارداد تازه امضا شد\nشماره: %1$s\nمشتری: %2$s"
+msgstr ""
+
+#: inc/modules/modern-pages.php:538 inc/modules/modern-pages.php:566
+msgid "قرارداد رسمی"
+msgstr ""
+
+#: single-zc_service.php:328
+msgid "قرارداد رسمی و شفاف"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:132
+msgid "قرارداد شما امضا شده است. کارشناسان ما در حال بررسی مشخصات پروژه و برآورد مبلغ نهایی هستند. به‌محض تعیین مبلغ، از طریق پیامک و اعلان به شما اطلاع داده می‌شود."
+msgstr ""
+
+#: inc/modules/contract-payments.php:1081
+msgid "قرارداد هنوز تسویه نشده — دانلود فایل‌ها برای کارفرما بسته است."
+msgstr ""
+
+#: inc/modules/modern-pages.php:548
+msgid "قرارداد و برآورد"
+msgstr ""
+
+#: inc/modules/contracts.php:768 inc/modules/contracts.php:881
+msgid "قرارداد یافت نشد."
+msgstr ""
+
+#: inc/modules/contracts.php:38 template-parts/panel/contract-chat.php:53
+msgid "قراردادها"
+msgstr ""
+
+#: inc/panel/config.php:518
+msgid "قراردادها و تقویم"
+msgstr ""
+
+#: inc/modules/messenger-bot.php:60
+msgid "قراردادها و پرداخت‌ها"
+msgstr ""
+
+#: template-parts/panel/contracts.php:319
+msgid "قراردادهای ثبت‌شده"
+msgstr ""
+
+#: inc/modules/contracts.php:53
+msgid "قراردادهای صادرشده"
+msgstr ""
+
+#: inc/modules/user-panel.php:69 template-parts/panel/contracts.php:282
+msgid "قراردادهای من"
+msgstr ""
+
+#: inc/modules/contract-payments.php:995
+msgid "قفل"
+msgstr ""
+
+#: inc/panel/config.php:552
+msgid "قفل individual_use را از کدهای خودکار قالب برمی‌دارد تا روی هم جمع شوند."
+msgstr ""
+
+#: woocommerce/single-product.php:280
+msgid "قیمت محصول:"
+msgstr ""
+
+#: inc/modules/subscriptions.php:107
+msgid "قیمت و فروش"
+msgstr ""
+
+#: inc/modules/subscriptions.php:114
+msgid "قیمت پلن برای نمایش و خرید مستقیم با کیف پول."
+msgstr ""
+
+#: inc/modules/growth-platform.php:552
+msgid "لایسنس در حال پردازش است؛ دوباره تلاش کنید."
+msgstr ""
+
+#: inc/modules/growth-platform.php:426
+msgid "لایسنس زرین کد"
+msgstr ""
+
+#: inc/modules/growth-platform.php:547
+msgid "لایسنس نامعتبر یا منقضی است."
+msgstr ""
+
+#: inc/modules/credential-manager.php:14
+msgid "لایسنس و مدرک"
+msgstr ""
+
+#: inc/modules/credential-manager.php:60 inc/modules/growth-platform.php:455
+msgid "لایسنس‌ها"
+msgstr ""
+
+#: inc/modules/credential-manager.php:13
+msgid "لایسنس‌ها و مدارک"
+msgstr ""
+
+#: template-parts/panel/licenses.php:7
+msgid "لایسنس‌های محصولات من"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:29
+msgid "لایه پایدار انواع محتوا و داده‌ها پس از تغییر قالب."
+msgstr ""
+
+#: inc/modules/subscriptions.php:818 inc/modules/subscriptions.php:933
+msgid "لطفاً ابتدا وارد شوید."
+msgstr ""
+
+#: inc/modules/contracts.php:792
+msgid "لطفاً امضای خود را در کادر رسم کنید."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:209
+msgid "لطفاً دلیل فسخ را انتخاب کنید."
+msgstr ""
+
+#: inc/modules/modern-pages.php:678
+msgid "لطفاً پیش از استفاده از خدمات زرین کد، این سند را با دقت مطالعه فرمایید."
+msgstr ""
+
+#: inc/modules/gateways.php:455
+msgid "لطفاً کد پیگیری تراکنش را وارد کنید."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1204
+msgid "لغو تنزل"
+msgstr ""
+
+#: inc/modules/contracts.php:991
+msgid "لوگوی اختصاصی این قرارداد"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:178
+msgid "لوگوی پین (تصویر)"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:36
+msgid "لینک اختصاصی معرفی شما"
+msgstr ""
+
+#: inc/modules/details.php:125
+msgid "لینک امبد آپارات یا یوتیوب."
+msgstr ""
+
+#: inc/modules/contract-payments.php:770
+msgid "لینک دانلود نامعتبر یا منقضی شده است."
+msgstr ""
+
+#: inc/modules/details.php:117
+msgid "لینک مستندات"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:135
+msgid "لینک نماد"
+msgstr ""
+
+#: inc/modules/details.php:203
+msgid "لینک پروژه"
+msgstr ""
+
+#: inc/modules/details.php:105
+msgid "لینک پیش‌نمایش اصلی"
+msgstr ""
+
+#: inc/modules/details.php:111
+msgid "لینک پیش‌نمایش فارسی"
+msgstr ""
+
+#: inc/woocommerce.php:755
+msgid "لینک پیش‌نمایش، نسخه، سازنده، ویژگی‌ها و تاریخچه تغییرات در باکس «جزئیات کامل محصول» پایین صفحه تنظیم می‌شوند."
+msgstr ""
+
+#: inc/modules/modern-pages.php:485
+msgid "مأموریت زرین کد، توانمندسازی افراد و کسب‌وکارها با مهارت‌های دیجیتال و فنی است. ما با ترکیب آموزش پروژه‌محور و ارائه‌ی خدمات تخصصی، مسیر رشد را برای هر فرد و برند فراهم می‌کنیم."
+msgstr ""
+
+#: inc/modules/modern-pages.php:462
+msgid "ما <span>می‌سازیم</span>، می‌آموزیم و رشد می‌کنیم"
+msgstr ""
+
+#: inc/modules/modern-pages.php:487
+msgid "ما باور داریم هر ایرانی می‌تواند با یادگیری درست و ابزار مناسب، به موفقیت برسد. زرین کد پلی است میان دانش، مهارت و بازار کار."
+msgstr ""
+
+#: inc/modules/subscriptions.php:138 inc/modules/subscriptions.php:361 template-parts/panel/dashboard.php:182 template-parts/panel/subscription.php:44
+msgid "مادام‌العمر"
+msgstr ""
+
+#: inc/modules/contract-payments.php:651
+msgid "مالک تراکنش با قرارداد مطابقت ندارد."
+msgstr ""
+
+#: template-parts/invoice-print.php:133
+msgid "مالیات"
+msgstr ""
+
+#: inc/modules/modern-pages.php:484
+msgid "ماموریت ما"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:89
+msgid "مانده"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1037
+msgid "مانده:"
+msgstr ""
+
+#: inc/panel/config.php:554
+msgid "مانع می‌شود مجموع کدها از این مقدار بیشتر شود."
+msgstr ""
+
+#: inc/modules/subscriptions.php:136 inc/modules/subscriptions.php:1970 inc/modules/subscriptions.php:365
+msgid "ماه"
+msgstr ""
+
+#: inc/panel/config.php:590
+msgid "ماهانه"
+msgstr ""
+
+#: inc/modules/backup.php:255
+msgid "ماهانه (زرین کد)"
+msgstr ""
+
+#: inc/panel/config.php:371
+msgid "ماژول آزمون، تمرین و کامپایلر"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:57
+msgid "ماژول پیامک در دسترس نیست."
+msgstr ""
+
+#: inc/modules/zarinpal.php:449
+msgid "مبلغ %s از کیف پول کاربر برای این سفارش رزرو شد."
+msgstr ""
+
+#: inc/modules/zarinpal.php:524
+msgid "مبلغ %s به کیف پول کاربر بازگردانده شد."
+msgstr ""
+
+#: inc/modules/cashback.php:159
+msgid "مبلغ %s ریال به کیف پول شما بازگشت."
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:96
+msgid "مبلغ اعلام‌شده و برنامه پرداخت را بررسی کردم و می‌پذیرم."
+msgstr ""
+
+#: inc/modules/contract-payments.php:492
+msgid "مبلغ این مرحله معتبر نیست."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:118
+msgid "مبلغ تأیید شد. اکنون می‌توانید پیش‌پرداخت را انجام دهید."
+msgstr ""
+
+#: inc/modules/contract-payments.php:918
+msgid "مبلغ تقریبی"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1511
+msgid "مبلغ خرید از سقف مجاز این کد بیشتر است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1507
+msgid "مبلغ خرید به حداقل لازم برای این کد نرسیده است."
+msgstr ""
+
+#: inc/modules/wallet.php:516
+msgid "مبلغ شارژ بیش از سقف مجاز است."
+msgstr ""
+
+#: template-parts/invoice-print.php:135
+msgid "مبلغ قابل پرداخت"
+msgstr ""
+
+#: template-parts/contract-print.php:156
+msgid "مبلغ قرارداد"
+msgstr ""
+
+#: inc/modules/contracts.php:987
+msgid "مبلغ قرارداد (تومان)"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:44
+msgid "مبلغ مسترد شده"
+msgstr ""
+
+#: inc/modules/modern-pages.php:548
+msgid "مبلغ و زمان دقیق اعلام و قرارداد رسمی بسته می‌شود."
+msgstr ""
+
+#: template-parts/invoice-print.php:111
+msgid "مبلغ واحد"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:54
+msgid "مبلغ پروژه اعلام شد"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:79
+msgid "مبلغ کل قرارداد"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:58
+msgid "مبلغ کل پروژه"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:115
+msgid "مبلغی برای این قرارداد ثبت نشده است."
+msgstr ""
+
+#: inc/modules/newsletter.php:576
+msgid "متغیرها: "
+msgstr ""
+
+#: inc/admin/sms-page.php:264
+msgid "متغیرها: {name} {code} {percent} {days} {site} {url}"
+msgstr ""
+
+#: inc/panel/config.php:257
+msgid "متغیرهای قابل استفاده در متن‌ها: {name} نام کاربر، {code} کد تخفیف، {percent} درصد، {days} روز اعتبار، {site} نام سایت، {url} نشانی، {amount} مبلغ، {order} شماره سفارش."
+msgstr ""
+
+#: inc/modules/editor.php:115
+msgid "متن خود را بنویسید…"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:217
+msgid "متن دکمه (اختیاری)"
+msgstr ""
+
+#: inc/modules/quiz.php:969
+msgid "متن سوال"
+msgstr ""
+
+#: template-parts/panel/contracts.php:232
+msgid "متن قرارداد را کامل خواندم و با همه‌ی مفاد آن موافقم."
+msgstr ""
+
+#: inc/panel/config.php:32
+msgid "متن هر پیامک را در این بخش به دلخواه تغییر دهید. برای بازگشت به متن پیش‌فرض، فیلد را خالی کنید یا متن پیش‌فرض را برگردانید. متغیرهای قابل استفاده: {name} نام، {site} سایت، {url} نشانی، {code} کد، {order} سفارش، {amount} مبلغ، {date} تاریخ، {time} ساعت، {percent} درصد، {days} روز، {subject} موضوع، {course} دوره، {ref} کد پیگیری، {number} شماره قرارداد."
+msgstr ""
+
+#: inc/panel/config.php:573
+msgid "متن پایین فاکتور"
+msgstr ""
+
+#: inc/modules/newsletter.php:690
+msgid "متن پیام خالی است."
+msgstr ""
+
+#: inc/admin/sms-import.php:440 inc/modules/sms-campaigns.php:666
+msgid "متن پیام را بنویسید."
+msgstr ""
+
+#: inc/panel/config.php:273
+msgid "متن پیامک بازگشت"
+msgstr ""
+
+#: inc/panel/config.php:541
+msgid "متن پیامک ثبت‌نام"
+msgstr ""
+
+#: inc/panel/config.php:550
+msgid "متن پیامک خدمات"
+msgstr ""
+
+#: inc/panel/config.php:262
+msgid "متن پیامک خوش‌آمد"
+msgstr ""
+
+#: inc/panel/config.php:543
+msgid "متن پیامک پاداش ربات"
+msgstr ""
+
+#: inc/panel/config.php:528
+msgid "متن پیامک کد امضا"
+msgstr ""
+
+#: inc/panel/config.php:266
+msgid "متن یادآوری پرداخت"
+msgstr ""
+
+#: inc/modules/announcements.php:707
+msgid "متوجه شدم"
+msgstr ""
+
+#: inc/panel/config.php:568
+msgid "مثال: INV-۱۴۰۴-۱۲"
+msgstr ""
+
+#: inc/modules/details.php:270
+msgid "مثال: افزایش ۳۰۰٪ ترافیک ارگانیک"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:523
+msgid "مثال: کد تایید زرین‌پال، ای‌نماد و ... را اینجا بچسبانید."
+msgstr ""
+
+#: inc/modules/services.php:397
+msgid "مثلاً SRV-A7K2M"
+msgstr ""
+
+#: inc/modules/details.php:72
+msgid "مثلاً ZIP شامل PHP، CSS، JS"
+msgstr ""
+
+#: inc/modules/details.php:131
+msgid "مثلاً demo / demo123"
+msgstr ""
+
+#: inc/modules/details.php:100
+msgid "مثلاً بروزرسانی مادام‌العمر"
+msgstr ""
+
+#: inc/modules/announcements.php:222
+msgid "مثلاً مشاهده جزئیات"
+msgstr ""
+
+#: inc/admin/sms-import.php:613
+msgid "مثلاً مشتریان مهر ۱۴۰۴"
+msgstr ""
+
+#: inc/modules/details.php:306
+msgid "مثلاً مهدی رضایی، مدیرعامل"
+msgstr ""
+
+#: inc/modules/subscriptions.php:207
+msgid "مثلاً پرفروش‌ترین"
+msgstr ""
+
+#: inc/modules/details.php:86
+msgid "مثلاً یک‌بار خرید، استفاده نامحدود"
+msgstr ""
+
+#: inc/modules/details.php:58
+msgid "مثلاً ۰۶ مهر ۱۴۰۴"
+msgstr ""
+
+#: inc/modules/details.php:79
+msgid "مثلاً ۱۲ مگابایت"
+msgstr ""
+
+#: inc/panel/config.php:265
+msgid "مثلاً ۲ یعنی دو ساعت بعد."
+msgstr ""
+
+#: inc/modules/details.php:45
+msgid "مثلاً ۲.۴.۰"
+msgstr ""
+
+#: inc/modules/details.php:227
+msgid "مثلاً ۳ ماه"
+msgstr ""
+
+#: inc/panel/config.php:269
+msgid "مثلاً ۳ یعنی کسانی که سه ماه خرید نکرده‌اند."
+msgstr ""
+
+#: inc/modules/details.php:240
+msgid "مثلاً ۴ نفر: طراح، دو برنامه‌نویس، کارشناس سئو"
+msgstr ""
+
+#: inc/modules/details.php:93
+msgid "مثلاً ۶ ماه پشتیبانی رایگان"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:116
+msgid "مثلاً: برخی امکانات درخواستی در برآورد لحاظ نشده است…"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:147
+msgid "مثلاً: درگاه امن"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:200
+msgid "مثلاً: دفتر مرکزی و مرکز آموزش"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:190
+msgid "مثلاً: زرین کد"
+msgstr ""
+
+#: inc/modules/quiz.php:1001
+msgid "مثلاً: سلام دنیا"
+msgstr ""
+
+#: inc/modules/coupons.php:168
+msgid "مجموع تخفیف نمی‌تواند بیشتر از %s٪ باشد."
+msgstr ""
+
+#: inc/modules/contract-payments.php:902
+msgid "مجموع درصدها:"
+msgstr ""
+
+#: inc/helpers.php:729
+msgid "محتوای این بخش در حال آماده‌سازی است."
+msgstr ""
+
+#: inc/modules/details.php:148
+msgid "محتویات بسته"
+msgstr ""
+
+#: inc/modules/subscriptions.php:746
+msgid "محدودیت اشتراک"
+msgstr ""
+
+#: inc/modules/contract-workflow.php:136
+msgid "محدودیت بودجه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:146
+msgid "محدودیت‌های قابل تنظیم"
+msgstr ""
+
+#: inc/modules/modern-pages.php:476
+msgid "محصول آماده"
+msgstr ""
+
+#: inc/modules/growth-platform.php:263 inc/modules/subscriptions.php:118
+msgid "محصول ووکامرس مرتبط"
+msgstr ""
+
+#: woocommerce/single-product.php:349
+msgid "محصولات مرتبط"
+msgstr ""
+
+#: inc/modules/announcements.php:250 inc/modules/announcements.php:962
+msgid "محل نمایش"
+msgstr ""
+
+#: inc/elementor/base-widget.php:424
+msgid "محو تدریجی"
+msgstr ""
+
+#: inc/modules/announcements.php:171
+msgid "مخاطب"
+msgstr ""
+
+#: inc/modules/newsletter.php:334
+msgid "مخاطب حذف شد."
+msgstr ""
+
+#: inc/admin/sms-import.php:589
+msgid "مخاطبان و ارسال پیامک انبوه"
+msgstr ""
+
+#: inc/admin/sms-import.php:565 inc/admin/sms-import.php:566
+msgid "مخاطبان و پیامک انبوه"
+msgstr ""
+
+#: inc/modules/newsletter.php:419
+msgid "مخاطبی یافت نشد."
+msgstr ""
+
+#: inc/modules/newsletter.php:279
+msgid "مخاطبین"
+msgstr ""
+
+#: inc/modules/details.php:243 single-zc_project.php:278
+msgid "مخزن کد"
+msgstr ""
+
+#: inc/modules/subscriptions.php:126
+msgid "مدت اعتبار"
+msgstr ""
+
+#: inc/modules/details.php:96
+msgid "مدت بروزرسانی"
+msgstr ""
+
+#: inc/modules/details.php:89
+msgid "مدت پشتیبانی"
+msgstr ""
+
+#: template-parts/panel/dashboard.php:173
+msgid "مدیریت اشتراک"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:223 inc/modules/plugin-manager.php:445
+msgid "مدیریت افزونه‌ها"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:318
+msgid "مدیریت افزونه‌های قالب"
+msgstr ""
+
+#: inc/panel/config.php:395
+msgid "مدیریت زبان‌های برنامه‌نویسی"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:85 inc/panel/config.php:289
+msgid "مدیریت فیلدهای تسویه"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:131
+msgid "مدیریت فیلدهای صفحه تسویه حساب"
+msgstr ""
+
+#: inc/modules/credential-manager.php:58
+msgid "مدیریت لایسنس‌ها و گواهینامه‌ها"
+msgstr ""
+
+#: inc/modules/details.php:291 single-zc_project.php:197
+msgid "مراحل اجرا"
+msgstr ""
+
+#: inc/metabox.php:519 single-zc_service.php:168
+msgid "مراحل انجام کار"
+msgstr ""
+
+#: inc/modules/contract-payments.php:898
+msgid "مراحل باید به ترتیب پرداخت شوند و مجموع درصدها باید دقیقاً ۱۰۰ باشد."
+msgstr ""
+
+#: inc/modules/contract-payments.php:838
+msgid "مراحل پرداخت"
+msgstr ""
+
+#: inc/panel/config.php:527
+msgid "مراحل پیش‌فرض پرداخت"
+msgstr ""
+
+#: inc/woocommerce.php:1111
+msgid "مرتب‌سازی پیش‌فرض"
+msgstr ""
+
+#: inc/modules/contract-payments.php:976
+msgid "مرحله"
+msgstr ""
+
+#: inc/modules/contract-payments.php:443
+msgid "مرحله %s"
+msgstr ""
+
+#: inc/modules/contract-payments.php:467
+msgid "مرحله پرداخت یافت نشد."
+msgstr ""
+
+#: inc/modules/order-reversals.php:71
+msgid "مزایا، دسترسی‌ها، لایسنس و اعتبارهای وابسته به سفارش برگشت داده شدند."
+msgstr ""
+
+#: inc/modules/details.php:136
+msgid "مزیت‌های خرید"
+msgstr ""
+
+#: inc/modules/details.php:252
+msgid "مسئله‌ای که کارفرما داشت."
+msgstr ""
+
+#: inc/panel/config.php:348
+msgid "مستثنی‌کردن محصولات تخفیف‌خورده از cashback"
+msgstr ""
+
+#: woocommerce/single-product.php:309
+msgid "مستندات محصول"
+msgstr ""
+
+#: inc/modules/modern-pages.php:544
+msgid "مسیر همکاری ما شفاف، مرحله‌به‌مرحله و قابل پیگیری است."
+msgstr ""
+
+#: inc/modules/growth-platform.php:243
+msgid "مسیر یادگیری"
+msgstr ""
+
+#: inc/modules/growth-platform.php:243
+msgid "مسیرهای یادگیری"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:219
+msgid "مسیریابی"
+msgstr ""
+
+#: single-zc_service.php:323
+msgid "مشاهده بسته‌ها"
+msgstr ""
+
+#: single-zc_project.php:117
+msgid "مشاهده سایت پروژه"
+msgstr ""
+
+#: inc/woocommerce.php:444
+msgid "مشاهده سبد"
+msgstr ""
+
+#: inc/woocommerce.php:442 woocommerce/single-product/add-to-cart/simple.php:27
+msgid "مشاهده سبد خرید"
+msgstr ""
+
+#: demo/demo-data.php:1636
+msgid "مشاهده فروشگاه"
+msgstr ""
+
+#: single-zc_project.php:271
+msgid "مشاهده پروژه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:47
+msgid "مشاهده پلن"
+msgstr ""
+
+#: template-parts/panel/dashboard.php:189
+msgid "مشاهده پلن‌ها"
+msgstr ""
+
+#: inc/modules/rewards.php:531
+msgid "مشاهده‌ی خدمات"
+msgstr ""
+
+#: inc/modules/rewards.php:385
+msgid "مشاهده‌ی فروشگاه"
+msgstr ""
+
+#: inc/modules/contracts.php:55 template-parts/panel/contract-chat.php:89
+msgid "مشاهده‌ی قرارداد"
+msgstr ""
+
+#: inc/modules/contracts.php:1118
+msgid "مشاهده‌ی نسخه‌ی چاپی"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php:89
+msgid "مشاوره رایگان پیش از شروع\nقرارداد رسمی و شفاف\nتحویل مرحله‌ای پروژه\nپشتیبانی پس از تحویل\nضمانت بازگشت وجه"
+msgstr ""
+
+#: single-zc_service.php:334
+msgid "مشاوره رایگان:"
+msgstr ""
+
+#: inc/modules/modern-pages.php:217
+msgid "مشاوره فنی"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1939
+msgid "مشترک جدید این ماه"
+msgstr ""
+
+#: inc/modules/kpi-dashboard.php:168 inc/modules/subscriptions.php:1938 inc/modules/subscriptions.php:2084
+msgid "مشترک فعال"
+msgstr ""
+
+#: woocommerce/single-product.php:137
+msgid "مشخصات"
+msgstr ""
+
+#: single-zc_project.php:235
+msgid "مشخصات پروژه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:192
+msgid "مشخصات پروژه یا نیاز خود را شرح دهید."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:139
+msgid "مشکل در ارتباط و پاسخ‌گویی"
+msgstr ""
+
+#: template-parts/panel/contracts.php:136
+msgid "مطالعه‌ی قرارداد"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:98
+msgid "مطالعه‌ی کامل شرایط فسخ"
+msgstr ""
+
+#: woocommerce/single-product.php:160
+msgid "معرفی %s"
+msgstr ""
+
+#: inc/admin/admin.php:847
+msgid "مقایسه‌ی بازه‌به‌بازه (با دوره‌ی قبل)"
+msgstr ""
+
+#: inc/admin/admin.php:879
+msgid "مقایسه‌ی درآمد ماهانه"
+msgstr ""
+
+#: templates/template-panel.php:40
+msgid "منوی کاربری"
+msgstr ""
+
+#: template-parts/contract-print.php:181
+msgid "مهر و امضای مجری"
+msgstr ""
+
+#: inc/panel/config.php:387
+msgid "مهلت اجرای هر کد (ثانیه)"
+msgstr ""
+
+#: inc/modules/announcements.php:81
+msgid "مهم (قرمز)"
+msgstr ""
+
+#: inc/modules/contracts.php:478
+msgid "مواد و بندهای قرارداد"
+msgstr ""
+
+#: inc/elementor/widgets/newsletter.php:153
+msgid "موبایل * 09…"
+msgstr ""
+
+#: inc/panel/config.php:254
+msgid "موبایل مدیر برای هشدار شارژ"
+msgstr ""
+
+#: archive.php:34 inc/modules/modern-pages.php:596
+msgid "موبایل و وب"
+msgstr ""
+
+#: inc/panel/config.php:626
+msgid "موتور تبدیل و فشرده‌سازی تصویر"
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:587
+msgid "موجودی فعلی %1$s ریال است و از آستانه‌ی %2$s ریال کمتر است. لطفاً برای ادامه‌ی ارسال پیامک، حساب خود را شارژ کنید."
+msgstr ""
+
+#: inc/modules/contract-payments.php:523
+msgid "موجودی کیف پول کافی نیست. موجودی: %1$s — مبلغ لازم: %2$s"
+msgstr ""
+
+#: inc/modules/editor.php:123
+msgid "مورب"
+msgstr ""
+
+#: inc/modules/newsletter.php:551
+msgid "موضوع (برای ایمیل)"
+msgstr ""
+
+#: template-parts/panel/tickets.php:151
+msgid "موضوع را کوتاه و روشن بنویسید"
+msgstr ""
+
+#: inc/modules/modern-pages.php:164
+msgid "موضوع پیام"
+msgstr ""
+
+#: inc/modules/announcements.php:73
+msgid "موفقیت (سبز)"
+msgstr ""
+
+#: template-parts/panel/contracts.php:190
+msgid "مگابایت"
+msgstr ""
+
+#: template-parts/panel/tickets.php:215
+msgid "میانگین زمان پاسخ‌گویی: کمتر از ۶ ساعت کاری"
+msgstr ""
+
+#: inc/admin/admin.php:841 inc/modules/kpi-dashboard.php:163
+msgid "میانگین سفارش"
+msgstr ""
+
+#: inc/modules/attempts.php:436 template-parts/panel/attempts.php:37
+msgid "میانگین نمره"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:410
+msgid "می‌توانید از HTML و متغیرهای جایگذاری استفاده کنید:"
+msgstr ""
+
+#: inc/modules/editor.php:169
+msgid "می‌توانید تصویر را مستقیم داخل متن بکشید."
+msgstr ""
+
+#: inc/elementor/widgets/map.php:152
+msgid "می‌توانید نشانی مستقیم (https://…) یا تگ کامل <iframe> وارد کنید."
+msgstr ""
+
+#: inc/modules/ticket.php:430
+msgid "ناشناس"
+msgstr ""
+
+#: inc/panel/config.php:525
+msgid "نام امضاکننده‌ی مجری"
+msgstr ""
+
+#: inc/panel/config.php:330
+msgid "نام بانک"
+msgstr ""
+
+#: inc/panel/config.php:70
+msgid "نام سایت (بخش دوم)"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:42
+msgid "نام شرکت"
+msgstr ""
+
+#: inc/modules/modern-pages.php:143 inc/modules/modern-pages.php:203
+msgid "نام شما"
+msgstr ""
+
+#: inc/panel/config.php:523
+msgid "نام طرف اول (مجری)"
+msgstr ""
+
+#: inc/admin/sms-import.php:610 inc/admin/sms-import.php:639
+msgid "نام فهرست"
+msgstr ""
+
+#: inc/admin/code-manager.php:207
+msgid "نام نمایش"
+msgstr ""
+
+#: inc/modules/attempts.php:415
+msgid "نام کاربری / ایمیل"
+msgstr ""
+
+#: inc/admin/code-manager.php:130
+msgid "نام کامپایلر (سرویس)"
+msgstr ""
+
+#: inc/admin/code-manager.php:210
+msgid "نام کامپایلر سرویس"
+msgstr ""
+
+#: inc/panel/config.php:291
+msgid "نام، موبایل و ایمیل کاربرِ واردشده به‌صورت خودکار در فرم قرار می‌گیرد."
+msgstr ""
+
+#: template-parts/panel/licenses.php:14
+msgid "نامحدود"
+msgstr ""
+
+#: inc/admin/sms-page.php:308 inc/admin/sms-page.php:68
+msgid "ناموفق"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:62
+msgid "نتیجه بررسی حداکثر ظرف ۷۲ ساعت کاری از طریق پیامک و گفتگوی قرارداد اعلام می‌شود."
+msgstr ""
+
+#: inc/modules/contract-workflow.php:316
+msgid "نتیجه ثبت شد."
+msgstr ""
+
+#: inc/modules/newsletter.php:633
+msgid "نرخ باز شدن"
+msgstr ""
+
+#: inc/modules/attempts.php:435 template-parts/panel/attempts.php:40
+msgid "نرخ قبولی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:215
+msgid "نرم‌افزار ویندوز"
+msgstr ""
+
+#: inc/panel/config.php:117
+msgid "نسبت به اندازه پایه؛ ۰ یعنی خودکار"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:328
+msgid "نسخه"
+msgstr ""
+
+#: inc/modules/details.php:40
+msgid "نسخه فعلی"
+msgstr ""
+
+#: inc/modules/details.php:209
+msgid "نسخه پروژه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:61
+msgid "نشان (Neshan — کلید API)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:205
+msgid "نشان (بدج) پلن"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:91
+msgid "نشان ملی ثبت رسانه‌های دیجیتال"
+msgstr ""
+
+#: inc/modules/contracts.php:148
+msgid "نشانی"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:527
+msgid "نشانی تصویر"
+msgstr ""
+
+#: inc/modules/contracts.php:994
+msgid "نشانی تصویر لوگو"
+msgstr ""
+
+#: inc/modules/details.php:206
+msgid "نشانی سایت یا اپلیکیشن منتشرشده."
+msgstr ""
+
+#: inc/modules/quiz.php:636
+msgid "نشست آزمون منقضی یا نامعتبر است؛ صفحه را تازه‌سازی کنید."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:363
+msgid "نصب"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:353
+msgid "نصب نشده"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:351
+msgid "نصب، غیرفعال"
+msgstr ""
+
+#: inc/modules/details.php:298 inc/modules/details.php:478
+msgid "نظر کارفرما"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:402 inc/panel/config.php:125
+msgid "نقشه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:348
+msgid "نقشه OpenStreetMap"
+msgstr ""
+
+#: inc/modules/editor.php:127
+msgid "نقل‌قول"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:532
+msgid "نماد آماده"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:106
+msgid "نماد آماده قالب"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:455
+msgid "نماد آماده‌ی قالب"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:88
+msgid "نماد اعتماد الکترونیکی (ای‌نماد)"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:92
+msgid "نماد دلخواه"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:76
+msgid "نمادها"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:69
+msgid "نمادهای <span>اعتماد</span>"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:465
+msgid "نمادهای اعتماد را با کد HTML رسمی، تصویر یا نماد آماده اضافه کنید. اندازه هر نماد را می‌توانید تعیین کنید."
+msgstr ""
+
+#: inc/woocommerce.php:1082
+msgid "نمایش %1$s تا %2$s از %3$s محصول"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php:96
+msgid "نمایش آمار در ستون کناری"
+msgstr ""
+
+#: inc/panel/config.php:569
+msgid "نمایش ایمیل روی فاکتور"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:232
+msgid "نمایش برچسب زیر نماد"
+msgstr ""
+
+#: inc/panel/config.php:572
+msgid "نمایش تخفیف‌ها"
+msgstr ""
+
+#: inc/woocommerce.php:1072
+msgid "نمایش تنها نتیجه"
+msgstr ""
+
+#: inc/panel/config.php:294
+msgid "نمایش خلاصه سفارش"
+msgstr ""
+
+#: inc/modules/contracts.php:998
+msgid "نمایش در پنل کاربران"
+msgstr ""
+
+#: inc/panel/config.php:293
+msgid "نمایش صندوق کد تخفیف"
+msgstr ""
+
+#: inc/panel/config.php:392
+msgid "نمایش فیلد ورودی استاندارد (stdin)"
+msgstr ""
+
+#: inc/panel/config.php:571
+msgid "نمایش مالیات"
+msgstr ""
+
+#: inc/panel/config.php:570
+msgid "نمایش موبایل روی فاکتور"
+msgstr ""
+
+#: inc/woocommerce.php:1076
+msgid "نمایش همه‌ی %s نتیجه"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:168
+msgid "نمایش پین روی نقشه"
+msgstr ""
+
+#: inc/panel/config.php:555
+msgid "نمایش کدهای کاربر در سبد خرید"
+msgstr ""
+
+#: inc/panel/config.php:576
+msgid "نمایش یک‌جا آمار کلیدی فروش، درآمد، مشترک‌ها و عملکرد در یک صفحه."
+msgstr ""
+
+#: inc/modules/attempts.php:463 template-parts/panel/attempts.php:54 template-parts/panel/dashboard.php:216
+msgid "نمره"
+msgstr ""
+
+#: inc/modules/quiz.php:1346
+msgid "نمره قبولی:"
+msgstr ""
+
+#: template-parts/panel/attempts.php:25
+msgid "نمره‌ها و نتایج آزمون‌ها و تمرین‌های شما در اینجا ثبت شده است."
+msgstr ""
+
+#: inc/admin/admin.php:868
+msgid "نمودار تعاملی درآمد"
+msgstr ""
+
+#: inc/admin/admin.php:869
+msgid "نمودار درآمد"
+msgstr ""
+
+#: inc/admin/admin.php:876
+msgid "نمودار درگاه"
+msgstr ""
+
+#: inc/admin/admin.php:880
+msgid "نمودار ماهانه"
+msgstr ""
+
+#: single-zc_project.php:320
+msgid "نمونه‌کارهای مرتبط"
+msgstr ""
+
+#: inc/panel/config.php:526
+msgid "نمونه‌ی خروجی: ZC-۱۴۰۴-۱۲"
+msgstr ""
+
+#: inc/panel/config.php:79
+msgid "نوار طلایی باریک در بالای صفحه که میزان پیمایش را نشان می‌دهد."
+msgstr ""
+
+#: inc/panel/config.php:79
+msgid "نوار پیشرفت اسکرول"
+msgstr ""
+
+#: inc/modules/announcements.php:241
+msgid "نوار چسبان بماند"
+msgstr ""
+
+#: inc/modules/details.php:82
+msgid "نوع لایسنس"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:84
+msgid "نوع نماد"
+msgstr ""
+
+#: inc/modules/contracts.php:973
+msgid "نوع‌های مجاز: text، textarea، number، date، tel، email، select — برای الزامی بودن عدد ۱ بگذارید. گزینه‌های select را با «،» جدا کنید."
+msgstr ""
+
+#: inc/modules/plugin-manager.php:356
+msgid "نیاز به به‌روزرسانی"
+msgstr ""
+
+#: archive.php:57 inc/modules/modern-pages.php:643
+msgid "نیاز به خدمات تخصصی دارید؟"
+msgstr ""
+
+#: inc/modules/modern-pages.php:444
+msgid "نیاز به مشاوره دارید؟"
+msgstr ""
+
+#: inc/modules/modern-pages.php:547
+msgid "نیاز شما را می‌شنویم و راهکار پیشنهاد می‌دهیم."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1209
+msgid "هدیه دادن"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1220
+msgid "هدیه دادن اشتراک"
+msgstr ""
+
+#: inc/modules/subscriptions.php:893
+msgid "هدیه‌ی «%s» با موفقیت ارسال شد."
+msgstr ""
+
+#: inc/modules/subscriptions.php:587
+msgid "هدیه‌ی اشتراک «%1$s» به %2$s ارسال شد."
+msgstr ""
+
+#: inc/metabox.php:536
+msgid "هر ابزار در یک خط. در ستون کناری نمایش داده می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:626
+msgid "هر تصویری که آپلود می‌شود به‌صورت خودکار به WebP تبدیل شده، حجمش بدون افت محسوس کیفیت کاهش می‌یابد و فایل اصلی حذف می‌شود. نسخه‌های WebP همهٔ سایزها ساخته می‌شود."
+msgstr ""
+
+#: inc/modules/contracts.php:980
+msgid "هر خط یک بند با ساختار «عنوان | متن». شناسه‌ها داخل متن قابل استفاده‌اند."
+msgstr ""
+
+#: inc/modules/contracts.php:985
+msgid "هر خط یک تبصره."
+msgstr ""
+
+#: inc/modules/contracts.php:971
+msgid "هر خط یک فیلد سفارشی است با ساختار:"
+msgstr ""
+
+#: inc/modules/contract-payments.php:895
+msgid "هر خط یک مرحله پرداخت است با ساختار:"
+msgstr ""
+
+#: inc/metabox.php:529
+msgid "هر خط: برچسب | مقدار — مثال: پروژه انجام‌شده | +۱۲۰"
+msgstr ""
+
+#: inc/panel/config.php:527
+msgid "هر خط: عنوان | درصد مبلغ | درصد پیشرفت آزادکننده | توضیح — مجموع درصدها باید ۱۰۰ باشد. این مقدار برای الگوهایی استفاده می‌شود که مراحل اختصاصی ندارند."
+msgstr ""
+
+#: inc/modules/details.php:164
+msgid "هر خط: عنوان | مقدار"
+msgstr ""
+
+#: inc/modules/details.php:288
+msgid "هر خط: عنوان | مقدار — مثال: افزایش فروش | ۲۱۰٪"
+msgstr ""
+
+#: inc/modules/details.php:170
+msgid "هر خط: عنوان | مقدار — مثال: وردپرس | ۶.۰ تا ۶.۷"
+msgstr ""
+
+#: inc/metabox.php:522
+msgid "هر خط: عنوان مرحله | توضیح کوتاه — مثال: تحلیل نیاز | بررسی کسب‌وکار و تدوین نقشه راه"
+msgstr ""
+
+#: inc/modules/details.php:294
+msgid "هر خط: مرحله | زمان | شرح"
+msgstr ""
+
+#: inc/modules/details.php:176
+msgid "هر خط: نسخه | تاریخ | شرح تغییرات"
+msgstr ""
+
+#: inc/metabox.php:543
+msgid "هر خط: پرسش | پاسخ"
+msgstr ""
+
+#: inc/panel/config.php:307
+msgid "هر درگاه را می‌توانید از صفحه «ووکامرس ← تنظیمات ← پرداخت» فعال/غیرفعال و عنوان/توضیحات آن را ویرایش کنید. کلیدهای API را در این بخش وارد کنید."
+msgstr ""
+
+#: inc/modules/details.php:538
+msgid "هر فیلدی که پر کنید در صفحه‌ی سایت نمایش داده می‌شود و هر فیلدی که خالی بماند به‌طور کامل حذف می‌شود."
+msgstr ""
+
+#: inc/modules/details.php:139
+msgid "هر مزیت در یک خط. کنار دکمه خرید نمایش داده می‌شود."
+msgstr ""
+
+#: inc/modules/details.php:276
+msgid "هر مورد در یک خط. مثال: Laravel 11"
+msgstr ""
+
+#: template-parts/panel/announcements.php:28
+msgid "هر وقت خبر تازه‌ای باشد، همین‌جا به شما نشان می‌دهیم."
+msgstr ""
+
+#: inc/modules/details.php:145 inc/modules/details.php:264
+msgid "هر ویژگی در یک خط."
+msgstr ""
+
+#: inc/panel/config.php:581
+msgid "هر کاربر لینک اختصاصی معرفی می‌گیرد و برای هر فروشِ ثبت‌شده از طریق آن، کمیسیون به کیف پولش واریز می‌شود."
+msgstr ""
+
+#: inc/modules/subscriptions.php:215
+msgid "هرچه عدد بزرگ‌تر باشد، پلن بالاتر است؛ ارتقا به عدد بزرگ‌تر و تنزل به عدد کوچک‌تر مجاز است."
+msgstr ""
+
+#: inc/admin/sms-page.php:113 inc/admin/sms-page.php:443
+msgid "هزینه (ریال)"
+msgstr ""
+
+#: inc/admin/sms-page.php:456
+msgid "هزینه بر اساس طول هر پیام و قیمت هر بخش (تنظیمات قالب ← پیامک) برآورد می‌شود."
+msgstr ""
+
+#: inc/admin/sms-page.php:131
+msgid "هزینه بر اساس طول هر پیام و قیمت هر بخش (تنظیمات ← پیامک) برآورد می‌شود."
+msgstr ""
+
+#: inc/admin/sms-page.php:438
+msgid "هزینه کل (ریال)"
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:270
+msgid "هزینه‌ی برآوردی %1$s ریال است و موجودی شما %2$s ریال می‌باشد."
+msgstr ""
+
+#: inc/admin/sms-page.php:86
+msgid "هزینه‌ی برآوردی پیامک (ریال، %s روز)"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:25
+msgid "هسته زرین کد"
+msgstr ""
+
+#: inc/modules/announcements.php:77
+msgid "هشدار (کهربایی)"
+msgstr ""
+
+#: inc/panel/config.php:252
+msgid "هشدار خودکار موجودی پایین"
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:635
+msgid "هشدار موجودی پیامک زرین کد"
+msgstr ""
+
+#: inc/panel/config.php:590
+msgid "هفتگی"
+msgstr ""
+
+#: inc/panel/config.php:541
+msgid "همراه لینک مستقیم دو ربات ارسال می‌شود و فقط یک‌بار برای هر کاربر می‌رود."
+msgstr ""
+
+#: inc/modules/modern-pages.php:637
+msgid "همراهی پس از تحویل"
+msgstr ""
+
+#: inc/modules/announcements.php:40
+msgid "همه اطلاعیه‌ها"
+msgstr ""
+
+#: inc/modules/announcements.php:98
+msgid "همه بازدیدکنندگان"
+msgstr ""
+
+#: inc/modules/practice.php:42
+msgid "همه تمرین‌ها"
+msgstr ""
+
+#: template-parts/panel/dashboard.php:206
+msgid "همه سوابق"
+msgstr ""
+
+#: inc/modules/subscriptions.php:48
+msgid "همه پلن‌ها"
+msgstr ""
+
+#: inc/modules/attempts.php:481 inc/modules/quiz.php:1373
+msgid "همهٔ سوالات"
+msgstr ""
+
+#: inc/panel/config.php:521
+msgid "همه‌ی تاریخ‌های سایت، پیشخوان و ووکامرس شمسی می‌شوند و فیلدهای تاریخ، تاریخ‌گزین شمسی می‌گیرند."
+msgstr ""
+
+#: inc/panel/config.php:615
+msgid "همه‌ی شیوه‌نامه‌ها و اسکریپت‌های قالب در یک فایل فشرده ادغام می‌شوند. در حالت WP_DEBUG خودکار غیرفعال است."
+msgstr ""
+
+#: inc/admin/sms-import.php:672
+msgid "همه‌ی مخاطبان"
+msgstr ""
+
+#: inc/admin/sms-page.php:239
+msgid "همه‌ی کاربران"
+msgstr ""
+
+#: inc/modules/newsletter.php:545
+msgid "همه‌ی کانال‌ها"
+msgstr ""
+
+#: inc/modules/modern-pages.php:159
+msgid "همکاری"
+msgstr ""
+
+#: inc/modules/modern-pages.php:508
+msgid "همگام با آخرین فناوری‌های روز"
+msgstr ""
+
+#: inc/modules/announcements.php:1010
+msgid "همیشه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:402
+msgid "همیشه در کنار شما هستیم"
+msgstr ""
+
+#: inc/modules/modern-pages.php:517
+msgid "همین حالا با ما در تماس باشید یا از دوره‌های ما دیدن کنید."
+msgstr ""
+
+#: archive.php:58 inc/modules/modern-pages.php:644
+msgid "همین حالا درخواست خود را ثبت کنید یا مشاوره رایگان بگیرید."
+msgstr ""
+
+#: template-parts/panel/subscription.php:119
+msgid "هنوز اشتراک فعالی ندارید"
+msgstr ""
+
+#: template-parts/panel/attempts.php:62
+msgid "هنوز تلاشی ثبت نشده است."
+msgstr ""
+
+#: template-parts/panel/practice.php:82
+msgid "هنوز تمرینی ثبت نشده است. به‌زودی تمرین‌های جدید اضافه می‌شود."
+msgstr ""
+
+#: template-parts/panel/dashboard.php:233
+msgid "هنوز در آزمون یا تمرینی شرکت نکرده‌اید."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1962
+msgid "هنوز درآمدی ثبت نشده است."
+msgstr ""
+
+#: template-parts/panel/affiliate.php:84
+msgid "هنوز فروشی با لینک شما ثبت نشده است."
+msgstr ""
+
+#: template-parts/panel/contracts.php:326
+msgid "هنوز قراردادی ثبت نکرده‌اید."
+msgstr ""
+
+#: template-parts/panel/licenses.php:10
+msgid "هنوز لایسنسی برای شما صادر نشده است."
+msgstr ""
+
+#: inc/admin/sms-import.php:634
+msgid "هنوز مخاطبی درون‌ریزی نشده است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1130
+msgid "هنوز پلن اشتراکی تعریف نشده است."
+msgstr ""
+
+#: inc/admin/sms-page.php:284
+msgid "هنوز پیامکی ارسال نشده است."
+msgstr ""
+
+#: inc/modules/newsletter.php:619
+msgid "هنوز کمپینی ارسال نشده است."
+msgstr ""
+
+#: inc/admin/chats-page.php:109
+msgid "هنوز گفتگویی ثبت نشده است."
+msgstr ""
+
+#: inc/admin/sms-import.php:387
+msgid "هیچ سطری در فایل خوانده نشد."
+msgstr ""
+
+#: inc/modules/modern-pages.php:416
+msgid "واتساپ و پیامک"
+msgstr ""
+
+#: inc/panel/config.php:310
+msgid "واحد ارسالی زرین‌پال"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:77
+msgid "واریزشده"
+msgstr ""
+
+#: inc/modules/modern-pages.php:622
+msgid "وردپرس و ووکامرس"
+msgstr ""
+
+#: inc/elementor/base-widget.php:422
+msgid "ورود از عمق"
+msgstr ""
+
+#: woocommerce/single-product.php:318
+msgid "ورود به دمو:"
+msgstr ""
+
+#: inc/modules/newsletter.php:432
+msgid "ورود مخاطبین از فایل اکسل"
+msgstr ""
+
+#: inc/modules/quiz.php:418
+msgid "ورودی استاندارد (stdin) — اختیاری"
+msgstr ""
+
+#: inc/panel/config.php:115
+msgid "وزن فونت عنوان‌ها"
+msgstr ""
+
+#: inc/panel/config.php:114
+msgid "وزن فونت متن"
+msgstr ""
+
+#: inc/helpers.php:54
+msgid "وزیرمتن (Vazirmatn)"
+msgstr ""
+
+#: inc/modules/newsletter.php:634
+msgid "وضعیت / عملیات"
+msgstr ""
+
+#: inc/modules/contracts.php:1187
+msgid "وضعیت قرارداد %1$s به «%2$s» تغییر کرد."
+msgstr ""
+
+#: inc/modules/contract-payments.php:847
+msgid "وضعیت پرداخت و تحویل پروژه"
+msgstr ""
+
+#: inc/modules/chat.php:448
+msgid "وضعیت گفتگو بروزرسانی شد."
+msgstr ""
+
+#: inc/panel/config.php:252
+msgid "وقتی موجودی کاوه‌نگار کمتر از آستانه باشد، در پیشخوان هشدار نمایش داده می‌شود."
+msgstr ""
+
+#: inc/modules/details.php:122 woocommerce/single-product.php:174
+msgid "ویدیوی معرفی"
+msgstr ""
+
+#: inc/modules/announcements.php:39
+msgid "ویرایش اطلاعیه"
+msgstr ""
+
+#: inc/modules/contracts.php:37
+msgid "ویرایش الگوی قرارداد"
+msgstr ""
+
+#: inc/modules/practice.php:41
+msgid "ویرایش تمرین"
+msgstr ""
+
+#: inc/modules/subscriptions.php:45
+msgid "ویرایش پلن"
+msgstr ""
+
+#: inc/panel/config.php:606
+msgid "ویرایشگر کلاسیک و المنتور جایگزین می‌شوند و استایل‌های بلوکی حذف می‌شود."
+msgstr ""
+
+#: inc/modules/announcements.php:85
+msgid "ویژه (طلایی)"
+msgstr ""
+
+#: woocommerce/single-product.php:189
+msgid "ویژگی‌های محصول"
+msgstr ""
+
+#: single-zc_project.php:180
+msgid "ویژگی‌های پروژه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:199
+msgid "ویژگی‌های پلن (هر خط یک مورد)"
+msgstr ""
+
+#: inc/modules/details.php:142
+msgid "ویژگی‌های کامل محصول"
+msgstr ""
+
+#: inc/modules/details.php:261
+msgid "ویژگی‌های کامل پروژه"
+msgstr ""
+
+#: inc/modules/rewards.php:353
+msgid "پاداش فعال‌سازی اطلاع‌رسانی %s"
+msgstr ""
+
+#: inc/panel/config.php:533
+msgid "پاداش و کد تخفیف"
+msgstr ""
+
+#: inc/modules/chat.php:415
+msgid "پاسخ ارسال شد."
+msgstr ""
+
+#: inc/modules/ticket.php:437
+msgid "پاسخ به تیکت"
+msgstr ""
+
+#: inc/modules/contract-chat.php:316
+msgid "پاسخ تازه در گفتگوی قرارداد %1$s\n%2$s"
+msgstr ""
+
+#: inc/admin/chats-page.php:185
+msgid "پاسخ خود را بنویسید… (Ctrl+Enter برای ارسال)"
+msgstr ""
+
+#: inc/modules/chat.php:564
+msgid "پاسخ در پیشخوان"
+msgstr ""
+
+#: inc/modules/quiz.php:664
+msgid "پاسخ درست نیست، دوباره تلاش کنید."
+msgstr ""
+
+#: inc/modules/quiz.php:394
+msgid "پاسخ را بنویسید…"
+msgstr ""
+
+#: inc/modules/modern-pages.php:407
+msgid "پاسخ زیر ۲۴ ساعت"
+msgstr ""
+
+#: inc/modules/quiz.php:977
+msgid "پاسخ صحیح:"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:54
+msgid "پاسخ مجری:"
+msgstr ""
+
+#: inc/modules/quiz.php:280
+msgid "پاسخ نامعتبر از سرویس اجرای کد دریافت شد."
+msgstr ""
+
+#: inc/panel/config.php:438
+msgid "پاسخ‌های خودکار"
+msgstr ""
+
+#: inc/modules/quiz.php:987
+msgid "پاسخ‌های پذیرفتنی (با , جدا کنید):"
+msgstr ""
+
+#: inc/modules/jalali.php:404 template-parts/panel/contract-sign.php:58
+msgid "پاک کردن"
+msgstr ""
+
+#: inc/modules/editor.php:130
+msgid "پاک‌کردن قالب"
+msgstr ""
+
+#: inc/modules/announcements.php:198
+msgid "پایان نمایش"
+msgstr ""
+
+#: inc/admin/code-manager.php:137
+msgid "پایه"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:17
+msgid "پذیرفته شد"
+msgstr ""
+
+#: inc/panel/config.php:291
+msgid "پر کردن خودکار فیلدها از پروفایل کاربر"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1049
+msgid "پربازده‌ترین انتخاب برای کاربران حرفه‌ای."
+msgstr ""
+
+#: inc/modules/contract-payments.php:376 inc/modules/contract-payments.php:537 inc/modules/contract-payments.php:589
+msgid "پرداخت %1$s قرارداد %2$s"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:177
+msgid "پرداخت آنلاین"
+msgstr ""
+
+#: inc/modules/gateways.php:59 inc/modules/gateways.php:74
+msgid "پرداخت آنلاین ای‌دی‌پی"
+msgstr ""
+
+#: inc/modules/gateways.php:245 inc/modules/gateways.php:260
+msgid "پرداخت آنلاین پی‌آی‌آر"
+msgstr ""
+
+#: inc/modules/gateways.php:410 inc/modules/gateways.php:423
+msgid "پرداخت از طریق کارت‌به‌کارت و تأیید دستی"
+msgstr ""
+
+#: inc/modules/gateways.php:53
+msgid "پرداخت امن آنلاین از طریق درگاه ای‌دی‌پی."
+msgstr ""
+
+#: inc/modules/gateways.php:239
+msgid "پرداخت امن آنلاین از طریق درگاه پی‌آی‌آر."
+msgstr ""
+
+#: inc/modules/checkout-manager.php:378
+msgid "پرداخت امن زرین‌پال"
+msgstr ""
+
+#: inc/modules/contract-payments.php:553
+msgid "پرداخت با موفقیت از کیف پول انجام شد."
+msgstr ""
+
+#: inc/modules/gateways.php:225 inc/modules/gateways.php:389
+msgid "پرداخت با موفقیت انجام شد."
+msgstr ""
+
+#: inc/modules/contract-payments.php:679
+msgid "پرداخت با موفقیت انجام شد. کد پیگیری: %s"
+msgstr ""
+
+#: inc/modules/gateways.php:439
+msgid "پرداخت به کارت:"
+msgstr ""
+
+#: inc/modules/wallet.php:588
+msgid "پرداخت تأیید شد اما ثبت موجودی ناموفق بود؛ با پشتیبانی تماس بگیرید."
+msgstr ""
+
+#: inc/modules/contract-payments.php:415
+msgid "پرداخت تازه\nقرارداد: %1$s\nمرحله: %2$s\nمبلغ: %3$s"
+msgstr ""
+
+#: inc/modules/gateways.php:297
+msgid "پرداخت سفارش %s"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:188
+msgid "پرداخت شد"
+msgstr ""
+
+#: inc/modules/contract-payments.php:993
+msgid "پرداخت شده"
+msgstr ""
+
+#: inc/modules/contract-payments.php:405
+msgid "پرداخت شما ثبت شد ✅\nمبلغ: %1$s\nقرارداد: %2$s"
+msgstr ""
+
+#: inc/modules/zarinpal.php:468
+msgid "پرداخت قطعی سفارش #%s از کیف پول"
+msgstr ""
+
+#: inc/modules/contract-payments.php:643
+msgid "پرداخت لغو شد یا اطلاعات تراکنش معتبر نبود."
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:22
+msgid "پرداخت مرحله‌ای"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:62
+msgid "پرداخت مرحله‌ای پروژه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:852
+msgid "پرداخت مستقیم فعال نیست. لطفاً با پشتیبانی تماس بگیرید."
+msgstr ""
+
+#: inc/modules/gateways.php:209
+msgid "پرداخت موفق ای‌دی‌پی. کد پیگیری: %s"
+msgstr ""
+
+#: inc/modules/sms-messages.php:37
+msgid "پرداخت موفق سفارش"
+msgstr ""
+
+#: inc/modules/gateways.php:373
+msgid "پرداخت موفق پی‌آی‌آر. کد پیگیری: %s"
+msgstr ""
+
+#: inc/modules/contract-payments.php:45
+msgid "پرداخت میانی"
+msgstr ""
+
+#: inc/modules/sms-messages.php:38
+msgid "پرداخت ناموفق سفارش"
+msgstr ""
+
+#: inc/modules/gateways.php:409 inc/modules/gateways.php:422 inc/panel/config.php:326
+msgid "پرداخت کارت به کارت"
+msgstr ""
+
+#: inc/modules/gateways.php:468
+msgid "پرداخت کارت‌به‌کارت سفارش #%s در انتظار تأیید است. کد پیگیری: %s"
+msgstr ""
+
+#: inc/modules/gateways.php:403
+msgid "پرداخت کارت‌به‌کارت؛ کاربر پس از واریز، کد پیگیری را ثبت می‌کند و پس از تأیید مدیر سفارش تکمیل می‌شود."
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:84
+msgid "پرداخت‌شده"
+msgstr ""
+
+#: inc/modules/contract-payments.php:1034
+msgid "پرداخت‌شده:"
+msgstr ""
+
+#: inc/elementor/base-widget.php:425
+msgid "پرده‌ی بالارونده"
+msgstr ""
+
+#: inc/metabox.php:540 single-zc_service.php:249
+msgid "پرسش‌های متداول"
+msgstr ""
+
+#: inc/admin/admin.php:912 inc/modules/kpi-dashboard.php:177
+msgid "پرفروش‌ترین‌ها"
+msgstr ""
+
+#: inc/modules/modern-pages.php:475
+msgid "پروژه تحویل‌شده"
+msgstr ""
+
+#: inc/elementor/widgets/request-form.php:119 inc/elementor/widgets/request-form.php:132 inc/modules/modern-pages.php:466 inc/modules/modern-pages.php:573
+msgid "پروژه موفق"
+msgstr ""
+
+#: single-zc_project.php:286
+msgid "پروژه‌ای مشابه دارید؟"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:155
+msgid "پس از امضای قرارداد فعال می‌شود."
+msgstr ""
+
+#: inc/modules/contract-payments.php:42
+msgid "پس از امضای قرارداد و پیش از شروع عملیات اجرایی"
+msgstr ""
+
+#: inc/modules/contract-payments.php:54
+msgid "پس از تکمیل ۱۰۰ درصد پروژه و پیش از تحویل فایل‌ها"
+msgstr ""
+
+#: inc/panel/config.php:630
+msgid "پس از ساخت WebP، فایل JPG/PNG اصلی حذف می‌شود تا فضای هاست آزاد بماند."
+msgstr ""
+
+#: inc/admin/code-manager.php:213
+msgid "پسوند فایل"
+msgstr ""
+
+#: inc/modules/modern-pages.php:708
+msgid "پشت هر محصول و خدمتی که ارائه می‌دهیم، تعهد کتبی ما ایستاده است."
+msgstr ""
+
+#: inc/admin/chats-page.php:172 inc/admin/chats-page.php:226
+msgid "پشتیبان"
+msgstr ""
+
+#: inc/modules/subscriptions.php:190 inc/modules/subscriptions.php:406
+msgid "پشتیبانی اولویت‌دار"
+msgstr ""
+
+#: inc/modules/modern-pages.php:408
+msgid "پشتیبانی تخصصی"
+msgstr ""
+
+#: inc/modules/subscriptions.php:194
+msgid "پشتیبانی سریع و اولویت‌دار"
+msgstr ""
+
+#: inc/modules/modern-pages.php:496
+msgid "پشتیبانی مستقیم"
+msgstr ""
+
+#: single-zc_service.php:330
+msgid "پشتیبانی پس از تحویل"
+msgstr ""
+
+#: inc/panel/config.php:588
+msgid "پشتیبان‌گیری خودکار از دیتابیس و ارسال به تلگرام/بله یا ذخیره‌ی محلی."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1955
+msgid "پلن"
+msgstr ""
+
+#: inc/modules/subscriptions.php:42
+msgid "پلن اشتراک"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1520
+msgid "پلن انتخابی از این تخفیف مستثنا است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:223
+msgid "پلن برای خرید فعال است"
+msgstr ""
+
+#: inc/modules/subscriptions.php:46
+msgid "پلن جدید"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1048
+msgid "پلن سالانه (پیشنهادی)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1059
+msgid "پلن مادام‌العمر"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1038
+msgid "پلن ماهانه"
+msgstr ""
+
+#: inc/modules/subscriptions.php:827
+msgid "پلن نامعتبر است."
+msgstr ""
+
+#: inc/modules/subscriptions.php:50
+msgid "پلنی یافت نشد"
+msgstr ""
+
+#: inc/modules/subscriptions.php:41 template-parts/panel/subscription.php:127
+msgid "پلن‌های اشتراک"
+msgstr ""
+
+#: inc/modules/announcements.php:113
+msgid "پنجره شناور"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:54
+msgid "پنل تنظیمات پیشرفته‌ی قالب."
+msgstr ""
+
+#: inc/admin/sms-page.php:221 inc/modules/sms-campaigns.php:774
+msgid "پیام آزمایشی زرین کد."
+msgstr ""
+
+#: inc/modules/contract-chat.php:304
+msgid "پیام تازه در گفتگوی قرارداد %1$s\n%2$s"
+msgstr ""
+
+#: inc/panel/config.php:544
+msgid "پیام تبریک داخل ربات"
+msgstr ""
+
+#: inc/panel/config.php:434
+msgid "پیام خارج از ساعت کاری"
+msgstr ""
+
+#: inc/modules/chat.php:120
+msgid "پیام شما ثبت شد. اکنون خارج از ساعت کاری هستیم و در اولین فرصت پاسخ می‌دهیم."
+msgstr ""
+
+#: inc/modules/modern-pages.php:132
+msgid "پیام شما حداکثر تا یک روز کاری پاسخ داده می‌شود."
+msgstr ""
+
+#: inc/modules/chat.php:376
+msgid "پیام یا جلسه نامعتبر است."
+msgstr ""
+
+#: inc/modules/newsletter.php:646
+msgid "پیامک"
+msgstr ""
+
+#: inc/modules/newsletter.php:541
+msgid "پیامک (موبایل)"
+msgstr ""
+
+#: inc/modules/newsletter.php:543 inc/modules/newsletter.php:648
+msgid "پیامک + ایمیل"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:777
+msgid "پیامک آزمایشی ارسال شد."
+msgstr ""
+
+#: inc/admin/sms-page.php:356
+msgid "پیامک برای همه‌ی کاربران انتخاب‌شده ارسال شود؟"
+msgstr ""
+
+#: inc/panel/config.php:542
+msgid "پیامک تأیید پس از فعال‌سازی ربات"
+msgstr ""
+
+#: inc/admin/sms-page.php:18 inc/admin/sms-page.php:19
+msgid "پیامک و کارزارها"
+msgstr ""
+
+#: inc/admin/sms-page.php:41
+msgid "پیامک و کارزارهای خودکار"
+msgstr ""
+
+#: inc/modules/sms-messages.php:49
+msgid "پیامک گروهی"
+msgstr ""
+
+#: template-parts/panel/contract-terminate.php:91
+msgid "پیش از ثبت درخواست بخوانید"
+msgstr ""
+
+#: inc/modules/modern-pages.php:565
+msgid "پیش از شروع، بدون هزینه"
+msgstr ""
+
+#: template-parts/panel/contract-payments.php:97
+msgid "پیشرفت پرداخت"
+msgstr ""
+
+#: template-parts/panel/contracts.php:62
+msgid "پیشرفت پروژه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:635
+msgid "پیشنهاد و برآورد"
+msgstr ""
+
+#: inc/modules/plugin-manager.php:339
+msgid "پیشنهادی"
+msgstr ""
+
+#: inc/panel/config.php:568
+msgid "پیشوند شماره فاکتور"
+msgstr ""
+
+#: inc/panel/config.php:526
+msgid "پیشوند شماره قرارداد"
+msgstr ""
+
+#: inc/panel/config.php:112
+msgid "پیش‌فرض: صمیم"
+msgstr ""
+
+#: woocommerce/single-product.php:295
+msgid "پیش‌نمایش اصلی"
+msgstr ""
+
+#: woocommerce/single-product.php:302
+msgid "پیش‌نمایش فارسی"
+msgstr ""
+
+#: inc/modules/details.php:474
+msgid "پیش‌نمایش و لینک‌ها"
+msgstr ""
+
+#: inc/modules/contracts.php:84
+msgid "پیش‌نویس"
+msgstr ""
+
+#: inc/modules/contracts.php:711
+msgid "پیش‌نویس قرارداد آماده شد. لطفاً متن را مطالعه کنید."
+msgstr ""
+
+#: inc/modules/contract-payments.php:39
+msgid "پیش‌پرداخت"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:162
+msgid "پین موقعیت (لوگو و توضیحات)"
+msgstr ""
+
+#: template-parts/panel/contract-chat.php:101
+msgid "پیوست فایل"
+msgstr ""
+
+#: inc/modules/ticket.php:370
+msgid "پیوست فایل غیرفعال است."
+msgstr ""
+
+#: inc/modules/editor.php:129
+msgid "پیوند"
+msgstr ""
+
+#: inc/modules/modern-pages.php:567
+msgid "پیگیری در هر مرحله"
+msgstr ""
+
+#: inc/modules/gateways.php:238
+msgid "پی‌آی‌آر (زرین کد)"
+msgstr ""
+
+#: inc/modules/details.php:249 single-zc_project.php:144
+msgid "چالش پروژه"
+msgstr ""
+
+#: template-parts/contract-print.php:106
+msgid "چاپ / ذخیره PDF"
+msgstr ""
+
+#: inc/elementor/base-widget.php:423
+msgid "چرخش ورقه‌ای"
+msgstr ""
+
+#: inc/modules/modern-pages.php:544
+msgid "چطور <span>پیش می‌رویم</span>؟"
+msgstr ""
+
+#: inc/modules/modern-pages.php:412
+msgid "چطور می‌توانیم <span>کمک کنیم</span>؟"
+msgstr ""
+
+#: inc/panel/config.php:547
+msgid "چند روز پس از ثبت‌نام؟"
+msgstr ""
+
+#: inc/panel/config.php:265
+msgid "چند ساعت پس از ترک درگاه؟"
+msgstr ""
+
+#: inc/modules/quiz.php:963
+msgid "چندگزینه‌ای"
+msgstr ""
+
+#: inc/modules/details.php:151
+msgid "چه چیزهایی همراه فایل تحویل می‌شود."
+msgstr ""
+
+#: inc/panel/config.php:290
+msgid "چیدمان صفحه تسویه"
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:53
+msgid "کادر امضا"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:182
+msgid "کادردار سفید"
+msgstr ""
+
+#: inc/modules/credential-manager.php:71
+msgid "کاربر / محصول"
+msgstr ""
+
+#: inc/panel/config.php:539
+msgid "کاربر با فعال‌سازی هر دو ربات، دو برابر این مقدار تخفیف می‌گیرد."
+msgstr ""
+
+#: inc/modules/announcements.php:235
+msgid "کاربر بتواند ببندد"
+msgstr ""
+
+#: inc/panel/config.php:584
+msgid "کاربر برای درخواست تسویه باید به این مبلغ رسیده باشد."
+msgstr ""
+
+#: inc/panel/config.php:326
+msgid "کاربر شماره کارت را می‌بیند، پرداخت می‌کند و تصویر رسید/کد پیگیری را ثبت می‌کند؛ پس از تأیید مدیر سفارش تکمیل می‌شود."
+msgstr ""
+
+#: inc/admin/chats-page.php:114 inc/modules/chat.php:553
+msgid "کاربر مهمان"
+msgstr ""
+
+#: inc/modules/attempts.php:433
+msgid "کاربران"
+msgstr ""
+
+#: inc/modules/contracts.php:1002
+msgid "کاربران بتوانند از این الگو قرارداد جدید بسازند."
+msgstr ""
+
+#: inc/admin/sms-page.php:188
+msgid "کاربرانی که %1$s ماه خرید نکرده‌اند، کد تخفیف %2$s٪ می‌گیرند."
+msgstr ""
+
+#: inc/admin/sms-page.php:241
+msgid "کاربرانی که هرگز خرید نکرده‌اند"
+msgstr ""
+
+#: inc/modules/subscriptions.php:835
+msgid "کاربرِ گیرنده یافت نشد. ایمیل یا نام‌کاربری را بررسی کنید."
+msgstr ""
+
+#: inc/modules/gateways.php:402
+msgid "کارت به کارت (زرین کد)"
+msgstr ""
+
+#: inc/admin/sms-page.php:144
+msgid "کارزار"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:742
+msgid "کارزار نامعتبر."
+msgstr ""
+
+#: inc/admin/sms-page.php:139
+msgid "کارزارهای خودکار"
+msgstr ""
+
+#: inc/panel/config.php:257
+msgid "کارزارهای خودکار پیامکی"
+msgstr ""
+
+#: inc/modules/modern-pages.php:445
+msgid "کارشناسان ما آماده‌اند تا به پرسش‌های شما پاسخ دهند."
+msgstr ""
+
+#: single-zc_project.php:69
+msgid "کارفرما: %s"
+msgstr ""
+
+#: inc/admin/code-manager.php:109 inc/admin/code-manager.php:26 inc/admin/code-manager.php:27
+msgid "کامپایلر و زبان‌ها"
+msgstr ""
+
+#: inc/modules/newsletter.php:627
+msgid "کانال"
+msgstr ""
+
+#: inc/modules/newsletter.php:538
+msgid "کانال ارسال"
+msgstr ""
+
+#: inc/modules/newsletter.php:721
+msgid "کانال، متن یا فهرست مخاطبان معتبر نیست."
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:35 inc/panel/config.php:251
+msgid "کاوه‌نگار"
+msgstr ""
+
+#: inc/modules/credential-manager.php:85 inc/modules/editor.php:128
+msgid "کد"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:453
+msgid "کد HTML رسمی (زرین‌پال / ای‌نماد / ساماندهی)"
+msgstr ""
+
+#: inc/panel/fallback-panel.php:521
+msgid "کد HTML نماد"
+msgstr ""
+
+#: inc/panel/config.php:174
+msgid "کد HTML نمادهای اعتماد (اختیاری)"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:396
+msgid "کد iframe وارد نشده است."
+msgstr ""
+
+#: inc/modules/rewards.php:92
+msgid "کد اختصاصی زرین کد برای %s"
+msgstr ""
+
+#: inc/modules/sms-messages.php:45
+msgid "کد امضای قرارداد"
+msgstr ""
+
+#: inc/modules/quiz.php:1002
+msgid "کد اولیهٔ ادیتور (اختیاری):"
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:43
+msgid "کد به شماره‌ی موبایل ثبت‌شده در قرارداد ارسال می‌شود."
+msgstr ""
+
+#: inc/modules/contracts.php:744
+msgid "کد تأیید به شماره‌ی شما پیامک شد."
+msgstr ""
+
+#: inc/modules/contracts.php:780
+msgid "کد تأیید نادرست یا منقضی شده است."
+msgstr ""
+
+#: template-parts/panel/contract-sign.php:31
+msgid "کد تأیید پیامکی"
+msgstr ""
+
+#: inc/modules/sms-messages.php:35
+msgid "کد تایید ورود (بدون الگو)"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:421 inc/modules/subscriptions.php:1140
+msgid "کد تخفیف"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1537
+msgid "کد تخفیف %s اعمال شد."
+msgstr ""
+
+#: inc/modules/rewards.php:398
+msgid "کد تخفیف {percent}٪ فعال‌سازی {messenger}:\n{code}\nاعتبار {days} روز — {site}"
+msgstr ""
+
+#: inc/modules/kpi-dashboard.php:166
+msgid "کد تخفیف استفاده‌شده"
+msgstr ""
+
+#: inc/modules/coupons.php:339
+msgid "کد تخفیف اعمال شد."
+msgstr ""
+
+#: inc/modules/services.php:391
+msgid "کد تخفیف خدمات"
+msgstr ""
+
+#: inc/modules/rewards.php:483
+msgid "کد تخفیف خدمات برنامه‌نویسی"
+msgstr ""
+
+#: inc/panel/config.php:546
+msgid "کد تخفیف خدمات پس از چند روز"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:224
+msgid "کد تخفیف خودکار زرین کد برای %s"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:419
+msgid "کد تخفیف دارید؟"
+msgstr ""
+
+#: inc/modules/coupons.php:318
+msgid "کد تخفیف را وارد کنید."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1472
+msgid "کد تخفیف معتبر نیست."
+msgstr ""
+
+#: inc/modules/coupons.php:462
+msgid "کد تخفیف یافت نشد."
+msgstr ""
+
+#: inc/modules/subscriptions.php:1138
+msgid "کد تخفیف:"
+msgstr ""
+
+#: inc/modules/quiz.php:402
+msgid "کد خود را بنویسید و سپس «اجرا» و «بررسی» را بزنید:"
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:104
+msgid "کد رسمی سازمان (اسکریپت/HTML)"
+msgstr ""
+
+#: template-parts/contract-print.php:201 template-parts/panel/contracts.php:87
+msgid "کد رهگیری:"
+msgstr ""
+
+#: inc/admin/code-manager.php:217
+msgid "کد شروع ادیتور (اختیاری)"
+msgstr ""
+
+#: inc/modules/coupons.php:539
+msgid "کد معتبر است: %s٪ تخفیف روی هزینه‌ی خدمات"
+msgstr ""
+
+#: inc/modules/contracts.php:674
+msgid "کد ملی واردشده معتبر نیست."
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:114
+msgid "کد نماد"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:875
+msgid "کد ورود"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:48
+msgid "کد پستی"
+msgstr ""
+
+#: inc/modules/quiz.php:1003
+msgid "کد پیش‌فرضی که در ادیتور نمایش داده می‌شود"
+msgstr ""
+
+#: inc/modules/gateways.php:444
+msgid "کد پیگیری / شماره تراکنش *"
+msgstr ""
+
+#: inc/panel/config.php:174
+msgid "کد کامل HTML دریافتی از زرین‌پال، ای‌نماد، ساماندهی و درگاه‌های دیگر را اینجا بچسبانید. چند کد را می‌توانید پشت سر هم قرار دهید. این کد مستقیماً و بدون تغییر اجرا می‌شود."
+msgstr ""
+
+#: inc/elementor/widgets/trust-badges.php:118
+msgid "کد کامل دریافتی از پنل ای‌نماد، ساماندهی یا زرین‌پال را اینجا بچسبانید."
+msgstr ""
+
+#: inc/elementor/widgets/map.php:138
+msgid "کد گنجاندن بلد"
+msgstr ""
+
+#: inc/modules/growth-platform.php:387
+msgid "کد گواهینامه"
+msgstr ""
+
+#: inc/modules/gateways.php:445
+msgid "کد ۱۶ رقمی پیگیری تراکنش"
+msgstr ""
+
+#: inc/modules/quiz.php:965
+msgid "کدنویسی"
+msgstr ""
+
+#: inc/modules/coupons.php:203
+msgid "کدهای تخفیف اختصاصی شما"
+msgstr ""
+
+#: inc/modules/sms-messages.php:44
+msgid "کسر از کیف پول"
+msgstr ""
+
+#: inc/modules/checkout-manager.php:43
+msgid "کشور"
+msgstr ""
+
+#: inc/modules/newsletter.php:629
+msgid "کل"
+msgstr ""
+
+#: inc/admin/sms-page.php:58
+msgid "کل پیامک‌ها (۳۰ روز)"
+msgstr ""
+
+#: inc/modules/credential-manager.php:71 template-parts/panel/licenses.php:12
+msgid "کلید"
+msgstr ""
+
+#: inc/admin/code-manager.php:204
+msgid "کلید (لاتین، یکتا)"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:113
+msgid "کلید API نشان"
+msgstr ""
+
+#: inc/panel/config.php:128
+msgid "کلید API نقشه نشان (Neshan)"
+msgstr ""
+
+#: inc/panel/config.php:372
+msgid "کلید اصلی ماژول (همهٔ زیربخش‌ها)"
+msgstr ""
+
+#: inc/elementor/widgets/map.php:116
+msgid "کلید را از پنل توسعه‌دهندگان نشان (platform.neshan.org) دریافت کنید."
+msgstr ""
+
+#: inc/modules/checkout-manager.php:143
+msgid "کلید فیلد"
+msgstr ""
+
+#: inc/modules/newsletter.php:742
+msgid "کمپین در صف قرار گرفت و به‌صورت دسته‌ای ارسال می‌شود."
+msgstr ""
+
+#: template-parts/panel/affiliate.php:70
+msgid "کمیسیون"
+msgstr ""
+
+#: inc/modules/affiliate.php:209
+msgid "کمیسیون معرفی %s به کاربر #%d واریز شد."
+msgstr ""
+
+#: inc/modules/affiliate.php:197
+msgid "کمیسیون معرفی از سفارش #%s"
+msgstr ""
+
+#: template-parts/panel/affiliate.php:54
+msgid "کمیسیون واریزشده"
+msgstr ""
+
+#: inc/panel/config.php:585
+msgid "کمیسیون پس از این مدت (برای جلوگیری از بازگشت وجه) قطعی می‌شود. صفر = بلافاصله."
+msgstr ""
+
+#: inc/modules/wallet.php:297
+msgid "کیف پول در حال پردازش است؛ چند لحظه بعد دوباره تلاش کنید."
+msgstr ""
+
+#: inc/panel/config.php:629
+msgid "کیفیت WebP"
+msgstr ""
+
+#: inc/modules/modern-pages.php:497
+msgid "کیفیت تضمین‌شده"
+msgstr ""
+
+#: inc/modules/modern-pages.php:707
+msgid "گارانتی و <span>تضمین کیفیت</span>"
+msgstr ""
+
+#: inc/modules/attempts.php:481
+msgid "گام‌به‌گام"
+msgstr ""
+
+#: inc/modules/quiz.php:1372
+msgid "گام‌به‌گام (چالشی)"
+msgstr ""
+
+#: inc/modules/attempts.php:256 inc/modules/attempts.php:257 inc/modules/attempts.php:376
+msgid "گزارش آزمون و تمرین"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1903
+msgid "گزارش درآمد"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1902 inc/modules/subscriptions.php:1931
+msgid "گزارش درآمد اشتراک‌ها"
+msgstr ""
+
+#: inc/admin/admin.php:43 inc/admin/admin.php:764
+msgid "گزارش فروش"
+msgstr ""
+
+#: inc/admin/admin.php:825
+msgid "گزارش فروش جامع"
+msgstr ""
+
+#: inc/admin/sms-page.php:93
+msgid "گزارش هزینه به تفکیک نوع پیام"
+msgstr ""
+
+#: inc/admin/sms-page.php:417
+msgid "گزارش هزینه پیامک"
+msgstr ""
+
+#: inc/admin/sms-page.php:434
+msgid "گزارش هزینه‌ی پیامک زرین کد"
+msgstr ""
+
+#: inc/panel/config.php:134
+msgid "گزارش و نمودار"
+msgstr ""
+
+#: inc/modules/modern-pages.php:549
+msgid "گزارش پیشرفت و نسخهٔ قابل مشاهده تحویل می‌گیرید."
+msgstr ""
+
+#: inc/modules/newsletter.php:281
+msgid "گزارش کمپین‌ها"
+msgstr ""
+
+#: template-parts/panel/contract-quote.php:143
+msgid "گفتگو با مجری"
+msgstr ""
+
+#: inc/modules/chat.php:476
+msgid "گفتگو حذف شد."
+msgstr ""
+
+#: template-parts/panel/contracts.php:52
+msgid "گفتگو درباره‌ی این قرارداد"
+msgstr ""
+
+#: inc/admin/chats-page.php:20 inc/admin/chats-page.php:31 inc/admin/chats-page.php:72
+msgid "گفتگوهای آنلاین"
+msgstr ""
+
+#: inc/modules/user-panel.php:75 template-parts/panel/contract-chat.php:27
+msgid "گفتگوی قرارداد"
+msgstr ""
+
+#: inc/helpers.php:56
+msgid "گندم (Gandom)"
+msgstr ""
+
+#: inc/modules/growth-platform.php:388
+msgid "گواهینامه معتبر است — %1$s، دوره %2$s"
+msgstr ""
+
+#: inc/modules/growth-platform.php:504
+msgid "گواهینامه یافت نشد."
+msgstr ""
+
+#: inc/modules/growth-platform.php:388
+msgid "گواهینامه‌ای با این کد یافت نشد."
+msgstr ""
+
+#: inc/modules/details.php:303
+msgid "گوینده نظر"
+msgstr ""
+
+#: inc/modules/subscriptions.php:591
+msgid "گیرنده‌ی هدیه (%s) یافت نشد."
+msgstr ""
+
+#: inc/admin/sms-page.php:236
+msgid "گیرندگان"
+msgstr ""
+
+#: inc/modules/growth-platform.php:603 inc/modules/messenger-bot.php:59
+msgid "یادآوری تمدید اشتراک"
+msgstr ""
+
+#: inc/modules/sms-messages.php:42
+msgid "یادآوری نوبت"
+msgstr ""
+
+#: inc/modules/sms-campaigns.php:871
+msgid "یادآوری پرداخت"
+msgstr ""
+
+#: inc/admin/sms-page.php:162 inc/modules/sms-messages.php:47
+msgid "یادآوری پرداخت ناتمام"
+msgstr ""
+
+#: inc/modules/modern-pages.php:495
+msgid "یادگیری با ساخت محصول واقعی"
+msgstr ""
+
+#: inc/helpers.php:58
+msgid "یکان (Yekan)"
+msgstr ""
+
+#: inc/modules/subscriptions.php:1060
+msgid "یک‌بار پرداخت کنید، برای همیشه استفاده کنید."
+msgstr ""
+
+#: inc/modules/subscriptions.php:153 inc/modules/subscriptions.php:161 inc/modules/subscriptions.php:169 inc/modules/subscriptions.php:177
+msgid "۰ یعنی نامحدود."
+msgstr ""
+
+#: inc/admin/sms-import.php:599
+msgid "۱) درون‌ریزی شماره‌ها"
+msgstr ""
+
+#: inc/admin/code-manager.php:127
+msgid "۱) زبان‌های فعال (سراسری)"
+msgstr ""
+
+#: inc/panel/config.php:259
+msgid "۱) پیامک خوش‌آمد به کاربر تازه"
+msgstr ""
+
+#: inc/modules/modern-pages.php:226
+msgid "۱۰ تا ۳۰ میلیون تومان"
+msgstr ""
+
+#: inc/admin/sms-import.php:665
+msgid "۲) ارسال پیامک انبوه"
+msgstr ""
+
+#: inc/admin/code-manager.php:143
+msgid "۲) زبان‌های سفارشی"
+msgstr ""
+
+#: inc/panel/config.php:264
+msgid "۲) یادآوری پرداخت ناتمام"
+msgstr ""
+
+#: inc/panel/config.php:268
+msgid "۳) بازگرداندن مشتری غیرفعال"
+msgstr ""
+
+#: inc/modules/modern-pages.php:227
+msgid "۳۰ تا ۱۰۰ میلیون تومان"
+msgstr ""
+
+#: inc/panel/config.php:629
+msgid "۹۰ کیفیتِ «بدون افت محسوس» است؛ برای کاهش بیشتر حجم می‌توانید پایین بیاورید."
+msgstr ""
+
+#: inc/modules/announcements.php:207
+msgid "— پیش‌فرض سبک —"
+msgstr ""
+
+#: inc/modules/booking.php:287
+msgid "⏰ <b>یادآوری نوبت مشاوره</b>\n\nنوبت شما فردا %1$s ساعت %2$s رزرو شده است.\n\nلطفاً چند دقیقه زودتر آماده باشید."
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:621
+msgid "⚠️ هشدار زرین کد: موجودی پیامک کاوه‌نگار به %1$s ریال رسیده و کمتر از آستانه‌ی %2$s ریال است. لطفاً حساب را شارژ کنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php:350
+msgid "✅ <b>اتصال با موفقیت انجام شد!</b>\n\nسلام %s عزیز،\nاز این پس اعلان‌های زرین کد را همین‌جا دریافت می‌کنید.\n\nبرای مدیریت اعلان‌ها به پنل کاربری خود مراجعه کنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php:366
+msgid "❌ کد وارد شده معتبر نیست.\n\nلطفاً از پنل کاربری سایت، کد اتصال تازه دریافت کنید."
+msgstr ""
+
+#: inc/modules/rewards.php:522
+msgid "🎁 <b>{percent}٪ تخفیف خدمات برنامه‌نویسی</b>\n\nکد اختصاصی شما: <code>{code}</code>\nاعتبار: {days} روز"
+msgstr ""
+
+#: inc/modules/rewards.php:369
+msgid "🎁 تبریک! اطلاع‌رسانی {messenger} فعال شد.\n\nکد تخفیف اختصاصی {percent}٪ شما:\n<code>{code}</code>\n\nاعتبار: {days} روز\nاین کد با سایر کدهای شما قابل جمع شدن است."
+msgstr ""
+
+#: inc/modules/ticket.php:428
+msgid "🎫 <b>تیکت پشتیبانی تازه</b>\n\n📌 %1$s\n👤 %2$s\n🏷 %3$s | ⚡ %4$s\n\n«%5$s»"
+msgstr ""
+
+#: inc/modules/messenger-bot.php:380
+msgid "👋 به ربات <b>%s</b> خوش آمدید!\n\nبرای دریافت اعلان‌های شخصی، ابتدا وارد پنل کاربری سایت شوید و کد اتصال خود را دریافت کنید، سپس آن را به این صورت ارسال کنید:\n\n<code>/start کد‌شما</code>"
+msgstr ""
+
+#: inc/modules/messenger-bot.php:587
+msgid "💬 <b>پاسخ تازه به تیکت شما</b>\n\n📌 %s\n\nبرای مشاهده‌ی پاسخ روی دکمه‌ی زیر بزنید."
+msgstr ""
+
+#: inc/modules/chat.php:405
+msgid "💬 <b>پاسخ پشتیبانی</b>\n\n%s"
+msgstr ""
+
+#: inc/modules/chat.php:558
+msgid "💬 <b>گفتگوی آنلاین تازه</b>\n\n👤 %1$s\n\n«%2$s»\n\nبرای پاسخ به پیشخوان مراجعه کنید."
+msgstr ""
+
+#: inc/modules/messenger-bot.php:419
+msgid "📖 <b>راهنمای ربات</b>\n\n/start کد — اتصال حساب کاربری\n/stop — قطع اعلان‌ها\n/help — نمایش این راهنما\n\nبرای پشتیبانی، از سایت تیکت ثبت کنید."
+msgstr ""
+
+# Added by scripts/update-pot.py
+#: inc/modules/privacy.php:100
+msgid "<p>زرین کد برای ارائه دوره، سفارش، کیف پول، رزرو، پشتیبانی، لایسنس و گواهینامه داده‌های ضروری حساب را پردازش می‌کند. IP خام در تحلیل رشد ذخیره نمی‌شود و فقط یک هش روزانه برای جلوگیری از شمارش تکراری استفاده می‌شود. سوابق مالی و قراردادها ممکن است طبق الزامات قانونی پس از درخواست حذف نگهداری شوند.</p>"
+msgstr ""
+
+#: inc/modules/privacy.php:79
+msgid "[پیام حذف‌شده بنا به درخواست کاربر]"
+msgstr ""
+
+#: inc/modules/privacy.php:51
+msgid "اعلان‌های زرین کد"
+msgstr ""
+
+#: single-zc_learning_path.php:25
+msgid "با خرید این بسته به %s دوره دسترسی می‌گیرید."
+msgstr ""
+
+#: inc/panel/config.php:617
+msgid "بازدید یکتا، خرید، تکمیل دوره، لید و فعال‌سازی لایسنس را بدون ذخیره IP خام ثبت می‌کند."
+msgstr ""
+
+#: inc/modules/privacy.php:27
+msgid "تاریخ ثبت‌نام"
+msgstr ""
+
+#: inc/panel/config.php:617
+msgid "تحلیل رویدادهای رشد"
+msgstr ""
+
+#: inc/modules/privacy.php:32
+msgid "تراکنش کیف پول"
+msgstr ""
+
+#: inc/modules/sms-kavenegar.php:305
+msgid "تعداد درخواست کد از این اتصال بیش از حد مجاز است."
+msgstr ""
+
+#: inc/modules/privacy.php:35
+msgid "تلاش آزمون"
+msgstr ""
+
+#: inc/panel/redux-config.php:256
+msgid "ثبت نشده"
+msgstr ""
+
+#: single-zc_learning_path.php:26
+msgid "ثبت‌نام در مسیر"
+msgstr ""
+
+#: inc/modules/privacy.php:33
+msgid "ثبت‌نام دوره"
+msgstr ""
+
+#: template-parts/panel/security.php:25
+msgid "حداقل ۸ کاراکتر، ترکیبی از حروف و اعداد"
+msgstr ""
+
+#: inc/modules/privacy.php:11
+msgid "داده‌های زرین کد"
+msgstr ""
+
+#: inc/modules/privacy.php:58
+msgid "داده‌های غیرالزامی زرین کد"
+msgstr ""
+
+#: single-zc_learning_path.php:26
+msgid "درخواست راهنمایی"
+msgstr ""
+
+#: single-zc_learning_path.php:17
+msgid "دوره‌های این مسیر"
+msgstr ""
+
+#: inc/modules/ajax-actions.php:330
+msgid "رمز جدید باید حداقل ۸ کاراکتر باشد."
+msgstr ""
+
+#: inc/modules/auth.php:146 inc/modules/auth.php:205
+msgid "رمز عبور باید حداقل ۸ کاراکتر باشد."
+msgstr ""
+
+#: inc/panel/redux-config.php:256
+msgid "زمان‌بندی شده"
+msgstr ""
+
+#: inc/modules/privacy.php:92
+msgid "سوابق مالی و قراردادی طبق الزامات قانونی نگهداری شدند."
+msgstr ""
+
+#: single-zc_learning_path.php:25
+msgid "شروع این مسیر"
+msgstr ""
+
+#: inc/modules/privacy.php:36
+msgid "لایسنس محصول"
+msgstr ""
+
+#: inc/modules/growth-platform.php:424
+msgid "لایسنس محصول %1$s صادر شد: %2$s"
+msgstr ""
+
+#: inc/modules/growth-platform.php:423
+msgid "لایسنس محصول «%s» در پنل شما آماده است."
+msgstr ""
+
+#: inc/modules/growth-platform.php:423
+msgid "لایسنس محصول صادر شد"
+msgstr ""
+
+#: inc/panel/redux-config.php:255
+msgid "نسخه دیتابیس"
+msgstr ""
+
+#: inc/modules/privacy.php:29
+msgid "پروفایل زرین کد"
+msgstr ""
+
+#: inc/modules/privacy.php:78
+msgid "کاربر حذف‌شده"
+msgstr ""
+
+#: inc/panel/redux-config.php:256
+msgid "کران اشتراک"
+msgstr ""
+
+#: inc/modules/privacy.php:37
+msgid "گواهینامه"
 msgstr ""
 

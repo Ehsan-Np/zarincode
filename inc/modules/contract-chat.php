@@ -36,7 +36,7 @@ function zc_create_contract_chat_table() {
 		message LONGTEXT NOT NULL,
 		attachment BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
 		is_read TINYINT(1) NOT NULL DEFAULT 0,
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		KEY contract_id (contract_id),
 		KEY user_id (user_id),
