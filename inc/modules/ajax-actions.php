@@ -98,6 +98,9 @@ function zc_get_wishlist( $user_id = 0 ) {
  */
 function zc_ajax_contact_submit() {
 	zc_check_ajax();
+	if ( ! zc_rate_limit( 'contact', 5, HOUR_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد پیام‌های شما بیش از حد مجاز است؛ کمی بعد تلاش کنید.', 'zarincode' ) ), 429 );
+	}
 
 	$name    = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 	$email   = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
@@ -181,6 +184,9 @@ add_action( 'wp_ajax_nopriv_zc_contact_submit', 'zc_ajax_contact_submit' );
  */
 function zc_ajax_newsletter() {
 	zc_check_ajax();
+	if ( ! zc_rate_limit( 'newsletter', 5, HOUR_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد درخواست بیش از حد مجاز است.', 'zarincode' ) ), 429 );
+	}
 
 	$email      = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 	$mobile     = isset( $_POST['mobile'] ) ? sanitize_text_field( wp_unslash( $_POST['mobile'] ) ) : '';
@@ -198,16 +204,20 @@ function zc_ajax_newsletter() {
 		wp_send_json_error( array( 'message' => __( 'شماره موبایل معتبر نیست.', 'zarincode' ) ) );
 	}
 
-	$list = zc_newsletter_subscribers();
-
-	// جلوگیری از تکرار بر اساس ایمیل یا موبایل.
-	foreach ( $list as $sub ) {
-		if ( strtolower( (string) $sub['email'] ) === strtolower( $email ) || (string) $sub['mobile'] === $mobile ) {
+	// جلوگیری از تکرار بر اساس ایمیل یا موبایل بدون بارگذاری کل فهرست.
+	if ( function_exists( 'zc_newsletter_storage_exists' ) && zc_newsletter_storage_ready() ) {
+		if ( zc_newsletter_storage_exists( $email, $mobile ) ) {
 			wp_send_json_error( array( 'message' => __( 'شما قبلاً عضو شده‌اید.', 'zarincode' ) ) );
 		}
-	}
+	} else {
+		foreach ( zc_newsletter_subscribers() as $sub ) {
+			if ( strtolower( (string) $sub['email'] ) === strtolower( $email ) || (string) $sub['mobile'] === $mobile ) {
+				wp_send_json_error( array( 'message' => __( 'شما قبلاً عضو شده‌اید.', 'zarincode' ) ) );
+				}
+			}
+		}
 
-	$subscriber = array(
+		$subscriber = array(
 		'email'       => $email,
 		'mobile'      => $mobile,
 		'bale_id'     => ltrim( $bale_id, '@' ),
@@ -216,9 +226,7 @@ function zc_ajax_newsletter() {
 		'date'        => current_time( 'mysql' ),
 	);
 
-	$list[] = $subscriber;
-	$list   = array_slice( $list, -50000 );
-	update_option( 'zc_newsletter_subscribers', $list );
+	zc_newsletter_add( $subscriber );
 
 	/**
 	 * پس از عضویت در خبرنامه.
@@ -318,8 +326,8 @@ function zc_ajax_change_password() {
 	if ( ! wp_check_password( $current, $user->user_pass, $user->ID ) ) {
 		wp_send_json_error( array( 'message' => __( 'رمز عبور فعلی اشتباه است.', 'zarincode' ) ) );
 	}
-	if ( strlen( $new ) < 6 ) {
-		wp_send_json_error( array( 'message' => __( 'رمز جدید باید حداقل ۶ کاراکتر باشد.', 'zarincode' ) ) );
+	if ( strlen( $new ) < 8 ) {
+		wp_send_json_error( array( 'message' => __( 'رمز جدید باید حداقل ۸ کاراکتر باشد.', 'zarincode' ) ) );
 	}
 	if ( $new !== $confirm ) {
 		wp_send_json_error( array( 'message' => __( 'تکرار رمز عبور مطابقت ندارد.', 'zarincode' ) ) );

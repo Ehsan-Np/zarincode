@@ -109,6 +109,12 @@ function zc_panel_tabs() {
 	if ( ! zc_opt( 'zc_booking_enable', true ) ) {
 		unset( $tabs['bookings'] );
 	}
+	if ( ! zc_opt( 'zc_contract_enable', true ) ) {
+		unset( $tabs['contracts'], $tabs['contract-chat'] );
+	}
+	if ( ! zc_opt( 'zc_certificate_enable', true ) ) {
+		unset( $tabs['certificates'] );
+	}
 	if ( ! zc_is_woo() ) {
 		unset( $tabs['orders'], $tabs['downloads'] );
 	}
@@ -160,18 +166,9 @@ function zc_user_stats( $user_id = 0 ) {
 	$orders_count = 0;
 	$total_spent  = 0;
 
-	if ( function_exists( 'wc_get_orders' ) ) {
-		$orders = wc_get_orders(
-			array(
-				'customer_id' => $user_id,
-				'limit'       => -1,
-				'status'      => array( 'completed', 'processing' ),
-			)
-		);
-		$orders_count = count( $orders );
-		foreach ( $orders as $order ) {
-			$total_spent += (float) $order->get_total();
-		}
+	if ( function_exists( 'wc_get_customer_order_count' ) ) {
+		$orders_count = (int) wc_get_customer_order_count( $user_id );
+		$total_spent  = (float) wc_get_customer_total_spent( $user_id );
 	}
 
 	return array(
@@ -195,6 +192,10 @@ function zc_user_stats( $user_id = 0 ) {
  * @return void
  */
 function zc_issue_certificate( $user_id, $course_id ) {
+	if ( ! zc_opt( 'zc_certificate_enable', true ) ) {
+		return;
+	}
+
 	$certs = get_user_meta( $user_id, 'zc_certificates', true );
 	if ( ! is_array( $certs ) ) {
 		$certs = array();
@@ -206,13 +207,20 @@ function zc_issue_certificate( $user_id, $course_id ) {
 		}
 	}
 
-	$certs[] = array(
+	$certificate = array(
 		'course_id' => $course_id,
-		'code'      => strtoupper( 'ZC-' . wp_generate_password( 8, false ) ),
+		'code'      => strtoupper( 'ZC-' . wp_generate_password( 12, false, false ) ),
 		'date'      => current_time( 'mysql' ),
 	);
+	$certs[] = $certificate;
 
 	update_user_meta( $user_id, 'zc_certificates', $certs );
+	if ( function_exists( 'zc_certificate_register' ) ) {
+		zc_certificate_register( $user_id, $course_id, $certificate['code'] );
+	}
+	if ( function_exists( 'zc_track_event' ) ) {
+		zc_track_event( 'certificate', $course_id, 0, array( 'user_id' => $user_id, 'code' => $certificate['code'] ) );
+	}
 
 	zc_add_notification(
 		$user_id,

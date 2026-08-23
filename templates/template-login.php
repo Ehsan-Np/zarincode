@@ -13,7 +13,9 @@ if ( is_user_logged_in() ) {
 	exit;
 }
 
-$zc_redirect = isset( $_GET['redirect_to'] ) ? esc_url_raw( wp_unslash( $_GET['redirect_to'] ) ) : ''; // phpcs:ignore
+$zc_redirect = isset( $_GET['redirect_to'] )
+	? wp_validate_redirect( wp_unslash( $_GET['redirect_to'] ), zc_panel_url() ) // phpcs:ignore
+	: '';
 $zc_method   = zc_opt( 'zc_login_method', 'both' );
 
 get_header();
@@ -199,7 +201,7 @@ get_header();
 						</div>
 						<div class="zc-field">
 							<label class="zc-label"><?php esc_html_e( 'رمز عبور', 'zarincode' ); ?></label>
-							<input type="password" name="password" required minlength="6" autocomplete="new-password">
+							<input type="password" name="password" required minlength="8" autocomplete="new-password">
 						</div>
 
 						<?php if ( zc_opt( 'zc_verify_mobile_on_register', true ) ) : ?>
@@ -245,7 +247,7 @@ get_header();
 						</div>
 						<div class="zc-field">
 							<label class="zc-label"><?php esc_html_e( 'رمز عبور جدید', 'zarincode' ); ?></label>
-							<input type="password" name="password" required minlength="6">
+							<input type="password" name="password" required minlength="8">
 						</div>
 
 						<div class="zc-form-msg"></div>

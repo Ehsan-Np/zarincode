@@ -1,0 +1,9 @@
+/* Zarincode redesign compatibility layer — restored in 3.36 */
+:root{--zc-surface:#fff;--zc-surface-soft:#f7f9fd;--zc-focus:var(--zc-gold)}
+.zc-main{min-height:45vh}
+.zc-card,.zc-panel__box,.zc-widget,.zc-entry{background:var(--zc-surface)}
+.zc-page-hero,.zc-ph{isolation:isolate}
+a:not(.zc-btn):not(.button):focus-visible{color:var(--zc-link,var(--zc-gold))}
+.zc-entry__content a{color:var(--zc-link,var(--zc-gold-dark));text-decoration-thickness:1px;text-underline-offset:3px}
+.zc-entry__content a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

@@ -49,7 +49,7 @@ function zc_dashboard_widget_content() {
 
 		<p>
 			<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode' ) ); ?>" class="button button-primary button-small"><?php esc_html_e( 'داشبورد کامل', 'zarincode' ); ?></a>
-			<a href="<?php echo esc_url( admin_url( 'themes.php?page=zarincode-options' ) ); ?>" class="button button-small"><?php esc_html_e( 'تنظیمات', 'zarincode' ); ?></a>
+			<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode-options' ) ); ?>" class="button button-small"><?php esc_html_e( 'تنظیمات', 'zarincode' ); ?></a>
 		</p>
 	</div>
 

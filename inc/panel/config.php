@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * @return bool
  */
 function zc_has_redux() {
-	return class_exists( 'ReduxFramework' );
+	return class_exists( 'Redux' ) || class_exists( 'ReduxFramework' );
 }
 
 /**
@@ -418,7 +418,6 @@ function zc_settings_schema() {
 				array( 'id' => 'zc_ticket_departments', 'type' => 'textarea', 'title' => __( 'دپارتمان‌ها (هر خط یکی)', 'zarincode' ), 'rows' => 5, 'default' => "پشتیبانی فنی\nپشتیبانی دوره‌ها\nمالی و پرداخت\nفروش و مشاوره" ),
 				array( 'id' => 'zc_ticket_notify_admin', 'type' => 'switch', 'title' => __( 'اطلاع تیکت تازه در تلگرام و بله', 'zarincode' ), 'subtitle' => __( 'با ثبت هر تیکت جدید به مدیران پیام داده می‌شود.', 'zarincode' ), 'default' => true ),
 				array( 'id' => 'zc_ticket_attach', 'type' => 'switch', 'title' => __( 'اجازه پیوست فایل', 'zarincode' ), 'default' => true ),
-				array( 'id' => 'zc_ticket_max_size', 'type' => 'text', 'title' => __( 'حداکثر حجم پیوست (مگابایت)', 'zarincode' ), 'default' => '5' ),
 				array( 'id' => 'zc_ticket_auto_close', 'type' => 'text', 'title' => __( 'بستن خودکار تیکت بی‌پاسخ (روز)', 'zarincode' ), 'subtitle' => __( 'صفر یعنی غیرفعال.', 'zarincode' ), 'default' => '7' ),
 				array( 'id' => 'zc_ticket_rating', 'type' => 'switch', 'title' => __( 'رضایت‌سنجی پس از بستن تیکت', 'zarincode' ), 'default' => true ),
 				array( 'id' => 'zc_sla_urgent', 'type' => 'text', 'title' => __( 'زمان پاسخ تیکت بحرانی (ساعت)', 'zarincode' ), 'default' => '3' ),
@@ -590,7 +589,8 @@ function zc_settings_schema() {
 				array( 'id' => 'zc_backup_enable', 'type' => 'switch', 'title' => __( 'فعال‌سازی بکاپ خودکار', 'zarincode' ), 'default' => false ),
 				array( 'id' => 'zc_backup_freq', 'type' => 'select', 'title' => __( 'فرکانس بکاپ', 'zarincode' ), 'default' => 'daily', 'options' => array( 'daily' => __( 'روزانه', 'zarincode' ), 'weekly' => __( 'هفتگی', 'zarincode' ), 'monthly' => __( 'ماهانه', 'zarincode' ) ), 'required' => array( 'zc_backup_enable', '=', true ) ),
 				array( 'id' => 'zc_backup_send_telegram', 'type' => 'switch', 'title' => __( 'ارسال به تلگرام/بله', 'zarincode' ), 'default' => true, 'desc' => __( 'بکاپ به کانال/گروه تنظیم‌شده در «تلگرام و بله» ارسال می‌شود.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
-				array( 'id' => 'zc_backup_keep_local', 'type' => 'switch', 'title' => __( 'ذخیره‌ی محلی همزمان', 'zarincode' ), 'default' => false, 'desc' => __( 'علاوه بر ارسال به پیام‌رسان، یک نسخه در پوشه‌ی uploads/zarincode-backup نگهداری شود.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
+				array( 'id' => 'zc_backup_keep_local', 'type' => 'switch', 'title' => __( 'ذخیره‌ی محلی همزمان', 'zarincode' ), 'default' => false, 'desc' => __( 'علاوه بر ارسال به پیام‌رسان، یک نسخه در پوشه‌ی محافظت‌شده نگهداری شود.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
+				array( 'id' => 'zc_backup_compress', 'type' => 'switch', 'title' => __( 'فشرده‌سازی Gzip', 'zarincode' ), 'default' => true, 'desc' => __( 'حجم فایل بکاپ و مصرف پهنای باند را کاهش می‌دهد.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
 				array( 'id' => 'zc_backup_max', 'type' => 'slider', 'title' => __( 'حداکثر تعداد بکاپ محلی', 'zarincode' ), 'default' => 5, 'min' => 1, 'max' => 30, 'step' => 1, 'required' => array( 'zc_backup_enable', '=', true ) ),
 			),
 		),
@@ -614,6 +614,7 @@ function zc_settings_schema() {
 				array( 'id' => 'zc_revisions_limit', 'type' => 'slider', 'title' => __( 'حداکثر نسخه‌های پیشین', 'zarincode' ), 'default' => 5, 'min' => 0, 'max' => 30 ),
 				array( 'id' => 'zc_optimize_assets', 'type' => 'switch', 'title' => __( 'ادغام و فشرده‌سازی CSS و JS', 'zarincode' ), 'subtitle' => __( 'همه‌ی شیوه‌نامه‌ها و اسکریپت‌های قالب در یک فایل فشرده ادغام می‌شوند. در حالت WP_DEBUG خودکار غیرفعال است.', 'zarincode' ), 'default' => true ),
 				array( 'id' => 'zc_lazy_sections', 'type' => 'switch', 'title' => __( 'رندر تدریجی بخش‌های پایین صفحه', 'zarincode' ), 'subtitle' => __( 'بخش‌های خارج از دید با نزدیک‌شدن کاربر نمایش داده می‌شوند؛ تعداد عناصر DOM در بارگذاری اولیه کمتر می‌شود.', 'zarincode' ), 'default' => false ),
+				array( 'id' => 'zc_analytics_enable', 'type' => 'switch', 'title' => __( 'تحلیل رویدادهای رشد', 'zarincode' ), 'desc' => __( 'بازدید یکتا، خرید، تکمیل دوره، لید و فعال‌سازی لایسنس را بدون ذخیره IP خام ثبت می‌کند.', 'zarincode' ), 'default' => true ),
 				array( 'id' => 'zc_disable_cache', 'type' => 'switch', 'title' => __( 'غیرفعال‌سازی کش داخلی (دیباگ)', 'zarincode' ), 'default' => false ),
 			),
 		),

@@ -62,6 +62,9 @@ function zc_booking_is_available( $date, $time ) {
  */
 function zc_ajax_booking_submit() {
 	zc_check_ajax();
+	if ( ! zc_rate_limit( 'booking', 8, HOUR_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد درخواست رزرو بیش از حد مجاز است.', 'zarincode' ) ), 429 );
+	}
 
 	if ( ! zc_opt( 'zc_booking_enable', true ) ) {
 		wp_send_json_error( array( 'message' => __( 'سیستم رزرو نوبت غیرفعال است.', 'zarincode' ) ) );
@@ -82,11 +85,25 @@ function zc_ajax_booking_submit() {
 		wp_send_json_error( array( 'message' => __( 'لطفاً تمام فیلدهای ضروری را تکمیل کنید.', 'zarincode' ) ) );
 	}
 
-	if ( strtotime( $date ) < strtotime( gmdate( 'Y-m-d' ) ) ) {
-		wp_send_json_error( array( 'message' => __( 'تاریخ انتخابی گذشته است.', 'zarincode' ) ) );
+	$parsed = DateTimeImmutable::createFromFormat( '!Y-m-d', $date, wp_timezone() );
+	if ( ! $parsed || $parsed->format( 'Y-m-d' ) !== $date || $parsed->getTimestamp() < strtotime( 'today', current_time( 'timestamp' ) ) ) {
+		wp_send_json_error( array( 'message' => __( 'تاریخ انتخابی معتبر نیست یا گذشته است.', 'zarincode' ) ) );
+	}
+	if ( ! in_array( $time, zc_booking_time_slots(), true ) ) {
+		wp_send_json_error( array( 'message' => __( 'ساعت انتخابی جزو بازه‌های مجاز نیست.', 'zarincode' ) ) );
+	}
+	if ( $service && 'zc_service' !== get_post_type( $service ) ) {
+		wp_send_json_error( array( 'message' => __( 'خدمت انتخابی معتبر نیست.', 'zarincode' ) ) );
 	}
 
+	// قفل هر بازه، بررسی ظرفیت و درج را اتمیک می‌کند.
+	$lock_name = 'zc_booking_' . md5( $date . '|' . $time );
+	$locked    = '1' === (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 5)', $lock_name ) ); // phpcs:ignore
+	if ( ! $locked ) {
+		wp_send_json_error( array( 'message' => __( 'این بازه در حال رزرو است؛ دوباره تلاش کنید.', 'zarincode' ) ) );
+	}
 	if ( ! zc_booking_is_available( $date, $time ) ) {
+		$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock_name ) ); // phpcs:ignore
 		wp_send_json_error( array( 'message' => __( 'این بازه زمانی رزرو شده است. لطفاً زمان دیگری انتخاب کنید.', 'zarincode' ) ) );
 	}
 
@@ -105,6 +122,7 @@ function zc_ajax_booking_submit() {
 			'created_at' => current_time( 'mysql' ),
 		)
 	);
+	$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock_name ) ); // phpcs:ignore
 
 	if ( ! $result ) {
 		wp_send_json_error( array( 'message' => __( 'خطا در ثبت رزرو.', 'zarincode' ) ) );
@@ -231,11 +249,11 @@ add_action( 'wp_ajax_zc_cancel_booking', 'zc_ajax_cancel_booking' );
  * @return int تعداد یادآوری‌های ارسال‌شده.
  */
 function zc_send_booking_reminders() {
-	if ( ! function_exists( 'zc_notify_user' ) ) {
-		return 0;
-	}
-
+	if ( ! function_exists( 'zc_notify_user' ) ) { return 0; }
 	global $wpdb;
+	$lock_name = 'zc_booking_reminders';
+	if ( '1' !== (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 1)', $lock_name ) ) ) { return 0; } // phpcs:ignore
+	try {
 
 	$table    = $wpdb->prefix . 'zc_bookings';
 	$tomorrow = gmdate( 'Y-m-d', strtotime( '+1 day', current_time( 'timestamp' ) ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp
@@ -259,28 +277,28 @@ function zc_send_booking_reminders() {
 	$sent = 0;
 
 	foreach ( $rows as $row ) {
-		if ( empty( $row->user_id ) ) {
-			continue;
+		$count = 0;
+		if ( ! empty( $row->user_id ) ) {
+			$count = zc_notify_user(
+				(int) $row->user_id,
+				'booking',
+				sprintf(
+					/* translators: 1: تاریخ 2: ساعت */
+					__( "⏰ <b>یادآوری نوبت مشاوره</b>\n\nنوبت شما فردا %1\$s ساعت %2\$s رزرو شده است.\n\nلطفاً چند دقیقه زودتر آماده باشید.", 'zarincode' ),
+					esc_html( zc_fa_num( $row->date ) ),
+					esc_html( zc_fa_num( $row->time ) )
+				)
+			);
 		}
 
-		$count = zc_notify_user(
-			(int) $row->user_id,
-			'booking',
-			sprintf(
-				/* translators: 1: تاریخ 2: ساعت */
-				__( "⏰ <b>یادآوری نوبت مشاوره</b>\n\nنوبت شما فردا %1\$s ساعت %2\$s رزرو شده است.\n\nلطفاً چند دقیقه زودتر آماده باشید.", 'zarincode' ),
-				esc_html( zc_fa_num( $row->date ) ),
-				esc_html( zc_fa_num( $row->time ) )
-			)
-		);
-
-		// پیامک یادآوری نوبت (متن از پنل شخصی‌سازی‌پذیر).
-		$zc_mobile = $row->user_id ? get_user_meta( (int) $row->user_id, 'zc_mobile', true ) : '';
+		// رزرو مهمان نیز شماره موبایل مستقیم دارد و نباید در صف گیر کند.
+		$zc_mobile = $row->mobile ?: ( $row->user_id ? get_user_meta( (int) $row->user_id, 'zc_mobile', true ) : '' );
+		$zc_user   = $row->user_id ? get_userdata( (int) $row->user_id ) : false;
 		zc_sms_send_message(
 			'booking_remind',
 			$zc_mobile,
 			array(
-				'name' => $row->user_id ? get_userdata( (int) $row->user_id )->display_name : '',
+				'name' => $zc_user ? $zc_user->display_name : $row->name,
 				'date' => $row->date,
 				'time' => $row->time,
 			)
@@ -293,5 +311,9 @@ function zc_send_booking_reminders() {
 		$wpdb->update( $table, array( 'reminded' => 1 ), array( 'id' => $row->id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 	}
 
-	return $sent;
+		return $sent;
+	} finally {
+		$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $lock_name ) ); // phpcs:ignore
+	}
 }
+add_action( 'zc_notify_cron', 'zc_send_booking_reminders', 20 );

@@ -462,14 +462,12 @@ function zc_subscription_is_active( $user_id = 0 ) {
 	$user_id = $user_id ? $user_id : get_current_user_id();
 	$rec     = zc_subscription_get_user( $user_id );
 
-	if ( empty( $rec['plan_id'] ) ) {
-		return false;
+	$active = ! empty( $rec['plan_id'] );
+	if ( $active && ! empty( $rec['expires'] ) ) {
+		$active = (int) $rec['expires'] > time();
 	}
-	// مادام‌العمر.
-	if ( empty( $rec['expires'] ) ) {
-		return true;
-	}
-	return (int) $rec['expires'] > time();
+	$active = $active && in_array( (string) ( $rec['status'] ?? 'active' ), array( 'active', 'renewed', 'upgraded' ), true );
+	return (bool) apply_filters( 'zc_subscription_is_active', $active, $user_id, $rec );
 }
 
 /**
@@ -556,8 +554,9 @@ function zc_subscription_on_order( $order_id ) {
 	if ( ! function_exists( 'wc_get_order' ) ) {
 		return;
 	}
+
 	$order = wc_get_order( $order_id );
-	if ( ! $order ) {
+	if ( ! $order || ! $order->is_paid() ) {
 		return;
 	}
 
@@ -566,44 +565,44 @@ function zc_subscription_on_order( $order_id ) {
 		return;
 	}
 
-	foreach ( $order->get_items() as $item ) {
+	$processed = (array) $order->get_meta( '_zc_subscription_items_processed', true );
+	$gift_for  = sanitize_text_field( (string) $order->get_meta( '_zc_gift_for', true ) );
+
+	foreach ( $order->get_items() as $item_id => $item ) {
+		$item_key  = (string) $item_id;
 		$product_id = $item->get_product_id();
 		$plan_id    = zc_subscription_plan_by_product( $product_id );
 
-		if ( ! $plan_id || ! zc_subscription_plan_enabled( $plan_id ) ) {
+		if ( in_array( $item_key, array_map( 'strval', $processed ), true ) || ! $plan_id || ! zc_subscription_plan_enabled( $plan_id ) ) {
 			continue;
 		}
 
-		// هدیه: دریافت‌کننده مشخص شده است.
-		$gift_for = $order->get_meta( '_zc_gift_for' );
+		$applied = false;
 
 		if ( $gift_for ) {
 			$recipient = zc_subscription_find_recipient( $gift_for );
 			if ( $recipient ) {
-				zc_subscription_gift_grant( $recipient, $plan_id, $order_id );
-				$order->add_order_note(
-					sprintf(
-						/* translators: 1: plan 2: recipient */
-						__( 'هدیه‌ی اشتراک «%1$s» به %2$s ارسال شد.', 'zarincode' ),
-						get_the_title( $plan_id ),
-						$gift_for
-					)
-				);
-
-				// اطلاع به فرستنده.
-				do_action( 'zc_subscription_gift_sent', $user_id, $plan_id );
+				$applied = (bool) zc_subscription_gift_grant( $recipient, $plan_id, $order_id );
+				if ( $applied ) {
+					$order->add_order_note( sprintf( __( 'هدیه‌ی اشتراک «%1$s» به %2$s ارسال شد.', 'zarincode' ), get_the_title( $plan_id ), $gift_for ) );
+					do_action( 'zc_subscription_gift_sent', $user_id, $plan_id );
+				}
 			} else {
 				$order->add_order_note( sprintf( __( 'گیرنده‌ی هدیه (%s) یافت نشد.', 'zarincode' ), $gift_for ) );
 			}
 		} else {
-			// تمدید / ارتقا / تنزل / جدید.
-			$rec = zc_subscription_apply_plan( $user_id, $plan_id, $order_id );
-			if ( $rec && isset( $rec['plan_id'] ) ) {
+			$rec     = zc_subscription_apply_plan( $user_id, $plan_id, $order_id );
+			$applied = is_array( $rec ) && isset( $rec['plan_id'] );
+			if ( $applied ) {
 				$order->add_order_note( sprintf( __( 'اشتراک پلن «%s» اعمال شد.', 'zarincode' ), get_the_title( $rec['plan_id'] ) ) );
 			}
 		}
 
-		break;
+		if ( $applied ) {
+			$processed[] = $item_key;
+			$order->update_meta_data( '_zc_subscription_items_processed', array_values( array_unique( $processed ) ) );
+			$order->save();
+		}
 	}
 }
 add_action( 'woocommerce_order_status_completed', 'zc_subscription_on_order' );
@@ -799,6 +798,13 @@ add_filter( 'zc_panel_tabs', 'zc_panel_tab_subscription' );
    ۸) خرید مستقیم با کیف پول (AJAX)
    ========================================================================== */
 
+/** @param int $user_id کاربر. @param float $amount مبلغ. @param string $ref مرجع. @return void */
+function zc_subscription_refund_wallet_purchase( $user_id, $amount, $ref ) {
+	if ( $amount > 0 && $ref ) {
+		zc_wallet_deposit( $user_id, $amount, __( 'بازگشت خرید ناموفق اشتراک', 'zarincode' ), 'subscription_refund', array( 'ref_id' => 'refund-' . $ref, 'gateway' => 'wallet' ) );
+	}
+}
+
 /**
  * خرید / تمدید / ارتقا / هدیه اشتراک (کیف پول یا هدایت به ووکامرس).
  *
@@ -848,21 +854,31 @@ function zc_ajax_subscription_buy() {
 
 	// اعمال کد تخفیف.
 	$final_price = $price;
+	$coupon_data = false;
 	if ( $coupon ) {
-		$c = zc_subscription_coupon( $coupon, $price );
+		$c = zc_subscription_coupon( $coupon, $price, $plan_id );
 		if ( ! $c['valid'] ) {
 			wp_send_json_error( array( 'message' => $c['message'] ) );
 		}
 		$final_price = $c['amount'];
+		$coupon_data = $c;
 	}
 
 	if ( $final_price > 0 && zc_wallet_balance( $user_id ) < $final_price ) {
 		wp_send_json_error( array( 'message' => __( 'موجودی کیف پول کافی نیست.', 'zarincode' ) ) );
 	}
 
-	// کسر از کیف پول.
+	// کسر idempotent از کیف پول؛ در شکست فعال‌سازی پایین‌تر جبران می‌شود.
+	$wallet_tx  = 0;
+	$wallet_ref = 'subscription-' . $user_id . '-' . wp_generate_uuid4();
 	if ( $final_price > 0 && function_exists( 'zc_wallet_withdraw' ) ) {
-		zc_wallet_withdraw( $user_id, $final_price, sprintf( __( 'خرید اشتراک «%s»', 'zarincode' ), $plan->post_title ) );
+		$wallet_tx = zc_wallet_withdraw(
+			$user_id, $final_price, sprintf( __( 'خرید اشتراک «%s»', 'zarincode' ), $plan->post_title ), 'subscription',
+			array( 'ref_id' => $wallet_ref, 'gateway' => 'wallet', 'meta' => array( 'plan_id' => $plan_id, 'gift_to' => $gift_to ) )
+		);
+		if ( is_wp_error( $wallet_tx ) || ! $wallet_tx ) {
+			wp_send_json_error( array( 'message' => is_wp_error( $wallet_tx ) ? $wallet_tx->get_error_message() : __( 'برداشت از کیف پول ناموفق بود.', 'zarincode' ) ) );
+		}
 	}
 
 	// هدیه یا خرید مستقیم.
@@ -870,14 +886,16 @@ function zc_ajax_subscription_buy() {
 		$recipient = zc_subscription_find_recipient( $gift_to );
 		$rec       = zc_subscription_gift_grant( $recipient, $plan_id, 0 );
 		if ( ! $rec ) {
-			wp_send_json_error( array( 'message' => __( 'خطا در ارسال هدیه.', 'zarincode' ) ) );
+			zc_subscription_refund_wallet_purchase( $user_id, $final_price, $wallet_ref );
+			wp_send_json_error( array( 'message' => __( 'خطا در ارسال هدیه؛ مبلغ به کیف پول بازگردانده شد.', 'zarincode' ) ) );
 		}
 		do_action( 'zc_subscription_gift_sent', $user_id, $plan_id );
 		$message = sprintf( __( 'هدیه‌ی «%s» با موفقیت ارسال شد.', 'zarincode' ), $plan->post_title );
 	} else {
 		$rec = zc_subscription_apply_plan( $user_id, $plan_id );
 		if ( ! $rec ) {
-			wp_send_json_error( array( 'message' => __( 'خطا در فعال‌سازی اشتراک.', 'zarincode' ) ) );
+			zc_subscription_refund_wallet_purchase( $user_id, $final_price, $wallet_ref );
+			wp_send_json_error( array( 'message' => __( 'خطا در فعال‌سازی اشتراک؛ مبلغ به کیف پول بازگردانده شد.', 'zarincode' ) ) );
 		}
 
 		if ( (int) $rec['plan_id'] === $plan_id && zc_subscription_pending_plan( $user_id ) === $plan_id ) {
@@ -885,6 +903,12 @@ function zc_ajax_subscription_buy() {
 		} else {
 			$message = sprintf( __( 'اشتراک «%s» با موفقیت فعال شد.', 'zarincode' ), $plan->post_title );
 		}
+	}
+
+	if ( $coupon_data && ! empty( $coupon_data['coupon_id'] ) ) {
+		$used_coupon = new WC_Coupon( (int) $coupon_data['coupon_id'] );
+		$used_coupon->increase_usage_count( get_current_user_id() );
+		$used_coupon->save();
 	}
 
 	wp_send_json_success(
@@ -1444,8 +1468,8 @@ function zc_subscription_apply_plan( $user_id, $plan_id, $order_id = 0 ) {
  *     float  $amount
  * }
  */
-function zc_subscription_coupon( $code, $price ) {
-	$out = array( 'valid' => false, 'message' => __( 'کد تخفیف معتبر نیست.', 'zarincode' ), 'discount' => 0, 'amount' => (float) $price );
+function zc_subscription_coupon( $code, $price, $plan_id = 0 ) {
+	$out = array( 'valid' => false, 'message' => __( 'کد تخفیف معتبر نیست.', 'zarincode' ), 'discount' => 0, 'amount' => (float) $price, 'coupon_id' => 0 );
 
 	$code = sanitize_text_field( $code );
 	if ( '' === $code || ! class_exists( 'WC_Coupon' ) ) {
@@ -1461,6 +1485,39 @@ function zc_subscription_coupon( $code, $price ) {
 	$limit = $coupon->get_usage_limit();
 	if ( $limit > 0 && $coupon->get_usage_count() >= $limit ) {
 		$out['message'] = __( 'این کد تخفیف به پایان رسیده است.', 'zarincode' );
+		return $out;
+	}
+	$expires = $coupon->get_date_expires();
+	if ( $expires && $expires->getTimestamp() < time() ) {
+		$out['message'] = __( 'اعتبار این کد تخفیف تمام شده است.', 'zarincode' );
+		return $out;
+	}
+	$user = wp_get_current_user();
+	$used = array_map( 'strval', (array) $coupon->get_used_by() );
+	if ( $coupon->get_usage_limit_per_user() > 0 && ( in_array( (string) $user->ID, $used, true ) || in_array( (string) $user->user_email, $used, true ) ) ) {
+		$out['message'] = __( 'شما قبلاً از این کد استفاده کرده‌اید.', 'zarincode' );
+		return $out;
+	}
+	$email_rules = array_filter( array_map( 'strtolower', (array) $coupon->get_email_restrictions() ) );
+	if ( $email_rules && ! in_array( strtolower( $user->user_email ), $email_rules, true ) ) {
+		$out['message'] = __( 'این کد برای حساب شما صادر نشده است.', 'zarincode' );
+		return $out;
+	}
+	if ( $coupon->get_minimum_amount() && (float) $price < (float) $coupon->get_minimum_amount() ) {
+		$out['message'] = __( 'مبلغ خرید به حداقل لازم برای این کد نرسیده است.', 'zarincode' );
+		return $out;
+	}
+	if ( $coupon->get_maximum_amount() && (float) $price > (float) $coupon->get_maximum_amount() ) {
+		$out['message'] = __( 'مبلغ خرید از سقف مجاز این کد بیشتر است.', 'zarincode' );
+		return $out;
+	}
+	$product_id = $plan_id ? (int) zc_subscription_plan_data( $plan_id )['product_id'] : 0;
+	if ( $coupon->get_product_ids() && ( ! $product_id || ! in_array( $product_id, array_map( 'intval', $coupon->get_product_ids() ), true ) ) ) {
+		$out['message'] = __( 'این کد برای پلن انتخابی معتبر نیست.', 'zarincode' );
+		return $out;
+	}
+	if ( $product_id && in_array( $product_id, array_map( 'intval', $coupon->get_excluded_product_ids() ), true ) ) {
+		$out['message'] = __( 'پلن انتخابی از این تخفیف مستثنا است.', 'zarincode' );
 		return $out;
 	}
 
@@ -1480,6 +1537,7 @@ function zc_subscription_coupon( $code, $price ) {
 		'message'  => sprintf( __( 'کد تخفیف %s اعمال شد.', 'zarincode' ), $code ),
 		'discount' => $discount,
 		'amount'   => (float) $price - $discount,
+		'coupon_id'=> (int) $coupon->get_id(),
 	);
 
 	return $out;
@@ -1680,19 +1738,23 @@ function zc_subscription_schedule_cron() {
 		wp_schedule_event( time() + HOUR_IN_SECONDS, 'daily', 'zc_subscription_daily' );
 	}
 }
-add_action( 'init', 'zc_subscription_schedule_cron' );
+add_action( 'init', 'zc_subscription_schedule_cron', 3 );
 
 /**
  * بررسی روزانه: انقضای اشتراک‌ها، اعمال تنزلِ زمان‌بندی‌شده، اعلان.
  *
  * @return void
  */
-function zc_subscription_daily_check() {
+function zc_subscription_daily_check( $offset = 0 ) {
+	$batch_size = 500;
 	$users = get_users(
 		array(
 			'fields'     => 'ID',
 			'meta_key'   => 'zc_subscription',
-			'number'     => 2000,
+			'number'     => $batch_size,
+			'offset'     => max( 0, (int) $offset ),
+			'orderby'    => 'ID',
+			'order'      => 'ASC',
 		)
 	);
 
@@ -1717,8 +1779,12 @@ function zc_subscription_daily_check() {
 			}
 		}
 	}
+	if ( count( $users ) === $batch_size && function_exists( 'zc_schedule_action' ) ) {
+		zc_schedule_action( time() + 10, 'zc_subscription_daily_batch', array( (int) $offset + $batch_size ) );
+	}
 }
 add_action( 'zc_subscription_daily', 'zc_subscription_daily_check' );
+add_action( 'zc_subscription_daily_batch', 'zc_subscription_daily_check', 10, 1 );
 
 /* ==========================================================================
    ۱۶) گزارش درآمد اشتراک‌ها
@@ -1749,81 +1815,57 @@ function zc_subscription_report() {
 		}
 	}
 
-	// درآمد از سفارش‌های ووکامرسِ حاوی پلن.
+	// درآمد از سفارش‌های ووکامرسِ حاوی پلن، به‌صورت صفحه‌بندی‌شده.
 	if ( function_exists( 'wc_get_orders' ) ) {
-		$orders = wc_get_orders(
-			array(
-				'limit'  => 5000,
-				'status' => array( 'completed', 'processing' ),
-			)
-		);
-
-		foreach ( $orders as $order ) {
-			$matched = false;
-			foreach ( $order->get_items() as $item ) {
-				$pid = $item->get_product_id();
-				if ( isset( $product_ids[ $pid ] ) ) {
-					$matched = true;
-					$plan_id = $product_ids[ $pid ];
-					$plan_revenue[ $plan_id ] = (float) ( $plan_revenue[ $plan_id ] ?? 0 ) + (float) $order->get_total();
-					break;
+		$page = 1;
+		do {
+			$result = wc_get_orders( array( 'limit' => 200, 'page' => $page, 'paginate' => true, 'status' => array( 'completed', 'processing' ) ) );
+			$orders = is_object( $result ) && isset( $result->orders ) ? $result->orders : (array) $result;
+			$pages  = is_object( $result ) && isset( $result->max_num_pages ) ? (int) $result->max_num_pages : 1;
+			foreach ( $orders as $order ) {
+				$matched = false; $matched_total = 0;
+				foreach ( $order->get_items() as $item ) {
+					$pid = $item->get_product_id();
+					if ( isset( $product_ids[ $pid ] ) ) {
+						$matched = true; $plan_id = $product_ids[ $pid ]; $matched_total += (float) $item->get_total();
+						$plan_revenue[ $plan_id ] = (float) ( $plan_revenue[ $plan_id ] ?? 0 ) + (float) $item->get_total();
+					}
+				}
+				if ( $matched ) {
+					$total += $matched_total; $order_count++;
+					$created = $order->get_date_created();
+					$key = $created ? $created->date( 'Y-m' ) : wp_date( 'Y-m' );
+					$monthly[ $key ] = (float) ( $monthly[ $key ] ?? 0 ) + $matched_total;
 				}
 			}
-			if ( $matched ) {
-				$total       += (float) $order->get_total();
-				$order_count++;
-				$key          = gmdate( 'Y-m', (int) $order->get_date_created()->getTimestamp() );
-				$monthly[ $key ] = (float) ( $monthly[ $key ] ?? 0 ) + (float) $order->get_total();
-			}
-		}
+			$page++;
+		} while ( $page <= $pages );
 	}
 
-	// درآمد از کیف پول (کسرِ «خرید اشتراک»).
+	// درآمد مستقیم کیف پول با aggregate SQL، بدون بارگذاری کل ledger.
 	global $wpdb;
 	$table = $wpdb->prefix . 'zc_transactions';
-	$tbl_exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ); // phpcs:ignore
-	if ( $tbl_exists ) {
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$wallet_tx = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} WHERE type = %s ORDER BY id DESC", 'withdraw' ) );
-		foreach ( (array) $wallet_tx as $tx ) {
-			if ( false !== mb_strpos( (string) $tx->description, 'اشتراک' ) ) {
-				$total       += abs( (float) $tx->amount );
-				$order_count++;
-				$key          = gmdate( 'Y-m', strtotime( (string) $tx->created_at ) );
-				$monthly[ $key ] = (float) ( $monthly[ $key ] ?? 0 ) + abs( (float) $tx->amount );
-			}
-		}
+	if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) ) { // phpcs:ignore
+		$summary = $wpdb->get_row( $wpdb->prepare( "SELECT COALESCE(SUM(ABS(amount)),0) amount,COUNT(*) count FROM {$table} WHERE type=%s AND category=%s AND status=%s", 'withdraw', 'subscription', 'completed' ) ); // phpcs:ignore
+		$total += (float) $summary->amount; $order_count += (int) $summary->count;
+		$wallet_months = $wpdb->get_results( $wpdb->prepare( "SELECT DATE_FORMAT(created_at,'%%Y-%%m') month,SUM(ABS(amount)) amount FROM {$table} WHERE type=%s AND category=%s AND status=%s GROUP BY month", 'withdraw', 'subscription', 'completed' ) ); // phpcs:ignore
+		foreach ( (array) $wallet_months as $row ) { $monthly[ $row->month ] = (float) ( $monthly[ $row->month ] ?? 0 ) + (float) $row->amount; }
 	}
 
-	// تعداد مشترک فعال و ماهِ جاری.
-	$active_count = 0;
-	$month_new    = 0;
-	$month_key    = gmdate( 'Ym' );
-	$users        = get_users( array( 'fields' => 'ID', 'meta_key' => 'zc_subscription', 'number' => 5000 ) );
-
-	foreach ( $users as $uid ) {
-		if ( zc_subscription_is_active( $uid ) ) {
-			$active_count++;
-			$rec = zc_subscription_get_user( $uid );
-			if ( gmdate( 'Ym', (int) $rec['purchased_at'] ) === $month_key ) {
-				$month_new++;
-			}
+	// شمارش مشترکان و MRR به‌صورت batch؛ محدودیت ۵۰۰۰ کاربر حذف شد.
+	$active_count = 0; $month_new = 0; $mrr = 0; $offset = 0; $batch_size = 500;
+	$month_key = wp_date( 'Ym' );
+	do {
+		$users = get_users( array( 'fields' => 'ID', 'meta_key' => 'zc_subscription', 'number' => $batch_size, 'offset' => $offset, 'orderby' => 'ID', 'order' => 'ASC' ) ); // phpcs:ignore
+		foreach ( $users as $uid ) {
+			if ( ! zc_subscription_is_active( $uid ) ) { continue; }
+			$active_count++; $rec = zc_subscription_get_user( $uid );
+			if ( ! empty( $rec['purchased_at'] ) && wp_date( 'Ym', (int) $rec['purchased_at'] ) === $month_key ) { $month_new++; }
+			$d = zc_subscription_plan_data( $rec['plan_id'] ); $secs = zc_subscription_duration_seconds( $d );
+			if ( $secs > 0 ) { $mrr += (float) $d['price'] * ( MONTH_IN_SECONDS / $secs ); }
 		}
-	}
-
-	// MRR: جمع ارزش ماهانه‌ی همه‌ی اشتراک‌های فعال.
-	$mrr = 0;
-	foreach ( $users as $uid ) {
-		if ( ! zc_subscription_is_active( $uid ) ) {
-			continue;
-		}
-		$rec  = zc_subscription_get_user( $uid );
-		$d    = zc_subscription_plan_data( $rec['plan_id'] );
-		$secs = zc_subscription_duration_seconds( $d );
-		if ( $secs > 0 ) {
-			$mrr += (float) $d['price'] * ( MONTH_IN_SECONDS / $secs );
-		}
-	}
+		$offset += count( $users );
+	} while ( count( $users ) === $batch_size );
 
 	// مرتب‌سازی ماه‌های اخیر.
 	krsort( $monthly );

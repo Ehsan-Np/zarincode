@@ -112,7 +112,7 @@ function zc_code_manager_page() {
 			<?php
 			printf(
 				'<a href="%s" class="button button-small" style="margin-inline-start:8px">%s</a>',
-				esc_url( admin_url( 'themes.php?page=zarincode-options' ) ),
+				esc_url( admin_url( 'admin.php?page=zarincode-options' ) ),
 				esc_html__( 'بازکردن تنظیمات قالب', 'zarincode' )
 			);
 			?>

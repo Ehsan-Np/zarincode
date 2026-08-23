@@ -1,0 +1,11 @@
+/vendor/
+/node_modules/
+/.wp-env/
+/.phpunit.result.cache
+/.phpcs-cache
+/.phpstan-cache
+/.arena/
+*.log
+.DS_Store
+
+/.release/

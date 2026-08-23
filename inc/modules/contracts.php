@@ -429,6 +429,9 @@ function zc_user_contracts( $user_id = 0 ) {
  * @return bool
  */
 function zc_can_view_contract( $contract_id, $user_id = 0 ) {
+	if ( ! zc_opt( 'zc_contract_enable', true ) && ! current_user_can( 'manage_options' ) ) {
+		return false;
+	}
 	$user_id = $user_id ? (int) $user_id : get_current_user_id();
 
 	if ( ! $user_id ) {
@@ -524,7 +527,8 @@ function zc_contract_send_otp( $contract_id ) {
 
 	$code = (string) wp_rand( 10000, 99999 );
 
-	set_transient( 'zc_ct_otp_' . $contract_id, $code, 10 * MINUTE_IN_SECONDS );
+	set_transient( 'zc_ct_otp_' . $contract_id, wp_hash_password( $code ), 10 * MINUTE_IN_SECONDS );
+	delete_transient( 'zc_ct_otp_tries_' . $contract_id );
 
 	$text = zc_sms_parse_vars(
 		zc_sms_message( 'contract_otp' ),
@@ -551,14 +555,19 @@ function zc_contract_check_otp( $contract_id, $code ) {
 		return false;
 	}
 
-	$code = zc_en_num( trim( (string) $code ) );
-
-	if ( ! hash_equals( (string) $saved, $code ) ) {
+	$code  = zc_en_num( trim( (string) $code ) );
+	$tries = (int) get_transient( 'zc_ct_otp_tries_' . $contract_id );
+	if ( $tries >= 5 || ! wp_check_password( $code, $saved ) ) {
+		$tries++;
+		set_transient( 'zc_ct_otp_tries_' . $contract_id, $tries, 10 * MINUTE_IN_SECONDS );
+		if ( $tries >= 5 ) {
+			delete_transient( 'zc_ct_otp_' . $contract_id );
+		}
 		return false;
 	}
 
 	delete_transient( 'zc_ct_otp_' . $contract_id );
-
+	delete_transient( 'zc_ct_otp_tries_' . $contract_id );
 	return true;
 }
 
@@ -589,6 +598,12 @@ function zc_contract_hash( $contract_id ) {
 	);
 }
 
+/** @param int $contract_id قرارداد. @return bool */
+function zc_contract_hash_valid( $contract_id ) {
+	$saved = (string) get_post_meta( $contract_id, '_zc_ct_hash', true );
+	return $saved && hash_equals( $saved, zc_contract_hash( $contract_id ) );
+}
+
 /* ==========================================================================
    درخواست‌های آجاکس
    ========================================================================== */
@@ -601,6 +616,9 @@ function zc_contract_hash( $contract_id ) {
 function zc_ajax_contract_create() {
 	zc_check_ajax();
 
+	if ( ! zc_opt( 'zc_contract_enable', true ) ) {
+		wp_send_json_error( array( 'message' => __( 'سامانه قراردادها غیرفعال است.', 'zarincode' ) ) );
+	}
 	if ( ! is_user_logged_in() ) {
 		wp_send_json_error( array( 'message' => __( 'ابتدا وارد حساب کاربری شوید.', 'zarincode' ) ) );
 	}
@@ -863,6 +881,9 @@ function zc_contract_download() {
 		wp_die( esc_html__( 'قرارداد یافت نشد.', 'zarincode' ) );
 	}
 
+	nocache_headers();
+	header( 'X-Robots-Tag: noindex, nofollow', true );
+	header( 'Content-Security-Policy: frame-ancestors \'self\'' );
 	// phpcs:ignore WordPress.PHP.DontExtract
 	include ZC_DIR . 'template-parts/contract-print.php';
 	exit;

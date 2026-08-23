@@ -142,7 +142,7 @@ function zc_redux_init() {
 					'type'  => 'info',
 					'style' => 'warning',
 					'title' => __( 'نیاز به کمک دارید؟', 'zarincode' ),
-					'desc'  => __( 'برای دریافت پشتیبانی، مستندات کامل قالب را در فایل README.md مطالعه کنید یا با تیم پشتیبانی تماس بگیرید.', 'zarincode' ),
+					'desc'  => __( 'برای دریافت پشتیبانی، مستندات کامل قالب را در فایل README.txt مطالعه کنید یا با تیم پشتیبانی تماس بگیرید.', 'zarincode' ),
 				),
 				array(
 					'id'      => 'zc_system_status',
@@ -177,6 +177,20 @@ function zc_map_field_to_redux( $field ) {
 	}
 	if ( isset( $field['rows'] ) ) {
 		$out['rows'] = $field['rows'];
+	}
+	if ( isset( $field['required'] ) ) {
+		$out['required'] = $field['required'];
+	}
+	if ( isset( $field['style'] ) ) {
+		$out['style'] = $field['style'];
+	}
+	if ( isset( $field['placeholder'] ) ) {
+		$out['placeholder'] = $field['placeholder'];
+	}
+	// نوع داخلی rich معادل editor استاندارد Redux است.
+	if ( 'rich' === $field['type'] ) {
+		$out['type'] = 'editor';
+		$out['args'] = array( 'teeny' => false, 'media_buttons' => false );
 	}
 
 	// گزینه‌های پویا.
@@ -238,6 +252,8 @@ function zc_system_status_html() {
 		array( __( 'حافظه PHP', 'zarincode' ), WP_MEMORY_LIMIT, true ),
 		array( __( 'پیامک کاوه‌نگار', 'zarincode' ), zc_sms()->is_ready() ? __( 'پیکربندی شده', 'zarincode' ) : __( 'پیکربندی نشده', 'zarincode' ), zc_sms()->is_ready() ),
 		array( __( 'درگاه زرین‌پال', 'zarincode' ), zc_opt( 'zc_zarinpal_merchant' ) ? __( 'پیکربندی شده', 'zarincode' ) : __( 'پیکربندی نشده', 'zarincode' ), (bool) zc_opt( 'zc_zarinpal_merchant' ) ),
+		array( __( 'نسخه دیتابیس', 'zarincode' ), get_option( 'zc_database_schema_version', '—' ), defined( 'ZC_DB_VERSION' ) && get_option( 'zc_database_schema_version' ) === ZC_DB_VERSION ),
+		array( __( 'کران اشتراک', 'zarincode' ), wp_next_scheduled( 'zc_subscription_daily' ) ? __( 'زمان‌بندی شده', 'zarincode' ) : __( 'ثبت نشده', 'zarincode' ), (bool) wp_next_scheduled( 'zc_subscription_daily' ) ),
 	);
 
 	$html = '<table style="width:100%;border-collapse:collapse;font-family:Vazirmatn,sans-serif">';

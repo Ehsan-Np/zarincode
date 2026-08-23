@@ -7,6 +7,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/** آیا پشتیبانی در ساعت کاری است؟ @return bool */
+function zc_chat_is_open() {
+	$start = max( 0, min( 23, (int) zc_opt( 'zc_chat_start_hour', 9 ) ) );
+	$end   = max( 0, min( 24, (int) zc_opt( 'zc_chat_end_hour', 18 ) ) );
+	$hour  = (int) current_time( 'G' );
+	return $start <= $end ? ( $hour >= $start && $hour < $end ) : ( $hour >= $start || $hour < $end );
+}
+
 /**
  * دریافت شناسه نشست چت.
  *
@@ -18,11 +26,14 @@ function zc_chat_session_id() {
 	}
 
 	if ( isset( $_COOKIE['zc_chat_sid'] ) ) {
-		return sanitize_text_field( wp_unslash( $_COOKIE['zc_chat_sid'] ) );
+		$saved = sanitize_text_field( wp_unslash( $_COOKIE['zc_chat_sid'] ) );
+		if ( preg_match( '/^[A-Za-z0-9]{20,64}$/', $saved ) ) {
+			return $saved;
+		}
 	}
 
-	$sid = wp_generate_password( 20, false );
-	setcookie( 'zc_chat_sid', $sid, time() + MONTH_IN_SECONDS, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN );
+	$sid = wp_generate_password( 32, false, false );
+	setcookie( 'zc_chat_sid', $sid, array( 'expires' => time() + MONTH_IN_SECONDS, 'path' => COOKIEPATH ?: '/', 'domain' => COOKIE_DOMAIN, 'secure' => is_ssl(), 'httponly' => true, 'samesite' => 'Lax' ) );
 
 	return $sid;
 }
@@ -105,6 +116,10 @@ add_action( 'wp_ajax_nopriv_zc_chat_send', 'zc_ajax_chat_send' );
  * @return string
  */
 function zc_chat_auto_reply( $message ) {
+	if ( ! zc_chat_is_open() ) {
+		return zc_opt( 'zc_chat_offline_msg', __( 'پیام شما ثبت شد. اکنون خارج از ساعت کاری هستیم و در اولین فرصت پاسخ می‌دهیم.', 'zarincode' ) );
+	}
+
 	$rules = zc_opt( 'zc_chat_rules', '' );
 
 	if ( $rules ) {

@@ -44,7 +44,7 @@ function zc_admin_sms_page() {
 			<div class="notice notice-warning">
 				<p>
 					<?php esc_html_e( 'سامانه پیامک هنوز پیکربندی نشده است. کلید API و شماره فرستنده را در تنظیمات قالب ← پیامک وارد کنید.', 'zarincode' ); ?>
-					<a href="<?php echo esc_url( admin_url( 'themes.php?page=zarincode-options' ) ); ?>">
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode-options' ) ); ?>">
 						<?php esc_html_e( 'رفتن به تنظیمات', 'zarincode' ); ?>
 					</a>
 				</p>

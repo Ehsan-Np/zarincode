@@ -30,9 +30,9 @@ function zc_attempts_table() {
  *
  * @return void
  */
-function zc_ensure_attempts_table() {
+function zc_ensure_attempts_table( $force = false ) {
 	static $done = false;
-	if ( $done ) {
+	if ( $done && ! $force ) {
 		return;
 	}
 	$done = true;
@@ -40,7 +40,7 @@ function zc_ensure_attempts_table() {
 	global $wpdb;
 	$table = zc_attempts_table();
 	$exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ); // phpcs:ignore
-	if ( $exists ) {
+	if ( $exists && ! $force ) {
 		return;
 	}
 
@@ -57,7 +57,7 @@ function zc_ensure_attempts_table() {
 		total INT UNSIGNED NOT NULL DEFAULT 0,
 		passed TINYINT(1) NOT NULL DEFAULT 0,
 		mode VARCHAR(20) NOT NULL DEFAULT 'challenge',
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		KEY user_id (user_id),
 		KEY ref_id (ref_id),

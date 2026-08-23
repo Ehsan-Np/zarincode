@@ -21,6 +21,15 @@ defined( 'ABSPATH' ) || exit;
  */
 function zc_plugin_manager_plugins() {
 	$plugins = array(
+		'zarincode-core'  => array(
+			'name'        => __( 'هسته زرین کد', 'zarincode' ),
+			'slug'        => 'zarincode-core',
+			'required'    => true,
+			'min_version' => '1.0.0',
+			'description' => __( 'لایه پایدار انواع محتوا و داده‌ها پس از تغییر قالب.', 'zarincode' ),
+			'type'        => 'core',
+			'source'      => ZC_DIR . 'companion-plugin/zarincode-core',
+		),
 		'elementor'       => array(
 			'name'        => __( 'المنتور', 'zarincode' ),
 			'slug'        => 'elementor',
@@ -32,7 +41,7 @@ function zc_plugin_manager_plugins() {
 		'woocommerce'     => array(
 			'name'        => __( 'ووکامرس', 'zarincode' ),
 			'slug'        => 'woocommerce',
-			'required'    => true,
+			'required'    => false,
 			'min_version' => '7.0.0',
 			'description' => __( 'فروشگاه آنلاین و مدیریت محصولات.', 'zarincode' ),
 			'type'        => 'commerce',
@@ -40,7 +49,7 @@ function zc_plugin_manager_plugins() {
 		'redux-framework' => array(
 			'name'        => __( 'رداکس فریم‌ورک', 'zarincode' ),
 			'slug'        => 'redux-framework',
-			'required'    => true,
+			'required'    => false,
 			'min_version' => '4.3.0',
 			'description' => __( 'پنل تنظیمات پیشرفته‌ی قالب.', 'zarincode' ),
 			'type'        => 'framework',
@@ -119,6 +128,22 @@ function zc_pm_install( $slug, $upgrade = false ) {
 	require_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader-skin.php';
 	require_once ABSPATH . 'wp-admin/includes/file.php';
 	require_once ABSPATH . 'wp-admin/includes/misc.php';
+
+	$definition = zc_plugin_manager_plugins()[ $slug ] ?? array();
+	if ( ! empty( $definition['source'] ) ) {
+		$source = untrailingslashit( (string) $definition['source'] );
+		if ( ! is_dir( $source ) || ! file_exists( $source . '/zarincode-core.php' ) ) {
+			return new WP_Error( 'zc_local_plugin_missing', __( 'فایل افزونه همراه در بسته قالب موجود نیست.', 'zarincode' ) );
+		}
+		if ( ! WP_Filesystem() ) {
+			return new WP_Error( 'zc_filesystem', __( 'دسترسی نوشتن به پوشه افزونه‌ها فراهم نیست.', 'zarincode' ) );
+		}
+		global $wp_filesystem;
+		$destination = trailingslashit( WP_PLUGIN_DIR ) . $slug;
+		if ( ! $wp_filesystem->is_dir( $destination ) ) { $wp_filesystem->mkdir( $destination, FS_CHMOD_DIR ); }
+		$result = copy_dir( $source, $destination );
+		return is_wp_error( $result ) ? $result : true;
+	}
 
 	$api = plugins_api(
 		'plugin_information',

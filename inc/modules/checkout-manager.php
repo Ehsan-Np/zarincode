@@ -11,6 +11,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/** همگام‌سازی اجازهٔ خرید مهمان با پنل قالب. */
+add_filter( 'woocommerce_checkout_registration_required', static function ( $required ) {
+	return zc_opt( 'zc_checkout_guest', true ) ? $required : true;
+} );
+add_filter( 'pre_option_woocommerce_enable_guest_checkout', static function ( $pre ) {
+	return zc_opt( 'zc_checkout_guest', true ) ? $pre : 'no';
+} );
+
 if ( ! zc_is_woo() ) {
 	return;
 }

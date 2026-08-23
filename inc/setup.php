@@ -170,6 +170,7 @@ function zc_after_switch_theme() {
 		'zc_panel_page'  => array( 'title' => 'پنل کاربری', 'slug' => 'panel', 'tpl' => 'templates/template-panel.php' ),
 		'zc_login_page'  => array( 'title' => 'ورود و ثبت‌نام', 'slug' => 'login', 'tpl' => 'templates/template-login.php' ),
 		'zc_booking_page'=> array( 'title' => 'رزرو نوبت', 'slug' => 'booking', 'tpl' => 'templates/template-booking.php' ),
+		'zc_certificate_verify_page' => array( 'title' => 'استعلام گواهینامه', 'slug' => 'certificate-verification', 'tpl' => '', 'content' => '[zc_certificate_verify]' ),
 	);
 
 	$options = get_option( ZC_PREFIX, array() );
@@ -189,13 +190,23 @@ function zc_after_switch_theme() {
 				'post_name'    => $data['slug'],
 				'post_status'  => 'publish',
 				'post_type'    => 'page',
-				'post_content' => '',
+				'post_content' => $data['content'] ?? '',
 			)
 		);
 		if ( $page_id && ! is_wp_error( $page_id ) ) {
-			update_post_meta( $page_id, '_wp_page_template', $data['tpl'] );
+			if ( ! empty( $data['tpl'] ) ) {
+				update_post_meta( $page_id, '_wp_page_template', $data['tpl'] );
+			}
 			$options[ $key ] = $page_id;
 		}
+	}
+
+	// کلیدهای امنیتی پیش از فعال‌شدن endpointهای webhook/cron ساخته شوند.
+	if ( empty( $options['zc_bot_secret'] ) ) {
+		$options['zc_bot_secret'] = wp_generate_password( 32, false, false );
+	}
+	if ( empty( $options['zc_cron_key'] ) ) {
+		$options['zc_cron_key'] = wp_generate_password( 32, false, false );
 	}
 
 	update_option( ZC_PREFIX, $options );

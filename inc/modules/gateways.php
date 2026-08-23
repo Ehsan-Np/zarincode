@@ -60,11 +60,15 @@ function zc_init_extra_gateways() {
 				$this->description = $this->get_option( 'description', __( 'پرداخت امن با تمام کارت‌های بانکی عضو شتاب', 'zarincode' ) );
 
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-				add_action( 'woocommerce_api_zc_idpay', array( $this, 'callback_handler' ) );
-				add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-			}
+add_action( 'woocommerce_api_zc_idpay', array( $this, 'callback_handler' ) );
+					add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
+				}
 
-			public function init_form_fields() {
+				public function is_available() {
+					return (bool) zc_opt( 'zc_idpay_enable', false ) && parent::is_available();
+				}
+
+				public function init_form_fields() {
 				$this->form_fields = array(
 					'enabled'  => array( 'title' => __( 'فعال‌سازی', 'zarincode' ), 'type' => 'checkbox', 'label' => __( 'فعال‌سازی درگاه ای‌دی‌پی', 'zarincode' ), 'default' => 'no' ),
 					'title'    => array( 'title' => __( 'عنوان', 'zarincode' ), 'type' => 'text', 'default' => __( 'پرداخت آنلاین ای‌دی‌پی', 'zarincode' ) ),
@@ -85,6 +89,7 @@ function zc_init_extra_gateways() {
 
 				$api = trim( (string) zc_opt( 'zc_idpay_api', '' ) );
 				if ( ! $api ) {
+					zc_restore_order_wallet( $order, 'idpay_not_configured' );
 					wc_add_notice( __( 'درگاه ای‌دی‌پی پیکربندی نشده است.', 'zarincode' ), 'error' );
 					return array( 'result' => 'failure' );
 				}
@@ -115,12 +120,14 @@ function zc_init_extra_gateways() {
 				);
 
 				if ( is_wp_error( $response ) ) {
+					zc_restore_order_wallet( $order, 'idpay_connection_failed' );
 					wc_add_notice( __( 'خطا در اتصال به درگاه ای‌دی‌پی.', 'zarincode' ), 'error' );
 					return array( 'result' => 'failure' );
 				}
 
 				$body = json_decode( wp_remote_retrieve_body( $response ), true );
 				if ( empty( $body['id'] ) ) {
+					zc_restore_order_wallet( $order, 'idpay_request_rejected' );
 					wc_add_notice( $body['error_message'] ?? __( 'خطا در پرداخت ای‌دی‌پی.', 'zarincode' ), 'error' );
 					return array( 'result' => 'failure' );
 				}
@@ -148,12 +155,19 @@ function zc_init_extra_gateways() {
 					exit;
 				}
 
-				if ( $order->is_paid() ) {
-					wp_safe_redirect( $this->get_return_url( $order ) );
-					exit;
-				}
+					if ( $order->is_paid() ) {
+						wp_safe_redirect( $this->get_return_url( $order ) );
+						exit;
+					}
 
-				if ( 10 !== (int) $status ) {
+					$saved_id = (string) $order->get_meta( '_zc_idpay_id', true );
+					if ( ! $id || ! $saved_id || ! hash_equals( $saved_id, $id ) ) {
+						wc_add_notice( __( 'شناسه تراکنش با سفارش مطابقت ندارد.', 'zarincode' ), 'error' );
+						wp_safe_redirect( wc_get_checkout_url() );
+						exit;
+					}
+
+					if ( 10 !== (int) $status ) {
 					$order->update_status( 'failed', __( 'پرداخت توسط کاربر لغو شد.', 'zarincode' ) );
 					wp_safe_redirect( wc_get_checkout_url() );
 					exit;
@@ -179,13 +193,14 @@ function zc_init_extra_gateways() {
 				);
 
 				$vbody = json_decode( wp_remote_retrieve_body( $verify ), true );
-				if ( empty( $vbody['status'] ) || 100 !== (int) $vbody['status'] ) {
-					$order->update_status( 'failed', __( 'تأیید پرداخت ای‌دی‌پی ناموفق بود.', 'zarincode' ) );
-					wp_safe_redirect( wc_get_checkout_url() );
-					exit;
-				}
+					$expected_rial = (int) round( (float) $order->get_meta( '_zc_idpay_amount', true ) * 10 );
+					if ( empty( $vbody['status'] ) || 100 !== (int) $vbody['status'] || ( isset( $vbody['amount'] ) && (int) $vbody['amount'] !== $expected_rial ) ) {
+						$order->update_status( 'failed', __( 'تأیید یا مبلغ پرداخت ای‌دی‌پی نامعتبر بود.', 'zarincode' ) );
+						wp_safe_redirect( wc_get_checkout_url() );
+						exit;
+					}
 
-				$amount = (float) $order->get_meta( '_zc_idpay_amount' );
+					$amount = (float) $order->get_meta( '_zc_idpay_amount' );
 				$amount = $amount ? $amount : (float) $order->get_total();
 
 				$order->payment_complete( $track_id );
@@ -231,11 +246,15 @@ function zc_init_extra_gateways() {
 				$this->description = $this->get_option( 'description', __( 'پرداخت امن با تمام کارت‌های بانکی عضو شتاب', 'zarincode' ) );
 
 				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-				add_action( 'woocommerce_api_zc_payir', array( $this, 'callback_handler' ) );
-				add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
-			}
+add_action( 'woocommerce_api_zc_payir', array( $this, 'callback_handler' ) );
+					add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
+				}
 
-			public function init_form_fields() {
+				public function is_available() {
+					return (bool) zc_opt( 'zc_payir_enable', false ) && parent::is_available();
+				}
+
+				public function init_form_fields() {
 				$this->form_fields = array(
 					'enabled'  => array( 'title' => __( 'فعال‌سازی', 'zarincode' ), 'type' => 'checkbox', 'label' => __( 'فعال‌سازی درگاه پی‌آی‌آر', 'zarincode' ), 'default' => 'no' ),
 					'title'    => array( 'title' => __( 'عنوان', 'zarincode' ), 'type' => 'text', 'default' => __( 'پرداخت آنلاین پی‌آی‌آر', 'zarincode' ) ),
@@ -256,6 +275,7 @@ function zc_init_extra_gateways() {
 
 				$api = trim( (string) zc_opt( 'zc_payir_api', '' ) );
 				if ( ! $api ) {
+					zc_restore_order_wallet( $order, 'payir_not_configured' );
 					wc_add_notice( __( 'درگاه پی‌آی‌آر پیکربندی نشده است.', 'zarincode' ), 'error' );
 					return array( 'result' => 'failure' );
 				}
@@ -281,12 +301,14 @@ function zc_init_extra_gateways() {
 				);
 
 				if ( is_wp_error( $response ) ) {
+					zc_restore_order_wallet( $order, 'payir_connection_failed' );
 					wc_add_notice( __( 'خطا در اتصال به درگاه پی‌آی‌آر.', 'zarincode' ), 'error' );
 					return array( 'result' => 'failure' );
 				}
 
 				$body = json_decode( wp_remote_retrieve_body( $response ), true );
 				if ( empty( $body['token'] ) ) {
+					zc_restore_order_wallet( $order, 'payir_request_rejected' );
 					wc_add_notice( $body['errorMessage'] ?? __( 'خطا در پرداخت پی‌آی‌آر.', 'zarincode' ), 'error' );
 					return array( 'result' => 'failure' );
 				}
@@ -334,9 +356,10 @@ function zc_init_extra_gateways() {
 					)
 				);
 
-				$vbody = json_decode( wp_remote_retrieve_body( $verify ), true );
-				if ( empty( $vbody['status'] ) || 1 !== (int) $vbody['status'] ) {
-					$order->update_status( 'failed', __( 'تأیید پرداخت پی‌آی‌آر ناموفق بود.', 'zarincode' ) );
+					$vbody          = json_decode( wp_remote_retrieve_body( $verify ), true );
+					$expected_amount = (int) round( (float) $order->get_meta( '_zc_payir_amount', true ) );
+					if ( empty( $vbody['status'] ) || 1 !== (int) $vbody['status'] || ( isset( $vbody['amount'] ) && (int) $vbody['amount'] !== $expected_amount ) ) {
+						$order->update_status( 'failed', __( 'تأیید یا مبلغ پرداخت پی‌آی‌آر نامعتبر بود.', 'zarincode' ) );
 					wp_safe_redirect( wc_get_checkout_url() );
 					exit;
 				}
@@ -386,12 +409,16 @@ function zc_init_extra_gateways() {
 				$this->title       = $this->get_option( 'title', __( 'پرداخت کارت به کارت', 'zarincode' ) );
 				$this->description = $this->get_option( 'description', __( 'پرداخت از طریق کارت‌به‌کارت و تأیید دستی', 'zarincode' ) );
 
-				add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-			}
+add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+				}
 
-			public function init_form_fields() {
-				$this->form_fields = array(
-					'enabled'  => array( 'title' => __( 'فعال‌سازی', 'zarincode' ), 'type' => 'checkbox', 'label' => __( 'فعال‌سازی پرداخت کارت‌به‌کارت', 'zarincode' ), 'default' => 'no' ),
+				public function is_available() {
+					return (bool) zc_opt( 'zc_cct_enable', false ) && parent::is_available();
+				}
+
+				public function init_form_fields() {
+					$this->form_fields = array(
+						'enabled'  => array( 'title' => __( 'فعال‌سازی', 'zarincode' ), 'type' => 'checkbox', 'label' => __( 'فعال‌سازی پرداخت کارت‌به‌کارت', 'zarincode' ), 'default' => 'no' ),
 					'title'    => array( 'title' => __( 'عنوان', 'zarincode' ), 'type' => 'text', 'default' => __( 'پرداخت کارت به کارت', 'zarincode' ) ),
 					'description' => array( 'title' => __( 'توضیحات', 'zarincode' ), 'type' => 'textarea', 'default' => __( 'پرداخت از طریق کارت‌به‌کارت و تأیید دستی', 'zarincode' ) ),
 				);
