@@ -56,7 +56,7 @@ function zc_sms_message_fields() {
  * @return array
  */
 function zc_settings_schema() {
-	return array(
+	$schema = array(
 
 		/* ============ عمومی ============ */
 		'general' => array(
@@ -171,7 +171,7 @@ function zc_settings_schema() {
 				array( 'id' => 'zc_footer_col2_title', 'type' => 'text', 'title' => __( 'عنوان ستون دوم', 'zarincode' ), 'default' => 'لینک‌های مفید' ),
 				array( 'id' => 'zc_copyright', 'type' => 'text', 'title' => __( 'متن کپی‌رایت', 'zarincode' ), 'default' => 'تمامی حقوق مادی و معنوی این وبسایت متعلق به زرین کد می‌باشد.' ),
 				array( 'id' => 'zc_footer_badges', 'type' => 'slides', 'title' => __( 'نمادهای اعتماد', 'zarincode' ) ),
-				array( 'id' => 'zc_footer_badges_html', 'type' => 'textarea', 'title' => __( 'کد HTML نمادهای اعتماد (اختیاری)', 'zarincode' ), 'rows' => 8, 'desc' => __( 'کد کامل HTML دریافتی از زرین‌پال، ای‌نماد، ساماندهی و درگاه‌های دیگر را اینجا بچسبانید. چند کد را می‌توانید پشت سر هم قرار دهید. این کد مستقیماً و بدون تغییر اجرا می‌شود.', 'zarincode' ) ),
+				array( 'id' => 'zc_footer_badges_html', 'type' => 'textarea', 'title' => __( 'کد HTML نمادهای اعتماد (اختیاری)', 'zarincode' ), 'rows' => 8, 'desc' => __( 'کد HTML ای‌نماد، ساماندهی و زرین‌پال را اینجا بچسبانید. رویدادهای جاوااسکریپت حذف می‌شوند و iframe فقط از میزبان‌های مجاز باقی می‌ماند.', 'zarincode' ) ),
 				array( 'id' => 'zc_footer_badge_size', 'type' => 'number', 'title' => __( 'اندازه‌ی نمادهای HTML (پیکسل)', 'zarincode' ), 'default' => 84 ),
 			),
 		),
@@ -592,6 +592,7 @@ function zc_settings_schema() {
 				array( 'id' => 'zc_backup_keep_local', 'type' => 'switch', 'title' => __( 'ذخیره‌ی محلی همزمان', 'zarincode' ), 'default' => false, 'desc' => __( 'علاوه بر ارسال به پیام‌رسان، یک نسخه در پوشه‌ی محافظت‌شده نگهداری شود.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
 				array( 'id' => 'zc_backup_compress', 'type' => 'switch', 'title' => __( 'فشرده‌سازی Gzip', 'zarincode' ), 'default' => true, 'desc' => __( 'حجم فایل بکاپ و مصرف پهنای باند را کاهش می‌دهد.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
 				array( 'id' => 'zc_backup_max', 'type' => 'slider', 'title' => __( 'حداکثر تعداد بکاپ محلی', 'zarincode' ), 'default' => 5, 'min' => 1, 'max' => 30, 'step' => 1, 'required' => array( 'zc_backup_enable', '=', true ) ),
+				array( 'id' => 'zc_backup_encrypt', 'type' => 'switch', 'title' => __( 'رمزنگاری فایل بکاپ', 'zarincode' ), 'default' => true, 'desc' => __( 'پس از Gzip، فایل با AES-256 رمز می‌شود و با پسوند .enc ارسال می‌گردد.', 'zarincode' ), 'required' => array( 'zc_backup_enable', '=', true ) ),
 			),
 		),
 
@@ -628,9 +629,32 @@ function zc_settings_schema() {
 				array( 'id' => 'zc_image_opt_enable', 'type' => 'switch', 'title' => __( 'فعال‌سازی موتور بهینه‌سازی', 'zarincode' ), 'default' => true ),
 				array( 'id' => 'zc_image_opt_webp', 'type' => 'switch', 'title' => __( 'تبدیل فرمت به WebP', 'zarincode' ), 'default' => true, 'required' => array( 'zc_image_opt_enable', '=', true ) ),
 				array( 'id' => 'zc_image_opt_quality', 'type' => 'slider', 'title' => __( 'کیفیت WebP', 'zarincode' ), 'default' => 90, 'min' => 50, 'max' => 95, 'step' => 5, 'desc' => __( '۹۰ کیفیتِ «بدون افت محسوس» است؛ برای کاهش بیشتر حجم می‌توانید پایین بیاورید.', 'zarincode' ), 'required' => array( 'zc_image_opt_webp', '=', true ) ),
-				array( 'id' => 'zc_image_opt_delete_original', 'type' => 'switch', 'title' => __( 'حذف فایل اصلی پس از تبدیل', 'zarincode' ), 'default' => true, 'desc' => __( 'پس از ساخت WebP، فایل JPG/PNG اصلی حذف می‌شود تا فضای هاست آزاد بماند.', 'zarincode' ), 'required' => array( 'zc_image_opt_webp', '=', true ) ),
+				array( 'id' => 'zc_image_opt_delete_original', 'type' => 'switch', 'title' => __( 'حذف فایل اصلی پس از تبدیل', 'zarincode' ), 'default' => false, 'desc' => __( 'پس از ساخت WebP، فایل JPG/PNG اصلی حذف می‌شود. پیش‌فرض خاموش است تا نسخهٔ اصلی از دست نرود.', 'zarincode' ), 'required' => array( 'zc_image_opt_webp', '=', true ) ),
 				array( 'id' => 'zc_image_opt_sizes', 'type' => 'switch', 'title' => __( 'تولید نسخه‌های WebP همهٔ سایزها', 'zarincode' ), 'default' => true, 'desc' => __( 'برای پاسخ‌گویی به هر محل استفاده، برای هر سایز تصویر نسخهٔ WebP ساخته می‌شود.', 'zarincode' ), 'required' => array( 'zc_image_opt_enable', '=', true ) ),
 			),
 		),
+
+		/* ============ پلتفرم ۳.۳۸ ============ */
+		'platform' => array(
+			'title'  => __( 'پلتفرم و امنیت', 'zarincode' ),
+			'icon'   => 'el el-lock',
+			'fields' => array(
+				array( 'id' => 'zc_security_headers', 'type' => 'switch', 'title' => __( 'هدرهای امنیتی HTTP', 'zarincode' ), 'default' => true ),
+				array( 'id' => 'zc_disable_xmlrpc', 'type' => 'switch', 'title' => __( 'غیرفعال‌سازی XML-RPC', 'zarincode' ), 'default' => true ),
+				array( 'id' => 'zc_admin_login_secret', 'type' => 'password', 'title' => __( 'رمز ورود اضطراری مدیر', 'zarincode' ), 'desc' => __( 'اگر خالی باشد مسیر /wp-login.php?zc_admin=1 کار نمی‌کند. مقدار را محرمانه نگه دارید.', 'zarincode' ) ),
+				array( 'id' => 'zc_lesson_complete_percent', 'type' => 'slider', 'title' => __( 'آستانه تکمیل جلسه (٪ تماشا)', 'zarincode' ), 'default' => 80, 'min' => 50, 'max' => 100, 'step' => 5 ),
+				array( 'id' => 'zc_installments_enable', 'type' => 'switch', 'title' => __( 'خرید اقساطی دوره', 'zarincode' ), 'default' => true ),
+				array( 'id' => 'zc_installments_max', 'type' => 'slider', 'title' => __( 'حداکثر تعداد اقساط', 'zarincode' ), 'default' => 4, 'min' => 2, 'max' => 12, 'required' => array( 'zc_installments_enable', '=', true ) ),
+				array( 'id' => 'zc_pwa_enable', 'type' => 'switch', 'title' => __( 'مانیفست PWA', 'zarincode' ), 'default' => true ),
+				array( 'id' => 'zc_dark_enable', 'type' => 'switch', 'title' => __( 'حالت تیره', 'zarincode' ), 'default' => true ),
+				array( 'id' => 'zc_whatsapp_enable', 'type' => 'switch', 'title' => __( 'دکمه واتساپ', 'zarincode' ), 'default' => true ),
+				array( 'id' => 'zc_whatsapp_number', 'type' => 'text', 'title' => __( 'شماره واتساپ', 'zarincode' ), 'required' => array( 'zc_whatsapp_enable', '=', true ) ),
+				array( 'id' => 'zc_whatsapp_prefill', 'type' => 'text', 'title' => __( 'متن پیش‌فرض واتساپ', 'zarincode' ), 'required' => array( 'zc_whatsapp_enable', '=', true ) ),
+				array( 'id' => 'zc_update_endpoint', 'type' => 'text', 'title' => __( 'آدرس بررسی به‌روزرسانی قالب', 'zarincode' ), 'desc' => __( 'خالی = بدون بررسی از راه دور.', 'zarincode' ) ),
+				array( 'id' => 'zc_update_license', 'type' => 'text', 'title' => __( 'کلید لایسنس به‌روزرسانی', 'zarincode' ) ),
+			),
+		),
 	);
+
+	return apply_filters( 'zc_settings_schema', $schema );
 }

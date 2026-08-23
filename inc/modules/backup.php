@@ -7,6 +7,23 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * نوع MIME فایل بکاپ (sql / gzip / رمزشده).
+ *
+ * @param string $filepath مسیر.
+ * @return string
+ */
+function zc_backup_mime( $filepath ) {
+	$name = strtolower( (string) $filepath );
+	if ( strlen( $name ) >= 4 && '.enc' === substr( $name, -4 ) ) {
+		return 'application/octet-stream';
+	}
+	if ( strlen( $name ) >= 3 && '.gz' === substr( $name, -3 ) ) {
+		return 'application/gzip';
+	}
+	return 'application/sql';
+}
+
 /** @return bool */
 function zc_backup_enabled() {
 	return (bool) zc_opt( 'zc_backup_enable', false );
@@ -117,15 +134,76 @@ function zc_backup_create() {
 		if ( $source && $target ) {
 			while ( ! feof( $source ) ) { gzwrite( $target, fread( $source, 1024 * 1024 ) ); } // phpcs:ignore WordPress.WP.AlternativeFunctions
 			fclose( $source ); gzclose( $target ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-			if ( file_exists( $gzpath ) && filesize( $gzpath ) > 0 ) { wp_delete_file( $filepath ); return $gzpath; }
+			if ( file_exists( $gzpath ) && filesize( $gzpath ) > 0 ) {
+				wp_delete_file( $filepath );
+				$filepath = $gzpath;
+			} elseif ( file_exists( $gzpath ) ) {
+				wp_delete_file( $gzpath );
+			}
 		} else {
 			if ( $source ) { fclose( $source ); } // phpcs:ignore
 			if ( $target ) { gzclose( $target ); }
+			if ( file_exists( $gzpath ) ) { wp_delete_file( $gzpath ); }
 		}
-		wp_delete_file( $gzpath );
+	}
+
+	if ( zc_opt( 'zc_backup_encrypt', true ) && function_exists( 'openssl_encrypt' ) ) {
+		$enc = zc_backup_encrypt_file( $filepath );
+		if ( $enc ) {
+			return $enc;
+		}
 	}
 
 	return $filepath;
+}
+
+/**
+ * رمزنگاری فایل بکاپ با AES-256-CBC پیش از ارسال به پیام‌رسان.
+ *
+ * @param string $filepath مسیر.
+ * @return string|false
+ */
+function zc_backup_encrypt_file( $filepath ) {
+	if ( ! file_exists( $filepath ) || ! function_exists( 'openssl_encrypt' ) ) {
+		return false;
+	}
+	$key = function_exists( 'zc_backup_crypto_key' ) ? zc_backup_crypto_key() : hash( 'sha256', wp_salt( 'auth' ), true );
+	$iv  = random_bytes( 16 );
+	$src = fopen( $filepath, 'rb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	$dst = $filepath . '.enc';
+	$out = fopen( $dst, 'wb' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	if ( ! $src || ! $out ) {
+		if ( $src ) {
+			fclose( $src ); // phpcs:ignore
+		}
+		if ( $out ) {
+			fclose( $out ); // phpcs:ignore
+		}
+		return false;
+	}
+	fwrite( $out, 'ZCENC1' . $iv ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	while ( ! feof( $src ) ) {
+		$chunk = fread( $src, 1024 * 1024 ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+		if ( false === $chunk || '' === $chunk ) {
+			break;
+		}
+		$enc = openssl_encrypt( $chunk, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv );
+		if ( false === $enc ) {
+			fclose( $src ); // phpcs:ignore
+			fclose( $out ); // phpcs:ignore
+			wp_delete_file( $dst );
+			return false;
+		}
+		fwrite( $out, pack( 'N', strlen( $enc ) ) . $enc ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+	}
+	fclose( $src ); // phpcs:ignore
+	fclose( $out ); // phpcs:ignore
+	if ( filesize( $dst ) > 6 ) {
+		wp_delete_file( $filepath );
+		return $dst;
+	}
+	wp_delete_file( $dst );
+	return false;
 }
 
 /**
@@ -153,7 +231,7 @@ function zc_messenger_send_document( $messenger, $chat_id, $filepath, $caption =
 		$curl = curl_init( $url ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 		curl_setopt_array( $curl, array( // phpcs:ignore WordPress.WP.AlternativeFunctions
 			CURLOPT_POST => true, CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 20, CURLOPT_TIMEOUT => 180,
-			CURLOPT_POSTFIELDS => array( 'chat_id' => $chat_id, 'caption' => $caption, 'document' => curl_file_create( $filepath, '.gz' === substr( $filepath, -3 ) ? 'application/gzip' : 'application/sql', basename( $filepath ) ) ),
+			CURLOPT_POSTFIELDS => array( 'chat_id' => $chat_id, 'caption' => $caption, 'document' => curl_file_create( $filepath, zc_backup_mime( $filepath ), basename( $filepath ) ) ),
 		) );
 		$raw  = curl_exec( $curl ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 		$code = (int) curl_getinfo( $curl, CURLINFO_RESPONSE_CODE ); // phpcs:ignore WordPress.WP.AlternativeFunctions
@@ -173,7 +251,7 @@ function zc_messenger_send_document( $messenger, $chat_id, $filepath, $caption =
 	}
 	$parts .= '--' . $boundary . $eol;
 	$parts .= 'Content-Disposition: form-data; name="document"; filename="' . sanitize_file_name( basename( $filepath ) ) . '"' . $eol;
-	$parts .= 'Content-Type: ' . ( '.gz' === substr( $filepath, -3 ) ? 'application/gzip' : 'application/sql' ) . $eol . $eol;
+	$parts .= 'Content-Type: ' . zc_backup_mime( $filepath ) . $eol . $eol;
 	$parts .= file_get_contents( $filepath ) . $eol; // phpcs:ignore WordPress.WP.AlternativeFunctions
 	$parts .= '--' . $boundary . '--' . $eol;
 

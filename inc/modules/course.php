@@ -255,6 +255,9 @@ function zc_ajax_complete_lesson() {
 
 	$course_id = isset( $_POST['course_id'] ) ? absint( $_POST['course_id'] ) : 0;
 	$lesson    = isset( $_POST['lesson_key'] ) ? sanitize_text_field( wp_unslash( $_POST['lesson_key'] ) ) : '';
+	$seconds   = isset( $_POST['seconds'] ) ? absint( $_POST['seconds'] ) : 0;
+	$duration  = isset( $_POST['duration'] ) ? absint( $_POST['duration'] ) : 0;
+	$complete  = ! empty( $_POST['complete'] );
 	$user_id   = get_current_user_id();
 
 	if ( ! $course_id || ! $lesson ) {
@@ -265,23 +268,37 @@ function zc_ajax_complete_lesson() {
 		wp_send_json_error( array( 'message' => __( 'شما به این دوره دسترسی ندارید.', 'zarincode' ) ) );
 	}
 
-	$table = $wpdb->prefix . 'zc_progress';
+	$threshold = max( 50, min( 100, (int) zc_opt( 'zc_lesson_complete_percent', 80 ) ) );
+	$can_done  = false;
+	if ( $complete && $duration > 0 ) {
+		$can_done = ( ( $seconds / $duration ) * 100 ) >= $threshold;
+	} elseif ( $complete && $seconds >= 30 ) {
+		$can_done = true;
+	}
 
-	$wpdb->replace( // phpcs:ignore
-		$table,
-		array(
-			'user_id'    => $user_id,
-			'course_id'  => $course_id,
-			'lesson_key' => $lesson,
-			'status'     => 'completed',
-			'updated_at' => current_time( 'mysql' ),
-		)
-	);
+	$fired = false;
+	if ( function_exists( 'zc_save_lesson_progress' ) ) {
+		$saved    = zc_save_lesson_progress( $user_id, $course_id, $lesson, $seconds, $can_done );
+		$progress = $saved['progress'];
+		$fired    = true;
+	} else {
+		$table = $wpdb->prefix . 'zc_progress';
+		$wpdb->replace( // phpcs:ignore
+			$table,
+			array(
+				'user_id'    => $user_id,
+				'course_id'  => $course_id,
+				'lesson_key' => $lesson,
+				'status'     => $can_done ? 'completed' : 'in_progress',
+				'seconds'    => $seconds,
+				'updated_at' => current_time( 'mysql' ),
+			)
+		);
+		$progress = zc_get_course_progress( $user_id, $course_id );
+	}
 
-	$progress = zc_get_course_progress( $user_id, $course_id );
-
-	// صدور گواهی در صورت تکمیل ۱۰۰٪.
-	if ( 100 === $progress ) {
+	// صدور گواهی در صورت تکمیل ۱۰۰٪ (اگر ذخیرهٔ کلاس درس خودش هوک نزده باشد).
+	if ( ! $fired && 100 === $progress && $can_done ) {
 		do_action( 'zc_course_completed', $user_id, $course_id );
 	}
 

@@ -1,9 +1,9 @@
 {
   "name": "zarincode-theme",
   "private": true,
-  "version": "3.37.0",
+  "version": "3.38.0",
   "scripts": {
-    "lint:js": "node --check assets/js/main.js && node --check assets/js/panel.js && node --check assets/js/admin.js && node --check assets/js/jalali.js",
+    "lint:js": "node --check assets/js/main.js && node --check assets/js/panel.js && node --check assets/js/admin.js && node --check assets/js/jalali.js && node --check assets/js/player.js && node --check assets/js/dark.js",
     "test": "npm run lint:js",
     "env:start": "wp-env start --update",
     "env:stop": "wp-env stop",

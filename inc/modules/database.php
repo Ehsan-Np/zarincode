@@ -6,7 +6,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'ZC_DB_VERSION', '3.36.2' );
+define( 'ZC_DB_VERSION', '3.38.0' );
 
 /**
  * اجرای idempotent همهٔ سازنده‌های جدول.
@@ -30,7 +30,7 @@ function zc_run_database_migrations() {
 	if ( function_exists( 'zc_ensure_attempts_table' ) ) {
 		zc_ensure_attempts_table( true );
 	}
-	foreach ( array( 'zc_create_contract_chat_table', 'zc_create_service_coupon_table', 'zc_create_contacts_table', 'zc_create_growth_tables' ) as $callback ) {
+	foreach ( array( 'zc_create_contract_chat_table', 'zc_create_service_coupon_table', 'zc_create_contacts_table', 'zc_create_growth_tables', 'zc_create_audit_table', 'zc_create_installments_table' ) as $callback ) {
 		if ( function_exists( $callback ) ) {
 			call_user_func( $callback );
 		}

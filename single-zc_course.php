@@ -201,13 +201,12 @@ while ( have_posts() ) :
 																	<span class="zc-badge zc-badge--green"><?php esc_html_e( 'رایگان', 'zarincode' ); ?></span>
 																<?php endif; ?>
 																<span class="zc-lesson__duration"><?php echo esc_html( zc_fa_num( $zc_lesson['duration'] ?? '' ) ); ?></span>
-																<?php if ( ! $zc_locked && ! empty( $zc_lesson['video'] ) ) : ?>
-																	<button class="zc-lesson__play" data-zc-video="<?php echo esc_url( $zc_lesson['video'] ); ?>"
-																		data-lesson-key="<?php echo esc_attr( $zc_key ); ?>" data-course="<?php echo esc_attr( $zc_id ); ?>"
-																		aria-label="<?php esc_attr_e( 'پخش', 'zarincode' ); ?>">
-																		<?php zc_the_icon( 'play', 15 ); ?>
-																	</button>
-																<?php endif; ?>
+										<?php if ( ! $zc_locked ) : ?>
+											<a class="zc-lesson__play" href="<?php echo esc_url( function_exists( 'zc_classroom_url' ) ? zc_classroom_url( $zc_id, $zc_key ) : get_permalink( $zc_id ) ); ?>"
+												aria-label="<?php esc_attr_e( 'پخش در کلاس درس', 'zarincode' ); ?>">
+												<?php zc_the_icon( 'play', 15 ); ?>
+											</a>
+										<?php endif; ?>
 															</li>
 														<?php endforeach; ?>
 													</ul>
@@ -310,7 +309,7 @@ while ( have_posts() ) :
 									</div>
 								</div>
 								<div class="zc-progress" style="margin-bottom:16px"><div class="zc-progress__bar" data-value="<?php echo esc_attr( $zc_progress ); ?>"></div></div>
-								<a href="#curriculum" class="zc-btn zc-btn--gold zc-btn--block zc-btn--lg" onclick="document.querySelector('[data-tab=curriculum]').click()">
+								<a href="<?php echo esc_url( function_exists( 'zc_classroom_url' ) ? zc_classroom_url( $zc_id ) : '#curriculum' ); ?>" class="zc-btn zc-btn--gold zc-btn--block zc-btn--lg">
 									<?php zc_the_icon( 'play', 18 ); ?>
 									<?php echo $zc_progress > 0 ? esc_html__( 'ادامه یادگیری', 'zarincode' ) : esc_html__( 'شروع دوره', 'zarincode' ); ?>
 								</a>
@@ -392,22 +391,7 @@ while ( have_posts() ) :
 				});
 			});
 		});
-		// ثبت پیشرفت هنگام پخش جلسه
-		document.querySelectorAll('.zc-lesson__play').forEach(function(btn){
-			btn.addEventListener('click',function(){
-				if(!ZC.isLogged)return;
-				window.zcAjax('zc_complete_lesson',{
-					course_id:btn.dataset.course,
-					lesson_key:btn.dataset.lessonKey
-				}).then(function(res){
-					if(res.success){
-						btn.closest('.zc-lesson').classList.add('is-done');
-						var bar=document.querySelector('.zc-course-buy .zc-progress__bar');
-						if(bar)bar.style.width=res.data.progress+'%';
-					}
-				});
-			});
-		});
+		// پیشرفت فقط در کلاس درس پس از تماشای واقعی ثبت می‌شود.
 	})();
 	</script>
 

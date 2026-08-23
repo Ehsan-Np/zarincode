@@ -17,9 +17,10 @@ function zc_enqueue_assets() {
 
 	// فونت محلی (بدون درخواست خارجی = سرعت بالا).
 	wp_enqueue_style( 'zc-fonts', ZC_ASSETS . 'css/fonts.css', array(), $ver );
+	wp_enqueue_style( 'zc-tokens', ZC_ASSETS . 'css/tokens.css', array(), $ver );
 
 	// استایل اصلی.
-	wp_enqueue_style( 'zc-main', ZC_ASSETS . 'css/main.css', array( 'zc-fonts' ), $ver );
+	wp_enqueue_style( 'zc-main', ZC_ASSETS . 'css/main.css', array( 'zc-fonts', 'zc-tokens' ), $ver );
 
 	// استایل ووکامرس فقط در صورت نیاز.
 	if ( zc_is_woo() ) {
@@ -198,7 +199,7 @@ function zc_hex_alpha( $hex, $alpha = 1 ) {
  * @return string
  */
 function zc_defer_scripts( $tag, $handle ) {
-	$defer = array( 'zc-main', 'zc-panel', 'zc-bundle', 'zc-jalali' );
+	$defer = array( 'zc-main', 'zc-panel', 'zc-bundle', 'zc-jalali', 'zc-dark' );
 	if ( in_array( $handle, $defer, true ) && false === strpos( $tag, 'defer' ) ) {
 		$tag = str_replace( ' src', ' defer src', $tag );
 	}
@@ -231,6 +232,17 @@ add_action( 'wp_head', 'zc_preload_assets', 1 );
  * @return void
  */
 function zc_admin_assets( $hook ) {
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	$ptype  = $screen && ! empty( $screen->post_type ) ? (string) $screen->post_type : '';
+	$sid    = $screen && ! empty( $screen->id ) ? (string) $screen->id : '';
+	$needed = ( false !== strpos( (string) $hook, 'zarincode' ) )
+		|| 0 === strpos( $ptype, 'zc_' )
+		|| false !== strpos( $sid, 'zarincode' )
+		|| 'product' === $ptype;
+	if ( ! $needed ) {
+		return;
+	}
+
 	wp_enqueue_style( 'zc-admin', ZC_ASSETS . 'css/admin.css', array(), ZC_VERSION );
 	wp_enqueue_script( 'zc-admin', ZC_ASSETS . 'js/admin.js', array( 'jquery' ), ZC_VERSION, true );
 	wp_localize_script(

@@ -18,13 +18,18 @@ final class RepositorySmokeTest extends TestCase {
 		self::assertFileExists( $root . '/inc/modules/typography.php' );
 		self::assertFileExists( $root . '/assets/css/redesign.css' );
 		self::assertFileExists( $root . '/assets/js/main.js' );
+		self::assertFileExists( $root . '/assets/js/vendor/chart.umd.min.js' );
+		self::assertFileExists( $root . '/inc/modules/classroom.php' );
+		self::assertFileExists( $root . '/inc/modules/security-hardening.php' );
 	}
 
 	public function test_version_is_consistent(): void {
 		$root = dirname( __DIR__ );
 		$functions = file_get_contents( $root . '/functions.php' );
 		$style = file_get_contents( $root . '/style.css' );
-		self::assertMatchesRegularExpression( "/ZC_VERSION', '3\\.37\\.0'/", $functions );
-		self::assertStringContainsString( 'Version: 3.37.0', $style );
+		self::assertMatchesRegularExpression( "/ZC_VERSION', '3\\.38\\.0'/", $functions );
+		self::assertStringContainsString( 'Version: 3.38.0', $style );
+		$core = file_get_contents( $root . '/companion-plugin/zarincode-core/zarincode-core.php' );
+		self::assertStringContainsString( "VERSION = '3.38.0'", $core );
 	}
 }

@@ -67,7 +67,7 @@ $zc_filter      = isset( $_GET['filter'] ) ? sanitize_key( wp_unslash( $_GET['fi
 							<?php zc_the_icon( 'calendar', 14 ); ?>
 							<?php echo esc_html( zc_fa_num( wp_date( 'Y/m/d', strtotime( $zc_enroll->created_at ) ) ) ); ?>
 						</small>
-						<a href="<?php echo esc_url( get_permalink( $zc_cid ) ); ?>" class="zc-btn zc-btn--gold zc-btn--sm">
+						<a href="<?php echo esc_url( function_exists( 'zc_classroom_url' ) ? zc_classroom_url( $zc_cid ) : get_permalink( $zc_cid ) ); ?>" class="zc-btn zc-btn--gold zc-btn--sm">
 							<?php echo $zc_prog > 0 ? esc_html__( 'ادامه دوره', 'zarincode' ) : esc_html__( 'شروع دوره', 'zarincode' ); ?>
 						</a>
 					</div>

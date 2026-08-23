@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Zarincode Core
  * Description: لایهٔ پایدار داده‌های زرین کد؛ CPTها و taxonomyها را مستقل از قالب نگه می‌دارد.
- * Version: 3.37.0
+ * Version: 3.38.0
  * Requires PHP: 7.4
  * Requires at least: 6.0
  * Author: Zarincode
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 if ( ! defined( 'ZARINCODE_CORE_ACTIVE' ) ) { define( 'ZARINCODE_CORE_ACTIVE', true ); }
 
 final class Zarincode_Core_Data_Portability {
-	public const VERSION = '3.37.0';
+	public const VERSION = '3.38.0';
 
 	public static function boot() {
 		add_action( 'init', array( __CLASS__, 'register_data_types' ), 1 );

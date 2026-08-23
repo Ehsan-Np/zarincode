@@ -143,6 +143,12 @@ function zc_create_tables() {
 	if ( function_exists( 'zc_create_contacts_table' ) ) {
 		zc_create_contacts_table();
 	}
+	if ( function_exists( 'zc_create_audit_table' ) ) {
+		zc_create_audit_table();
+	}
+	if ( function_exists( 'zc_create_installments_table' ) ) {
+		zc_create_installments_table();
+	}
 
 	update_option( 'zc_db_version', defined( 'ZC_DB_VERSION' ) ? ZC_DB_VERSION : ZC_VERSION );
 }

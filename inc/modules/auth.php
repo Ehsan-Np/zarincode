@@ -423,10 +423,16 @@ function zc_redirect_wp_login() {
 		return;
 	}
 
-	// درِ پشتی مدیر: /wp-login.php?zc_admin=1
-	// اگر صفحه‌ی ورود سفارشی دچار مشکل شود، مدیر همچنان راه ورود دارد.
+	// درِ پشتی مدیر فقط با کلید تنظیم‌شده: /wp-login.php?zc_admin=SECRET
 	if ( isset( $_GET['zc_admin'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		return;
+		$secret = (string) zc_opt( 'zc_admin_login_secret', '' );
+		$given  = sanitize_text_field( wp_unslash( $_GET['zc_admin'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $secret && hash_equals( $secret, $given ) ) {
+			if ( function_exists( 'zc_audit' ) ) {
+				zc_audit( 'admin_login_bypass', 'auth', 0, array( 'ip' => function_exists( 'zc_get_ip' ) ? zc_get_ip() : '' ) );
+			}
+			return;
+		}
 	}
 
 	// ورود میان‌مرحله‌ای (interim-login) داخل مودال وردپرس.

@@ -4,7 +4,7 @@
  *
  * @package Zarincode
  * @author  Zarincode
- * @version 3.37.0
+ * @version 3.38.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * ثابت‌های اصلی قالب
  */
-define( 'ZC_VERSION', '3.37.0' );
+define( 'ZC_VERSION', '3.38.0' );
 define( 'ZC_DIR', trailingslashit( get_template_directory() ) );
 define( 'ZC_URI', trailingslashit( get_template_directory_uri() ) );
 define( 'ZC_INC', ZC_DIR . 'inc/' );
@@ -116,6 +116,18 @@ zc_require(
 		'modules/kpi-dashboard',
 		'modules/backup',
 		'modules/lifecycle',
+		'modules/security-hardening',
+		'modules/audit-log',
+		'modules/classroom',
+		'modules/instructor',
+		'modules/installments',
+		'modules/rest-platform',
+		'modules/updates',
+		'modules/setup-wizard',
+		'modules/pwa',
+		'modules/whatsapp',
+		'modules/design-system',
+		'modules/certificate-print',
 
 		// ووکامرس.
 		'woocommerce',
