@@ -19,7 +19,7 @@ jobs:
       - run: composer lint
       - run: composer test
       - if: matrix.php == '8.3'
-        run: scripts/build-release.sh && unzip -t .release/zarincode-3.36.0.zip && unzip -t .release/zarincode-core-3.36.0.zip
+        run: scripts/build-release.sh && unzip -t .release/zarincode-3.37.0.zip && unzip -t .release/zarincode-core-3.37.0.zip
   javascript:
     runs-on: ubuntu-latest
     steps:

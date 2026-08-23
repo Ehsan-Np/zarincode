@@ -63,6 +63,6 @@ if found:
         blocks.append("")
     content = content.rstrip() + "\n" + "\n".join(blocks) + "\n"
 
-content = re.sub(r"Project-Id-Version: Zarincode [^\\]+", "Project-Id-Version: Zarincode 3.36.0", content, count=1)
+content = re.sub(r"Project-Id-Version: Zarincode [^\\]+", "Project-Id-Version: Zarincode 3.37.0", content, count=1)
 pot_path.write_text(content)
 print(f"Added {len(found)} missing translation strings")

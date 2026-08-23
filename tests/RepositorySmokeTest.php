@@ -24,7 +24,7 @@ final class RepositorySmokeTest extends TestCase {
 		$root = dirname( __DIR__ );
 		$functions = file_get_contents( $root . '/functions.php' );
 		$style = file_get_contents( $root . '/style.css' );
-		self::assertMatchesRegularExpression( "/ZC_VERSION', '3\\.36\\.0'/", $functions );
-		self::assertStringContainsString( 'Version: 3.36.0', $style );
+		self::assertMatchesRegularExpression( "/ZC_VERSION', '3\\.37\\.0'/", $functions );
+		self::assertStringContainsString( 'Version: 3.37.0', $style );
 	}
 }

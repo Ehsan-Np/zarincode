@@ -3,7 +3,7 @@ Contributors: zarincode
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Version: 3.36.0
+Version: 3.37.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,11 @@ docs/راهنمای-ربات-و-کران.md
 * بهینه برای سئو و سرعت بارگذاری
 
 == تغییرات ==
+
+= 3.37.0 =
+- انتشار رسمی نسخه نهایی قالب زرین کد و افزونه همراه Zarincode Core
+- یکسان‌سازی شماره نسخه قالب و افزونه همراه روی ۳.۳۷.۰
+- بسته‌های ZIP نصب قالب و افزونه برای انتشار GitHub Release
 
 = 3.36.0 =
 - پایدارسازی امنیت و مالی: آزمون سمت‌سرور، کیف پول idempotent، rollback پرداخت و HPOS

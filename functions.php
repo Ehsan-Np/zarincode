@@ -4,7 +4,7 @@
  *
  * @package Zarincode
  * @author  Zarincode
- * @version 3.36.0
+ * @version 3.37.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * ثابت‌های اصلی قالب
  */
-define( 'ZC_VERSION', '3.36.0' );
+define( 'ZC_VERSION', '3.37.0' );
 define( 'ZC_DIR', trailingslashit( get_template_directory() ) );
 define( 'ZC_URI', trailingslashit( get_template_directory_uri() ) );
 define( 'ZC_INC', ZC_DIR . 'inc/' );
