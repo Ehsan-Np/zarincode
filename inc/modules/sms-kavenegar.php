@@ -301,6 +301,9 @@ function zc_send_otp( $mobile ) {
 	if ( ! $mobile ) {
 		return new WP_Error( 'zc_invalid_mobile', __( 'شماره موبایل معتبر نیست.', 'zarincode' ) );
 	}
+	if ( ! zc_rate_limit( 'otp_send', 20, HOUR_IN_SECONDS ) ) {
+		return new WP_Error( 'zc_otp_ip_limit', __( 'تعداد درخواست کد از این اتصال بیش از حد مجاز است.', 'zarincode' ) );
+	}
 
 	// محدودیت ارسال (Rate Limit).
 	$lock_key = 'zc_otp_lock_' . md5( $mobile );
@@ -319,6 +322,7 @@ function zc_send_otp( $mobile ) {
 	$expire = (int) zc_opt( 'zc_otp_expire', 120 );
 
 	set_transient( 'zc_otp_' . md5( $mobile ), wp_hash_password( $code ), $expire );
+	delete_transient( 'zc_otp_tries_' . md5( $mobile ) );
 	set_transient( $lock_key, 1, (int) zc_opt( 'zc_otp_resend', 60 ) );
 	set_transient( $count_key, $count + 1, HOUR_IN_SECONDS );
 
@@ -362,8 +366,10 @@ function zc_verify_otp( $mobile, $code ) {
 		return false;
 	}
 
-	$hash = get_transient( 'zc_otp_' . md5( $mobile ) );
-	if ( ! $hash ) {
+	$key   = md5( $mobile );
+	$hash  = get_transient( 'zc_otp_' . $key );
+	$tries = (int) get_transient( 'zc_otp_tries_' . $key );
+	if ( ! $hash || $tries >= 5 ) {
 		return false;
 	}
 
@@ -371,10 +377,14 @@ function zc_verify_otp( $mobile, $code ) {
 	$hasher = new PasswordHash( 8, true );
 
 	if ( $hasher->CheckPassword( zc_en_num( $code ), $hash ) ) {
-		delete_transient( 'zc_otp_' . md5( $mobile ) );
+		delete_transient( 'zc_otp_' . $key );
+		delete_transient( 'zc_otp_tries_' . $key );
 		return true;
 	}
 
+	$tries++;
+	set_transient( 'zc_otp_tries_' . $key, $tries, 15 * MINUTE_IN_SECONDS );
+	if ( $tries >= 5 ) { delete_transient( 'zc_otp_' . $key ); }
 	return false;
 }
 

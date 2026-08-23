@@ -218,8 +218,12 @@ function zc_security_headers( $headers ) {
 	}
 
 	$headers['X-Content-Type-Options'] = 'nosniff';
-	$headers['X-XSS-Protection']       = '1; mode=block';
+	$headers['X-Frame-Options']        = 'SAMEORIGIN';
 	$headers['Referrer-Policy']        = 'strict-origin-when-cross-origin';
+	$headers['Permissions-Policy']     = 'camera=(), microphone=(), geolocation=()';
+	if ( is_ssl() ) {
+		$headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains';
+	}
 
 	return $headers;
 }

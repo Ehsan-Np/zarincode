@@ -46,7 +46,7 @@ function zc_create_contacts_table() {
 		list_name VARCHAR(120) NOT NULL DEFAULT '',
 		status VARCHAR(20) NOT NULL DEFAULT 'active',
 		last_sent DATETIME NULL DEFAULT NULL,
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		UNIQUE KEY mobile_list (mobile, list_name),
 		KEY list_name (list_name),

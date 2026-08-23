@@ -24,14 +24,14 @@ function zc_accounting_summary( $from = '', $to = '' ) {
 	// phpcs:disable
 	$income = (float) $wpdb->get_var(
 		$wpdb->prepare(
-			"SELECT COALESCE(SUM(amount),0) FROM {$table} WHERE type IN ('income','deposit') AND status='completed' AND created_at BETWEEN %s AND %s",
+			"SELECT COALESCE(SUM(amount),0) FROM {$table} WHERE type = 'income' AND status='completed' AND created_at BETWEEN %s AND %s",
 			$from, $to
 		)
 	);
 
 	$expense = (float) $wpdb->get_var(
 		$wpdb->prepare(
-			"SELECT COALESCE(SUM(ABS(amount)),0) FROM {$table} WHERE type IN ('withdraw','expense','refund') AND status='completed' AND created_at BETWEEN %s AND %s",
+			"SELECT COALESCE(SUM(ABS(amount)),0) FROM {$table} WHERE type IN ('expense','refund') AND status='completed' AND created_at BETWEEN %s AND %s",
 			$from, $to
 		)
 	);
@@ -85,7 +85,7 @@ function zc_accounting_daily( $days = 30 ) {
 
 	$rows = $wpdb->get_results( // phpcs:ignore
 		$wpdb->prepare(
-			"SELECT DATE(created_at) AS day, COALESCE(SUM(CASE WHEN type IN ('income','deposit') THEN amount ELSE 0 END),0) AS income
+			"SELECT DATE(created_at) AS day, COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END),0) AS income
 			FROM {$table} WHERE created_at >= %s GROUP BY DATE(created_at) ORDER BY day ASC",
 			$from
 		),

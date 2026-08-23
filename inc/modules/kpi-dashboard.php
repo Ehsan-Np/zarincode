@@ -17,6 +17,9 @@ defined( 'ABSPATH' ) || exit;
  * @return void
  */
 function zc_kpi_menu() {
+	if ( ! zc_opt( 'zc_kpi_enable', true ) ) {
+		return;
+	}
 	add_submenu_page(
 		'zarincode',
 		__( 'داشبورد اجرایی (KPI)', 'zarincode' ),
@@ -33,8 +36,8 @@ add_action( 'admin_menu', 'zc_kpi_menu' );
  *
  * @return array
  */
-function zc_kpi_data() {
-	$days = (int) zc_opt( 'zc_kpi_days', 30 );
+function zc_kpi_data( $days = 0 ) {
+	$days = $days ? max( 1, min( 365, (int) $days ) ) : (int) zc_opt( 'zc_kpi_days', 30 );
 	$from = gmdate( 'Y-m-d', strtotime( "-{$days} days" ) );
 	$to   = gmdate( 'Y-m-d' );
 
@@ -53,34 +56,43 @@ function zc_kpi_data() {
 	);
 
 	if ( function_exists( 'wc_get_orders' ) ) {
-		$orders = wc_get_orders(
-			array(
-				'limit'        => -1,
-				'status'       => array( 'completed', 'processing' ),
-				'date_created' => strtotime( $from ) . '...' . ( strtotime( $to ) + DAY_IN_SECONDS ),
-			)
-		);
-
 		$product_totals = array();
 		$customer_ids   = array();
+		$page           = 1;
+		do {
+			$result = wc_get_orders(
+				array(
+					'limit'        => 200,
+					'page'         => $page,
+					'paginate'     => true,
+					'status'       => array( 'completed', 'processing' ),
+					'date_created' => strtotime( $from ) . '...' . ( strtotime( $to ) + DAY_IN_SECONDS ),
+				)
+			);
+			$orders    = is_object( $result ) && isset( $result->orders ) ? $result->orders : (array) $result;
+			$total_page = is_object( $result ) && isset( $result->max_num_pages ) ? (int) $result->max_num_pages : 1;
 
-		foreach ( $orders as $order ) {
-			$data['revenue'] += (float) $order->get_total();
-			$data['orders']++;
-			$data['coupons_used'] += count( $order->get_coupon_codes() );
+			foreach ( $orders as $order ) {
+				$data['revenue'] += (float) $order->get_total();
+				$data['orders']++;
+				$data['coupons_used'] += count( $order->get_coupon_codes() );
 
-			$created = $order->get_date_created()->date( 'Y-m-d' );
-			$data['daily'][ $created ] = (float) ( $data['daily'][ $created ] ?? 0 ) + (float) $order->get_total();
+				$created_obj = $order->get_date_created();
+				$created     = $created_obj ? $created_obj->date( 'Y-m-d' ) : '';
+				if ( $created ) {
+					$data['daily'][ $created ] = (float) ( $data['daily'][ $created ] ?? 0 ) + (float) $order->get_total();
+				}
 
-			foreach ( $order->get_items() as $item ) {
-				$data['products_sold'] += (int) $item->get_quantity();
-				$product_totals[ $item->get_product_id() ] = (float) ( $product_totals[ $item->get_product_id() ] ?? 0 ) + (float) $item->get_total();
+				foreach ( $order->get_items() as $item ) {
+					$data['products_sold'] += (int) $item->get_quantity();
+					$product_totals[ $item->get_product_id() ] = (float) ( $product_totals[ $item->get_product_id() ] ?? 0 ) + (float) $item->get_total();
+				}
+				if ( $order->get_user_id() ) {
+					$customer_ids[ $order->get_user_id() ] = true;
+				}
 			}
-
-			if ( $order->get_user_id() ) {
-				$customer_ids[ $order->get_user_id() ] = true;
-			}
-		}
+			$page++;
+		} while ( $page <= $total_page );
 
 		$data['customers']    = count( $customer_ids );
 		$data['avg_order']    = $data['orders'] ? round( $data['revenue'] / $data['orders'] ) : 0;
@@ -98,8 +110,8 @@ function zc_kpi_data() {
 		$data['mrr']         = round( $sub['mrr'] );
 	}
 
-	// کاربران جدید در بازه.
-	$data['new_customers'] = (int) get_users(
+	// کاربران جدید در بازه؛ cast آرایه فقط صفر/یک می‌داد.
+	$user_query = new WP_User_Query(
 		array(
 			'count_total' => true,
 			'date_query'  => array(
@@ -108,7 +120,8 @@ function zc_kpi_data() {
 			'fields'      => 'ID',
 			'number'      => 1,
 		)
-	) ?: 0;
+	);
+	$data['new_customers'] = (int) $user_query->get_total();
 
 	return $data;
 }
@@ -123,8 +136,8 @@ function zc_kpi_page() {
 		return;
 	}
 
-	$data = zc_kpi_data();
-	$days = (int) zc_opt( 'zc_kpi_days', 30 );
+	$days = isset( $_GET['zc_kpi_days'] ) ? max( 7, min( 365, absint( $_GET['zc_kpi_days'] ) ) ) : (int) zc_opt( 'zc_kpi_days', 30 ); // phpcs:ignore
+	$data = zc_kpi_data( $days );
 	?>
 	<div class="wrap zc-admin-wrap">
 		<?php zc_admin_notice_anchor(); ?>

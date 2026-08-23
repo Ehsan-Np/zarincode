@@ -33,7 +33,7 @@ function zc_create_tables() {
 		gateway VARCHAR(40) NULL,
 		balance_after DECIMAL(18,2) NOT NULL DEFAULT 0,
 		meta LONGTEXT NULL,
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		KEY user_id (user_id),
 		KEY type (type),
@@ -51,7 +51,7 @@ function zc_create_tables() {
 		lesson_key VARCHAR(120) NOT NULL,
 		status VARCHAR(20) NOT NULL DEFAULT 'completed',
 		seconds INT UNSIGNED NOT NULL DEFAULT 0,
-		updated_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		updated_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		UNIQUE KEY user_lesson (user_id, course_id, lesson_key),
 		KEY course_id (course_id)
@@ -68,7 +68,7 @@ function zc_create_tables() {
 		price DECIMAL(18,2) NOT NULL DEFAULT 0,
 		status VARCHAR(20) NOT NULL DEFAULT 'active',
 		expire_at DATETIME NULL,
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		UNIQUE KEY user_course (user_id, course_id),
 		KEY course_id (course_id)
@@ -85,7 +85,7 @@ function zc_create_tables() {
 		message TEXT NOT NULL,
 		is_read TINYINT(1) NOT NULL DEFAULT 0,
 		status VARCHAR(20) NOT NULL DEFAULT 'open',
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		KEY session_id (session_id),
 		KEY user_id (user_id),
@@ -106,7 +106,7 @@ function zc_create_tables() {
 		note TEXT NULL,
 		status VARCHAR(20) NOT NULL DEFAULT 'pending',
 		reminded TINYINT(1) NOT NULL DEFAULT 0,
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		KEY date_time (date, time),
 		KEY user_id (user_id),
@@ -123,18 +123,13 @@ function zc_create_tables() {
 		type VARCHAR(30) NOT NULL DEFAULT 'general',
 		status VARCHAR(20) NOT NULL DEFAULT 'sent',
 		error VARCHAR(255) NULL,
-		created_at DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+		created_at DATETIME NULL DEFAULT NULL,
 		PRIMARY KEY (id),
 		KEY type (type),
 		KEY status (status),
 		KEY created_at (created_at)
 	) {$charset};";
 	dbDelta( $sql );
-
-	// جدول گفتگوی قرارداد در ماژول خودش تعریف شده است.
-	if ( function_exists( 'zc_create_contract_chat_table' ) ) {
-		zc_create_contract_chat_table();
-	}
 
 	// جدول‌هایی که در ماژول‌های خودشان تعریف شده‌اند.
 	if ( function_exists( 'zc_create_contract_chat_table' ) ) {
@@ -149,7 +144,7 @@ function zc_create_tables() {
 		zc_create_contacts_table();
 	}
 
-	update_option( 'zc_db_version', ZC_VERSION );
+	update_option( 'zc_db_version', defined( 'ZC_DB_VERSION' ) ? ZC_DB_VERSION : ZC_VERSION );
 }
 add_action( 'after_switch_theme', 'zc_create_tables' );
 
@@ -159,13 +154,56 @@ add_action( 'after_switch_theme', 'zc_create_tables' );
  * @return void
  */
 function zc_check_db() {
-	if ( get_option( 'zc_db_version' ) !== ZC_VERSION ) {
+	$target = defined( 'ZC_DB_VERSION' ) ? ZC_DB_VERSION : ZC_VERSION;
+	if ( get_option( 'zc_db_version' ) !== $target ) {
 		zc_create_tables();
 	}
 }
 add_action( 'admin_init', 'zc_check_db' );
 
 /* ==================== کیف پول ==================== */
+
+/**
+ * قفل کوتاه دیتابیسی برای جلوگیری از برداشت/واریز هم‌زمان روی یک کیف پول.
+ * GET_LOCK روی یک اتصال MySQL نگه داشته می‌شود و به جدول خاصی وابسته نیست.
+ *
+ * @param int $user_id کاربر.
+ * @return bool
+ */
+function zc_wallet_lock( $user_id ) {
+	global $wpdb;
+	$name = 'zc_wallet_' . (int) $user_id;
+	return '1' === (string) $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 5)', $name ) ); // phpcs:ignore
+}
+
+/**
+ * آزادکردن قفل کیف پول.
+ *
+ * @param int $user_id کاربر.
+ * @return void
+ */
+function zc_wallet_unlock( $user_id ) {
+	global $wpdb;
+	$name = 'zc_wallet_' . (int) $user_id;
+	$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', $name ) ); // phpcs:ignore
+}
+
+/**
+ * یافتن تراکنش idempotent پیش از تغییر موجودی.
+ *
+ * @param string $ref_id   مرجع.
+ * @param string $category دسته.
+ * @param string $gateway  درگاه.
+ * @return int
+ */
+function zc_transaction_by_ref( $ref_id, $category = '', $gateway = '' ) {
+	global $wpdb;
+	if ( ! $ref_id ) {
+		return 0;
+	}
+	$table = $wpdb->prefix . 'zc_transactions';
+	return (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$table} WHERE ref_id=%s AND category=%s AND gateway=%s LIMIT 1", $ref_id, $category, $gateway ) ); // phpcs:ignore
+}
 
 /**
  * دریافت موجودی کیف پول.
@@ -192,27 +230,51 @@ function zc_wallet_balance( $user_id = 0 ) {
  * @return int|false شناسه تراکنش.
  */
 function zc_wallet_deposit( $user_id, $amount, $description = '', $category = 'deposit', $extra = array() ) {
-	$amount = abs( (float) $amount );
-	if ( ! $user_id || $amount <= 0 ) {
+	$user_id = (int) $user_id;
+	$amount  = abs( (float) $amount );
+	if ( ! $user_id || $amount <= 0 || ! zc_wallet_lock( $user_id ) ) {
 		return false;
 	}
 
-	$balance = zc_wallet_balance( $user_id ) + $amount;
-	update_user_meta( $user_id, 'zc_wallet_balance', $balance );
+	$tx      = false;
+	$balance = 0;
 
-	$tx = zc_add_transaction(
-		array(
-			'user_id'       => $user_id,
-			'amount'        => $amount,
-			'type'          => 'deposit',
-			'category'      => $category,
-			'description'   => $description,
-			'balance_after' => $balance,
-			'status'        => 'completed',
-		) + $extra
-	);
+	try {
+		$ref_tx = zc_transaction_by_ref( $extra['ref_id'] ?? '', $category, $extra['gateway'] ?? '' );
+		if ( $ref_tx ) {
+			return $ref_tx;
+		}
+		clean_user_cache( $user_id );
+		$old     = zc_wallet_balance( $user_id );
+		$balance = $old + $amount;
+		update_user_meta( $user_id, 'zc_wallet_balance', $balance );
 
-	do_action( 'zc_wallet_deposited', $user_id, $amount, $balance, $tx );
+		$tx = zc_add_transaction(
+			array_merge(
+				array(
+					'user_id'       => $user_id,
+					'amount'        => $amount,
+					'type'          => 'deposit',
+					'category'      => $category,
+					'description'   => $description,
+					'balance_after' => $balance,
+					'status'        => 'completed',
+				),
+				$extra
+			)
+		);
+
+		if ( ! $tx ) {
+			update_user_meta( $user_id, 'zc_wallet_balance', $old );
+			$balance = $old;
+		}
+	} finally {
+		zc_wallet_unlock( $user_id );
+	}
+
+	if ( $tx ) {
+		do_action( 'zc_wallet_deposited', $user_id, $amount, $balance, $tx );
+	}
 
 	return $tx;
 }
@@ -228,31 +290,98 @@ function zc_wallet_deposit( $user_id, $amount, $description = '', $category = 'd
  * @return int|WP_Error
  */
 function zc_wallet_withdraw( $user_id, $amount, $description = '', $category = 'purchase', $extra = array() ) {
+	$user_id = (int) $user_id;
 	$amount  = abs( (float) $amount );
-	$balance = zc_wallet_balance( $user_id );
 
-	if ( $amount > $balance ) {
-		return new WP_Error( 'zc_insufficient', __( 'موجودی کیف پول کافی نیست.', 'zarincode' ) );
+	if ( ! $user_id || $amount <= 0 || ! zc_wallet_lock( $user_id ) ) {
+		return new WP_Error( 'zc_wallet_locked', __( 'کیف پول در حال پردازش است؛ چند لحظه بعد دوباره تلاش کنید.', 'zarincode' ) );
 	}
 
-	$balance -= $amount;
-	update_user_meta( $user_id, 'zc_wallet_balance', $balance );
+	$tx      = false;
+	$balance = 0;
 
-	$tx = zc_add_transaction(
-		array(
-			'user_id'       => $user_id,
-			'amount'        => -$amount,
-			'type'          => 'withdraw',
-			'category'      => $category,
-			'description'   => $description,
-			'balance_after' => $balance,
-			'status'        => 'completed',
-		) + $extra
-	);
+	try {
+		$ref_tx = zc_transaction_by_ref( $extra['ref_id'] ?? '', $category, $extra['gateway'] ?? '' );
+		if ( $ref_tx ) {
+			return $ref_tx;
+		}
+		clean_user_cache( $user_id );
+		$old = zc_wallet_balance( $user_id );
+		if ( $amount > $old ) {
+			return new WP_Error( 'zc_insufficient', __( 'موجودی کیف پول کافی نیست.', 'zarincode' ) );
+		}
+
+		$balance = $old - $amount;
+		update_user_meta( $user_id, 'zc_wallet_balance', $balance );
+
+		$tx = zc_add_transaction(
+			array_merge(
+				array(
+					'user_id'       => $user_id,
+					'amount'        => -$amount,
+					'type'          => 'withdraw',
+					'category'      => $category,
+					'description'   => $description,
+					'balance_after' => $balance,
+					'status'        => 'completed',
+				),
+				$extra
+			)
+		);
+
+		if ( ! $tx ) {
+			update_user_meta( $user_id, 'zc_wallet_balance', $old );
+			return new WP_Error( 'zc_wallet_storage', __( 'ثبت تراکنش کیف پول ناموفق بود.', 'zarincode' ) );
+		}
+	} finally {
+		zc_wallet_unlock( $user_id );
+	}
 
 	do_action( 'zc_wallet_withdrawn', $user_id, $amount, $balance, $tx );
-
 	return $tx;
+}
+
+/**
+ * اصلاح اجباری موجودی برای reversalهای مالی؛ مقدار منفی می‌تواند بدهی بسازد.
+ *
+ * @param int    $user_id     کاربر.
+ * @param float  $delta       تغییر مثبت/منفی.
+ * @param string $description شرح.
+ * @param string $category    دسته.
+ * @param string $ref_id      مرجع یکتا.
+ * @return int|false
+ */
+function zc_wallet_adjust( $user_id, $delta, $description, $category, $ref_id ) {
+	$user_id = (int) $user_id;
+	$delta   = (float) $delta;
+	if ( ! $user_id || 0.0 === $delta || ! zc_wallet_lock( $user_id ) ) {
+		return false;
+	}
+
+	try {
+		$existing = zc_transaction_by_ref( $ref_id, $category, 'wallet' );
+		if ( $existing ) {
+			return $existing;
+		}
+		clean_user_cache( $user_id );
+		$old     = zc_wallet_balance( $user_id );
+		$balance = $old + $delta;
+		update_user_meta( $user_id, 'zc_wallet_balance', $balance );
+		$tx = zc_add_transaction(
+			array(
+				'user_id' => $user_id, 'amount' => $delta, 'type' => $delta > 0 ? 'deposit' : 'withdraw',
+				'category' => $category, 'status' => 'completed', 'description' => $description,
+				'ref_id' => $ref_id, 'gateway' => 'wallet', 'balance_after' => $balance,
+			)
+		);
+		if ( ! $tx ) {
+			update_user_meta( $user_id, 'zc_wallet_balance', $old );
+			return false;
+		}
+		return $tx;
+	} finally {
+		zc_wallet_unlock( $user_id );
+	}
 }
 
 /**
@@ -279,7 +408,30 @@ function zc_add_transaction( $args ) {
 		'created_at'    => current_time( 'mysql' ),
 	);
 
-	$data = wp_parse_args( $args, $defaults );
+	$data    = wp_parse_args( $args, $defaults );
+	$unknown = array_diff_key( $data, $defaults );
+	if ( $unknown ) {
+		$meta         = is_array( $data['meta'] ) ? $data['meta'] : array();
+		$data['meta'] = array_merge( $meta, $unknown );
+	}
+	// هیچ کلید ناشناخته‌ای نباید به‌عنوان نام ستون وارد INSERT شود.
+	$data = array_intersect_key( $data, $defaults );
+
+	/* یک ref_id برای یک دسته/درگاه فقط یک‌بار ثبت می‌شود. */
+	if ( ! empty( $data['ref_id'] ) ) {
+		$table    = $wpdb->prefix . 'zc_transactions';
+		$existing = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"SELECT id FROM {$table} WHERE ref_id = %s AND category = %s AND gateway = %s LIMIT 1",
+				(string) $data['ref_id'],
+				(string) $data['category'],
+				(string) $data['gateway']
+			)
+		);
+		if ( $existing ) {
+			return (int) $existing;
+		}
+	}
 
 	if ( is_array( $data['meta'] ) ) {
 		$data['meta'] = wp_json_encode( $data['meta'], JSON_UNESCAPED_UNICODE );
@@ -360,6 +512,9 @@ function zc_ajax_wallet_charge() {
 	$amount = isset( $_POST['amount'] ) ? (float) zc_en_num( sanitize_text_field( wp_unslash( $_POST['amount'] ) ) ) : 0;
 	$min    = (float) zc_opt( 'zc_wallet_min_charge', 10000 );
 
+	if ( $amount > 1000000000 ) {
+		wp_send_json_error( array( 'message' => __( 'مبلغ شارژ بیش از سقف مجاز است.', 'zarincode' ) ) );
+	}
 	if ( $amount < $min ) {
 		wp_send_json_error(
 			array(
@@ -405,7 +560,8 @@ function zc_handle_wallet_callback() {
 	}
 
 	$pending = get_transient( 'zc_zp_' . $authority );
-	if ( ! $pending ) {
+	if ( ! $pending || (int) ( $pending['user_id'] ?? 0 ) !== get_current_user_id() ) {
+		set_transient( 'zc_wallet_msg_' . get_current_user_id(), array( 'type' => 'error', 'text' => __( 'تراکنش به این حساب کاربری تعلق ندارد.', 'zarincode' ) ), 60 );
 		return;
 	}
 
@@ -416,7 +572,7 @@ function zc_handle_wallet_callback() {
 		return;
 	}
 
-	zc_wallet_deposit(
+	$deposit_id = zc_wallet_deposit(
 		get_current_user_id(),
 		$pending['amount'],
 		__( 'شارژ کیف پول از درگاه زرین‌پال', 'zarincode' ),
@@ -427,6 +583,11 @@ function zc_handle_wallet_callback() {
 			'gateway'   => 'zarinpal',
 		)
 	);
+
+	if ( ! $deposit_id ) {
+		set_transient( 'zc_wallet_msg_' . get_current_user_id(), array( 'type' => 'error', 'text' => __( 'پرداخت تأیید شد اما ثبت موجودی ناموفق بود؛ با پشتیبانی تماس بگیرید.', 'zarincode' ) ), 5 * MINUTE_IN_SECONDS );
+		return;
+	}
 
 	delete_transient( 'zc_zp_' . $authority );
 

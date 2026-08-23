@@ -21,9 +21,10 @@ if ( $zc_pid && 'publish' === get_post_status( $zc_pid ) && 'zc_practice' === ge
 	if ( ! empty( $zc_practice_questions ) ) :
 		$zc_total     = count( $zc_practice_questions );
 		$zc_best      = (float) get_user_meta( get_current_user_id(), 'zc_practice_' . $zc_pid, true );
-		$zc_settings  = zc_practice_settings( $zc_pid );
-		$zc_plangs    = zc_practice_languages( $zc_pid );
-		?>
+			$zc_settings  = zc_practice_settings( $zc_pid );
+			$zc_plangs    = zc_practice_languages( $zc_pid );
+			$zc_attempt   = zc_quiz_attempt_create( 'practice', $zc_pid, $zc_practice_questions );
+			?>
 		<div class="zc-panel__box" style="margin-bottom:16px">
 			<div class="zc-panel__box-head">
 				<h3><?php zc_the_icon( 'code', 19 ); ?><?php echo esc_html( get_the_title( $zc_pid ) ); ?></h3>
@@ -35,7 +36,7 @@ if ( $zc_pid && 'publish' === get_post_status( $zc_pid ) && 'zc_practice' === ge
 					<?php if ( $zc_best ) : ?> — <?php esc_html_e( 'بهترین نمره:', 'zarincode' ); ?> <?php echo esc_html( zc_fa_num( $zc_best ) ); ?>٪<?php endif; ?>
 				</p>
 
-				<div class="zc-quiz zc-quiz--ext zc-quiz--practice" data-quiz data-type="practice" data-id="<?php echo esc_attr( $zc_pid ); ?>" data-qcount="<?php echo (int) $zc_total; ?>" data-pass="<?php echo esc_attr( $zc_settings['pass'] ); ?>" data-challenge="1" data-autorun="<?php echo zc_opt( 'zc_quiz_exec_autorun', false ) ? '1' : '0'; ?>" style="<?php echo esc_attr( zc_compiler_style_attrs() ); ?>">
+				<div class="zc-quiz zc-quiz--ext zc-quiz--practice" data-quiz data-type="practice" data-id="<?php echo esc_attr( $zc_pid ); ?>" data-attempt="<?php echo esc_attr( $zc_attempt ); ?>" data-qcount="<?php echo (int) $zc_total; ?>" data-pass="<?php echo esc_attr( $zc_settings['pass'] ); ?>" data-challenge="1" data-autorun="<?php echo zc_opt( 'zc_quiz_exec_autorun', false ) ? '1' : '0'; ?>" style="<?php echo esc_attr( zc_compiler_style_attrs() ); ?>">
 					<div class="zc-challenge">
 						<div class="zc-challenge__progress">
 							<span class="zc-challenge__pbar"><i data-width="0"></i></span>

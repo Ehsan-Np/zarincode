@@ -15,7 +15,8 @@ if ( ! zc_quiz_module_enabled() ) {
 }
 
 $zc_uid   = get_current_user_id();
-$zc_rows  = zc_attempts_query( array( 'user' => get_userdata( $zc_uid )->user_login ) );
+$zc_user  = get_userdata( $zc_uid );
+$zc_rows  = $zc_user ? zc_attempts_query( array( 'user' => $zc_user->user_login ) ) : array();
 $zc_sum   = zc_attempts_summary( $zc_rows );
 ?>
 

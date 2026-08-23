@@ -97,6 +97,13 @@ function zc_minify_css( $css ) {
  * @return string
  */
 function zc_minify_js( $js ) {
+	/*
+	 * حذف comment بدون parser کامل می‌تواند عبارت‌های منظم حاوی // را
+	 * بشکند. ادغام فایل‌ها حفظ می‌شود اما minify به ابزار build/CI سپرده می‌شود.
+	 */
+	return trim( str_replace( "\r\n", "\n", (string) $js ) );
+
+	/* کد legacy برای مستندسازی الگوریتم پیشین (به‌صورت غیرقابل‌دسترسی). */
 	$out   = '';
 	$len   = strlen( $js );
 	$i     = 0;
@@ -337,7 +344,9 @@ function zc_bundle_theme_assets() {
 	$css_handles = array();
 
 	foreach ( (array) $wp_styles->queue as $handle ) {
-		if ( 0 === strpos( $handle, 'zc-' ) ) {
+		$src  = $wp_styles->registered[ $handle ]->src ?? '';
+		$path = $src ? zc_local_path_from_url( $src ) : false;
+		if ( 0 === strpos( $handle, 'zc-' ) && $path && file_exists( $path ) ) {
 			$css_handles[] = $handle;
 		}
 	}
@@ -385,7 +394,9 @@ function zc_bundle_theme_assets() {
 			}
 		);
 
-		if ( $outside ) {
+		$src  = $wp_scripts->registered[ $handle ]->src ?? '';
+		$path = $src ? zc_local_path_from_url( $src ) : false;
+		if ( $outside || ! $path || ! file_exists( $path ) ) {
 			continue;
 		}
 

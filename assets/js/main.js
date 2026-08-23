@@ -658,16 +658,15 @@
 	function initCopyButtons() {
 		if (!claimInit(document.body, 'CopyBtns')) return;
 
-		on(document, 'click', function (e) {
-			var btn = e.target.closest('[data-zc-copy]');
-			if (!btn) return;
+			on(document, 'click', function (e) {
+				var btn = e.target.closest('[data-zc-copy], [data-zc-copy-text]');
+				if (!btn) return;
 
-			e.preventDefault();
+				e.preventDefault();
 
-			var target = document.querySelector(btn.dataset.zcCopy);
-			if (!target) return;
-
-			var text = (target.textContent || '').trim();
+				var target = btn.dataset.zcCopy ? document.querySelector(btn.dataset.zcCopy) : null;
+				var text = btn.dataset.zcCopyText || (target ? (target.textContent || '').trim() : '');
+				if (!text) return;
 
 			var done = function () { Toast.show('کپی شد!', 'success'); };
 
@@ -1267,9 +1266,13 @@
 						if (btn) { btn.classList.remove('is-loading'); btn.disabled = false; }
 						var ok = res.success;
 						var text = (res.data && res.data.message) || (ok ? I18N.added : I18N.error);
-						if (msgBox) {
-							msgBox.innerHTML = '<div class="zc-alert zc-alert--' + (ok ? 'success' : 'error') + '">' + text + '</div>';
-						} else {
+							if (msgBox) {
+								msgBox.innerHTML = '';
+								var alertBox = document.createElement('div');
+								alertBox.className = 'zc-alert zc-alert--' + (ok ? 'success' : 'error');
+								alertBox.textContent = text;
+								msgBox.appendChild(alertBox);
+							} else {
 							Toast.show(text, ok ? 'success' : 'error');
 						}
 						if (ok) {
@@ -2816,7 +2819,7 @@
 		var btn = qEl.querySelector('.zc-q__submit') || qEl.querySelector('.zc-q__checkcode');
 		if (btn) btn.classList.add('is-loading');
 
-		ajax('zc_quiz_check', { type: st.type, id: quiz.dataset.id, qi: qi, answer: answer }).then(function (res) {
+		ajax('zc_quiz_check', { type: st.type, id: quiz.dataset.id, qi: qi, answer: answer, attempt: quiz.dataset.attempt || '' }).then(function (res) {
 			if (btn) btn.classList.remove('is-loading');
 			if (!res.success) {
 				var fb = qEl.querySelector('.zc-q__feedback');
@@ -2829,13 +2832,13 @@
 				qEl.dataset.tried = '1';
 				return;
 			}
-			// درست بود.
-			if (!qEl.dataset.tried) st.correct++;
-			st.answered++;
+				// منبع حقیقت امتیاز، وضعیت امضاشدهٔ سمت سرور است.
+				st.correct = parseInt(res.data.first_correct, 10) || 0;
+				st.answered = parseInt(res.data.answered, 10) || 0;
 
-			if (res.data.done) {
-				renderChallengeResult(quiz, st);
-				ajax('zc_quiz_finish', { type: st.type, id: quiz.dataset.id, first_correct: st.correct, total: st.total }).then(function (fr) {
+				if (res.data.done) {
+					renderChallengeResult(quiz, st);
+					ajax('zc_quiz_finish', { type: st.type, id: quiz.dataset.id, attempt: quiz.dataset.attempt || '' }).then(function (fr) {
 					if (fr.success) {
 						var msg = quiz.querySelector('.zc-challenge__msg .zc-challenge__result-msg');
 						if (msg) msg.textContent = fr.data.message;
@@ -2890,10 +2893,10 @@
 
 	function submitQuizAll(quiz, btn) {
 		var st = { type: quiz.dataset.type, total: parseInt(quiz.dataset.qcount, 10) || 0 };
-		var answers = [];
-		quiz.querySelectorAll('.zc-quiz__all .zc-q').forEach(function (qEl) {
-			answers.push(readQuestionAnswer(qEl));
-		});
+			var answers = [];
+			quiz.querySelectorAll('.zc-quiz__all .zc-q').forEach(function (qEl) {
+				answers.push({ index: parseInt(qEl.dataset.qi, 10), value: readQuestionAnswer(qEl) });
+			});
 		btn.classList.add('is-loading');
 		ajax('zc_quiz_submit', { course_id: quiz.dataset.id, answers: JSON.stringify(answers) }).then(function (res) {
 			btn.classList.remove('is-loading');
@@ -2956,11 +2959,22 @@
 		init();
 	}
 
+	// تعاملات المان‌هایی که Elementor پس از init به DOM اضافه می‌کند.
+	function refreshDynamic() {
+		initTabs(); initAccordion(); initSliders(); initCounters(); initProgress();
+		initTestimonials(); initLightbox(); initPortfolioFilter(); initPdpGallery();
+		initJumpNav(); initForms(); initQuiz(); initMapSafe();
+	}
+	function initMapSafe() {
+		// ویجت نقشه init داخلی خود را دارد؛ این رویداد برای افزونه‌هاست.
+		document.dispatchEvent(new CustomEvent('zc:dynamic:ready'));
+	}
+
 	// API عمومی برای المنتور و توسعه‌دهندگان
 	window.ZCTheme = {
 		ajax: ajax,
 		toast: Toast.show.bind(Toast),
-		refresh: init,
+		refresh: refreshDynamic,
 		$: $, $$: $$,
 		debounce: debounce,
 		throttle: throttle
@@ -2970,7 +2984,7 @@
 	if (window.elementorFrontend) {
 		window.addEventListener('elementor/frontend/init', function () {
 			elementorFrontend.hooks.addAction('frontend/element_ready/global', function () {
-				setTimeout(init, 100);
+				setTimeout(refreshDynamic, 100);
 			});
 		});
 	}

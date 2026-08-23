@@ -457,7 +457,7 @@ add_action( 'manage_zc_course_posts_custom_column', 'zc_course_column_content', 
  */
 function zc_search_include_cpt( $query ) {
 	if ( ! is_admin() && $query->is_main_query() && $query->is_search() ) {
-		$types = array( 'post', 'page', 'zc_course', 'zc_tutorial' );
+		$types = array( 'post', 'page', 'zc_course', 'zc_tutorial', 'zc_learning_path' );
 		if ( zc_is_woo() ) {
 			$types[] = 'product';
 		}

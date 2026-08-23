@@ -104,8 +104,8 @@ function zc_cashback_process( $order_id ) {
 		return;
 	}
 
-	// جلوگیری از واریز مجدد برای همان سفارش.
-	if ( get_post_meta( $order_id, '_zc_cashback_paid', true ) ) {
+	// جلوگیری از واریز مجدد برای همان سفارش (سازگار با HPOS).
+	if ( $order->get_meta( '_zc_cashback_paid', true ) ) {
 		return;
 	}
 
@@ -116,25 +116,31 @@ function zc_cashback_process( $order_id ) {
 
 	$order_total = (float) $order->get_total();
 
-	// واریز به کیف پول.
-	if ( function_exists( 'zc_wallet_deposit' ) ) {
-		zc_wallet_deposit(
-			$user_id,
-			$cashback,
-			sprintf(
-				/* translators: 1: درصد 2: شماره سفارش */
-				__( 'بازگشت اعتبار %1$s٪ از سفارش #%2$s', 'zarincode' ),
-				zc_fa_num( zc_cashback_percent() ),
-				$order->get_order_number()
-			),
-			'cashback',
-			array( 'order_id' => $order_id )
-		);
+	// واریز idempotent به کیف پول.
+	$tx = function_exists( 'zc_wallet_deposit' ) ? zc_wallet_deposit(
+		$user_id,
+		$cashback,
+		sprintf(
+			/* translators: 1: درصد 2: شماره سفارش */
+			__( 'بازگشت اعتبار %1$s٪ از سفارش #%2$s', 'zarincode' ),
+			zc_fa_num( zc_cashback_percent() ),
+			$order->get_order_number()
+		),
+		'cashback',
+		array( 'ref_id' => 'cashback-order-' . $order_id, 'gateway' => 'wallet', 'meta' => array( 'order_id' => $order_id ) )
+	) : false;
+
+	if ( ! $tx ) {
+		$order->add_order_note( __( 'ثبت اعتبار بازگشتی ناموفق بود و برای تلاش مجدد علامت‌گذاری نشد.', 'zarincode' ) );
+		$order->save();
+		return;
 	}
 
-	// علامت‌گذاری برای جلوگیری از واریز مجدد.
-	update_post_meta( $order_id, '_zc_cashback_paid', '1' );
-	update_post_meta( $order_id, '_zc_cashback_amount', $cashback );
+	// علامت‌گذاری برای جلوگیری از واریز مجدد؛ پیش از اعلان‌ها ذخیره می‌شود.
+	$order->update_meta_data( '_zc_cashback_paid', '1' );
+	$order->update_meta_data( '_zc_cashback_amount', $cashback );
+	$order->update_meta_data( '_zc_cashback_transaction_id', (int) $tx );
+	$order->save();
 
 	// اعلان یک‌باره در پنل کاربری.
 	update_user_meta( $user_id, '_zc_cashback_last_notice', array( 'amount' => $cashback, 'order' => $order_id ) );

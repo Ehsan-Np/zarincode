@@ -70,12 +70,16 @@ function zc_sort_admin_submenu() {
 		'zarincode-accounting' => 40,
 		'zarincode-sales'      => 45,
 		'zarincode-kpi'        => 46,
-		'zarincode-checkout-fields' => 47,
+		'zarincode-growth'     => 47,
+		'zarincode-credentials' => 48,
+		'zarincode-subscriptions' => 49,
+		'zarincode-checkout-fields' => 50,
 		'zarincode-chats'      => 50,
 		'zarincode-sms'      => 60,
 		'zarincode-code'     => 65,
 		'zarincode-quiz-report' => 66,
 		'zarincode-contacts'   => 70,
+		'zc-newsletter'        => 75,
 		'zarincode-broadcast'  => 80,
 		'zarincode-bot'        => 90,
 	);
@@ -139,8 +143,8 @@ function zc_admin_dashboard_page() {
 				<p><?php printf( esc_html__( 'نسخه %s — خلاصه وضعیت سایت شما', 'zarincode' ), esc_html( ZC_VERSION ) ); ?></p>
 			</div>
 			<div class="zc-admin-header__actions">
-				<a href="<?php echo esc_url( admin_url( 'themes.php?page=zarincode-options' ) ); ?>" class="button button-primary"><?php esc_html_e( 'تنظیمات قالب', 'zarincode' ); ?></a>
-				<a href="<?php echo esc_url( admin_url( 'themes.php?page=zarincode-demo' ) ); ?>" class="button"><?php esc_html_e( 'درون‌ریزی دمو', 'zarincode' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode-options' ) ); ?>" class="button button-primary"><?php esc_html_e( 'تنظیمات قالب', 'zarincode' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=zarincode-demo' ) ); ?>" class="button"><?php esc_html_e( 'درون‌ریزی دمو', 'zarincode' ); ?></a>
 			</div>
 		</div>
 
@@ -194,12 +198,12 @@ function zc_admin_dashboard_page() {
 			<div class="zc-admin-quick">
 				<?php
 				$quick = array(
-					array( 'admin-appearance', __( 'تنظیم رنگ و لوگو', 'zarincode' ), admin_url( 'themes.php?page=zarincode-options&section=styling' ) ),
-					array( 'email-alt', __( 'پیکربندی پیامک', 'zarincode' ), admin_url( 'themes.php?page=zarincode-options&section=sms' ) ),
-					array( 'money-alt', __( 'تنظیم درگاه پرداخت', 'zarincode' ), admin_url( 'themes.php?page=zarincode-options&section=payment' ) ),
+					array( 'admin-appearance', __( 'تنظیم رنگ و لوگو', 'zarincode' ), admin_url( 'admin.php?page=zarincode-options&section=styling' ) ),
+					array( 'email-alt', __( 'پیکربندی پیامک', 'zarincode' ), admin_url( 'admin.php?page=zarincode-options&section=sms' ) ),
+					array( 'money-alt', __( 'تنظیم درگاه پرداخت', 'zarincode' ), admin_url( 'admin.php?page=zarincode-options&section=payment' ) ),
 					array( 'welcome-add-page', __( 'افزودن دوره جدید', 'zarincode' ), admin_url( 'post-new.php?post_type=zc_course' ) ),
 					array( 'menu', __( 'مدیریت منوها', 'zarincode' ), admin_url( 'nav-menus.php' ) ),
-					array( 'download', __( 'درون‌ریزی دمو', 'zarincode' ), admin_url( 'themes.php?page=zarincode-demo' ) ),
+					array( 'download', __( 'درون‌ریزی دمو', 'zarincode' ), admin_url( 'admin.php?page=zarincode-demo' ) ),
 				);
 				foreach ( $quick as $q ) :
 					?>
@@ -410,7 +414,7 @@ function zc_admin_bar_link( $bar ) {
 			'parent' => 'zarincode',
 			'id'     => 'zc-options',
 			'title'  => __( 'تنظیمات قالب', 'zarincode' ),
-			'href'   => admin_url( 'themes.php?page=zarincode-options' ),
+			'href'   => admin_url( 'admin.php?page=zarincode-options' ),
 		)
 	);
 

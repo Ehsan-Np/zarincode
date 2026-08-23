@@ -486,6 +486,86 @@ function zc_quiz_maybe_issue_cert_after_pass( $user_id, $course_id ) {
 }
 
 /* ==========================================================================
+   وضعیت امن تلاش گام‌به‌گام
+   ========================================================================== */
+
+/**
+ * کلید transient یک تلاش آزمون.
+ *
+ * @param int    $user_id کاربر.
+ * @param string $token   توکن تلاش.
+ * @return string
+ */
+function zc_quiz_attempt_key( $user_id, $token ) {
+	return 'zc_qstate_' . md5( (int) $user_id . '|' . (string) $token );
+}
+
+/**
+ * ساخت تلاش جدید؛ امتیاز و ترتیب پیشرفت فقط در سرور نگه داشته می‌شود.
+ *
+ * @param string $type      نوع منبع.
+ * @param int    $id        شناسه منبع.
+ * @param array  $questions سؤالات.
+ * @return string
+ */
+function zc_quiz_attempt_create( $type, $id, $questions ) {
+	$user_id = get_current_user_id();
+	if ( ! $user_id || empty( $questions ) ) {
+		return '';
+	}
+
+	$token = wp_generate_password( 32, false, false );
+	$state = array(
+		'user_id'        => (int) $user_id,
+		'type'           => sanitize_key( $type ),
+		'id'             => (int) $id,
+		'current'        => 0,
+		'answered'       => 0,
+		'first_correct'  => 0,
+		'current_tried'  => false,
+		'total'          => count( $questions ),
+		'complete'       => false,
+		'questions_hash' => md5( wp_json_encode( array_values( $questions ) ) ),
+		'created'        => time(),
+	);
+
+	set_transient( zc_quiz_attempt_key( $user_id, $token ), $state, 2 * HOUR_IN_SECONDS );
+	return $token;
+}
+
+/**
+ * خواندن وضعیت تلاش فعلی.
+ *
+ * @param string $token توکن.
+ * @return array|false
+ */
+function zc_quiz_attempt_get( $token ) {
+	if ( ! preg_match( '/^[A-Za-z0-9]{20,64}$/', (string) $token ) ) {
+		return false;
+	}
+	$state = get_transient( zc_quiz_attempt_key( get_current_user_id(), $token ) );
+	return is_array( $state ) ? $state : false;
+}
+
+/**
+ * کنترل دسترسی به منبع آزمون/تمرین.
+ *
+ * @param string $type نوع.
+ * @param int    $id   شناسه.
+ * @return bool
+ */
+function zc_quiz_can_attempt( $type, $id ) {
+	$user_id = get_current_user_id();
+	if ( ! $user_id || ! in_array( $type, array( 'course', 'course_practice', 'practice' ), true ) ) {
+		return false;
+	}
+	if ( 'practice' === $type ) {
+		return 'zc_practice' === get_post_type( $id ) && 'publish' === get_post_status( $id );
+	}
+	return 'zc_course' === get_post_type( $id ) && zc_user_has_course( $user_id, $id );
+}
+
+/* ==========================================================================
    AJAX
    ========================================================================== */
 
@@ -542,53 +622,69 @@ function zc_ajax_quiz_check() {
 	$id      = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0; // phpcs:ignore
 	$qi      = isset( $_POST['qi'] ) ? absint( $_POST['qi'] ) : 0; // phpcs:ignore
 	$answer  = isset( $_POST['answer'] ) ? wp_unslash( $_POST['answer'] ) : ''; // phpcs:ignore
+	$token   = isset( $_POST['attempt'] ) ? sanitize_text_field( wp_unslash( $_POST['attempt'] ) ) : ''; // phpcs:ignore
 
-	if ( ! $user_id || ! $id ) {
-		wp_send_json_error( array( 'message' => __( 'اطلاعات نامعتبر است.', 'zarincode' ) ) );
-	}
-
-	if ( 'course' === $type && ! zc_user_has_course( $user_id, $id ) ) {
-		wp_send_json_error( array( 'message' => __( 'شما به این دوره دسترسی ندارید.', 'zarincode' ) ) );
+	if ( ! $user_id || ! $id || ! zc_quiz_can_attempt( $type, $id ) ) {
+		wp_send_json_error( array( 'message' => __( 'دسترسی به این آزمون مجاز نیست.', 'zarincode' ) ) );
 	}
 
 	$questions = zc_quiz_source_questions( $type, $id );
-	if ( empty( $questions ) || ! isset( $questions[ $qi ] ) ) {
-		wp_send_json_error( array( 'message' => __( 'سوالی یافت نشد.', 'zarincode' ) ) );
+	$state     = zc_quiz_attempt_get( $token );
+	$hash      = md5( wp_json_encode( array_values( $questions ) ) );
+
+	if ( ! $state || (int) $state['id'] !== $id || $state['type'] !== $type || $state['questions_hash'] !== $hash ) {
+		wp_send_json_error( array( 'message' => __( 'نشست آزمون منقضی یا نامعتبر است؛ صفحه را تازه‌سازی کنید.', 'zarincode' ) ), 409 );
+	}
+	if ( ! empty( $state['complete'] ) || (int) $state['current'] !== $qi || ! isset( $questions[ $qi ] ) ) {
+		wp_send_json_error( array( 'message' => __( 'ترتیب پاسخ‌ها معتبر نیست؛ صفحه را تازه‌سازی کنید.', 'zarincode' ) ), 409 );
 	}
 
-	$q      = $questions[ $qi ];
-	$result = zc_grade_question( $q, $answer );
-	$total  = count( $questions );
+	// سقف تلاش دوره پیش از مصرف منابع اجرای کد کنترل می‌شود.
+	if ( 'course' === $type && zc_quiz_remaining_attempts( $user_id, $id ) <= 0 ) {
+		wp_send_json_error( array( 'message' => __( 'به حداکثر تعداد تلاش رسیده‌اید.', 'zarincode' ) ) );
+	}
 
-	// بازخورد.
-	$msg = '';
+	if ( 'code' === zc_qtype( $questions[ $qi ] ) && ! zc_rate_limit( 'quiz_code_' . $user_id, 20, MINUTE_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد اجرای کد بیش از حد مجاز است.', 'zarincode' ) ), 429 );
+	}
+	$result = zc_grade_question( $questions[ $qi ], $answer );
+	$msg    = '';
+
 	if ( $result['correct'] ) {
 		$msg = '<div class="zc-alert zc-alert--success">' . zc_icon( 'check', 18 ) . '<span>' . esc_html__( 'آفرین! پاسخ درست است.', 'zarincode' ) . '</span></div>';
+		if ( empty( $state['current_tried'] ) ) {
+			$state['first_correct']++;
+		}
+		$state['answered']++;
+		$state['current']++;
+		$state['current_tried'] = false;
+		$state['complete']      = (int) $state['current'] >= (int) $state['total'];
 	} else {
+		$state['current_tried'] = true;
 		$msg = '<div class="zc-alert zc-alert--error">' . zc_icon( 'close', 18 ) . '<span>' . esc_html__( 'پاسخ درست نیست، دوباره تلاش کنید.', 'zarincode' ) . '</span></div>';
 		if ( '' !== $result['error'] ) {
 			$msg .= '<pre class="zc-q__errout">' . esc_html( $result['error'] ) . '</pre>';
 		}
 	}
 
-	$done      = false;
+	set_transient( zc_quiz_attempt_key( $user_id, $token ), $state, 2 * HOUR_IN_SECONDS );
+
 	$next_html = '';
-	if ( $result['correct'] && $qi + 1 < $total ) {
-		$next_html = zc_quiz_question_html( $questions[ $qi + 1 ], $qi + 1, 'challenge', zc_quiz_context_languages( $type, $id ) );
-	} elseif ( $result['correct'] ) {
-		$done = true;
+	if ( $result['correct'] && empty( $state['complete'] ) && isset( $questions[ $state['current'] ] ) ) {
+		$next_html = zc_quiz_question_html( $questions[ $state['current'] ], $state['current'], 'challenge', zc_quiz_context_languages( $type, $id ) );
 	}
 
 	wp_send_json_success(
 		array(
-			'correct'   => $result['correct'],
-			'msg'       => $msg,
-			'expected'  => $result['expected'],
-			'output'    => $result['output'],
-			'next_html' => $next_html,
-			'done'      => $done,
-			'qi'        => $qi,
-			'total'     => $total,
+			'correct'      => (bool) $result['correct'],
+			'msg'          => $msg,
+			'output'       => $result['output'],
+			'next_html'    => $next_html,
+			'done'         => (bool) $state['complete'],
+			'qi'           => $qi,
+			'total'        => (int) $state['total'],
+			'answered'     => (int) $state['answered'],
+			'first_correct'=> (int) $state['first_correct'],
 		)
 	);
 }
@@ -603,17 +699,28 @@ add_action( 'wp_ajax_zc_quiz_check', 'zc_ajax_quiz_check' );
 function zc_ajax_quiz_finish() {
 	zc_check_ajax();
 
-	$user_id  = get_current_user_id();
-	$type     = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : 'course'; // phpcs:ignore
-	$id       = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0; // phpcs:ignore
-	$first    = isset( $_POST['first_correct'] ) ? absint( $_POST['first_correct'] ) : 0; // phpcs:ignore
-	$total    = isset( $_POST['total'] ) ? max( 1, absint( $_POST['total'] ) ) : 1; // phpcs:ignore
+	$user_id = get_current_user_id();
+	$type    = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : 'course'; // phpcs:ignore
+	$id      = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0; // phpcs:ignore
+	$token   = isset( $_POST['attempt'] ) ? sanitize_text_field( wp_unslash( $_POST['attempt'] ) ) : ''; // phpcs:ignore
+	$state   = zc_quiz_attempt_get( $token );
 
-	if ( ! $user_id || ! $id ) {
-		wp_send_json_error( array( 'message' => __( 'اطلاعات نامعتبر است.', 'zarincode' ) ) );
+	if ( ! $user_id || ! $id || ! zc_quiz_can_attempt( $type, $id ) || ! $state ) {
+		wp_send_json_error( array( 'message' => __( 'اطلاعات یا نشست آزمون نامعتبر است.', 'zarincode' ) ) );
 	}
 
-	$score  = round( ( $first / $total ) * 100, 1 );
+	$questions = zc_quiz_source_questions( $type, $id );
+	$hash      = md5( wp_json_encode( array_values( $questions ) ) );
+	if ( empty( $state['complete'] ) || (int) $state['id'] !== $id || $state['type'] !== $type || $state['questions_hash'] !== $hash ) {
+		wp_send_json_error( array( 'message' => __( 'آزمون در سمت سرور کامل نشده است.', 'zarincode' ) ), 409 );
+	}
+
+	$first = min( (int) $state['first_correct'], count( $questions ) );
+	$total = max( 1, count( $questions ) );
+	$score = min( 100, round( ( $first / $total ) * 100, 1 ) );
+
+	// توکن یک‌بارمصرف است و پیش از ثبت نتیجه باطل می‌شود.
+	delete_transient( zc_quiz_attempt_key( $user_id, $token ) );
 	$passed = false;
 	$message = '';
 
@@ -701,6 +808,9 @@ function zc_ajax_quiz_run() {
 	if ( ! $user_id ) {
 		wp_send_json_error( array( 'message' => __( 'برای استفاده از این بخش وارد شوید.', 'zarincode' ) ) );
 	}
+	if ( strlen( $code ) > 50000 || strlen( $stdin ) > 10000 ) {
+		wp_send_json_error( array( 'message' => __( 'حجم کد یا ورودی بیش از حد مجاز است.', 'zarincode' ) ) );
+	}
 
 	// محدودیت نرخ ساده برای هر کاربر (قابل تنظیم در پنل).
 	$limit = max( 0, (int) zc_opt( 'zc_quiz_exec_ratelimit', 2 ) );
@@ -730,8 +840,11 @@ function zc_ajax_quiz_submit() {
 	$course_id = isset( $_POST['course_id'] ) ? absint( $_POST['course_id'] ) : 0; // phpcs:ignore
 	$answers   = isset( $_POST['answers'] ) ? json_decode( wp_unslash( $_POST['answers'] ), true ) : array(); // phpcs:ignore
 
-	if ( ! $user_id || ! $course_id ) {
+	if ( ! $user_id || ! $course_id || ! is_array( $answers ) ) {
 		wp_send_json_error( array( 'message' => __( 'خطا در دریافت اطلاعات.', 'zarincode' ) ) );
+	}
+	if ( ! zc_rate_limit( 'quiz_submit_' . $user_id, 6, MINUTE_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد ارسال آزمون بیش از حد مجاز است.', 'zarincode' ) ), 429 );
 	}
 
 	if ( ! zc_user_has_course( $user_id, $course_id ) ) {
@@ -750,15 +863,25 @@ function zc_ajax_quiz_submit() {
 		wp_send_json_error( array( 'message' => __( 'به حداکثر تعداد تلاش رسیده‌اید.', 'zarincode' ) ) );
 	}
 
-	if ( zc_opt( 'zc_quiz_shuffle', false ) ) {
-		shuffle( $questions );
+	/*
+	 * ترتیب نمایشی ممکن است تصادفی باشد؛ هر پاسخ شناسهٔ اصلی سؤال را
+	 * همراه دارد تا shuffle باعث جابه‌جایی پاسخ‌ها در submit نشود.
+	 */
+	$answer_map = array();
+	foreach ( (array) $answers as $key => $row ) {
+		if ( is_array( $row ) && isset( $row['index'] ) ) {
+			$answer_map[ absint( $row['index'] ) ] = $row['value'] ?? '';
+		} else {
+			// سازگاری موقت با کلاینت نسخه‌های قدیمی.
+			$answer_map[ absint( $key ) ] = $row;
+		}
 	}
 
 	$correct = 0;
 	$total   = count( $questions );
 
 	foreach ( $questions as $qi => $q ) {
-		$value = isset( $answers[ $qi ] ) ? $answers[ $qi ] : '';
+		$value = isset( $answer_map[ $qi ] ) ? $answer_map[ $qi ] : '';
 		$res   = zc_grade_question( $q, $value );
 		if ( $res['correct'] ) {
 			$correct++;
@@ -1210,8 +1333,13 @@ function zc_quiz_render( $course_id ) {
 	$total        = count( $questions );
 	$challenge    = zc_opt( 'zc_quiz_challenge', true );
 	$course_langs = zc_quiz_course_languages( $course_id );
+	$attempt_token = ( $user_id && $has && $remaining > 0 ) ? zc_quiz_attempt_create( 'course', $course_id, $questions ) : '';
+	$display_order = range( 0, $total - 1 );
+	if ( zc_opt( 'zc_quiz_shuffle', false ) ) {
+		shuffle( $display_order );
+	}
 	?>
-	<div class="zc-quiz zc-quiz--ext" data-quiz data-type="course" data-id="<?php echo esc_attr( $course_id ); ?>" data-qcount="<?php echo (int) $total; ?>" data-pass="<?php echo esc_attr( $settings['pass'] ); ?>" data-challenge="<?php echo $challenge ? '1' : '0'; ?>" data-autorun="<?php echo zc_opt( 'zc_quiz_exec_autorun', false ) ? '1' : '0'; ?>" style="<?php echo esc_attr( zc_compiler_style_attrs() ); ?>">
+	<div class="zc-quiz zc-quiz--ext" data-quiz data-type="course" data-id="<?php echo esc_attr( $course_id ); ?>" data-attempt="<?php echo esc_attr( $attempt_token ); ?>" data-qcount="<?php echo (int) $total; ?>" data-pass="<?php echo esc_attr( $settings['pass'] ); ?>" data-challenge="<?php echo $challenge ? '1' : '0'; ?>" data-autorun="<?php echo zc_opt( 'zc_quiz_exec_autorun', false ) ? '1' : '0'; ?>" style="<?php echo esc_attr( zc_compiler_style_attrs() ); ?>">
 		<div class="zc-quiz__head">
 			<h3 style="margin:0 0 6px"><?php esc_html_e( 'آزمون پایان دوره', 'zarincode' ); ?></h3>
 			<p style="margin:0;color:var(--zc-muted);font-size:.85rem">
@@ -1229,8 +1357,8 @@ function zc_quiz_render( $course_id ) {
 			<p class="zc-quiz__notice"><?php esc_html_e( 'برای شرکت در آزمون وارد شوید.', 'zarincode' ); ?> <a href="<?php echo esc_url( zc_login_url() ); ?>"><?php esc_html_e( 'ورود / ثبت‌نام', 'zarincode' ); ?></a></p>
 		<?php elseif ( ! $has ) : ?>
 			<p class="zc-quiz__notice"><?php esc_html_e( 'برای شرکت در آزمون، ابتدا در دوره ثبت‌نام کنید.', 'zarincode' ); ?></p>
-		<?php elseif ( $remaining <= 0 && ! $passed ) : ?>
-			<p class="zc-quiz__notice" style="color:var(--zc-danger)"><?php esc_html_e( 'به حداکثر تعداد تلاش رسیده‌اید.', 'zarincode' ); ?></p>
+			<?php elseif ( $remaining <= 0 ) : ?>
+				<p class="zc-quiz__notice" style="color:var(--zc-danger)"><?php esc_html_e( 'به حداکثر تعداد تلاش رسیده‌اید.', 'zarincode' ); ?></p>
 		<?php else : ?>
 			<div class="zc-quiz__info" style="margin:10px 0;font-size:.85rem;color:var(--zc-muted)">
 				<?php echo esc_html( zc_fa_num( $remaining ) ); ?> <?php esc_html_e( 'تلاش باقی‌مانده', 'zarincode' ); ?>
@@ -1259,10 +1387,10 @@ function zc_quiz_render( $course_id ) {
 			</div>
 
 			<!-- حالت همهٔ سوالات -->
-			<div class="zc-quiz__all"<?php echo ( $challenge && $total > 1 ) ? ' hidden' : ''; ?>>
-				<?php foreach ( $questions as $qi => $q ) : ?>
-					<?php echo zc_quiz_question_html( $q, $qi, 'all', $course_langs ); // phpcs:ignore ?>
-				<?php endforeach; ?>
+				<div class="zc-quiz__all"<?php echo ( $challenge && $total > 1 ) ? ' hidden' : ''; ?>>
+					<?php foreach ( $display_order as $qi ) : ?>
+						<?php echo zc_quiz_question_html( $questions[ $qi ], $qi, 'all', $course_langs ); // phpcs:ignore ?>
+					<?php endforeach; ?>
 				<div class="zc-quiz__msg" style="margin-top:10px"></div>
 				<button type="button" class="zc-btn zc-btn--gold zc-btn--block" data-zc-quiz-submit><?php zc_the_icon( 'check', 17 ); ?><?php esc_html_e( 'ثبت پاسخ‌ها', 'zarincode' ); ?></button>
 			</div>
@@ -1293,8 +1421,9 @@ function zc_course_practice_render( $course_id ) {
 	$settings = zc_course_practice_settings( $course_id );
 	$best     = $user_id ? zc_course_practice_best( $user_id, $course_id ) : 0;
 	$langs    = zc_quiz_course_languages( $course_id );
+	$attempt_token = ( $user_id && zc_user_has_course( $user_id, $course_id ) ) ? zc_quiz_attempt_create( 'course_practice', $course_id, $questions ) : '';
 	?>
-	<div class="zc-quiz zc-quiz--ext zc-quiz--cp" data-quiz data-type="course_practice" data-id="<?php echo esc_attr( $course_id ); ?>" data-qcount="<?php echo (int) $total; ?>" data-pass="<?php echo esc_attr( $settings['pass'] ); ?>" data-challenge="1" data-autorun="<?php echo zc_opt( 'zc_quiz_exec_autorun', false ) ? '1' : '0'; ?>" style="<?php echo esc_attr( zc_compiler_style_attrs() ); ?>">
+	<div class="zc-quiz zc-quiz--ext zc-quiz--cp" data-quiz data-type="course_practice" data-id="<?php echo esc_attr( $course_id ); ?>" data-attempt="<?php echo esc_attr( $attempt_token ); ?>" data-qcount="<?php echo (int) $total; ?>" data-pass="<?php echo esc_attr( $settings['pass'] ); ?>" data-challenge="1" data-autorun="<?php echo zc_opt( 'zc_quiz_exec_autorun', false ) ? '1' : '0'; ?>" style="<?php echo esc_attr( zc_compiler_style_attrs() ); ?>">
 		<div class="zc-quiz__head">
 			<h3 style="margin:0 0 6px"><?php esc_html_e( 'تمرین چالشی دوره', 'zarincode' ); ?></h3>
 			<p style="margin:0;color:var(--zc-muted);font-size:.85rem">

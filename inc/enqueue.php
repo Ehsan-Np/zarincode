@@ -66,6 +66,8 @@ function zc_enqueue_assets() {
 	$l10n = array(
 		'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 		'nonce'     => zc_nonce(),
+		'restUrl'   => esc_url_raw( rest_url( 'zarincode/v1/' ) ),
+		'restNonce' => wp_create_nonce( 'wp_rest' ),
 		'homeUrl'   => home_url( '/' ),
 		'isRtl'     => is_rtl(),
 		'panelUrl'  => zc_panel_url(),
@@ -210,8 +212,8 @@ add_filter( 'script_loader_tag', 'zc_defer_scripts', 10, 2 );
  * @return void
  */
 function zc_preload_assets() {
-	// پیش‌بارگذاری فونت پیش‌فرض قالب (صمیم) با URL مطلق.
-	$preload = array( 'Samim.woff2' );
+	// فقط فونت انتخاب‌شده پیش‌بارگذاری می‌شود.
+	$preload = array( function_exists( 'zc_typography_preload_file' ) ? zc_typography_preload_file() : 'Samim.woff2' );
 	foreach ( $preload as $file ) {
 		printf(
 			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
