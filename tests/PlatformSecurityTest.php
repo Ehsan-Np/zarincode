@@ -48,7 +48,11 @@ final class PlatformSecurityTest extends TestCase {
 
 	public function test_complete_lesson_does_not_double_fire_when_classroom_saves(): void {
 		$course = $this->source( 'inc/modules/course.php' );
-		self::assertStringContainsString( '! $fired && 100 === $progress', $course );
+		self::assertStringContainsString( 'zc_maybe_fire_course_completed', $course );
+		self::assertStringContainsString( 'zc_lesson_may_complete', $course );
+		self::assertStringContainsString( 'zc_find_lesson', $course );
+		self::assertStringNotContainsString( 'seconds >= 30', $course );
+		self::assertStringNotContainsString( 'price <= 0', $course );
 	}
 
 	public function test_classroom_iframe_is_allowlisted(): void {

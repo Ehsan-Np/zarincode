@@ -1,7 +1,7 @@
 {
   "name": "zarincode-theme",
   "private": true,
-  "version": "3.38.1",
+  "version": "3.38.2",
   "scripts": {
     "lint:js": "node --check assets/js/main.js && node --check assets/js/panel.js && node --check assets/js/admin.js && node --check assets/js/jalali.js && node --check assets/js/player.js && node --check assets/js/dark.js",
     "test": "npm run lint:js",

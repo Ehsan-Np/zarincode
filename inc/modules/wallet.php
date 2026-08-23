@@ -216,19 +216,43 @@ function zc_transaction_by_ref( $ref_id, $category = '', $gateway = '' ) {
 }
 
 /**
- * دریافت موجودی کیف پول.
+ * انواع ردیفی که موجودی کیف پول کاربر را جابه‌جا می‌کنند.
+ *
+ * درآمد فروشگاه (type=income) و اصلاح حسابداری سفارش هرگز اینجا نیستند.
+ *
+ * @return string[]
+ */
+function zc_wallet_ledger_types() {
+	return apply_filters( 'zc_wallet_ledger_types', array( 'deposit', 'withdraw' ) );
+}
+
+/**
+ * جمع دفترکل واقعی کیف پول.
+ *
+ * رزروهای pending هم باید کم شوند وگرنه همان موجودی دوباره خرج می‌شود.
+ * ردیف‌های reversed پس از restore حذف‌شده محسوب می‌شوند.
  *
  * @param int $user_id کاربر.
- * @return float
+ * @return float|null تهی یعنی هیچ ردیف کیف‌پولی نیست.
  */
 function zc_wallet_ledger_sum( $user_id ) {
 	global $wpdb;
 	$table = $wpdb->prefix . 'zc_transactions';
-	$count = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE user_id=%d AND status IN ('completed','done')", $user_id ) ); // phpcs:ignore
+	$types = array_values( array_filter( array_map( 'sanitize_key', zc_wallet_ledger_types() ) ) );
+	if ( ! $types ) {
+		return null;
+	}
+
+	$placeholders = implode( ',', array_fill( 0, count( $types ), '%s' ) );
+	$sql_count    = "SELECT COUNT(*) FROM {$table} WHERE user_id=%d AND type IN ({$placeholders}) AND status IN ('completed','done','pending')";
+	$params       = array_merge( array( (int) $user_id ), $types );
+	$count        = (int) $wpdb->get_var( $wpdb->prepare( $sql_count, $params ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	if ( $count < 1 ) {
 		return null;
 	}
-	return (float) $wpdb->get_var( $wpdb->prepare( "SELECT COALESCE(SUM(amount),0) FROM {$table} WHERE user_id=%d AND status IN ('completed','done')", $user_id ) ); // phpcs:ignore
+
+	$sql_sum = "SELECT COALESCE(SUM(amount),0) FROM {$table} WHERE user_id=%d AND type IN ({$placeholders}) AND status IN ('completed','done','pending')";
+	return (float) $wpdb->get_var( $wpdb->prepare( $sql_sum, $params ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 }
 
 /**
@@ -250,7 +274,14 @@ function zc_wallet_balance( $user_id = 0 ) {
 	}
 	$sum = zc_wallet_ledger_sum( $user_id );
 	if ( null === $sum ) {
-		$sum = (float) get_user_meta( $user_id, 'zc_wallet_balance', true );
+		/*
+		 * اگر فقط ردیف درآمد سفارش برای این کاربر هست، usermeta ممکن است
+		 * به‌خاطر باگ قدیمی SUM(income) باد کرده باشد؛ آن را موجودی حساب نکن.
+		 */
+		global $wpdb;
+		$table = $wpdb->prefix . 'zc_transactions';
+		$other = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE user_id=%d AND type NOT IN ('deposit','withdraw') AND status IN ('completed','done')", $user_id ) ); // phpcs:ignore
+		$sum   = $other > 0 ? 0.0 : (float) get_user_meta( $user_id, 'zc_wallet_balance', true );
 	}
 	wp_cache_set( 'bal_' . $user_id, $sum, 'zc_wallet', MINUTE_IN_SECONDS );
 	return $sum;
@@ -497,10 +528,11 @@ function zc_get_transactions( $user_id = 0, $args = array() ) {
 	$args    = wp_parse_args(
 		$args,
 		array(
-			'limit'  => 20,
-			'offset' => 0,
-			'type'   => '',
-			'status' => '',
+			'limit'       => 20,
+			'offset'      => 0,
+			'type'        => '',
+			'status'      => '',
+			'wallet_only' => true,
 		)
 	);
 
@@ -509,6 +541,8 @@ function zc_get_transactions( $user_id = 0, $args = array() ) {
 
 	if ( $args['type'] ) {
 		$where .= $wpdb->prepare( ' AND type = %s', $args['type'] );
+	} elseif ( ! empty( $args['wallet_only'] ) ) {
+		$where .= " AND type IN ('deposit','withdraw')";
 	}
 	if ( $args['status'] ) {
 		$where .= $wpdb->prepare( ' AND status = %s', $args['status'] );
@@ -535,7 +569,7 @@ function zc_count_transactions( $user_id = 0 ) {
 	global $wpdb;
 	$user_id = $user_id ? $user_id : get_current_user_id();
 	$table   = $wpdb->prefix . 'zc_transactions';
-	return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE user_id = %d", $user_id ) ); // phpcs:ignore
+	return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE user_id = %d AND type IN ('deposit','withdraw')", $user_id ) ); // phpcs:ignore
 }
 
 /**

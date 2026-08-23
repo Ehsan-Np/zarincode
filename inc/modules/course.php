@@ -61,14 +61,8 @@ function zc_user_has_course( $user_id, $course_id ) {
 		return true;
 	}
 
-	// دوره رایگان.
-	$price = (float) get_post_meta( $course_id, '_zc_price', true );
-	if ( $price <= 0 ) {
-		return true;
-	}
-
-	// اشتراک ویژه.
-	if ( zc_user_has_subscription( $user_id ) ) {
+	// اشتراک پریمیوم (نه هر پلنی) به کاتالوگ دوره‌های پولی دسترسی می‌دهد.
+	if ( zc_user_has_premium_catalog( $user_id ) ) {
 		return true;
 	}
 
@@ -103,6 +97,32 @@ function zc_user_has_subscription( $user_id ) {
 
 	$expire = get_user_meta( $user_id, 'zc_subscription_expire', true );
 	return $expire && strtotime( $expire ) > current_time( 'timestamp' );
+}
+
+/**
+ * آیا اشتراک کاربر کاتالوگ دوره‌های پولی را باز می‌کند؟
+ *
+ * فقط پلن با فلگ پریمیوم، یا اشتراک روزانهٔ قدیمی.
+ *
+ * @param int $user_id کاربر.
+ * @return bool
+ */
+function zc_user_has_premium_catalog( $user_id ) {
+	$user_id = (int) $user_id;
+	if ( ! $user_id ) {
+		return false;
+	}
+
+	if ( function_exists( 'zc_subscription_is_active' ) && zc_subscription_is_active( $user_id ) && function_exists( 'zc_subscription_get_user' ) ) {
+		$rec     = zc_subscription_get_user( $user_id );
+		$plan_id = (int) ( $rec['plan_id'] ?? 0 );
+		if ( $plan_id && '1' === (string) get_post_meta( $plan_id, '_zc_sub_premium', true ) ) {
+			return true;
+		}
+	}
+
+	$expire = get_user_meta( $user_id, 'zc_subscription_expire', true );
+	return (bool) ( $expire && strtotime( $expire ) > current_time( 'timestamp' ) );
 }
 
 /**
@@ -256,7 +276,6 @@ function zc_ajax_complete_lesson() {
 	$course_id = isset( $_POST['course_id'] ) ? absint( $_POST['course_id'] ) : 0;
 	$lesson    = isset( $_POST['lesson_key'] ) ? sanitize_text_field( wp_unslash( $_POST['lesson_key'] ) ) : '';
 	$seconds   = isset( $_POST['seconds'] ) ? absint( $_POST['seconds'] ) : 0;
-	$duration  = isset( $_POST['duration'] ) ? absint( $_POST['duration'] ) : 0;
 	$complete  = ! empty( $_POST['complete'] );
 	$user_id   = get_current_user_id();
 
@@ -267,14 +286,13 @@ function zc_ajax_complete_lesson() {
 	if ( ! zc_user_has_course( $user_id, $course_id ) ) {
 		wp_send_json_error( array( 'message' => __( 'شما به این دوره دسترسی ندارید.', 'zarincode' ) ) );
 	}
-
-	$threshold = max( 50, min( 100, (int) zc_opt( 'zc_lesson_complete_percent', 80 ) ) );
-	$can_done  = false;
-	if ( $complete && $duration > 0 ) {
-		$can_done = ( ( $seconds / $duration ) * 100 ) >= $threshold;
-	} elseif ( $complete && $seconds >= 30 ) {
-		$can_done = true;
+	if ( function_exists( 'zc_find_lesson' ) && ! zc_find_lesson( $course_id, $lesson ) ) {
+		wp_send_json_error( array( 'message' => __( 'جلسه نامعتبر است.', 'zarincode' ) ), 400 );
 	}
+
+	$can_done = function_exists( 'zc_lesson_may_complete' )
+		? zc_lesson_may_complete( $course_id, $lesson, $seconds, $complete )
+		: false;
 
 	$fired = false;
 	if ( function_exists( 'zc_save_lesson_progress' ) ) {
@@ -297,9 +315,9 @@ function zc_ajax_complete_lesson() {
 		$progress = zc_get_course_progress( $user_id, $course_id );
 	}
 
-	// صدور گواهی در صورت تکمیل ۱۰۰٪ (اگر ذخیرهٔ کلاس درس خودش هوک نزده باشد).
-	if ( ! $fired && 100 === $progress && $can_done ) {
-		do_action( 'zc_course_completed', $user_id, $course_id );
+	// صدور گواهی فقط اگر ذخیرهٔ کلاس درس هوک نزده باشد.
+	if ( ! $fired && function_exists( 'zc_maybe_fire_course_completed' ) ) {
+		zc_maybe_fire_course_completed( $user_id, $course_id, $progress, $can_done ? 'completed' : 'in_progress' );
 	}
 
 	wp_send_json_success(

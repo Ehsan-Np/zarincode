@@ -152,19 +152,17 @@ function zc_rest_progress_post( $request ) {
 	$course_id = absint( $request->get_param( 'course_id' ) );
 	$lesson    = sanitize_text_field( (string) $request->get_param( 'lesson_key' ) );
 	$seconds   = absint( $request->get_param( 'seconds' ) );
-	$duration  = absint( $request->get_param( 'duration' ) );
 	$complete  = (bool) $request->get_param( 'complete' );
 	$user_id   = get_current_user_id();
 	if ( ! $course_id || ! $lesson || ! zc_user_has_course( $user_id, $course_id ) ) {
 		return new WP_Error( 'forbidden', __( 'دسترسی مجاز نیست.', 'zarincode' ), array( 'status' => 403 ) );
 	}
-	$threshold = max( 50, min( 100, (int) zc_opt( 'zc_lesson_complete_percent', 80 ) ) );
-	$can_done  = false;
-	if ( $complete && $duration > 0 ) {
-		$can_done = ( ( $seconds / $duration ) * 100 ) >= $threshold;
-	} elseif ( $complete && $seconds >= 90 ) {
-		$can_done = true;
+	if ( ! function_exists( 'zc_find_lesson' ) || ! zc_find_lesson( $course_id, $lesson ) ) {
+		return new WP_Error( 'invalid_lesson', __( 'جلسه نامعتبر است.', 'zarincode' ), array( 'status' => 400 ) );
 	}
+	$can_done = function_exists( 'zc_lesson_may_complete' )
+		? zc_lesson_may_complete( $course_id, $lesson, $seconds, $complete )
+		: false;
 	return rest_ensure_response( zc_save_lesson_progress( $user_id, $course_id, $lesson, $seconds, $can_done ) );
 }
 

@@ -27,9 +27,9 @@ final class RepositorySmokeTest extends TestCase {
 		$root = dirname( __DIR__ );
 		$functions = file_get_contents( $root . '/functions.php' );
 		$style = file_get_contents( $root . '/style.css' );
-		self::assertMatchesRegularExpression( "/ZC_VERSION', '3\\.38\\.1'/", $functions );
-		self::assertStringContainsString( 'Version: 3.38.1', $style );
+		self::assertMatchesRegularExpression( "/ZC_VERSION', '3\\.38\\.2'/", $functions );
+		self::assertStringContainsString( 'Version: 3.38.2', $style );
 		$core = file_get_contents( $root . '/companion-plugin/zarincode-core/zarincode-core.php' );
-		self::assertStringContainsString( "VERSION = '3.38.1'", $core );
+		self::assertStringContainsString( "VERSION = '3.38.2'", $core );
 	}
 }

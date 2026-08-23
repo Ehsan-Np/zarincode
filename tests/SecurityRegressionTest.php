@@ -31,6 +31,29 @@ final class SecurityRegressionTest extends TestCase {
 		$source = $this->source( 'inc/modules/messenger-bot.php' );
 		self::assertStringContainsString( 'hash_equals( $secret, $provided )', $source );
 		self::assertStringContainsString( 'x-telegram-bot-api-secret-token', $source );
+		self::assertStringContainsString( 'zc_bot_hook_token', $source );
+		self::assertStringNotContainsString( "add_query_arg( 'secret'", $source );
+		self::assertStringContainsString( 'wp_generate_password( 12, false, false )', $source );
+	}
+
+	public function test_wallet_ledger_excludes_store_income(): void {
+		$wallet = $this->source( 'inc/modules/wallet.php' );
+		self::assertStringContainsString( "array( 'deposit', 'withdraw' )", $wallet );
+		self::assertStringContainsString( "status IN ('completed','done','pending')", $wallet );
+		self::assertStringContainsString( "type NOT IN ('deposit','withdraw')", $wallet );
+		self::assertStringContainsString( '$other > 0 ? 0.0', $wallet );
+	}
+
+	public function test_progress_ignores_client_duration(): void {
+		$cls = $this->source( 'inc/modules/classroom.php' );
+		self::assertStringContainsString( 'function zc_lesson_may_complete', $cls );
+		self::assertStringContainsString( 'return $seconds >= 90', $cls );
+		self::assertStringNotContainsString( "\$_POST['duration']", $cls );
+		$rest = $this->source( 'inc/modules/rest-platform.php' );
+		self::assertStringContainsString( 'zc_find_lesson', $rest );
+		self::assertStringContainsString( 'zc_lesson_may_complete', $rest );
+		$ct = $this->source( 'inc/modules/contracts.php' );
+		self::assertStringContainsString( 'wp_rand( 100000, 999999 )', $ct );
 	}
 
 	public function test_public_query_cannot_accept_raw_post_type(): void {

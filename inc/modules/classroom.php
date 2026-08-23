@@ -82,6 +82,94 @@ function zc_find_lesson( $course_id, $key ) {
 }
 
 /**
+ * مدت جلسه به ثانیه از دادهٔ سرور (نه از کلاینت).
+ *
+ * قالب‌های رایج: «۱۲:۳۰» به‌معنی دقیقه:ثانیه، یا عدد دقیقه.
+ *
+ * @param array $lesson جلسه.
+ * @return int
+ */
+function zc_lesson_duration_seconds( $lesson ) {
+	if ( ! is_array( $lesson ) ) {
+		return 0;
+	}
+
+	$raw = $lesson['duration'] ?? ( $lesson['seconds'] ?? '' );
+	if ( is_numeric( $raw ) ) {
+		$n = (int) $raw;
+		if ( $n <= 0 ) {
+			return 0;
+		}
+		return $n <= 180 ? $n * 60 : $n;
+	}
+
+	$raw = function_exists( 'zc_en_num' ) ? zc_en_num( (string) $raw ) : (string) $raw;
+	if ( preg_match( '/(\d+):(\d+)/', $raw, $m ) ) {
+		return ( (int) $m[1] * 60 ) + (int) $m[2];
+	}
+
+	$n = (int) preg_replace( '/[^0-9]/', '', $raw );
+	if ( $n <= 0 ) {
+		return 0;
+	}
+	return $n <= 180 ? $n * 60 : $n;
+}
+
+/**
+ * آیا کلاینت اجازه دارد جلسه را completed کند؟
+ *
+ * duration ارسالی مرورگر هرگز ملاک نیست.
+ *
+ * @param int    $course_id دوره.
+ * @param string $lesson_key کلید.
+ * @param int    $seconds    ثانیهٔ ادعایی.
+ * @param bool   $complete   درخواست تکمیل.
+ * @return bool
+ */
+function zc_lesson_may_complete( $course_id, $lesson_key, $seconds, $complete ) {
+	if ( ! $complete ) {
+		return false;
+	}
+
+	$lesson = zc_find_lesson( $course_id, $lesson_key );
+	if ( ! $lesson ) {
+		return false;
+	}
+
+	$seconds    = max( 0, (int) $seconds );
+	$threshold  = max( 50, min( 100, (int) zc_opt( 'zc_lesson_complete_percent', 80 ) ) );
+	$trusted    = zc_lesson_duration_seconds( $lesson );
+	if ( $trusted > 0 ) {
+		return $seconds >= (int) ceil( $trusted * $threshold / 100 );
+	}
+
+	return $seconds >= 90;
+}
+
+/**
+ * هوک تکمیل دوره فقط بار اول.
+ *
+ * @param int    $user_id   کاربر.
+ * @param int    $course_id دوره.
+ * @param int    $progress  درصد.
+ * @param string $status    وضعیت جلسهٔ ذخیره‌شده.
+ * @return void
+ */
+function zc_maybe_fire_course_completed( $user_id, $course_id, $progress, $status ) {
+	if ( 100 !== (int) $progress || 'completed' !== $status ) {
+		return;
+	}
+
+	$key = 'zc_course_completed_' . (int) $course_id;
+	if ( get_user_meta( $user_id, $key, true ) ) {
+		return;
+	}
+
+	update_user_meta( $user_id, $key, time() );
+	do_action( 'zc_course_completed', $user_id, $course_id );
+}
+
+/**
  * تاریخ ثبت‌نام فعال.
  *
  * @param int $user_id   کاربر.
@@ -193,9 +281,7 @@ function zc_save_lesson_progress( $user_id, $course_id, $lesson, $seconds = 0, $
 	);
 
 	$progress = zc_get_course_progress( $user_id, $course_id );
-	if ( 100 === $progress && 'completed' === $status ) {
-		do_action( 'zc_course_completed', $user_id, $course_id );
-	}
+	zc_maybe_fire_course_completed( $user_id, $course_id, $progress, $status );
 
 	return array(
 		'progress' => $progress,
@@ -219,7 +305,6 @@ function zc_ajax_save_watch() {
 	$course_id = isset( $_POST['course_id'] ) ? absint( $_POST['course_id'] ) : 0;
 	$lesson    = isset( $_POST['lesson_key'] ) ? sanitize_text_field( wp_unslash( $_POST['lesson_key'] ) ) : '';
 	$seconds   = isset( $_POST['seconds'] ) ? absint( $_POST['seconds'] ) : 0;
-	$duration  = isset( $_POST['duration'] ) ? absint( $_POST['duration'] ) : 0;
 	$complete  = ! empty( $_POST['complete'] );
 
 	if ( ! $course_id || ! $lesson || ! zc_user_has_course( $user_id, $course_id ) ) {
@@ -229,14 +314,7 @@ function zc_ajax_save_watch() {
 		wp_send_json_error( array( 'message' => __( 'جلسه نامعتبر است.', 'zarincode' ) ), 400 );
 	}
 
-	$threshold = max( 50, min( 100, (int) zc_opt( 'zc_lesson_complete_percent', 80 ) ) );
-	$can_done  = false;
-	if ( $complete && $duration > 0 ) {
-		$can_done = ( ( $seconds / $duration ) * 100 ) >= $threshold;
-	} elseif ( $complete && 0 === $duration && $seconds >= 90 ) {
-		// ویدیوهای iframe بدون duration واقعی؛ حداقل ۹۰ ثانیه تماشا لازم است.
-		$can_done = true;
-	}
+	$can_done = zc_lesson_may_complete( $course_id, $lesson, $seconds, $complete );
 
 	$result = zc_save_lesson_progress( $user_id, $course_id, $lesson, $seconds, $can_done );
 	wp_send_json_success( $result );

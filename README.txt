@@ -3,7 +3,7 @@ Contributors: zarincode
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Version: 3.38.1
+Version: 3.38.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,12 @@ docs/راهنمای-ربات-و-کران.md
 * بهینه برای سئو و سرعت بارگذاری
 
 == تغییرات ==
+
+= 3.38.2 =
+- موجودی کیف پول فقط از deposit/withdraw (رزرو pending کم می‌شود؛ درآمد فروشگاه جداست)
+- دوره رایگان فقط با ثبت‌نام؛ اشتراک کاتالوگ فقط پلن پریمیوم
+- تکمیل جلسه بدون duration کلاینت؛ هوک اتمام دوره یک‌بار
+- کد اتصال ربات ۱۲ کاراکتر با TTL؛ وب‌هوک بله بدون ?secret=
 
 = 3.38.1 =
 - بستن تزریق WP_Query در بارگذاری بیشتر و جستجوی زنده

@@ -525,7 +525,7 @@ function zc_contract_send_otp( $contract_id ) {
 		return false;
 	}
 
-	$code = (string) wp_rand( 10000, 99999 );
+	$code = (string) wp_rand( 100000, 999999 );
 
 	set_transient( 'zc_ct_otp_' . $contract_id, wp_hash_password( $code ), 10 * MINUTE_IN_SECONDS );
 	delete_transient( 'zc_ct_otp_tries_' . $contract_id );

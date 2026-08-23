@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Zarincode Core
  * Description: لایهٔ پایدار داده و قابلیت‌های زرین کد؛ جداول، نقش‌ها و CPTها را مستقل از قالب نگه می‌دارد.
- * Version: 3.38.1
+ * Version: 3.38.2
  * Requires PHP: 7.4
  * Requires at least: 6.0
  * Author: Zarincode
@@ -16,7 +16,7 @@ if ( ! defined( 'ZARINCODE_CORE_ACTIVE' ) ) {
 require_once __DIR__ . '/includes/schema.php';
 
 final class Zarincode_Core_Data_Portability {
-	public const VERSION = '3.38.1';
+	public const VERSION = '3.38.2';
 
 	public static function boot() {
 		register_activation_hook( __FILE__, array( __CLASS__, 'activate' ) );

@@ -381,3 +381,46 @@ function zc_send_csp_header() {
 	header( "Content-Security-Policy: object-src 'none'; base-uri 'self'; frame-ancestors 'self'" );
 }
 add_action( 'send_headers', 'zc_send_csp_header', 2 );
+
+/**
+ * حذف کلید API و توکن ربات از رشته‌های لاگ.
+ *
+ * @param mixed $value مقدار.
+ * @return mixed
+ */
+function zc_redact_secrets( $value ) {
+	if ( is_array( $value ) ) {
+		foreach ( $value as $k => $v ) {
+			$value[ $k ] = zc_redact_secrets( $v );
+		}
+		return $value;
+	}
+	if ( ! is_string( $value ) || '' === $value ) {
+		return $value;
+	}
+	$value = preg_replace( '#https?://api\.kavenegar\.com/v1/[^/\s]+#i', 'https://api.kavenegar.com/v1/[redacted]', $value );
+	$value = preg_replace( '#https?://api\.telegram\.org/bot[^/\s]+#i', 'https://api.telegram.org/bot[redacted]', $value );
+	$value = preg_replace( '#https?://tapi\.bale\.ai/bot[^/\s]+#i', 'https://tapi.bale.ai/bot[redacted]', $value );
+	return $value;
+}
+
+/**
+ * جلوگیری از نوشتن URL حاوی کلید در http_api_debug وردپرس.
+ *
+ * @param mixed  $response پاسخ.
+ * @param string $context  زمینه.
+ * @param string $class    کلاس.
+ * @param array  $args     آرگومان.
+ * @param string $url      نشانی.
+ * @return void
+ */
+function zc_redact_http_api_debug( $response, $context, $class, $args, $url ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+		$safe = zc_redact_secrets( (string) $url );
+		if ( $safe !== (string) $url && function_exists( 'error_log' ) ) {
+			// وردپرس خودش URL خام را لاگ می‌کند؛ این فقط ردپای سانسورشده می‌گذارد.
+			error_log( 'ZC HTTP ' . $safe ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		}
+	}
+}
+add_action( 'http_api_debug', 'zc_redact_http_api_debug', 1, 5 );
