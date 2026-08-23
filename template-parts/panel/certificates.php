@@ -30,7 +30,7 @@ $zc_user  = wp_get_current_user();
 					</div>
 				</div>
 				<div class="zc-certificate__footer">
-					<button class="zc-btn zc-btn--gold zc-btn--sm" onclick="window.print()"><?php zc_the_icon( 'download', 15 ); ?><?php esc_html_e( 'دریافت گواهی', 'zarincode' ); ?></button>
+					<a class="zc-btn zc-btn--gold zc-btn--sm" href="<?php echo esc_url( function_exists( 'zc_certificate_print_url' ) ? zc_certificate_print_url( $zc_cert['code'] ) : '#' ); ?>"><?php zc_the_icon( 'download', 15 ); ?><?php esc_html_e( 'چاپ / PDF', 'zarincode' ); ?></a>
 					<a href="<?php echo esc_url( get_permalink( $zc_cert['course_id'] ) ); ?>" class="zc-btn zc-btn--ghost zc-btn--sm"><?php zc_the_icon( 'video', 15 ); ?><?php esc_html_e( 'مشاهده دوره', 'zarincode' ); ?></a>
 				</div>
 			</div>

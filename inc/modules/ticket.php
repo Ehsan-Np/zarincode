@@ -227,7 +227,7 @@ function zc_ajax_reply_ticket() {
 	}
 
 	// بررسی مالکیت.
-	if ( (int) $ticket->post_author !== $user_id && ! current_user_can( 'edit_posts' ) ) {
+	if ( (int) $ticket->post_author !== $user_id && ! zc_can_support() ) {
 		wp_send_json_error( array( 'message' => __( 'دسترسی غیرمجاز.', 'zarincode' ) ) );
 	}
 
@@ -239,7 +239,7 @@ function zc_ajax_reply_ticket() {
 		wp_send_json_error( array( 'message' => __( 'متن پاسخ را وارد کنید.', 'zarincode' ) ) );
 	}
 
-	$is_staff = current_user_can( 'edit_posts' );
+	$is_staff = zc_can_support();
 
 	$comment_id = wp_insert_comment(
 		array(
@@ -296,7 +296,7 @@ function zc_ajax_close_ticket() {
 	$ticket_id = isset( $_POST['ticket_id'] ) ? absint( $_POST['ticket_id'] ) : 0;
 	$ticket    = get_post( $ticket_id );
 
-	if ( ! $ticket || ( (int) $ticket->post_author !== get_current_user_id() && ! current_user_can( 'edit_posts' ) ) ) {
+	if ( ! $ticket || ( (int) $ticket->post_author !== get_current_user_id() && ! zc_can_support() ) ) {
 		wp_send_json_error( array( 'message' => __( 'دسترسی غیرمجاز.', 'zarincode' ) ) );
 	}
 
@@ -374,16 +374,16 @@ function zc_handle_ticket_upload( $field, $post_id ) {
 	require_once ABSPATH . 'wp-admin/includes/file.php';
 	require_once ABSPATH . 'wp-admin/includes/media.php';
 
-	$allowed = array( 'jpg', 'jpeg', 'png', 'gif', 'pdf', 'zip', 'rar', 'txt', 'doc', 'docx' );
+	$allowed = array( 'jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'txt', 'doc', 'docx' );
 	$file    = $_FILES[ $field ] ?? null; // phpcs:ignore
 
 	if ( ! $file ) {
 		return new WP_Error( 'no_file', __( 'فایلی انتخاب نشده است.', 'zarincode' ) );
 	}
 
-	$ext = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
-	if ( ! in_array( $ext, $allowed, true ) ) {
-		return new WP_Error( 'bad_type', __( 'فرمت فایل مجاز نیست.', 'zarincode' ) );
+	$valid = function_exists( 'zc_validate_upload_file' ) ? zc_validate_upload_file( $file, $allowed ) : true;
+	if ( is_wp_error( $valid ) ) {
+		return $valid;
 	}
 
 	$max = (int) zc_opt( 'zc_ticket_max_size', 5 ) * MB_IN_BYTES;
@@ -391,8 +391,55 @@ function zc_handle_ticket_upload( $field, $post_id ) {
 		return new WP_Error( 'too_big', __( 'حجم فایل بیش از حد مجاز است.', 'zarincode' ) );
 	}
 
-	return media_handle_upload( $field, $post_id );
+	if ( function_exists( 'zc_ensure_private_upload_dir' ) ) {
+		zc_ensure_private_upload_dir();
+		add_filter( 'upload_dir', 'zc_private_upload_dir' );
+	}
+	$id = media_handle_upload( $field, $post_id );
+	if ( function_exists( 'zc_private_upload_dir' ) ) {
+		remove_filter( 'upload_dir', 'zc_private_upload_dir' );
+	}
+	if ( ! is_wp_error( $id ) ) {
+		update_post_meta( $id, '_zc_private_file', 1 );
+	}
+	return $id;
 }
+
+/**
+ * سرو امن پیوست خصوصی تیکت.
+ *
+ * @return void
+ */
+function zc_serve_private_attachment() {
+	if ( empty( $_GET['zc_private_file'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return;
+	}
+	if ( ! is_user_logged_in() ) {
+		wp_die( esc_html__( 'ابتدا وارد شوید.', 'zarincode' ), '', array( 'response' => 401 ) );
+	}
+	$id   = absint( wp_unslash( $_GET['zc_private_file'] ) ); // phpcs:ignore
+	$file = get_post( $id );
+	if ( ! $file || 'attachment' !== $file->post_type || ! get_post_meta( $id, '_zc_private_file', true ) ) {
+		wp_die( esc_html__( 'فایل یافت نشد.', 'zarincode' ), '', array( 'response' => 404 ) );
+	}
+	$parent = get_post( $file->post_parent );
+	$ok     = $parent && 'zc_ticket' === $parent->post_type && ( (int) $parent->post_author === get_current_user_id() || zc_can_support() );
+	if ( ! $ok ) {
+		wp_die( esc_html__( 'دسترسی غیرمجاز.', 'zarincode' ), '', array( 'response' => 403 ) );
+	}
+	$path = get_attached_file( $id );
+	if ( ! $path || ! is_readable( $path ) ) {
+		wp_die( esc_html__( 'فایل در دسترس نیست.', 'zarincode' ), '', array( 'response' => 404 ) );
+	}
+	$mime = get_post_mime_type( $id );
+	nocache_headers();
+	header( 'Content-Type: ' . ( $mime ? $mime : 'application/octet-stream' ) );
+	header( 'Content-Disposition: attachment; filename="' . rawurlencode( basename( $path ) ) . '"' );
+	header( 'X-Content-Type-Options: nosniff' );
+	readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
+	exit;
+}
+add_action( 'template_redirect', 'zc_serve_private_attachment', 1 );
 
 /**
  * اطلاع‌رسانی تیکت جدید به مدیر.

@@ -1,0 +1,25 @@
+:root{
+	--zc-space-1:4px;
+	--zc-space-2:8px;
+	--zc-space-3:12px;
+	--zc-space-4:16px;
+	--zc-space-5:24px;
+	--zc-space-6:32px;
+	--zc-shadow-sm:0 6px 16px rgba(20,26,49,.06);
+	--zc-shadow-md:0 14px 40px rgba(20,26,49,.10);
+	--zc-line:rgba(20,26,49,.08);
+	--zc-surface:#fff;
+	--zc-surface-2:#f6f8fc;
+	--zc-ink:#141A31;
+	--zc-muted:#64748b;
+}
+html.zc-dark{
+	--zc-body-bg:#0c1020;
+	--zc-surface:#141a2c;
+	--zc-surface-2:#1b2238;
+	--zc-ink:#e8edf7;
+	--zc-muted:#9aa6bf;
+	--zc-line:rgba(255,255,255,.08);
+	--zc-text-color:#d5dceb;
+	--zc-heading-color:#f4f7ff;
+}

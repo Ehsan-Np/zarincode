@@ -239,16 +239,22 @@ function zc_ajax_withdraw_request() {
 
 	update_user_meta( get_current_user_id(), 'zc_sheba', $sheba );
 
-	zc_add_transaction(
+	$tx = zc_wallet_withdraw(
+		get_current_user_id(),
+		$amount,
+		sprintf( /* translators: %s: sheba */ __( 'درخواست تسویه به شبا %s', 'zarincode' ), $sheba ),
+		'payout',
 		array(
-			'user_id'     => get_current_user_id(),
-			'amount'      => -$amount,
-			'type'        => 'withdraw_request',
-			'category'    => 'payout',
-			'status'      => 'pending',
-			'description' => sprintf( /* translators: %s: sheba */ __( 'درخواست تسویه به شبا %s', 'zarincode' ), $sheba ),
+			'status'  => 'pending',
+			'gateway' => 'wallet',
+			'ref_id'  => 'payout-' . get_current_user_id() . '-' . wp_generate_password( 12, false, false ),
+			'meta'    => array( 'sheba' => $sheba ),
 		)
 	);
+
+	if ( is_wp_error( $tx ) ) {
+		wp_send_json_error( array( 'message' => $tx->get_error_message() ) );
+	}
 
 	wp_send_json_success( array( 'message' => __( 'درخواست تسویه ثبت شد و پس از بررسی واریز می‌شود.', 'zarincode' ) ) );
 }

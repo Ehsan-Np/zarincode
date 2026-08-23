@@ -412,7 +412,7 @@ function zc_default_options() {
 		'zc_image_opt_enable'         => true,
 		'zc_image_opt_webp'           => true,
 		'zc_image_opt_quality'        => 90,
-		'zc_image_opt_delete_original'=> true,
+		'zc_image_opt_delete_original'=> false,
 		'zc_image_opt_sizes'          => true,
 
 		// رنگ لوگو.
@@ -430,6 +430,24 @@ function zc_default_options() {
 		'zc_cct_card_number'            => '',
 		'zc_cct_card_holder'            => '',
 		'zc_cct_card_bank'              => '',
+
+		// پلتفرم ۳.۳۸.
+		'zc_security_headers'           => true,
+		'zc_disable_xmlrpc'             => true,
+		'zc_admin_login_secret'         => '',
+		'zc_lesson_complete_percent'    => 80,
+		'zc_installments_enable'        => true,
+		'zc_installments_max'           => 4,
+		'zc_pwa_enable'                 => true,
+		'zc_dark_enable'                => true,
+		'zc_whatsapp_enable'            => true,
+		'zc_whatsapp_number'            => '',
+		'zc_whatsapp_prefill'           => '',
+		'zc_whatsapp_token'             => '',
+		'zc_whatsapp_phone_id'          => '',
+		'zc_update_endpoint'            => '',
+		'zc_update_license'             => '',
+		'zc_backup_encrypt'             => true,
 	);
 }
 
@@ -1021,7 +1039,6 @@ function zc_kses_badge( $html ) {
 			'height'   => true,
 			'loading'  => true,
 			'decoding' => true,
-			'onclick'  => true, // کد رسمی ای‌نماد از این ویژگی استفاده می‌کند.
 			'cursor'   => true,
 		),
 		'div' => array( 'id' => true, 'class' => true, 'style' => true ),
@@ -1042,7 +1059,8 @@ function zc_kses_badge( $html ) {
 		'circle' => array( 'cx' => true, 'cy' => true, 'r' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true ),
 	);
 
-	return wp_kses( $html, $allowed );
+	$clean = wp_kses( $html, $allowed );
+	return function_exists( 'zc_sanitize_badge_html' ) ? zc_sanitize_badge_html( $clean ) : $clean;
 }
 
 /**

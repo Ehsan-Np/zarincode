@@ -2869,7 +2869,8 @@
 		if (btn) btn.classList.add('is-loading');
 		out.hidden = false;
 		out.textContent = 'در حال اجرا…';
-		ajax('zc_quiz_run', { language: lang, code: ta.value, stdin: stdin }).then(function (res) {
+		var quiz = qEl.closest('[data-quiz]');
+		ajax('zc_quiz_run', { language: lang, code: ta.value, stdin: stdin, type: quiz ? quiz.dataset.type : '', id: quiz ? quiz.dataset.id : 0 }).then(function (res) {
 			if (btn) btn.classList.remove('is-loading');
 			if (res.success) {
 				out.textContent = res.data.output !== '' ? res.data.output : (res.data.error ? 'خطا:\n' + res.data.error : '(خروجی خالی)');

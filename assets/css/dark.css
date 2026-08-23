@@ -1,0 +1,25 @@
+html.zc-dark body,
+html.zc-dark .zc-panel,
+html.zc-dark .zc-panel__content,
+html.zc-dark .zc-panel__sidebar{
+	background:var(--zc-body-bg);
+	color:var(--zc-ink);
+}
+html.zc-dark .zc-card,
+html.zc-dark .zc-admin-box,
+html.zc-dark .zc-panel__body,
+html.zc-dark .zc-course-buy,
+html.zc-dark .zc-certificate{
+	background:var(--zc-surface);
+	color:var(--zc-ink);
+	border-color:var(--zc-line);
+}
+html.zc-dark a{color:var(--zc-gold-2,#F5D061)}
+html.zc-dark .zc-panel__nav-item{color:var(--zc-ink)}
+html.zc-dark .zc-panel__nav-item.is-active{background:var(--zc-surface-2)}
+html.zc-dark input,html.zc-dark select,html.zc-dark textarea{
+	background:var(--zc-surface-2);
+	color:var(--zc-ink);
+	border-color:var(--zc-line);
+}
+.zc-theme-toggle{margin-inline-start:6px}
