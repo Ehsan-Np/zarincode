@@ -50,4 +50,16 @@ final class PlatformSecurityTest extends TestCase {
 		$course = $this->source( 'inc/modules/course.php' );
 		self::assertStringContainsString( '! $fired && 100 === $progress', $course );
 	}
+
+	public function test_classroom_iframe_is_allowlisted(): void {
+		$cls = $this->source( 'inc/modules/classroom.php' );
+		self::assertStringContainsString( 'zc_video_iframe_hosts', $cls );
+		self::assertStringContainsString( "'type' => 'none'", $cls );
+	}
+
+	public function test_core_plugin_installs_schema(): void {
+		$core = $this->source( 'companion-plugin/zarincode-core/zarincode-core.php' );
+		self::assertStringContainsString( 'zarincode_core_install_schema', $core );
+		self::assertFileExists( dirname( __DIR__ ) . '/companion-plugin/zarincode-core/includes/schema.php' );
+	}
 }

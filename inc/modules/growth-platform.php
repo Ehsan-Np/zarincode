@@ -421,7 +421,7 @@ function zc_license_on_order( $order_id ) {
 		$ok  = $wpdb->insert( $wpdb->prefix . 'zc_licenses', array( 'license_key' => $key, 'user_id' => $order->get_user_id(), 'product_id' => $product_id, 'order_id' => $order_id, 'status' => 'active', 'activation_limit' => $limit, 'activations' => '[]', 'expires_at' => $days ? wp_date( 'Y-m-d H:i:s', time() + $days * DAY_IN_SECONDS, wp_timezone() ) : null, 'created_at' => current_time( 'mysql' ) ) ); // phpcs:ignore
 		if ( $ok ) {
 			zc_add_notification( (int) $order->get_user_id(), __( 'لایسنس محصول صادر شد', 'zarincode' ), sprintf( __( 'لایسنس محصول «%s» در پنل شما آماده است.', 'zarincode' ), get_the_title( $product_id ) ), 'success', zc_panel_url( 'licenses' ) );
-			$order->add_order_note( sprintf( __( 'لایسنس محصول %1$s صادر شد: %2$s', 'zarincode' ), get_the_title( $product_id ), $key ) );
+			$order->add_order_note( sprintf( __( 'لایسنس محصول %s صادر شد (کلید در پنل کاربر).', 'zarincode' ), get_the_title( $product_id ) ) );
 		}
 	}
 	$order->save();
@@ -553,8 +553,28 @@ add_action( 'rest_api_init', 'zc_growth_rest_routes' );
 
 /** @return WP_REST_Response */
 function zc_rest_me() {
+	if ( function_exists( 'zc_rest_allow' ) && ! zc_rest_allow( 'me', 30 ) ) {
+		return new WP_Error( 'rate_limit', __( 'تعداد درخواست بیش از حد مجاز است.', 'zarincode' ), array( 'status' => 429 ) );
+	}
 	$user = wp_get_current_user();
-	$data = array( 'id' => $user->ID, 'name' => $user->display_name, 'email' => $user->user_email, 'mobile' => get_user_meta( $user->ID, 'zc_mobile', true ), 'stats' => zc_user_stats( $user->ID ), 'certificates' => zc_get_certificates( $user->ID ), 'courses' => array_map( static function ( $row ) { return array( 'id' => (int) $row->course_id, 'title' => get_the_title( $row->course_id ), 'progress' => zc_get_course_progress( get_current_user_id(), $row->course_id ) ); }, zc_get_user_courses( $user->ID ) ) );
+	$data = array(
+		'id'            => $user->ID,
+		'name'          => $user->display_name,
+		'email'         => $user->user_email,
+		'mobile'        => get_user_meta( $user->ID, 'zc_mobile', true ),
+		'stats'         => zc_user_stats( $user->ID ),
+		'certificates'  => zc_get_certificates( $user->ID ),
+		'courses'       => array_map(
+			static function ( $row ) {
+				return array(
+					'id'       => (int) $row->course_id,
+					'title'    => get_the_title( $row->course_id ),
+					'progress' => zc_get_course_progress( get_current_user_id(), $row->course_id ),
+				);
+			},
+			zc_get_user_courses( $user->ID )
+		),
+	);
 	return rest_ensure_response( $data );
 }
 

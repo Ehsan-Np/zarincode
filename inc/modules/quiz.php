@@ -459,21 +459,16 @@ function zc_quiz_question_html( $q, $i, $context = 'challenge', $allowed_langs =
  * @param int $course_id دوره.
  * @return void
  */
-function zc_quiz_maybe_issue_certificate( $user_id, $course_id ) {
+function zc_quiz_blocks_certificate( $user_id, $course_id ) {
 	if ( ! zc_quiz_module_enabled() || ! zc_quiz_enabled() || ! zc_opt( 'zc_quiz_require_for_cert', true ) ) {
-		return;
+		return false;
 	}
-
 	$questions = zc_quiz_questions( $course_id );
 	if ( empty( $questions ) ) {
-		return;
+		return false;
 	}
-
-	if ( ! zc_quiz_passed( $user_id, $course_id ) ) {
-		remove_action( 'zc_course_completed', 'zc_issue_certificate', 10 );
-	}
+	return ! zc_quiz_passed( $user_id, $course_id );
 }
-add_action( 'zc_course_completed', 'zc_quiz_maybe_issue_certificate', 9, 2 );
 
 /**
  * پس از ثبت یک تلاش قبول‌شده، اگر دوره کامل شده باشد مدرک صادر می‌شود.

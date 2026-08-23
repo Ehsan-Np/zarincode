@@ -56,11 +56,13 @@ class ZC_Kavenegar {
 			return new WP_Error( 'zc_sms_disabled', __( 'سرویس پیامک پیکربندی نشده است.', 'zarincode' ) );
 		}
 
-		$url = sprintf(
-			'https://api.kavenegar.com/v1/%s/%s.json',
-			rawurlencode( $this->api_key ),
-			$method
-		);
+		/*
+		 * API رسمی کاوه‌نگار کلید را فقط در مسیر می‌پذیرد. کلید را در لاگ
+		 * قالب هرگز نمی‌نویسیم؛ برای حذف از access-log وب‌سرور باید از
+		 * پروکسی داخلی استفاده شود (فیلتر zc_kavenegar_endpoint).
+		 */
+		$base = apply_filters( 'zc_kavenegar_endpoint', 'https://api.kavenegar.com/v1/' . rawurlencode( $this->api_key ) );
+		$url  = trailingslashit( $base ) . ltrim( $method, '/' ) . '.json';
 
 		$response = wp_remote_post(
 			$url,
@@ -72,8 +74,8 @@ class ZC_Kavenegar {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			zc_log( $response->get_error_message(), 'Kavenegar' );
-			return $response;
+			zc_log( 'Kavenegar HTTP failed', 'Kavenegar' );
+			return new WP_Error( 'zc_sms_http', __( 'ارتباط با سرویس پیامک برقرار نشد.', 'zarincode' ) );
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
@@ -318,7 +320,7 @@ function zc_send_otp( $mobile ) {
 		return new WP_Error( 'zc_otp_limit', __( 'تعداد درخواست‌های شما بیش از حد مجاز است. یک ساعت دیگر تلاش کنید.', 'zarincode' ) );
 	}
 
-	$code   = (string) wp_rand( 10000, 99999 );
+	$code   = (string) wp_rand( 100000, 999999 );
 	$expire = (int) zc_opt( 'zc_otp_expire', 120 );
 
 	set_transient( 'zc_otp_' . md5( $mobile ), wp_hash_password( $code ), $expire );
@@ -326,10 +328,12 @@ function zc_send_otp( $mobile ) {
 	set_transient( $lock_key, 1, (int) zc_opt( 'zc_otp_resend', 60 ) );
 	set_transient( $count_key, $count + 1, HOUR_IN_SECONDS );
 
-	// حالت تست: کد در لاگ ثبت می‌شود.
+	// حالت تست: کد هرگز در پاسخ HTTP برنمی‌گردد.
 	if ( zc_opt( 'zc_sms_test_mode', false ) ) {
-		zc_log( 'OTP for ' . $mobile . ' = ' . $code, 'ZC-OTP' );
-		return array( 'test' => true, 'code' => $code );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( 'ZC-OTP test issued for ' . $mobile ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+		}
+		return array( 'test' => true );
 	}
 
 	$template = zc_opt( 'zc_kavenegar_template', '' );

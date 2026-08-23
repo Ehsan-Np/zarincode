@@ -30,6 +30,28 @@ final class SecurityRegressionTest extends TestCase {
 	public function test_webhook_secret_is_mandatory(): void {
 		$source = $this->source( 'inc/modules/messenger-bot.php' );
 		self::assertStringContainsString( 'hash_equals( $secret, $provided )', $source );
+		self::assertStringContainsString( 'x-telegram-bot-api-secret-token', $source );
+	}
+
+	public function test_public_query_cannot_accept_raw_post_type(): void {
+		$search = $this->source( 'inc/modules/ajax-search.php' );
+		self::assertStringContainsString( 'zc_sanitize_public_query_args', $search );
+		self::assertStringContainsString( 'نوع جستجو نامعتبر است', $search );
+		$actions = $this->source( 'inc/modules/ajax-actions.php' );
+		self::assertStringNotContainsString( "\$_POST['receiver']", $actions );
+	}
+
+	public function test_otp_test_mode_does_not_return_code(): void {
+		$sms = $this->source( 'inc/modules/sms-kavenegar.php' );
+		self::assertStringContainsString( "return array( 'test' => true );", $sms );
+		self::assertStringNotContainsString( "'test' => true, 'code' => \$code", $sms );
+		self::assertStringContainsString( 'wp_rand( 100000, 999999 )', $sms );
+	}
+
+	public function test_support_capability_is_not_edit_posts(): void {
+		$ticket = $this->source( 'inc/modules/ticket.php' );
+		self::assertStringContainsString( 'zc_can_support()', $ticket );
+		self::assertStringNotContainsString( "current_user_can( 'edit_posts' )", $ticket );
 	}
 
 	public function test_newsletter_is_batched(): void {

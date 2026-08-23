@@ -177,3 +177,207 @@ function zc_backup_crypto_key() {
 	update_option( 'zc_backup_crypto_key', $fresh, false );
 	return hash( 'sha256', $fresh, true );
 }
+
+/**
+ * آیا کاربر پشتیبان است (تیکت/چت)؟ edit_posts عمداً کافی نیست.
+ *
+ * @param int $user_id کاربر.
+ * @return bool
+ */
+function zc_can_support( $user_id = 0 ) {
+	$user_id = $user_id ? (int) $user_id : get_current_user_id();
+	if ( ! $user_id ) {
+		return false;
+	}
+	return user_can( $user_id, 'manage_options' ) || user_can( $user_id, 'zc_answer_ticket' );
+}
+
+/**
+ * انواع پست مجاز برای جستجو و بارگذاری بیشتر عمومی.
+ *
+ * @return array
+ */
+function zc_public_query_post_types() {
+	$types = array( 'post', 'page', 'zc_course', 'zc_tutorial', 'zc_learning_path', 'zc_teacher', 'zc_service', 'zc_project', 'zc_faq' );
+	if ( function_exists( 'zc_is_woo' ) && zc_is_woo() ) {
+		$types[] = 'product';
+	}
+	return apply_filters( 'zc_public_query_post_types', $types );
+}
+
+/**
+ * پاکسازی آرگومان WP_Query که از کلاینت می‌آید.
+ *
+ * @param mixed $raw دادهٔ خام.
+ * @return array
+ */
+function zc_sanitize_public_query_args( $raw ) {
+	$raw   = is_array( $raw ) ? $raw : array();
+	$allow = zc_public_query_post_types();
+	$type  = $raw['post_type'] ?? 'post';
+	if ( is_array( $type ) ) {
+		$type = array_values( array_intersect( array_map( 'sanitize_key', $type ), $allow ) );
+		if ( ! $type ) {
+			$type = array( 'post' );
+		}
+	} else {
+		$type = sanitize_key( (string) $type );
+		if ( ! in_array( $type, $allow, true ) ) {
+			$type = 'post';
+		}
+	}
+
+	$tax_query = array();
+	if ( ! empty( $raw['cat'] ) ) {
+		$tax_query[] = array(
+			'taxonomy' => 'category',
+			'field'    => 'term_id',
+			'terms'    => array_map( 'absint', (array) $raw['cat'] ),
+		);
+	}
+	if ( ! empty( $raw['zc_course_cat'] ) ) {
+		$tax_query[] = array(
+			'taxonomy' => 'zc_course_cat',
+			'field'    => 'term_id',
+			'terms'    => array_map( 'absint', (array) $raw['zc_course_cat'] ),
+		);
+	}
+
+	$out = array(
+		'post_type'           => $type,
+		'post_status'         => 'publish',
+		'posts_per_page'      => max( 1, min( 24, absint( $raw['posts_per_page'] ?? 9 ) ) ),
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => false,
+	);
+	if ( $tax_query ) {
+		$out['tax_query'] = $tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+	}
+	return $out;
+}
+
+/**
+ * آیا URL مقصد عمومی و HTTPS است (ضد SSRF به شبکهٔ داخلی)؟
+ *
+ * @param string $url نشانی.
+ * @return bool
+ */
+function zc_url_is_public_https( $url ) {
+	$url = esc_url_raw( (string) $url );
+	if ( ! $url || 'https' !== wp_parse_url( $url, PHP_URL_SCHEME ) ) {
+		return false;
+	}
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+	if ( ! $host || in_array( strtolower( $host ), array( 'localhost', 'metadata.google.internal' ), true ) ) {
+		return false;
+	}
+	$ips = array();
+	if ( filter_var( $host, FILTER_VALIDATE_IP ) ) {
+		$ips[] = $host;
+	} else {
+		$resolved = gethostbynamel( $host );
+		if ( is_array( $resolved ) ) {
+			$ips = $resolved;
+		}
+	}
+	if ( ! $ips ) {
+		return false;
+	}
+	foreach ( $ips as $ip ) {
+		if ( ! filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ) {
+			return false;
+		}
+	}
+	return true;
+}
+
+/**
+ * میزبان‌های مجاز iframe ویدیوی کلاس درس.
+ *
+ * @return array
+ */
+function zc_video_iframe_hosts() {
+	return apply_filters(
+		'zc_video_iframe_hosts',
+		array(
+			'www.youtube.com',
+			'youtube.com',
+			'youtu.be',
+			'www.youtube-nocookie.com',
+			'www.aparat.com',
+			'aparat.com',
+			'player.vimeo.com',
+			'vimeo.com',
+		)
+	);
+}
+
+/**
+ * بررسی پسوند + بایت جادویی فایل آپلودی.
+ *
+ * @param array $file    عنصر $_FILES.
+ * @param array $allowed پسوندهای مجاز.
+ * @return true|WP_Error
+ */
+function zc_validate_upload_file( $file, $allowed ) {
+	if ( empty( $file['tmp_name'] ) || ! is_uploaded_file( $file['tmp_name'] ) ) {
+		return new WP_Error( 'no_file', __( 'فایلی دریافت نشد.', 'zarincode' ) );
+	}
+	$check = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'] ?? '' );
+	$ext   = strtolower( (string) ( $check['ext'] ?? pathinfo( $file['name'] ?? '', PATHINFO_EXTENSION ) ) );
+	if ( ! $ext || ! in_array( $ext, $allowed, true ) ) {
+		return new WP_Error( 'bad_type', __( 'فرمت فایل مجاز نیست.', 'zarincode' ) );
+	}
+	$images = array( 'jpg', 'jpeg', 'png', 'gif', 'webp' );
+	if ( in_array( $ext, $images, true ) ) {
+		$info = @getimagesize( $file['tmp_name'] ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( ! $info ) {
+			return new WP_Error( 'bad_image', __( 'فایل تصویر معتبر نیست.', 'zarincode' ) );
+		}
+	}
+	return true;
+}
+
+/**
+ * پوشهٔ غیرقابل‌وب برای پیوست‌های خصوصی.
+ *
+ * @param array $dirs مسیرهای آپلود.
+ * @return array
+ */
+function zc_private_upload_dir( $dirs ) {
+	$subdir         = '/zc-private/' . gmdate( 'Y/m' );
+	$dirs['subdir'] = $subdir;
+	$dirs['path']   = $dirs['basedir'] . $subdir;
+	$dirs['url']    = $dirs['baseurl'] . $subdir;
+	return $dirs;
+}
+
+/**
+ * ایجاد قفل وب روی پوشهٔ خصوصی.
+ *
+ * @return string
+ */
+function zc_ensure_private_upload_dir() {
+	$base = trailingslashit( wp_upload_dir()['basedir'] ) . 'zc-private';
+	wp_mkdir_p( $base );
+	if ( ! file_exists( $base . '/index.php' ) ) {
+		file_put_contents( $base . '/index.php', "<?php\n// Silence.\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+	}
+	if ( ! file_exists( $base . '/.htaccess' ) ) {
+		file_put_contents( $base . '/.htaccess', "Options -Indexes\n<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nDeny from all\n</IfModule>\n" ); // phpcs:ignore
+	}
+	return $base;
+}
+
+/**
+ * هدر CSP حداقلی که اسکریپت اینلاین قالب/المنتور را نمی‌شکند.
+ *
+ * @return void
+ */
+function zc_send_csp_header() {
+	if ( headers_sent() || ! zc_opt( 'zc_security_headers', true ) ) {
+		return;
+	}
+	header( "Content-Security-Policy: object-src 'none'; base-uri 'self'; frame-ancestors 'self'" );
+}
+add_action( 'send_headers', 'zc_send_csp_header', 2 );

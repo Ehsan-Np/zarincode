@@ -48,6 +48,36 @@ function zc_privacy_export( $email, $page = 1 ) {
 		}
 	}
 
+	$tickets = ( 1 === $page ) ? get_posts( array( 'post_type' => 'zc_ticket', 'author' => $uid, 'posts_per_page' => 50, 'post_status' => 'any', 'fields' => 'ids' ) ) : array();
+	foreach ( $tickets as $tid ) {
+		$data[] = array(
+			'group_id'    => 'zarincode-tickets',
+			'group_label' => __( 'تیکت پشتیبانی', 'zarincode' ),
+			'item_id'     => 'ticket-' . $tid,
+			'data'        => array(
+				array( 'name' => __( 'عنوان', 'zarincode' ), 'value' => get_the_title( $tid ) ),
+				array( 'name' => __( 'وضعیت', 'zarincode' ), 'value' => (string) get_post_meta( $tid, '_zc_status', true ) ),
+			),
+		);
+	}
+
+	$chat_table = $wpdb->prefix . 'zc_chats';
+	if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $chat_table ) ) === $chat_table ) { // phpcs:ignore
+		$chats = $wpdb->get_results( $wpdb->prepare( "SELECT sender, message, created_at FROM {$chat_table} WHERE user_id=%d ORDER BY id DESC LIMIT 100", $uid ), ARRAY_A ); // phpcs:ignore
+		foreach ( $chats as $chat ) {
+			$data[] = array(
+				'group_id'    => 'zarincode-chats',
+				'group_label' => __( 'گفتگوی آنلاین', 'zarincode' ),
+				'item_id'     => 'chat-' . md5( wp_json_encode( $chat ) ),
+				'data'        => array(
+					array( 'name' => 'sender', 'value' => (string) $chat['sender'] ),
+					array( 'name' => 'message', 'value' => (string) $chat['message'] ),
+					array( 'name' => 'date', 'value' => (string) $chat['created_at'] ),
+				),
+			);
+		}
+	}
+
 	if ( 1 === $page ) {
 		foreach ( zc_get_notifications( $uid ) as $index => $notification ) {
 			$data[] = array( 'group_id' => 'zarincode-notifications', 'group_label' => __( 'اعلان‌های زرین کد', 'zarincode' ), 'item_id' => 'notification-' . $index, 'data' => array( array( 'name' => __( 'عنوان', 'zarincode' ), 'value' => $notification['title'] ?? '' ), array( 'name' => __( 'پیام', 'zarincode' ), 'value' => $notification['message'] ?? '' ), array( 'name' => __( 'تاریخ', 'zarincode' ), 'value' => $notification['date'] ?? '' ) ) );
@@ -70,7 +100,7 @@ function zc_privacy_erase( $email, $page = 1 ) {
 	global $wpdb;
 	$uid = (int) $user->ID; $removed = false; $retained = false; $messages = array();
 
-	foreach ( array( 'zc_notifications', 'zc_wishlist', 'zc_bot_code', 'zc_notify_prefs', 'zc_telegram_chat_id', 'zc_bale_chat_id', 'zc_custom_avatar' ) as $key ) {
+	foreach ( array( 'zc_notifications', 'zc_wishlist', 'zc_bot_code', 'zc_bot_code_exp', 'zc_notify_prefs', 'zc_telegram_chat_id', 'zc_bale_chat_id', 'zc_custom_avatar' ) as $key ) {
 		if ( metadata_exists( 'user', $uid, $key ) ) { delete_user_meta( $uid, $key ); $removed = true; }
 	}
 

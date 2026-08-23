@@ -31,13 +31,15 @@ function zc_check_theme_updates( $transient ) {
 					'theme'   => 'zarincode',
 					'version' => ZC_VERSION,
 					'domain'  => wp_parse_url( home_url(), PHP_URL_HOST ),
-					'license' => $key,
 				),
 				$endpoint
 			),
 			array(
 				'timeout' => 8,
-				'headers' => array( 'Accept' => 'application/json' ),
+				'headers' => array(
+					'Accept'               => 'application/json',
+					'X-Zarincode-License'  => $key,
+				),
 			)
 		);
 		if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
@@ -57,6 +59,15 @@ function zc_check_theme_updates( $transient ) {
 		return $transient;
 	}
 	if ( 'https' !== wp_parse_url( $pkg, PHP_URL_SCHEME ) ) {
+		return $transient;
+	}
+	$pkg_host = strtolower( (string) wp_parse_url( $pkg, PHP_URL_HOST ) );
+	$end_host = strtolower( (string) wp_parse_url( $endpoint, PHP_URL_HOST ) );
+	$ok_hosts = apply_filters( 'zc_update_package_hosts', array_filter( array( $end_host, 'zarincode.com', 'www.zarincode.com', 'cdn.zarincode.com' ) ) );
+	if ( ! $pkg_host || ! in_array( $pkg_host, array_map( 'strtolower', $ok_hosts ), true ) ) {
+		return $transient;
+	}
+	if ( function_exists( 'zc_url_is_public_https' ) && ! zc_url_is_public_https( $pkg ) ) {
 		return $transient;
 	}
 

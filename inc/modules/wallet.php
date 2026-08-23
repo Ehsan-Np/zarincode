@@ -15,6 +15,10 @@ defined( 'ABSPATH' ) || exit;
 function zc_create_tables() {
 	global $wpdb;
 
+	if ( function_exists( 'zarincode_core_install_schema' ) ) {
+		zarincode_core_install_schema();
+	}
+
 	$charset = $wpdb->get_charset_collate();
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
@@ -217,12 +221,39 @@ function zc_transaction_by_ref( $ref_id, $category = '', $gateway = '' ) {
  * @param int $user_id کاربر.
  * @return float
  */
+function zc_wallet_ledger_sum( $user_id ) {
+	global $wpdb;
+	$table = $wpdb->prefix . 'zc_transactions';
+	$count = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE user_id=%d AND status IN ('completed','done')", $user_id ) ); // phpcs:ignore
+	if ( $count < 1 ) {
+		return null;
+	}
+	return (float) $wpdb->get_var( $wpdb->prepare( "SELECT COALESCE(SUM(amount),0) FROM {$table} WHERE user_id=%d AND status IN ('completed','done')", $user_id ) ); // phpcs:ignore
+}
+
+/**
+ * دریافت موجودی کیف پول.
+ *
+ * منبع حقیقت دفترکل تراکنش‌هاست؛ usermeta فقط کش است.
+ *
+ * @param int $user_id کاربر.
+ * @return float
+ */
 function zc_wallet_balance( $user_id = 0 ) {
 	$user_id = $user_id ? $user_id : get_current_user_id();
 	if ( ! $user_id ) {
 		return 0;
 	}
-	return (float) get_user_meta( $user_id, 'zc_wallet_balance', true );
+	$cached = wp_cache_get( 'bal_' . $user_id, 'zc_wallet' );
+	if ( false !== $cached ) {
+		return (float) $cached;
+	}
+	$sum = zc_wallet_ledger_sum( $user_id );
+	if ( null === $sum ) {
+		$sum = (float) get_user_meta( $user_id, 'zc_wallet_balance', true );
+	}
+	wp_cache_set( 'bal_' . $user_id, $sum, 'zc_wallet', MINUTE_IN_SECONDS );
+	return $sum;
 }
 
 /**
@@ -251,9 +282,11 @@ function zc_wallet_deposit( $user_id, $amount, $description = '', $category = 'd
 			return $ref_tx;
 		}
 		clean_user_cache( $user_id );
+		wp_cache_delete( 'bal_' . $user_id, 'zc_wallet' );
 		$old     = zc_wallet_balance( $user_id );
 		$balance = $old + $amount;
 		update_user_meta( $user_id, 'zc_wallet_balance', $balance );
+		wp_cache_delete( 'bal_' . $user_id, 'zc_wallet' );
 
 		$tx = zc_add_transaction(
 			array_merge(
@@ -312,6 +345,7 @@ function zc_wallet_withdraw( $user_id, $amount, $description = '', $category = '
 			return $ref_tx;
 		}
 		clean_user_cache( $user_id );
+		wp_cache_delete( 'bal_' . $user_id, 'zc_wallet' );
 		$old = zc_wallet_balance( $user_id );
 		if ( $amount > $old ) {
 			return new WP_Error( 'zc_insufficient', __( 'موجودی کیف پول کافی نیست.', 'zarincode' ) );
@@ -370,6 +404,7 @@ function zc_wallet_adjust( $user_id, $delta, $description, $category, $ref_id ) 
 			return $existing;
 		}
 		clean_user_cache( $user_id );
+		wp_cache_delete( 'bal_' . $user_id, 'zc_wallet' );
 		$old     = zc_wallet_balance( $user_id );
 		$balance = $old + $delta;
 		update_user_meta( $user_id, 'zc_wallet_balance', $balance );

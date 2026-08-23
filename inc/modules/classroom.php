@@ -40,7 +40,7 @@ add_action( 'init', 'zc_classroom_rewrites', 8 );
 function zc_classroom_url( $course_id, $lesson = '' ) {
 	$args = array( 'zc_learn' => (int) $course_id );
 	if ( $lesson ) {
-		$args['lesson'] = $lesson;
+		$args['zc_lesson'] = $lesson;
 	}
 	return add_query_arg( $args, home_url( '/' ) );
 }
@@ -141,7 +141,12 @@ function zc_video_embed_data( $url ) {
 	if ( preg_match( '/\.(mp4|webm|ogg)(\?|$)/i', $url ) ) {
 		return array( 'type' => 'file', 'src' => $url );
 	}
-	return array( 'type' => 'iframe', 'src' => $url );
+	$host  = strtolower( (string) wp_parse_url( $url, PHP_URL_HOST ) );
+	$allow = function_exists( 'zc_video_iframe_hosts' ) ? zc_video_iframe_hosts() : array( 'www.youtube.com', 'www.aparat.com' );
+	if ( $host && in_array( $host, array_map( 'strtolower', $allow ), true ) ) {
+		return array( 'type' => 'iframe', 'src' => $url );
+	}
+	return array( 'type' => 'none', 'src' => '' );
 }
 
 /**
@@ -228,8 +233,8 @@ function zc_ajax_save_watch() {
 	$can_done  = false;
 	if ( $complete && $duration > 0 ) {
 		$can_done = ( ( $seconds / $duration ) * 100 ) >= $threshold;
-	} elseif ( $complete && 0 === $duration && $seconds >= 30 ) {
-		// ویدیوهای iframe بدون duration واقعی؛ حداقل ۳۰ ثانیه تماشا لازم است.
+	} elseif ( $complete && 0 === $duration && $seconds >= 90 ) {
+		// ویدیوهای iframe بدون duration واقعی؛ حداقل ۹۰ ثانیه تماشا لازم است.
 		$can_done = true;
 	}
 
@@ -262,7 +267,14 @@ function zc_classroom_template_redirect() {
 	}
 
 	$user_id = get_current_user_id();
-	$lesson  = isset( $_GET['lesson'] ) ? sanitize_text_field( wp_unslash( $_GET['lesson'] ) ) : (string) get_query_var( 'zc_lesson' ); // phpcs:ignore
+	$lesson = '';
+	if ( isset( $_GET['zc_lesson'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$lesson = sanitize_text_field( wp_unslash( $_GET['zc_lesson'] ) ); // phpcs:ignore
+	} elseif ( isset( $_GET['lesson'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$lesson = sanitize_text_field( wp_unslash( $_GET['lesson'] ) ); // phpcs:ignore
+	} else {
+		$lesson = (string) get_query_var( 'zc_lesson' );
+	}
 	$lessons = zc_flatten_lessons( $course_id );
 	if ( ! $lesson && $lessons ) {
 		$lesson = $lessons[0]['key'];

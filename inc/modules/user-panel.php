@@ -195,6 +195,9 @@ function zc_issue_certificate( $user_id, $course_id ) {
 	if ( ! zc_opt( 'zc_certificate_enable', true ) ) {
 		return;
 	}
+	if ( function_exists( 'zc_quiz_blocks_certificate' ) && zc_quiz_blocks_certificate( $user_id, $course_id ) ) {
+		return;
+	}
 
 	$certs = get_user_meta( $user_id, 'zc_certificates', true );
 	if ( ! is_array( $certs ) ) {

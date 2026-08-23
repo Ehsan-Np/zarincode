@@ -33,12 +33,12 @@ function zc_handle_ajax_search() {
 		wp_send_json_success( array( 'html' => $cached, 'cached' => true ) );
 	}
 
-	$types = array( 'post', 'page', 'zc_course', 'zc_tutorial', 'zc_learning_path' );
-	if ( zc_is_woo() ) {
-		$types[] = 'product';
-	}
+	$types = function_exists( 'zc_public_query_post_types' ) ? zc_public_query_post_types() : array( 'post', 'page', 'zc_course', 'zc_tutorial', 'zc_learning_path' );
 
 	if ( 'all' !== $type ) {
+		if ( ! in_array( $type, $types, true ) ) {
+			wp_send_json_error( array( 'message' => __( 'نوع جستجو نامعتبر است.', 'zarincode' ) ) );
+		}
 		$types = array( $type );
 	}
 
@@ -126,19 +126,15 @@ function zc_handle_load_more() {
 	zc_check_ajax();
 
 	$page  = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 1;
-	$query = isset( $_POST['query'] ) ? json_decode( sanitize_textarea_field( wp_unslash( $_POST['query'] ) ), true ) : array();
+	$query = isset( $_POST['query'] ) ? json_decode( wp_unslash( $_POST['query'] ), true ) : array(); // phpcs:ignore
 	$tpl   = isset( $_POST['tpl'] ) ? sanitize_key( wp_unslash( $_POST['tpl'] ) ) : 'post';
+	$tpls  = array( 'post', 'course', 'product', 'tutorial', 'project', 'service' );
+	if ( ! in_array( $tpl, $tpls, true ) ) {
+		$tpl = 'post';
+	}
 
-	$args = wp_parse_args(
-		is_array( $query ) ? $query : array(),
-		array(
-			'post_type'      => 'post',
-			'posts_per_page' => 9,
-			'post_status'    => 'publish',
-		)
-	);
-
-	$args['paged'] = $page;
+	$args          = function_exists( 'zc_sanitize_public_query_args' ) ? zc_sanitize_public_query_args( is_array( $query ) ? $query : array() ) : array( 'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 9 );
+	$args['paged'] = max( 1, $page );
 
 	$loop = new WP_Query( $args );
 

@@ -114,16 +114,9 @@ function zc_installments_on_order( $order_id ) {
 		if ( ! $course_id ) {
 			continue;
 		}
-		$full_meta = (float) $order->get_meta( '_zc_installment_full_total' );
-		$line      = (float) $item->get_total();
-		$items_sum = 0;
-		foreach ( $order->get_items() as $it ) {
-			$items_sum += (float) $it->get_total();
-		}
-		$total = ( $full_meta > 0 && $items_sum > 0 ) ? ( $full_meta * ( $line / $items_sum ) ) : $line;
-		$first = ( $items_sum > 0 )
-			? round( ( (float) $order->get_total() ) * ( $line / $items_sum ), 0 )
-			: round( $total / $parts, 0 );
+		$line  = (float) $item->get_total();
+		$total = $line;
+		$first = round( $total / $parts, 0 );
 		$wpdb->insert( // phpcs:ignore
 			$table,
 			array(
@@ -221,7 +214,13 @@ function zc_installments_cart_fee( $cart ) {
 	if ( $parts < 2 || ! $cart ) {
 		return;
 	}
-	$base = (float) $cart->get_cart_contents_total() + (float) $cart->get_shipping_total();
+	$base = 0;
+	foreach ( $cart->get_cart() as $item ) {
+		$pid = (int) ( $item['product_id'] ?? 0 );
+		if ( $pid && (int) get_post_meta( $pid, '_zc_linked_course', true ) ) {
+			$base += (float) ( $item['line_total'] ?? 0 );
+		}
+	}
 	if ( $base <= 0 ) {
 		return;
 	}
@@ -251,7 +250,14 @@ function zc_installments_save_checkout( $order_id ) {
 	if ( $parts >= 2 && $parts <= $max && function_exists( 'wc_get_order' ) ) {
 		$order = wc_get_order( $order_id );
 		if ( $order ) {
+			$full = 0;
+			foreach ( $order->get_items() as $item ) {
+				if ( (int) get_post_meta( $item->get_product_id(), '_zc_linked_course', true ) ) {
+					$full += (float) $item->get_total();
+				}
+			}
 			$order->update_meta_data( '_zc_installment_parts', $parts );
+			$order->update_meta_data( '_zc_installment_full_total', $full );
 			$order->save();
 		}
 	}

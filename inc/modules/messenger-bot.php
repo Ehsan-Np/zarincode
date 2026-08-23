@@ -185,6 +185,14 @@ function zc_user_by_connect_code( $code ) {
 		return 0;
 	}
 
+	$uid = (int) get_transient( 'zc_bot_code_' . $code );
+	if ( $uid ) {
+		delete_transient( 'zc_bot_code_' . $code );
+		delete_user_meta( $uid, 'zc_bot_code' );
+		delete_user_meta( $uid, 'zc_bot_code_exp' );
+		return $uid;
+	}
+
 	$users = get_users(
 		array(
 			'meta_key'   => 'zc_bot_code', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
@@ -193,8 +201,19 @@ function zc_user_by_connect_code( $code ) {
 			'fields'     => 'ID',
 		)
 	);
-
-	return $users ? (int) $users[0] : 0;
+	if ( ! $users ) {
+		return 0;
+	}
+	$uid = (int) $users[0];
+	$exp = (int) get_user_meta( $uid, 'zc_bot_code_exp', true );
+	if ( $exp && $exp < time() ) {
+		delete_user_meta( $uid, 'zc_bot_code' );
+		delete_user_meta( $uid, 'zc_bot_code_exp' );
+		return 0;
+	}
+	delete_user_meta( $uid, 'zc_bot_code' );
+	delete_user_meta( $uid, 'zc_bot_code_exp' );
+	return $uid;
 }
 
 /**
@@ -313,7 +332,13 @@ function zc_handle_bot_webhook( $request ) {
 	// بررسی کلید امنیتی تا فقط پیام‌رسان بتواند این مسیر را صدا بزند.
 	$options  = get_option( ZC_PREFIX, array() );
 	$secret   = (string) ( $options['zc_bot_secret'] ?? '' );
-	$provided = (string) $request->get_param( 'secret' );
+	$provided = (string) $request->get_header( 'x-telegram-bot-api-secret-token' );
+	if ( ! $provided ) {
+		$provided = (string) $request->get_header( 'x-zarincode-bot-secret' );
+	}
+	if ( ! $provided ) {
+		$provided = (string) $request->get_param( 'secret' );
+	}
 
 	// مسیر بدون secret هرگز باز نمی‌ماند؛ حتی پیش از اولین بازدید مدیر.
 	if ( ! $secret || ! $provided || ! hash_equals( $secret, $provided ) ) {
@@ -430,15 +455,7 @@ function zc_handle_bot_webhook( $request ) {
  * @return string
  */
 function zc_bot_webhook_url( $messenger ) {
-	$url     = rest_url( 'zarincode/v1/bot/' . $messenger );
-	$options = get_option( ZC_PREFIX, array() );
-	$secret  = $options['zc_bot_secret'] ?? '';
-
-	if ( $secret ) {
-		$url = add_query_arg( 'secret', $secret, $url );
-	}
-
-	return $url;
+	return rest_url( 'zarincode/v1/bot/' . $messenger );
 }
 
 /**
@@ -457,11 +474,15 @@ function zc_ajax_set_webhook() {
 	}
 
 	$messenger = sanitize_text_field( wp_unslash( $_POST['messenger'] ?? 'telegram' ) );
-	$result    = zc_messenger_request(
-		$messenger,
-		'setWebhook',
-		array( 'url' => zc_bot_webhook_url( $messenger ) )
-	);
+	$options   = get_option( ZC_PREFIX, array() );
+	$secret    = (string) ( $options['zc_bot_secret'] ?? '' );
+	$args      = array( 'url' => zc_bot_webhook_url( $messenger ) );
+	if ( $secret && 'telegram' === $messenger ) {
+		$args['secret_token'] = $secret;
+	} elseif ( $secret ) {
+		$args['url'] = add_query_arg( 'secret', $secret, $args['url'] );
+	}
+	$result = zc_messenger_request( $messenger, 'setWebhook', $args );
 
 	if ( is_wp_error( $result ) ) {
 		wp_send_json_error( array( 'message' => $result->get_error_message() ) );
@@ -494,7 +515,7 @@ function zc_ajax_save_notify_prefs() {
 	$prefs   = array();
 
 	// کاربر عادی نباید بتواند اعلان مدیریتی را برای خود روشن کند.
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
 		unset( $types['admin_alerts'] );
 	}
 

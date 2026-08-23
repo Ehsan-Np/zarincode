@@ -162,7 +162,7 @@ function zc_rest_progress_post( $request ) {
 	$can_done  = false;
 	if ( $complete && $duration > 0 ) {
 		$can_done = ( ( $seconds / $duration ) * 100 ) >= $threshold;
-	} elseif ( $complete && $seconds >= 30 ) {
+	} elseif ( $complete && $seconds >= 90 ) {
 		$can_done = true;
 	}
 	return rest_ensure_response( zc_save_lesson_progress( $user_id, $course_id, $lesson, $seconds, $can_done ) );
@@ -205,7 +205,7 @@ function zc_rest_tickets() {
 		$items[] = array(
 			'id'     => $post->ID,
 			'title'  => get_the_title( $post ),
-			'status' => get_post_meta( $post->ID, '_zc_ticket_status', true ),
+			'status' => get_post_meta( $post->ID, '_zc_status', true ),
 			'date'   => $post->post_date,
 		);
 	}
@@ -224,6 +224,9 @@ function zc_rest_register_webhook( $request ) {
 	$secret = sanitize_text_field( (string) $request->get_param( 'secret' ) );
 	if ( ! $url || 'https' !== wp_parse_url( $url, PHP_URL_SCHEME ) ) {
 		return new WP_Error( 'invalid_url', __( 'فقط آدرس HTTPS مجاز است.', 'zarincode' ), array( 'status' => 400 ) );
+	}
+	if ( function_exists( 'zc_url_is_public_https' ) && ! zc_url_is_public_https( $url ) ) {
+		return new WP_Error( 'ssrf_blocked', __( 'آدرس وب‌هوک به شبکهٔ داخلی اشاره می‌کند.', 'zarincode' ), array( 'status' => 400 ) );
 	}
 	if ( ! $secret || strlen( $secret ) < 16 ) {
 		return new WP_Error( 'weak_secret', __( 'کلید امضا باید حداقل ۱۶ نویسه باشد.', 'zarincode' ), array( 'status' => 400 ) );

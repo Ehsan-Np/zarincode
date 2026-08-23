@@ -6,7 +6,7 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-define( 'ZC_DB_VERSION', '3.38.0' );
+define( 'ZC_DB_VERSION', '3.38.1' );
 
 /**
  * اجرای idempotent همهٔ سازنده‌های جدول.

@@ -26,14 +26,26 @@ function zc_register_chats_page() {
 		);
 	}
 
-	add_submenu_page(
-		'zarincode',
-		__( 'گفتگوهای آنلاین', 'zarincode' ),
-		$label,
-		'edit_posts',
-		'zarincode-chats',
-		'zc_admin_chats_page'
-	);
+	if ( current_user_can( 'manage_options' ) ) {
+		add_submenu_page(
+			'zarincode',
+			__( 'گفتگوهای آنلاین', 'zarincode' ),
+			$label,
+			'zc_answer_ticket',
+			'zarincode-chats',
+			'zc_admin_chats_page'
+		);
+	} else {
+		add_menu_page(
+			__( 'گفتگوهای آنلاین', 'zarincode' ),
+			$label,
+			'zc_answer_ticket',
+			'zarincode-chats',
+			'zc_admin_chats_page',
+			'dashicons-format-chat',
+			26
+		);
+	}
 }
 add_action( 'admin_menu', 'zc_register_chats_page', 20 );
 
@@ -43,6 +55,9 @@ add_action( 'admin_menu', 'zc_register_chats_page', 20 );
  * @return void
  */
 function zc_admin_chats_page() {
+	if ( ! function_exists( 'zc_can_support' ) || ! zc_can_support() ) {
+		wp_die( esc_html__( 'دسترسی غیرمجاز.', 'zarincode' ) );
+	}
 	$filter   = isset( $_GET['status'] ) ? sanitize_text_field( wp_unslash( $_GET['status'] ) ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$active   = isset( $_GET['session'] ) ? sanitize_text_field( wp_unslash( $_GET['session'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$search   = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
