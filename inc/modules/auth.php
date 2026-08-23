@@ -356,34 +356,113 @@ function zc_get_ip() {
  * @return void
  */
 function zc_register_roles() {
-	if ( get_role( 'zc_student' ) ) {
-		return;
+	$course_caps = array(
+		'edit_zc_course'              => true,
+		'read_zc_course'              => true,
+		'delete_zc_course'            => true,
+		'edit_zc_courses'             => true,
+		'edit_others_zc_courses'      => false,
+		'publish_zc_courses'          => false,
+		'read_private_zc_courses'     => false,
+		'delete_zc_courses'           => true,
+		'delete_private_zc_courses'   => false,
+		'delete_published_zc_courses' => true,
+		'delete_others_zc_courses'    => false,
+		'edit_private_zc_courses'     => false,
+		'edit_published_zc_courses'   => true,
+	);
+
+	if ( ! get_role( 'zc_student' ) ) {
+		add_role(
+			'zc_student',
+			__( 'دانشجو', 'zarincode' ),
+			array(
+				'read'             => true,
+				'zc_view_courses'  => true,
+				'zc_create_ticket' => true,
+			)
+		);
 	}
 
-	add_role(
-		'zc_student',
-		__( 'دانشجو', 'zarincode' ),
+	$teacher_caps = array_merge(
 		array(
-			'read'                   => true,
-			'zc_view_courses'        => true,
-			'zc_create_ticket'       => true,
-		)
+			'read'                  => true,
+			'upload_files'          => true,
+			'zc_manage_own_courses' => true,
+			'zc_create_ticket'      => true,
+		),
+		$course_caps
 	);
+	$teacher = get_role( 'zc_teacher' );
+	if ( ! $teacher ) {
+		add_role( 'zc_teacher', __( 'مدرس', 'zarincode' ), $teacher_caps );
+		$teacher = get_role( 'zc_teacher' );
+	}
+	if ( $teacher ) {
+		foreach ( $teacher_caps as $cap => $grant ) {
+			if ( $grant ) {
+				$teacher->add_cap( $cap );
+			} else {
+				$teacher->remove_cap( $cap );
+			}
+		}
+		$teacher->remove_cap( 'edit_posts' );
+		$teacher->remove_cap( 'edit_published_posts' );
+		$teacher->remove_cap( 'delete_posts' );
+		$teacher->remove_cap( 'zc_answer_ticket' );
+	}
 
-	add_role(
-		'zc_teacher',
-		__( 'مدرس', 'zarincode' ),
-		array(
-			'read'                   => true,
-			'upload_files'           => true,
-			'edit_posts'             => true,
-			'edit_published_posts'   => true,
-			'publish_posts'          => false,
-			'delete_posts'           => true,
-			'zc_manage_own_courses'  => true,
-			'zc_answer_ticket'       => true,
-		)
+	$support_caps = array(
+		'read'                    => true,
+		'upload_files'            => true,
+		'zc_answer_ticket'        => true,
+		'edit_zc_ticket'          => true,
+		'read_zc_ticket'          => true,
+		'edit_zc_tickets'         => true,
+		'edit_others_zc_tickets'  => true,
+		'read_private_zc_tickets' => true,
+		'publish_zc_tickets'      => true,
 	);
+	$support = get_role( 'zc_support' );
+	if ( ! $support ) {
+		add_role( 'zc_support', __( 'پشتیبان', 'zarincode' ), $support_caps );
+		$support = get_role( 'zc_support' );
+	}
+	if ( $support ) {
+		foreach ( $support_caps as $cap => $grant ) {
+			if ( $grant ) {
+				$support->add_cap( $cap );
+			}
+		}
+	}
+
+	$editor = get_role( 'editor' );
+	if ( $editor ) {
+		$editor->add_cap( 'zc_answer_ticket' );
+		$editor->add_cap( 'edit_zc_tickets' );
+		$editor->add_cap( 'edit_others_zc_tickets' );
+		$editor->add_cap( 'read_private_zc_tickets' );
+	}
+
+	$admin = get_role( 'administrator' );
+	if ( $admin ) {
+		foreach ( array(
+			'zc_answer_ticket', 'zc_manage_own_courses',
+			'edit_zc_course', 'read_zc_course', 'delete_zc_course',
+			'edit_zc_courses', 'edit_others_zc_courses', 'publish_zc_courses',
+			'read_private_zc_courses', 'delete_zc_courses', 'delete_private_zc_courses',
+			'delete_published_zc_courses', 'delete_others_zc_courses',
+			'edit_private_zc_courses', 'edit_published_zc_courses',
+			'edit_zc_ticket', 'read_zc_ticket', 'delete_zc_ticket',
+			'edit_zc_tickets', 'edit_others_zc_tickets', 'publish_zc_tickets',
+			'read_private_zc_tickets', 'delete_zc_tickets', 'delete_others_zc_tickets',
+			'edit_zc_request', 'read_zc_request', 'delete_zc_request',
+			'edit_zc_requests', 'edit_others_zc_requests', 'publish_zc_requests',
+			'read_private_zc_requests', 'delete_zc_requests', 'delete_others_zc_requests',
+		) as $cap ) {
+			$admin->add_cap( $cap );
+		}
+	}
 }
 add_action( 'after_switch_theme', 'zc_register_roles' );
 add_action( 'init', 'zc_register_roles', 5 );
@@ -423,10 +502,16 @@ function zc_redirect_wp_login() {
 		return;
 	}
 
-	// درِ پشتی مدیر: /wp-login.php?zc_admin=1
-	// اگر صفحه‌ی ورود سفارشی دچار مشکل شود، مدیر همچنان راه ورود دارد.
+	// درِ پشتی مدیر فقط با کلید تنظیم‌شده: /wp-login.php?zc_admin=SECRET
 	if ( isset( $_GET['zc_admin'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		return;
+		$secret = (string) zc_opt( 'zc_admin_login_secret', '' );
+		$given  = sanitize_text_field( wp_unslash( $_GET['zc_admin'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $secret && hash_equals( $secret, $given ) ) {
+			if ( function_exists( 'zc_audit' ) ) {
+				zc_audit( 'admin_login_bypass', 'auth', 0, array( 'ip' => function_exists( 'zc_get_ip' ) ? zc_get_ip() : '' ) );
+			}
+			return;
+		}
 	}
 
 	// ورود میان‌مرحله‌ای (interim-login) داخل مودال وردپرس.
@@ -467,7 +552,7 @@ function zc_block_admin_access() {
 	if ( ! zc_opt( 'zc_block_dashboard', true ) ) {
 		return;
 	}
-	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'manage_options' ) ) {
+	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_zc_courses' ) && ! current_user_can( 'zc_answer_ticket' ) && ! current_user_can( 'manage_options' ) ) {
 		wp_safe_redirect( zc_panel_url() );
 		exit;
 	}
@@ -481,7 +566,7 @@ add_action( 'admin_init', 'zc_block_admin_access' );
  * @return bool
  */
 function zc_hide_admin_bar( $show ) {
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_zc_courses' ) && ! current_user_can( 'zc_answer_ticket' ) && ! current_user_can( 'manage_options' ) ) {
 		return false;
 	}
 	return $show;
@@ -497,7 +582,7 @@ add_filter( 'show_admin_bar', 'zc_hide_admin_bar' );
  * @return string
  */
 function zc_login_redirect( $redirect, $request, $user ) {
-	if ( $user instanceof WP_User && ! user_can( $user, 'edit_posts' ) ) {
+	if ( $user instanceof WP_User && ! user_can( $user, 'edit_posts' ) && ! user_can( $user, 'edit_zc_courses' ) && ! user_can( $user, 'zc_answer_ticket' ) && ! user_can( $user, 'manage_options' ) ) {
 		return zc_panel_url();
 	}
 	return $redirect;

@@ -42,7 +42,7 @@ function zc_image_quality() {
  * @return bool
  */
 function zc_image_delete_original() {
-	return (bool) zc_opt( 'zc_image_opt_delete_original', true );
+	return (bool) zc_opt( 'zc_image_opt_delete_original', false );
 }
 
 /**

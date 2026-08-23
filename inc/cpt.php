@@ -34,9 +34,11 @@ function zc_register_post_types() {
 			'rewrite'      => array( 'slug' => zc_opt( 'zc_course_slug', 'course' ), 'with_front' => false ),
 			'menu_icon'    => 'dashicons-welcome-learn-more',
 			'menu_position'=> 26,
-			'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'author', 'custom-fields', 'revisions' ),
-			'show_in_rest' => true,
-			'taxonomies'   => array(),
+			'supports'         => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments', 'author', 'custom-fields', 'revisions' ),
+			'show_in_rest'     => true,
+			'capability_type'  => array( 'zc_course', 'zc_courses' ),
+			'map_meta_cap'     => true,
+			'taxonomies'       => array(),
 		)
 	);
 
@@ -50,12 +52,17 @@ function zc_register_post_types() {
 				'add_new_item'  => __( 'افزودن جلسه', 'zarincode' ),
 				'menu_name'     => __( 'جلسات دوره', 'zarincode' ),
 			),
-			'public'       => true,
-			'has_archive'  => false,
-			'rewrite'      => array( 'slug' => 'lesson', 'with_front' => false ),
-			'show_in_menu' => 'edit.php?post_type=zc_course',
-			'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
-			'show_in_rest' => true,
+			'public'             => false,
+			'publicly_queryable' => false,
+			'exclude_from_search'=> true,
+			'show_ui'            => true,
+			'has_archive'        => false,
+			'rewrite'            => false,
+			'show_in_menu'       => 'edit.php?post_type=zc_course',
+			'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ),
+			'show_in_rest'       => false,
+			'capability_type'    => array( 'zc_course', 'zc_courses' ),
+			'map_meta_cap'       => true,
 		)
 	);
 
@@ -135,7 +142,8 @@ function zc_register_post_types() {
 			'menu_icon'           => 'dashicons-tickets-alt',
 			'menu_position'       => 30,
 			'supports'            => array( 'title', 'editor', 'author', 'comments' ),
-			'capability_type'     => 'post',
+			'capability_type'     => array( 'zc_ticket', 'zc_tickets' ),
+			'map_meta_cap'        => true,
 		)
 	);
 
@@ -225,7 +233,7 @@ function zc_register_post_types() {
 			'menu_icon'           => 'dashicons-clipboard',
 			'menu_position'       => 28,
 			'supports'            => array( 'title', 'editor' ),
-			'capability_type'     => 'post',
+			'capability_type'     => array( 'zc_request', 'zc_requests' ),
 			'map_meta_cap'        => true,
 		)
 	);

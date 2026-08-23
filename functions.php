@@ -4,7 +4,7 @@
  *
  * @package Zarincode
  * @author  Zarincode
- * @version 3.36.0
+ * @version 3.38.2
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * ثابت‌های اصلی قالب
  */
-define( 'ZC_VERSION', '3.36.0' );
+define( 'ZC_VERSION', '3.38.2' );
 define( 'ZC_DIR', trailingslashit( get_template_directory() ) );
 define( 'ZC_URI', trailingslashit( get_template_directory_uri() ) );
 define( 'ZC_INC', ZC_DIR . 'inc/' );
@@ -116,6 +116,18 @@ zc_require(
 		'modules/kpi-dashboard',
 		'modules/backup',
 		'modules/lifecycle',
+		'modules/security-hardening',
+		'modules/audit-log',
+		'modules/classroom',
+		'modules/instructor',
+		'modules/installments',
+		'modules/rest-platform',
+		'modules/updates',
+		'modules/setup-wizard',
+		'modules/pwa',
+		'modules/whatsapp',
+		'modules/design-system',
+		'modules/certificate-print',
 
 		// ووکامرس.
 		'woocommerce',
@@ -190,10 +202,14 @@ function zc_frontend_error_guard() {
 
 	error_log( 'Zarincode frontend fatal: ' . $err['message'] . ' @ ' . $err['file'] . ':' . $err['line'] );
 
+	$detail = ( function_exists( 'current_user_can' ) && current_user_can( 'manage_options' ) )
+		? '<p style="margin:14px 0 0;font-size:12px;color:#646970;direction:ltr;text-align:left">' . esc_html( $err['file'] . ':' . $err['line'] ) . '</p>'
+		: '';
+
 	echo '<div style="max-width:720px;margin:60px auto;padding:28px 30px;font-family:Tahoma,Arial,sans-serif;direction:rtl;text-align:right;background:#fff;border:1px solid #e2e4e7;border-inline-start:5px solid #d63638;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.06)">
 		<h2 style="margin:0 0 10px;font-size:20px;color:#1d2327">خطا در نمایش صفحه</h2>
 		<p style="margin:0;font-size:14px;line-height:2;color:#3c434a">مشکلی در تولید محتوای این صفحه رخ داد. این خطا ثبت شده و تیم پشتیبانی در حال بررسی آن است. لطفاً کمی بعد دوباره تلاش کنید.</p>
-		<p style="margin:14px 0 0;font-size:12px;color:#646970;direction:ltr;text-align:left">' . esc_html( $err['file'] . ':' . $err['line'] ) . '</p>
+		' . $detail . '
 	</div>';
 }
 add_action( 'shutdown', 'zc_frontend_error_guard', 1 );

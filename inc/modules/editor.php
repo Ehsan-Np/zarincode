@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function zc_editor_allowed_html() {
 	return array(
-		'p'      => array( 'style' => array() ),
+		'p'      => array(),
 		'br'     => array(),
 		'strong' => array(),
 		'b'      => array(),
@@ -193,6 +193,10 @@ function zc_ajax_editor_upload() {
 		wp_send_json_error( array( 'message' => __( 'فایلی دریافت نشد.', 'zarincode' ) ) );
 	}
 
+	if ( ! zc_rate_limit( 'editor_upload_' . get_current_user_id(), 20, HOUR_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'تعداد بارگذاری تصویر بیش از حد مجاز است.', 'zarincode' ) ), 429 );
+	}
+
 	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 	$file = $_FILES['file'];
 
@@ -210,12 +214,11 @@ function zc_ajax_editor_upload() {
 		);
 	}
 
-	// فقط تصویر.
-	$type = wp_check_filetype( $file['name'] ?? '' );
-	$ok   = array( 'jpg', 'jpeg', 'png', 'gif', 'webp' );
-
-	if ( ! in_array( strtolower( (string) $type['ext'] ), $ok, true ) ) {
-		wp_send_json_error( array( 'message' => __( 'فقط تصویر مجاز است (JPG، PNG، GIF، WebP).', 'zarincode' ) ) );
+	$ok = function_exists( 'zc_validate_upload_file' )
+		? zc_validate_upload_file( $file, array( 'jpg', 'jpeg', 'png', 'gif', 'webp' ) )
+		: true;
+	if ( is_wp_error( $ok ) ) {
+		wp_send_json_error( array( 'message' => $ok->get_error_message() ) );
 	}
 
 	require_once ABSPATH . 'wp-admin/includes/file.php';

@@ -82,6 +82,8 @@ function zc_sort_admin_submenu() {
 		'zc-newsletter'        => 75,
 		'zarincode-broadcast'  => 80,
 		'zarincode-bot'        => 90,
+		'zarincode-wizard'     => 15,
+		'zarincode-audit'      => 92,
 	);
 
 	usort(
@@ -948,7 +950,7 @@ function zc_admin_sales_page() {
 	$zc_c_primary    = zc_opt( 'zc_chart_primary', '#C9A227' );
 	$zc_c_secondary  = zc_opt( 'zc_chart_secondary', '#2563EB' );
 	?>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" id="zc-chart-js"></script>
+	<script src="<?php echo esc_url( ZC_ASSETS . 'js/vendor/chart.umd.min.js' ); ?>?ver=<?php echo esc_attr( ZC_VERSION ); ?>" id="zc-chart-js"></script>
 	<script>
 	(function () {
 		if (typeof window.Chart === 'undefined') { return; }

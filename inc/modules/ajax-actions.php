@@ -108,7 +108,6 @@ function zc_ajax_contact_submit() {
 	$subject = isset( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
 	$dept    = isset( $_POST['department'] ) ? sanitize_text_field( wp_unslash( $_POST['department'] ) ) : '';
 	$message = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
-	$to      = isset( $_POST['receiver'] ) ? sanitize_email( wp_unslash( $_POST['receiver'] ) ) : '';
 
 	if ( ! $name || ! $email || ! $message ) {
 		wp_send_json_error( array( 'message' => __( 'لطفاً فیلدهای ضروری را تکمیل کنید.', 'zarincode' ) ) );
@@ -125,7 +124,11 @@ function zc_ajax_contact_submit() {
 	}
 	set_transient( $lock, 1, 60 );
 
-	$to = $to ? $to : zc_opt( 'zc_contact_email', get_option( 'admin_email' ) );
+	// گیرنده فقط از تنظیمات سایت؛ فیلد کلاینت هرگز پذیرفته نمی‌شود.
+	$to = sanitize_email( (string) zc_opt( 'zc_contact_email', get_option( 'admin_email' ) ) );
+	if ( ! is_email( $to ) ) {
+		$to = get_option( 'admin_email' );
+	}
 
 	$body = sprintf(
 		"نام: %s\nایمیل: %s\nتلفن: %s\nدپارتمان: %s\nموضوع: %s\n\nپیام:\n%s\n\nIP: %s",
@@ -295,6 +298,10 @@ function zc_ajax_update_profile() {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/media.php';
 
+		$ok = function_exists( 'zc_validate_upload_file' ) ? zc_validate_upload_file( $_FILES['avatar'], array( 'jpg', 'jpeg', 'png', 'gif', 'webp' ) ) : true; // phpcs:ignore
+		if ( is_wp_error( $ok ) ) {
+			wp_send_json_error( array( 'message' => $ok->get_error_message() ) );
+		}
 		$attach_id = media_handle_upload( 'avatar', 0 );
 		if ( ! is_wp_error( $attach_id ) ) {
 			update_user_meta( $user_id, 'zc_avatar', $attach_id );

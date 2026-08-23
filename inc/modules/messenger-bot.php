@@ -162,12 +162,24 @@ function zc_get_connect_code( $user_id = 0 ) {
 		return '';
 	}
 
-	$code = get_user_meta( $user_id, 'zc_bot_code', true );
+	$code = (string) get_user_meta( $user_id, 'zc_bot_code', true );
+	$exp  = (int) get_user_meta( $user_id, 'zc_bot_code_exp', true );
 
-	if ( ! $code ) {
-		$code = strtoupper( wp_generate_password( 8, false, false ) );
-		update_user_meta( $user_id, 'zc_bot_code', $code );
+	if ( $code && strlen( $code ) >= 12 && $exp > time() ) {
+		return $code;
 	}
+
+	if ( $code ) {
+		delete_transient( 'zc_bot_code_' . $code );
+		delete_user_meta( $user_id, 'zc_bot_code' );
+		delete_user_meta( $user_id, 'zc_bot_code_exp' );
+	}
+
+	$code = strtoupper( wp_generate_password( 12, false, false ) );
+	$ttl  = (int) apply_filters( 'zc_bot_code_ttl', 15 * MINUTE_IN_SECONDS );
+	update_user_meta( $user_id, 'zc_bot_code', $code );
+	update_user_meta( $user_id, 'zc_bot_code_exp', time() + $ttl );
+	set_transient( 'zc_bot_code_' . $code, $user_id, $ttl );
 
 	return $code;
 }
@@ -181,8 +193,16 @@ function zc_get_connect_code( $user_id = 0 ) {
 function zc_user_by_connect_code( $code ) {
 	$code = strtoupper( sanitize_text_field( $code ) );
 
-	if ( ! $code ) {
+	if ( strlen( $code ) < 12 ) {
 		return 0;
+	}
+
+	$uid = (int) get_transient( 'zc_bot_code_' . $code );
+	if ( $uid ) {
+		delete_transient( 'zc_bot_code_' . $code );
+		delete_user_meta( $uid, 'zc_bot_code' );
+		delete_user_meta( $uid, 'zc_bot_code_exp' );
+		return $uid;
 	}
 
 	$users = get_users(
@@ -193,8 +213,19 @@ function zc_user_by_connect_code( $code ) {
 			'fields'     => 'ID',
 		)
 	);
-
-	return $users ? (int) $users[0] : 0;
+	if ( ! $users ) {
+		return 0;
+	}
+	$uid = (int) $users[0];
+	$exp = (int) get_user_meta( $uid, 'zc_bot_code_exp', true );
+	if ( ! $exp || $exp < time() ) {
+		delete_user_meta( $uid, 'zc_bot_code' );
+		delete_user_meta( $uid, 'zc_bot_code_exp' );
+		return 0;
+	}
+	delete_user_meta( $uid, 'zc_bot_code' );
+	delete_user_meta( $uid, 'zc_bot_code_exp' );
+	return $uid;
 }
 
 /**
@@ -279,14 +310,14 @@ function zc_messenger_notify_admin( $text ) {
 /**
  * ثبت مسیر REST برای وب‌هوک ربات‌ها.
  *
- * آدرس وب‌هوک: /wp-json/zarincode/v1/bot/{telegram|bale}?secret=XXX
+ * آدرس وب‌هوک: /wp-json/zarincode/v1/bot/{telegram|bale}/{hook}
  *
  * @return void
  */
 function zc_register_bot_webhook() {
 	register_rest_route(
 		'zarincode/v1',
-		'/bot/(?P<messenger>telegram|bale)',
+		'/bot/(?P<messenger>telegram|bale)/(?P<hook>[A-Za-z0-9]{16,80})',
 		array(
 			'methods'             => 'POST',
 			'callback'            => 'zc_handle_bot_webhook',
@@ -300,6 +331,17 @@ function zc_register_bot_webhook() {
 			),
 		)
 	);
+	register_rest_route(
+		'zarincode/v1',
+		'/bot/(?P<messenger>telegram|bale)',
+		array(
+			'methods'             => 'POST',
+			'callback'            => static function () {
+				return new WP_REST_Response( array( 'ok' => false ), 403 );
+			},
+			'permission_callback' => '__return_true',
+		)
+	);
 }
 add_action( 'rest_api_init', 'zc_register_bot_webhook' );
 
@@ -310,13 +352,23 @@ add_action( 'rest_api_init', 'zc_register_bot_webhook' );
  * @return WP_REST_Response
  */
 function zc_handle_bot_webhook( $request ) {
-	// بررسی کلید امنیتی تا فقط پیام‌رسان بتواند این مسیر را صدا بزند.
+	// توکن مسیر جایگزین ?secret= است تا در access-log لو نرود.
+	$hook     = (string) $request->get_param( 'hook' );
+	$expected = zc_bot_hook_token();
+	if ( ! $hook || ! hash_equals( $expected, $hook ) ) {
+		return new WP_REST_Response( array( 'ok' => false ), 403 );
+	}
+
 	$options  = get_option( ZC_PREFIX, array() );
 	$secret   = (string) ( $options['zc_bot_secret'] ?? '' );
-	$provided = (string) $request->get_param( 'secret' );
+	$provided = (string) $request->get_header( 'x-telegram-bot-api-secret-token' );
+	if ( ! $provided ) {
+		$provided = (string) $request->get_header( 'x-zarincode-bot-secret' );
+	}
 
-	// مسیر بدون secret هرگز باز نمی‌ماند؛ حتی پیش از اولین بازدید مدیر.
-	if ( ! $secret || ! $provided || ! hash_equals( $secret, $provided ) ) {
+	// تلگرام علاوه بر توکن مسیر، هدر secret_token را هم باید بفرستد.
+	$messenger = $request->get_param( 'messenger' );
+	if ( $secret && 'telegram' === $messenger && ( ! $provided || ! hash_equals( $secret, $provided ) ) ) {
 		return new WP_REST_Response( array( 'ok' => false ), 403 );
 	}
 
@@ -424,21 +476,30 @@ function zc_handle_bot_webhook( $request ) {
 }
 
 /**
+ * توکن مسیر وب‌هوک (جایگزین کوئری‌استرینگ secret).
+ *
+ * @return string
+ */
+function zc_bot_hook_token() {
+	$options = get_option( ZC_PREFIX, array() );
+	$token   = (string) ( $options['zc_bot_hook_path'] ?? '' );
+	if ( strlen( $token ) >= 24 ) {
+		return $token;
+	}
+	$token                     = wp_generate_password( 32, false, false );
+	$options['zc_bot_hook_path'] = $token;
+	update_option( ZC_PREFIX, $options, false );
+	return $token;
+}
+
+/**
  * آدرس وب‌هوک ربات.
  *
  * @param string $messenger پیام‌رسان.
  * @return string
  */
 function zc_bot_webhook_url( $messenger ) {
-	$url     = rest_url( 'zarincode/v1/bot/' . $messenger );
-	$options = get_option( ZC_PREFIX, array() );
-	$secret  = $options['zc_bot_secret'] ?? '';
-
-	if ( $secret ) {
-		$url = add_query_arg( 'secret', $secret, $url );
-	}
-
-	return $url;
+	return rest_url( 'zarincode/v1/bot/' . $messenger . '/' . zc_bot_hook_token() );
 }
 
 /**
@@ -457,11 +518,13 @@ function zc_ajax_set_webhook() {
 	}
 
 	$messenger = sanitize_text_field( wp_unslash( $_POST['messenger'] ?? 'telegram' ) );
-	$result    = zc_messenger_request(
-		$messenger,
-		'setWebhook',
-		array( 'url' => zc_bot_webhook_url( $messenger ) )
-	);
+	$options   = get_option( ZC_PREFIX, array() );
+	$secret    = (string) ( $options['zc_bot_secret'] ?? '' );
+	$args      = array( 'url' => zc_bot_webhook_url( $messenger ) );
+	if ( $secret && 'telegram' === $messenger ) {
+		$args['secret_token'] = $secret;
+	}
+	$result = zc_messenger_request( $messenger, 'setWebhook', $args );
 
 	if ( is_wp_error( $result ) ) {
 		wp_send_json_error( array( 'message' => $result->get_error_message() ) );
@@ -494,7 +557,7 @@ function zc_ajax_save_notify_prefs() {
 	$prefs   = array();
 
 	// کاربر عادی نباید بتواند اعلان مدیریتی را برای خود روشن کند.
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
 		unset( $types['admin_alerts'] );
 	}
 
@@ -549,7 +612,13 @@ function zc_ajax_refresh_bot_code() {
 		wp_send_json_error( array( 'message' => __( 'ابتدا وارد حساب خود شوید.', 'zarincode' ) ) );
 	}
 
-	delete_user_meta( get_current_user_id(), 'zc_bot_code' );
+	$uid  = get_current_user_id();
+	$prev = (string) get_user_meta( $uid, 'zc_bot_code', true );
+	if ( $prev ) {
+		delete_transient( 'zc_bot_code_' . $prev );
+	}
+	delete_user_meta( $uid, 'zc_bot_code' );
+	delete_user_meta( $uid, 'zc_bot_code_exp' );
 
 	wp_send_json_success(
 		array(

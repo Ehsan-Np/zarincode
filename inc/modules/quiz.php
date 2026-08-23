@@ -249,8 +249,20 @@ function zc_execute_code( $language, $code, $stdin = '' ) {
 		$empty['error'] = sprintf( __( 'زبان «%s» پشتیبانی نمی‌شود.', 'zarincode' ), $language );
 		return $empty;
 	}
+	if ( strlen( (string) $code ) > 20000 || strlen( (string) $stdin ) > 4000 ) {
+		$empty['error'] = __( 'حجم کد یا ورودی بیش از حد مجاز است.', 'zarincode' );
+		return $empty;
+	}
+	if ( function_exists( 'zc_code_looks_dangerous' ) && zc_code_looks_dangerous( $code ) ) {
+		$empty['error'] = __( 'الگوی خطرناک در کد شناسایی شد.', 'zarincode' );
+		return $empty;
+	}
 
 	$endpoint = zc_opt( 'zc_quiz_exec_api', 'https://wandbox.org/api/compile.json' );
+	if ( function_exists( 'zc_exec_endpoint_allowed' ) && ! zc_exec_endpoint_allowed( $endpoint ) ) {
+		$empty['error'] = __( 'میزبان سرویس اجرای کد مجاز نیست.', 'zarincode' );
+		return $empty;
+	}
 	$compiler = $langs[ $language ]['compiler'];
 
 	$payload = array(
@@ -447,21 +459,16 @@ function zc_quiz_question_html( $q, $i, $context = 'challenge', $allowed_langs =
  * @param int $course_id دوره.
  * @return void
  */
-function zc_quiz_maybe_issue_certificate( $user_id, $course_id ) {
+function zc_quiz_blocks_certificate( $user_id, $course_id ) {
 	if ( ! zc_quiz_module_enabled() || ! zc_quiz_enabled() || ! zc_opt( 'zc_quiz_require_for_cert', true ) ) {
-		return;
+		return false;
 	}
-
 	$questions = zc_quiz_questions( $course_id );
 	if ( empty( $questions ) ) {
-		return;
+		return false;
 	}
-
-	if ( ! zc_quiz_passed( $user_id, $course_id ) ) {
-		remove_action( 'zc_course_completed', 'zc_issue_certificate', 10 );
-	}
+	return ! zc_quiz_passed( $user_id, $course_id );
 }
-add_action( 'zc_course_completed', 'zc_quiz_maybe_issue_certificate', 9, 2 );
 
 /**
  * پس از ثبت یک تلاش قبول‌شده، اگر دوره کامل شده باشد مدرک صادر می‌شود.
@@ -808,7 +815,15 @@ function zc_ajax_quiz_run() {
 	if ( ! $user_id ) {
 		wp_send_json_error( array( 'message' => __( 'برای استفاده از این بخش وارد شوید.', 'zarincode' ) ) );
 	}
-	if ( strlen( $code ) > 50000 || strlen( $stdin ) > 10000 ) {
+	$type = isset( $_POST['type'] ) ? sanitize_key( wp_unslash( $_POST['type'] ) ) : ''; // phpcs:ignore
+	$id   = isset( $_POST['id'] ) ? absint( $_POST['id'] ) : 0; // phpcs:ignore
+	if ( ! $type || ! $id || ! zc_quiz_can_attempt( $type, $id ) ) {
+		wp_send_json_error( array( 'message' => __( 'اجرای کد فقط در آزمون یا تمرین مجاز است.', 'zarincode' ) ), 403 );
+	}
+	if ( ! zc_rate_limit( 'quiz_run_hour_' . $user_id, 30, HOUR_IN_SECONDS ) ) {
+		wp_send_json_error( array( 'message' => __( 'سقف اجرای کد در این ساعت تمام شده است.', 'zarincode' ) ), 429 );
+	}
+	if ( strlen( $code ) > 20000 || strlen( $stdin ) > 4000 ) {
 		wp_send_json_error( array( 'message' => __( 'حجم کد یا ورودی بیش از حد مجاز است.', 'zarincode' ) ) );
 	}
 

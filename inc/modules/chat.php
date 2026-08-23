@@ -20,6 +20,21 @@ function zc_chat_is_open() {
  *
  * @return string
  */
+function zc_chat_fingerprint() {
+	$ip = function_exists( 'zc_get_ip' ) ? zc_get_ip() : '';
+	if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+		$parts = explode( '.', $ip );
+		$ip    = $parts[0] . '.' . $parts[1] . '.' . $parts[2] . '.0';
+	}
+	$ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? substr( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ), 0, 180 ) : '';
+	return hash_hmac( 'sha256', $ip . '|' . $ua, wp_salt( 'auth' ) );
+}
+
+/**
+ * دریافت شناسه نشست چت.
+ *
+ * @return string
+ */
 function zc_chat_session_id() {
 	if ( is_user_logged_in() ) {
 		return 'u' . get_current_user_id();
@@ -28,11 +43,20 @@ function zc_chat_session_id() {
 	if ( isset( $_COOKIE['zc_chat_sid'] ) ) {
 		$saved = sanitize_text_field( wp_unslash( $_COOKIE['zc_chat_sid'] ) );
 		if ( preg_match( '/^[A-Za-z0-9]{20,64}$/', $saved ) ) {
-			return $saved;
+			$fp = get_transient( 'zc_chat_fp_' . $saved );
+			$now = zc_chat_fingerprint();
+			if ( ! $fp ) {
+				set_transient( 'zc_chat_fp_' . $saved, $now, MONTH_IN_SECONDS );
+				return $saved;
+			}
+			if ( hash_equals( (string) $fp, $now ) ) {
+				return $saved;
+			}
 		}
 	}
 
 	$sid = wp_generate_password( 32, false, false );
+	set_transient( 'zc_chat_fp_' . $sid, zc_chat_fingerprint(), MONTH_IN_SECONDS );
 	setcookie( 'zc_chat_sid', $sid, array( 'expires' => time() + MONTH_IN_SECONDS, 'path' => COOKIEPATH ?: '/', 'domain' => COOKIE_DOMAIN, 'secure' => is_ssl(), 'httponly' => true, 'samesite' => 'Lax' ) );
 
 	return $sid;
@@ -363,7 +387,7 @@ function zc_ajax_chat_admin_reply() {
 		wp_send_json_error( array( 'message' => __( 'درخواست نامعتبر است.', 'zarincode' ) ), 403 );
 	}
 
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! zc_can_support() ) {
 		wp_send_json_error( array( 'message' => __( 'دسترسی غیرمجاز.', 'zarincode' ) ), 403 );
 	}
 
@@ -429,7 +453,7 @@ function zc_ajax_chat_set_status() {
 		wp_send_json_error( array( 'message' => __( 'درخواست نامعتبر است.', 'zarincode' ) ), 403 );
 	}
 
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! zc_can_support() ) {
 		wp_send_json_error( array( 'message' => __( 'دسترسی غیرمجاز.', 'zarincode' ) ), 403 );
 	}
 
@@ -487,7 +511,7 @@ function zc_ajax_chat_admin_fetch() {
 		wp_send_json_error( array(), 403 );
 	}
 
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! zc_can_support() ) {
 		wp_send_json_error( array(), 403 );
 	}
 

@@ -1,0 +1,24 @@
+.zc-classroom-body{margin:0;background:#0b1020;color:#eef2ff;font-family:Tahoma,Arial,sans-serif}
+.zc-class{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+.zc-class__side{background:#10172b;border-inline-end:1px solid rgba(255,255,255,.06);padding:18px;overflow:auto}
+.zc-class__brand{color:#F5D061;font-weight:800;text-decoration:none;display:block;margin-bottom:14px}
+.zc-class__prog{height:8px;background:rgba(255,255,255,.08);border-radius:99px;margin-bottom:16px;position:relative}
+.zc-class__prog i{display:block;height:100%;background:#C9A227;border-radius:99px}
+.zc-class__prog span{position:absolute;inset-inline-end:0;top:-18px;font-size:11px;color:#9aa6bf}
+.zc-class__item{display:block;padding:9px 10px;border-radius:10px;color:#d7deee;text-decoration:none;margin-bottom:6px;font-size:13px}
+.zc-class__item.is-active{background:rgba(201,162,39,.18);color:#fff}
+.zc-class__item.is-done{opacity:.85}
+.zc-class__item.is-locked{opacity:.45}
+.zc-class__main{display:flex;flex-direction:column;min-width:0}
+.zc-class__bar{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
+.zc-class__bar h1{margin:0;font-size:18px}
+.zc-class__actions{display:flex;gap:8px;flex-wrap:wrap}
+.zc-class__stage{position:relative;background:#000;aspect-ratio:16/9}
+.zc-class__video,.zc-class__frame{width:100%;height:100%;border:0;background:#000}
+.zc-class__empty{padding:48px;text-align:center;color:#9aa6bf}
+.zc-class__mark{position:absolute;inset-inline-start:16px;bottom:16px;opacity:.35;font-size:12px;pointer-events:none;user-select:none}
+.zc-class__notes{padding:20px 22px;line-height:2}
+@media (max-width:860px){
+	.zc-class{grid-template-columns:1fr}
+	.zc-class__side{max-height:220px}
+}

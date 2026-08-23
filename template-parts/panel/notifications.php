@@ -13,7 +13,7 @@ $zc_messengers = zc_messengers();
 $zc_types      = zc_notification_types();
 
 // اعلان‌های مدیریتی فقط برای مدیران و ویراستاران معنا دارد.
-if ( ! current_user_can( 'edit_posts' ) ) {
+if ( ! current_user_can( 'manage_options' ) ) {
 	unset( $zc_types['admin_alerts'] );
 }
 $zc_prefs      = get_user_meta( $zc_user_id, 'zc_notify_prefs', true );
